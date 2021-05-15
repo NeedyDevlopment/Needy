@@ -2,16 +2,25 @@ doctype html
 html
   head
     title Needy 
-    block scripts
+    style 
+        include ../static/css/navbar.css
     block style 
+    block scripts
+    script(src="../static/script/navbar.js") 
   body
-    nav
-        ul
-            li #[a(href="/") Home] 
-            li #[a(href="/") About ]
-            li #[a(href="/") Services ]
-            li #[a(href="/") Class Info]
-            li #[a(href="/contact") Contact Us ]
+    nav.navbar
+          div.start 
+            | LOGO
+          div.div #[a(href="/") Home] 
+          div.div #[a(href="/") Category] 
+          div.div #[a(href="/") City ]
+          div.div #[a(href="/") My Activity ]
+          div.div #[a(href="/") Contact Us ]
+          div.div #[a(href="/") About Us]
+          div.last 
+              button.btn Login
+              button.btn Signup
+              button.btn Logout
     block content
     footer#footer 
             | Copyright &copy; 2021 JainishDanceAcademy.com | All Rigts reserved
