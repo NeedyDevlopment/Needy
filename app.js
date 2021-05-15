@@ -3,7 +3,7 @@ const path = require("path");
 const app = express();
 const port = 80;
 
-//Express specific stuff
+//Express specific stuff here
 app.use("/static", express.static("static"));
 app.use(express.urlencoded());
 
