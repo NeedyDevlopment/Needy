@@ -11,16 +11,17 @@ html
     nav.navbar
           div.start 
             | LOGO
-          div.div #[a(href="/") Home] 
-          div.div #[a(href="/") Category] 
-          div.div #[a(href="/") City ]
-          div.div #[a(href="/") My Activity ]
-          div.div #[a(href="/") Contact Us ]
-          div.div #[a(href="/") About Us]
+          div.div#home #[a(href="/") Home] 
+          div.div#category #[a(href="/") Category] 
+          div.div#city #[a(href="/") City ]
+          div.div#myActivity #[a(href="/") My Activity ]
+          div.div#contactUs #[a(href="/") Contact Us ]
+          div.div#aboutUs #[a(href="/") About Us]
           div.last 
-              button.btn Login
-              button.btn Signup
-              button.btn Logout
+              button.btn#loginbtn Login
+              button.btn#Singupbtn Signup
+              button.btn#logoutbtn Logout
+              button.btn#profilebtn profile 
     block content
     footer#footer 
             | Copyright &copy; 2021 JainishDanceAcademy.com | All Rigts reserved

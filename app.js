@@ -14,7 +14,7 @@ app.set("views", path.join(__dirname, "views"));
 //ENDPOINTS
 app.get("/", (req, res) => {
   const params = {};
-  res.status(200).render("index.pug", params);
+  res.status(200).render("myActivity.pug", params);
 });
 
 //start server

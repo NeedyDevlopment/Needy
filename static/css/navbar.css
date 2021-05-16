@@ -17,6 +17,9 @@
 .navbar .div:hover {
   background-color: rgb(15, 92, 95);
 }
+.navbar .div:active {
+  background-color: rgb(15, 92, 95);
+}
 
 .navbar .start {
   color: whitesmoke;
@@ -47,5 +50,8 @@
   font-size: 18px;
 }
 .navbar .last .btn:hover {
+  background-color: rgb(15, 92, 95);
+}
+.navbar .last .btn:active {
   background-color: rgb(15, 92, 95);
 }
