@@ -14,10 +14,8 @@
   color: white;
   font-size: 18px;
 }
-.navbar .div:hover {
-  background-color: rgb(15, 92, 95);
-}
-.navbar .div:active {
+.navbar .div:hover,
+.active {
   background-color: rgb(15, 92, 95);
 }
 
@@ -49,9 +47,7 @@
   background-color: transparent;
   font-size: 18px;
 }
-.navbar .last .btn:hover {
-  background-color: rgb(15, 92, 95);
-}
-.navbar .last .btn:active {
+.navbar .last .btn:hover,
+.active {
   background-color: rgb(15, 92, 95);
 }
