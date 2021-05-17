@@ -1,3 +1,4 @@
+const post = require("./static/script/post");
 const express = require("express");
 const path = require("path");
 const app = express();
@@ -15,6 +16,12 @@ app.set("views", path.join(__dirname, "views"));
 app.get("/", (req, res) => {
   const params = {};
   res.status(200).render("myActivity.pug", params);
+});
+//POST_SYNTEX
+app.get("/post", (req, res) => {
+  console.log(post.likes, post.comments);
+  const params = { likes: post.likes, comments: post.comments };
+  res.status(200).render("post.pug", params);
 });
 
 //start server
