@@ -1,0 +1,39 @@
+style
+   include ../static/css/post.css
+link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css") 
+script 
+   include ../static/script/post.js
+div#post_container 
+   div#profile
+      img(src="../static/imagesForPost/profile.png")
+      p#name ashwin chaudhary  
+         small at 15-05-2021 10:30
+      button#f-btn Follow
+   div#main
+      div#title 
+         p Title: I want to give my house on rent. 
+      div#main-img-desc    
+         img(src='../static/imagesForPost/Home.jpg')
+         div#discription 
+            p Description: My house is 2 BHK,it has two pair of  bathroom-sandash,also it has one private room where couple can sex without any tension. it is in residental area.You can contact me on phone: 6354584377 
+         div#count 
+            p  #{likes} Likes 
+            p  #{comments} Comments 
+         //-    p 17 Likes
+         //-    p 56 Comments
+            
+            
+      div#actiondiv 
+         div#like
+            i(class="fa fa-thumbs-o-up",onclick="actionPerformed(this,'like')")
+            | like  
+         div#comment
+            i(class="fa fa-comment-o",onclick="actionPerformed(this,'comment')")
+            | comment   
+         div(id="share",onclick="actionPerformed('share')")
+            img(src="../static/imagesForPost/share.png")
+            | share  
+         div#save
+            i(class="fa fa-bookmark-o",onclick="actionPerformed(this,'save')")
+            | save
+     
