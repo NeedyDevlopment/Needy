@@ -1,0 +1,73 @@
+doctype html
+html
+  head
+    title Needy 
+    style 
+        include ../static/css/navbar.css
+        include ../static/css/signup.css
+        include ../static/css/login.css
+     
+    
+  body
+    nav.navbar
+          div.start 
+            | LOGO
+          div.div#home #[a(href="/") Home] 
+          div.div#category #[a(href="/") Category] 
+          div.div#city #[a(href="/") City ]
+          div.div#myActivity #[a(href="/") My Activity ]
+          div.div#contactUs #[a(href="/") Contact Us ]
+          div.div#aboutUs #[a(href="/") About Us]
+          div.last 
+              button.btn#myBtn Login
+              button.btn#Singupbtn #[a(href="/signup") Signup] 
+              button.btn#logoutbtn Logout
+              button.btn#profilebtn profile 
+    
+    
+    form(action='/signup')
+        .container
+            h1 Signup
+            .form 
+                label(for='name')
+                    b Username
+                    input(type='text' placeholder='Enter your first name and last name' name='name' )
+                label(for='email')
+                    b Email
+                    input(type='email' placeholder='Enter your email' name='email' )
+                label(for='password')
+                    b Password
+                    input(type='password' placeholder='Enter your password' name='password')
+                label(for='cpassword')
+                    b Comfirm Password
+                    input(type='password' placeholder='Enter your comfirm password' name='cpassword')
+                label(for="city")
+                    b City
+                    input(type="text" placeholder="Enter your city" name="city")
+                label(for="work")
+                    b Company Name / Work Place
+                    input(type="text" placeholder="Enter your company name/work place" name="work")
+                button.btn(type='submit') Signup
+  
+   
+
+    
+  
+       
+    #myModal.modal
+        .modal-content
+            .modal-header
+                span.close &times;
+                h2 Login
+            .modal-body
+                form(action='/signup')
+                    label(for='email')
+                        b Email
+                        input(type='email' placeholder='Enter your email' name='email' )
+                    label(for='password')
+                        b Password
+                        input(type='password' placeholder='Enter your password' name='password')
+                    button.btn(type='submit') Login 
+            
+
+    script(src="../static/script/login.js") 
