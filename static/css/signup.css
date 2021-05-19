@@ -28,6 +28,7 @@
   margin-left: 35px;
   width: 400px;
   outline: none;
+  
  }
  label{
    width: 15%;
@@ -45,4 +46,11 @@
  .btn:hover{
      background-color: red;
      color: white;
+ }
+ .b{
+  font-size: 22px;
+  margin-left: 34px;
+ }
+ img{
+  height: 18px;
  }
