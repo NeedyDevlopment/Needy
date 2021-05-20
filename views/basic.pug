@@ -3,11 +3,14 @@ html
   head
     title Needy 
     style 
-        include ../static/css/navbar.css
+        include ../static/css/navbar.css 
+        include ../static/css/login.css 
+        include ../static/css/signup.css 
 
    
   
-    block style 
+    block style
+         
     block scripts
       script(src="../static/script/navbar.js") 
   body
@@ -21,10 +24,32 @@ html
           div.div#contactUs #[a(href="/") Contact Us ]
           div.div#aboutUs #[a(href="/") About Us]
           div.last 
-              button.btn#loginbtn  Login
+              button.btn#myBtn Login
               button.btn#Singupbtn #[a(href="/signup") Signup] 
-              button.btn#logoutbtn Logout
+              button.btn#logoutbtn #[a(href="/logout") Logout]
               button.btn#profilebtn profile 
+    
+    #myModal.modal
+        .modal-content
+            .modal-header
+                span.close &times;
+                h2 Login
+            .modal-body
+                form(action="/login" method="Post")
+                    label(for='email')
+                        .img
+                            img(src="/static/images/email.png" style="margin:-1px;")
+                            b(style="margin:5px") Email
+                        input(type='email' placeholder='Enter your email' name='email' )
+                    label(for='password')
+                        .img
+                            img(src="/static/images/password.png" )
+                            b(style="margin:5px") Password
+                        input(type='password' placeholder='Enter your password' name='password')
+                    button.btn(type='submit') Login 
+            
+      
+    script(src="../static/script/login.js")
     block content
     footer#footer 
             | Copyright &copy; 2021 Needy.com | All Rigts reserved

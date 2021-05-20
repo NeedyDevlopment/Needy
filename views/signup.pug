@@ -1,31 +1,7 @@
-doctype html
-html
-  head
-    title Needy 
-    style 
-        include ../static/css/navbar.css
-        include ../static/css/signup.css
-        include ../static/css/login.css
-     
+extends basic.pug
     
-  body
-    nav.navbar
-          div.start 
-            | LOGO
-          div.div#home #[a(href="/") Home] 
-          div.div#category #[a(href="/") Category] 
-          div.div#city #[a(href="/") City ]
-          div.div#myActivity #[a(href="/") My Activity ]
-          div.div#contactUs #[a(href="/") Contact Us ]
-          div.div#aboutUs #[a(href="/") About Us]
-          div.last 
-              button.btn#myBtn Login
-              button.btn#Singupbtn #[a(href="/signup") Signup] 
-              button.btn#logoutbtn Logout
-              button.btn#profilebtn profile 
-    
-    
-    form(action='/signup')
+block content    
+    form(action='/SignupSubmission' method="Post")
         .container
             h1 Signup
             .form(style="outline") 
@@ -66,26 +42,3 @@ html
 
     
   
-       
-    #myModal.modal
-        .modal-content
-            .modal-header
-                span.close &times;
-                h2 Login
-            .modal-body
-        
-                    form(action='/signup')
-                            label(for='email')
-                                .img
-                                    img(src="/static/images/email.png" style="margin:-1px;")
-                                    b(style="margin:5px") Email
-                                input(type='email' placeholder='Enter your email' name='email' )
-                            label(for='password')
-                                .img
-                                    img(src="/static/images/password.png" )
-                                    b(style="margin:5px") Password
-                                input(type='password' placeholder='Enter your password' name='password')
-                            button.btn(type='submit') Login 
-            
-
-    script(src="../static/script/login.js") 

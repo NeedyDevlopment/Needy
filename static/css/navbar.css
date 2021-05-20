@@ -61,8 +61,10 @@
   color: white;
   cursor: pointer;
 }
-#logoutbtn{
+#logoutbtn a{
   cursor: pointer;
+  text-decoration: none;
+  color: white;
 }
 #profilebtn{
   cursor: pointer;
