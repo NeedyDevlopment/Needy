@@ -21,7 +21,12 @@ app.get("/signup", (req, res) => {
   const params = { };
   res.status(200).render("signup.pug", params);
 });
-// 
+app.get("/contact", (req, res) => {
+  const params = { };
+  res.status(200).render("contact.pug", params);
+});
+
+ 
 
 //POST_SYNTEX
 app.get("/post", (req, res) => {

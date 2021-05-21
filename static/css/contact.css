@@ -1,0 +1,81 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: white;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid black;
+}
+input[type="text"],
+select,
+textarea {
+  width: 25%;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+#email {
+  width: 25%;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+textarea {
+  width: 23%;
+  height: 138px;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+input[type="button"] {
+  width: 6%;
+  padding: 12px 20px;
+
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+input[type="button"]:hover {
+  background-color: #45a049;
+  color: white;
+}
+h1 {
+  margin: 50px;
+}
+.cu1 {
+  margin-left: -255px;
+}
+.cu4 {
+  margin-left: -245px;
+}
+.cu2 {
+  margin-left: -280px;
+}
+.cu3 {
+  margin-left: -280px;
+}
+.foll {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+  margin-top: -32px;
+}
