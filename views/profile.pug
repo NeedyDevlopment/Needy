@@ -1,0 +1,31 @@
+extends ./basic.pug
+
+block content
+
+    div( class="container")
+      if photo 
+        img( src="../static/imagesForPost/profile.jpg" alt="Avatar" class="avatar")
+      else 
+        div(class="avatar" id="avatardiv")= username.split(' ').length === 1 ? username.charAt(0).toUpperCase() :username.split(' ')[0].charAt(0).toUpperCase()+username.split(' ')[1].charAt(0).toUpperCase()     
+        div( class="innercontainer")
+            label( class="one")  Name :
+            input( type="text" name="name" id="name" class="same" value=username)
+            br
+            label( class="one") Email :
+            input( type="email" name="email" id="email" class="same" value=email)
+            br
+            label( class="one") City :
+            input( type="text" name="city" id="city" class="same" value=city)
+            br
+            label( class="one") Contact No :
+            input( type="number" name="contactno" id="contactno" class="same" value=contact)
+            br
+            label( class="one") Work Place :
+            input( type="text" name="workplace" id="workplace" class="same" value=companyname)
+            br
+            button( type="button" class="same" id="saveBtn") #[a(href="/deleteAccount") Save Changes]
+            br
+            button( type="button" class= "same" id="premiumBtn") #[a(href="/deleteAccount") Get Subscription]
+            button(type="button" class= "same" id="deleteBtn") #[a(href="/deleteAccount") Delete Account]  
+            br
+        

@@ -1,0 +1,93 @@
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.avatar {
+    border-radius: 50%;
+    align-self: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    width: 200px;
+    height: 200px;
+}
+
+#avatardiv {
+    border: 1px solid grey;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.same {
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    border: 0;
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    width: 50%;
+    /* resize: vertical; */
+    margin: 8px 0;
+    /* display: flex;
+    justify-content: center; */
+    box-sizing: border-box;
+    /* align-content: center; */
+    text-align: start;
+}
+
+.container {
+    margin: 0 auto;
+    background: white;
+    /* max-width: 100%;
+    width: 1200px; */
+    width: 100%;
+    height: 100%;
+}
+
+.innercontainer {
+    width: 90%;
+    height: auto;
+    margin-left: 360px;
+    margin-top: 15px;
+    /* border: 1px solid grey; */
+}
+
+#saveBtn,
+#premiumBtn,
+#deleteBtn {
+    margin-left: 50px;
+    text-align: center;
+}
+
+#deleteBtn a {
+    text-decoration: none;
+    color: red;
+}
+
+#saveBtn a {
+    text-decoration: none;
+    color: green;
+}
+
+#premiumBtn a {
+    text-decoration: none;
+    color: blue;
+}
+
+#saveBtn:hover,
+#premiumBtn:hover,
+#deleteBtn:hover {
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input:focus {
+    border: 2px solid grey;
+}
