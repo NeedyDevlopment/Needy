@@ -1,44 +1,56 @@
 extends basic.pug
-    
+
+  
 block content    
-    form(action='/SignupSubmission' method="Post")
+    form(action='/SignupSubmission' method="Post" )
         .container
             h1 Signup
-            .form(style="outline") 
+            .form(style="outline" ) 
                 label(for='name')
                     .b
                         img(src="/static/images/user.png")
                         b(style="margin:2px") Username
-                    input(type='text' placeholder='Enter your first name and last name' name='name' )
+                    input(type='text' placeholder='Enter your first name and last name' name='name' oninvalid="InvalidMsg(this);"
+                          required)
                 label(for='email')
                     .b
                         img(src="/static/images/email.png" style="margin:-1px;")
                         b(style="margin:5px") Email
-                    input(type='email' placeholder='Enter your email' name='email' )
+                    input(type='email' placeholder='Enter your email' name='email' oninvalid="InvalidEmail(this);" required )
                 label(for='password')
                     .b
                         img(src="/static/images/password.png" )
                         b(style="margin:5px") Password
                            
-                    input(type='password' placeholder='Enter your password' name='password')
+                    input(type='password' placeholder='Enter your password' id="pass" name='password' oninvalid="Invalidpass(this);"
+                      title="Must contain at least one number and one uppercase and lowercase letter and one special, and at least 8 or more characters"  required)
+
+
+                    br
+                    
+                    input(type="checkbox" onclick="myFunction()" style="margin:-150px") 
+                    p(style="margin-left: 60px; margin-top: -19px;") Show Password
                 label(for='cpassword')
                     .b
-                        img(src="/static/images/password.png" )
+                        img(src="/static/images/password.png")
                         b(style="margin:5px") Comfirm Password
-                    input(type='password' placeholder='Enter your comfirm password' name='cpassword')
+
+                    input(type='password' placeholder='Enter your comfirm password' name='cpassword' oninvalid="Invalidcpass(this);" required)
+
                 label(for="city")
                     .b
                         img(src="/static/images/city.png" )
                         b(style="margin:5px") City
-                    input(type="text" placeholder="Enter your city" name="city")
-                label(for="work")
-                    .b
-                        img(src="/static/images/city.png" )
-                        b(style="margin:5px") Contact No
-                    input(type="number" placeholder="Enter your contact Number" name="contact")
+                    input(type="text" placeholder="Enter your city" name="city" required)
+
                 label(for="work")
                     .b
                         img(src="/static/images/workplace.png" )
                         b(style="margin:5px") Company Name
-                    input(type="text" placeholder="Enter your company name/work place" name="work")
+                    input(type="text" placeholder="Enter your company name/work place" name="work" required)
                 button.btn(type='submit') Signup
+    script(src="../static/script/signup.js") 
+   
+
+    
+  

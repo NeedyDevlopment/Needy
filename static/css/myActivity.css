@@ -74,7 +74,12 @@
     margin-top: 10px;
     box-shadow: 2px 2px 1px 1px black;
 }
+<<<<<<< HEAD
 
 body {
     background-color: white;
+=======
+body{
+  background-color: white;
+>>>>>>> c33914f976693264898bc565970320dab1290dc6
 }

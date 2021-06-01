@@ -63,11 +63,18 @@
     text-decoration: none;
     color: white;
 }
+<<<<<<< HEAD
 
 #myBtn a {
     text-decoration: none;
     color: white;
     cursor: pointer;
+=======
+#logoutbtn a{
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+>>>>>>> c33914f976693264898bc565970320dab1290dc6
 }
 
 #logoutbtn a {
