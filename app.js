@@ -15,7 +15,7 @@ app.set("views", path.join(__dirname, "views"));
 //ENDPOINTS
 app.get("/", (req, res) => {
   const params = { likes: 10, comments: 20 };
-  res.status(200).render("myActivity.pug", params);
+  res.status(200).render("PostAnand.pug", params);
 });
 //POST_SYNTEX
 app.get("/post", (req, res) => {
