@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+    <link rel="stylesheet" href="Post.css">
+
+</head>
+
+<body>
+    <form action="/createpostSubmission" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="labels">
+                <label for="category"> Category : </label>
+                <select name="category" id="category">
+                    <option value="select"> Select </option>
+                    <option value="offer"> Offer </option>
+                    <option value="employment"> employment </option>
+                    <option value="restaurant"> restaurant </option>
+                    <option value="house rental"> house rental </option>
+                    <option value="hiring"> hiring </option>
+                </select>
+                <br>
+
+                <label for="city"> City : </label>
+                <select name="city" id="city">
+                    <option value="select"> Select </option>
+                    <option value="Ahmedabad"> Ahmedabad </option>
+                    <option value="Mumabai"> Mumabai </option>
+                    <option value="Delhi"> Delhi</option>
+                    <option value="Chennai">Chennai </option>
+                    <option value="Rajkot"> Rajkot</option>
+                    <option value="Banglore"> Banglore</option>
+                </select>
+                <br>
+            </div>
+            <div class="texts">
+                <label for="title"> Title :</label>
+                <input type="text" id="title" name="title">
+                <br>
+
+                <label for="Description"> Description :</label>
+                <textarea id="Description" name="Description" rows="10" cols="15"></textarea>
+                <br>
+
+                <label for="contact"> Contact No :</label>
+                <input type="number" id="contact" name="contact">
+                <br>
+            </div>
+            <label for="img"> Select Image </label>
+            <input type="file" id="img" name="image" accept="image/*">
+            <input type="submit" value="CreatePost">
+            <br>
+
+            <br>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+extends basic.pug
+    
+block content    
+    form(action='/SignupSubmission' method="Post")
+        .container
+            h1 Signup
+            .form(style="outline") 
+                label(for='name')
+                    .b
+                        img(src="/static/images/user.png")
+                        b(style="margin:2px") Username
+                    input(type='text' placeholder='Enter your first name and last name' name='name' )
+                label(for='email')
+                    .b
+                        img(src="/static/images/email.png" style="margin:-1px;")
+                        b(style="margin:5px") Email
+                    input(type='email' placeholder='Enter your email' name='email' )
+                label(for='password')
+                    .b
+                        img(src="/static/images/password.png" )
+                        b(style="margin:5px") Password
+                           
+                    input(type='password' placeholder='Enter your password' name='password')
+                label(for='cpassword')
+                    .b
+                        img(src="/static/images/password.png" )
+                        b(style="margin:5px") Comfirm Password
+                    input(type='password' placeholder='Enter your comfirm password' name='cpassword')
+                label(for="city")
+                    .b
+                        img(src="/static/images/city.png" )
+                        b(style="margin:5px") City
+                    input(type="text" placeholder="Enter your city" name="city")
+                label(for="work")
+                    .b
+                        img(src="/static/images/city.png" )
+                        b(style="margin:5px") Contact No
+                    input(type="number" placeholder="Enter your contact Number" name="contact")
+                label(for="work")
+                    .b
+                        img(src="/static/images/workplace.png" )
+                        b(style="margin:5px") Company Name
+                    input(type="text" placeholder="Enter your company name/work place" name="work")
+                button.btn(type='submit') Signup

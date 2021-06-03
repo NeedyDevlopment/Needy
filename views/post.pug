@@ -4,11 +4,11 @@ link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/
 script 
    include ../static/script/post.js
 div#post_container 
-   div#profile
-      img(src="../static/imagesForPost/profile.png")
-      p#name ashwin chaudhary  
-         small at 15-05-2021 10:30
-      button#f-btn Follow
+   //- div#profile
+   //-    img(src="../static/imagesForPost/profile.png")
+   //-    p#name ashwin chaudhary  
+   //-       small at 15-05-2021 10:30
+   //-    button#f-btn Follow
    div#main
       div#title 
          p Title: I want to give my house on rent. 
@@ -21,7 +21,7 @@ div#post_container
             p  #{comments} Comments 
       div#actiondiv 
          div#like
-            i(class="fa fa-thumbs-o-up",onclick="actionPerformed(this,'like')")
+            i(class="fa fa-thumbs-o-up",id="like",onclick="actionPerformed(this,'like')")
             | like  
          div#comment
             i(class="fa fa-comment-o",onclick="actionPerformed(this,'comment')")

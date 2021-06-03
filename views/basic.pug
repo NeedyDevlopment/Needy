@@ -3,25 +3,61 @@ html
   head
     title Needy 
     style 
-        include ../static/css/navbar.css
-    block style 
+        include ../static/css/navbar.css 
+        include ../static/css/login.css 
+        include ../static/css/signup.css 
+        include ../static/css/profile.css 
+        include ../static/css/yourPost.css
+        include ../static/css/snackbar.css
+        include ../static/css/commentbox.css
+
+    block style
+         
     block scripts
-      script(src="../static/script/navbar.js") 
+      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+      script(src="../static/script/navbar.js")
+      script(src="../static/script/post.js") 
+      script(src="../static/script/snackbar.js") 
+      script(src="../static/script/commentbox.js") 
   body
     nav.navbar
           div.start 
             | LOGO
           div.div#home #[a(href="/") Home] 
-          div.div#category #[a(href="/") Category] 
-          div.div#city #[a(href="/") City ]
-          div.div#myActivity #[a(href="/") My Activity ]
+          div.div#category #[a(href="/") Recommandation] 
+          div.div#category #[a(href="/createpost") Createpost] 
+          div.div#myActivity #[a(href="/myactivity") My Activity ]
           div.div#contactUs #[a(href="/") Contact Us ]
           div.div#aboutUs #[a(href="/") About Us]
           div.last 
-              button.btn#loginbtn Login
-              button.btn#Singupbtn Signup
-              button.btn#logoutbtn Logout
-              button.btn#profilebtn profile 
+            if(isLoggedIn)
+              button.btn#logoutbtn #[a(href="/logout") Logout]
+              button.btn#profilebtn #[a(href="/profile") MyProfile] 
+            else   
+              button.btn#myBtn Login
+            //-   button.btn#Singupbtn #[a(href="/signup") Signup]
+    #myModal.modal
+        .modal-content
+            .modal-header
+                span.close &times;
+                h2 Login
+            .modal-body
+                form(action="/login" method="Post")
+                    label(for='email')
+                        .img
+                            img(src="/static/images/email.png" style="margin:-1px;")
+                            b(style="margin:5px") Email
+                        input(type='email' placeholder='Enter your email' name='email' )
+                    label(for='password')
+                        .img
+                            img(src="/static/images/password.png" )
+                            b(style="margin:5px") Password
+                        input(type='password' placeholder='Enter your password' name='password')
+                    button.btn(type='submit') Login 
+            
+    div#snackbar Your like added to this post.
+      
+    script(src="../static/script/login.js")
     block content
     footer#footer 
-            | Copyright &copy; 2021 JainishDanceAcademy.com | All Rigts reserved
+            | Copyright &copy; 2021 Needy.com | All Rigts reserved

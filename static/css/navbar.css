@@ -1,53 +1,87 @@
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
+
 .navbar {
-  background-color: rgba(0, 0, 0, 0.95);
-  align-content: center;
-  display: flex;
-  padding: 2px;
+    background-color: rgba(0, 0, 0, 0.95);
+    align-content: center;
+    display: flex;
+    padding: 2px;
 }
+
 .navbar .div {
-  padding: 10px 18px;
-  color: white;
-  font-size: 18px;
+    padding: 10px 18px;
+    color: white;
+    font-size: 18px;
 }
+
 .navbar .div:hover,
 .active {
-  background-color: rgb(15, 92, 95);
+    background-color: rgb(15, 92, 95);
 }
 
 .navbar .start {
-  color: whitesmoke;
-  margin-left: 15px;
-  margin-right: 30px;
-  align-items: center;
-  display: flex;
+    color: whitesmoke;
+    margin-left: 15px;
+    margin-right: 30px;
+    align-items: center;
+    display: flex;
 }
+
 .navbar .div a {
-  text-decoration: none;
-  color: whitesmoke;
+    text-decoration: none;
+    color: whitesmoke;
 }
+
 .navbar .last {
-  margin-top: 0;
-  display: flex;
-  color: whitesmoke;
-  position: absolute;
-  right: 10px;
-  align-items: center;
+    margin-top: 0;
+    display: flex;
+    color: whitesmoke;
+    position: absolute;
+    right: 10px;
+    align-items: center;
 }
+
 .navbar .last .btn {
-  padding: 10px 15px;
-  margin-left: 3px;
-  border: none;
-  outline: none;
-  color: whitesmoke;
-  background-color: transparent;
-  font-size: 18px;
+    padding: 10px 15px;
+    margin-left: 3px;
+    border: none;
+    outline: none;
+    color: whitesmoke;
+    background-color: transparent;
+    font-size: 18px;
 }
+
 .navbar .last .btn:hover,
 .active {
-  background-color: rgb(15, 92, 95);
+    background-color: rgb(15, 92, 95);
+}
+
+#Singupbtn a {
+    text-decoration: none;
+    color: white;
+}
+
+#myBtn a {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+#logoutbtn a {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+#profilebtn a {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+#myBtn {
+    cursor: pointer;
 }
