@@ -1,44 +1,54 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/Needy", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('Successfullt Connected to MongoDB...')).catch((error) => console.log("error occured: ", error));
+// mongoose.connect("mongodb://localhost/Needy", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('Successfullt Connected to MongoDB...')).catch((error) => console.log("error occured: ", error));
+mongoose
+  .connect(
+    "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => console.log("Successfully Connected to MongoDB..."))
+  .catch((error) => console.log("error occured: ", error));
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  companyname: String,
+  city: {
+    type: String,
+    required: true,
+  },
+  contact: {
+    type: String,
+    required: true,
+  },
+  photo: {
+    type: {
+      data: Buffer,
+      contentType: String,
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    companyname: String,
-    city: {
-        type: String,
-        required: true
-    },
-    contact: {
-        type: String,
-        required: true
-    },
-    photo: {
-        type: {
-            data: Buffer,
-            contentType: String
-        }
-    },
-    followers: {
-        type: Number,
-        default: 0
-    },
-    followersArray: [],
-    savedPosts: []
+  },
+  followers: {
+    type: Number,
+    default: 0,
+  },
+  followersArray: [],
+  savedPosts: [],
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
