@@ -6,5 +6,5 @@ function showSnackbar(message) {
 
     setTimeout(function() {
         snackbar.classList.remove('show-snackbar');
-    }, 3500);
+    }, 3000);
 }

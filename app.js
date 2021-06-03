@@ -43,13 +43,12 @@ app.set("views", path.join(__dirname, "views"));
 //HOME
 app.get("/", AuthForRegister, async(req, res, next) => {
     const currentUserId = await _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id']);
-    // changeStyle(); not working
-    const postsArray = await Post.find({});
+    const postsArray = await Post.find({}).sort('date');
     console.log(postsArray);
     console.log(req.session.token);
     console.log(req.session.isLoggedIn);
     // const params = { likes: 10, comments: 20 };
-    res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id });
+    res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, isLoggedIn: req.session.isLoggedIn });
     console.log(currentUserId);
     // var dummyArray = ['60abba07e7471f703081aeb9'];
     // console.log(dummyArray.indexOf(currentUserId._id));
@@ -98,7 +97,7 @@ app.post("/SignupSubmission", async(req, res) => {
     const result = await user.save();
     console.log(result);
     // const token = await jwt.sign(_.pick(result, ['_id', 'username', 'email', 'city', 'companyname']), process.env.auth_jwtPrivateKey);
-    const token = await jwt.sign(_.pick(result, ['_id', 'email']), 'MySecureKey');
+    const token = await jwt.sign(_.pick(result, ['_id', 'username', 'email']), 'MySecureKey');
     req.session.token = token;
     req.session.email = user.email;
     res.send(req.body);
@@ -110,7 +109,7 @@ app.post("/login", async(req, res) => {
     const isPassMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isPassMatch) return res.status(401).send('Credential does not match!');
     // Set session
-    const token = await jwt.sign(_.pick(user, ['_id', 'email']), 'MySecureKey');
+    const token = await jwt.sign(_.pick(user, ['_id', 'username', 'email']), 'MySecureKey');
     req.session.token = token;
     req.session.email = user.email;
     req.session.isLoggedIn = true;
@@ -166,7 +165,7 @@ const upload = multer({
 app.post('/createpostSubmission', upload.single('image'), async(req, res, next) => {
     console.log(req.file);
     console.log('Token: ', req.session.token);
-    const creator = _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['username', 'email']);
+    const creator = _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id', 'username', 'email']);
     const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
     const post = new Post({
         creator: creator,
@@ -226,7 +225,8 @@ app.get('/profile', async(req, res, next) => {
 app.post('/ajax/:action', async(req, res, next) => {
     console.log('inside ajax endpoint');
     const action = req.params.action;
-    if (!req.session.isLoggedIn) {
+    if (!req.session.isLoggedIn && action != 'getcomment') { //here if user is not logged in user can see all comments but do not add comment
+        console.log('you are not logged in');
         return res.status(401).send(new Error('please First Login'));
     }
     const currentUserId = await _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id']);
@@ -292,7 +292,7 @@ app.post('/ajax/:action', async(req, res, next) => {
         var result = await Post.findById(postId).select('commentedArray');
         console.log('result of getting comment is:;;');
         console.log(result.commentedArray);
-        return res.status(200).send(result.commentedArray);
+        return res.status(200).send(_.sortBy(result.commentedArray, 'date').reverse());
     } else if (req.params.action === 'addcomment') {
         console.log('inside addcomment action::::::::::');
         const postId = req.body.postId;
@@ -320,6 +320,44 @@ app.post('/ajax/:action', async(req, res, next) => {
         console.log('result of adding comment is:;;');
         console.log(result);
         return res.status(200).send(result);
+    } else if ('req.params.action' === 'Follow') {
+        const creatorId = req.body.creatorId;
+        var result = await User.findByIdAndUpdate(creatorId, {
+            $addToSet: {
+                'followersArray': {
+                    'followerId': currentUserId
+                }
+            },
+            $inc: {
+                'followers': 1
+            }
+        }, { new: true });
+        const activity = new Activity({ userId: currentUserId, activity: 'followed', date: Date.now(), creatorId: creatorId });
+        const activityResult = await activity.save();
+        console.log('activity result is:::');
+        console.log(activityResult);
+        console.log('Result after following::::');
+        console.log(result);
+        res.status(200).send(result.followers);
+    } else if ('req.params.action' === 'unfollow') {
+        const creatorId = req.body.creatorId;
+        var result = await User.findByIdAndUpdate(creatorId, {
+            $pull: {
+                'followersArray': {
+                    'followerId': currentUserId
+                }
+            },
+            $inc: {
+                'followers': -1
+            }
+        }, { new: true });
+        const activity = new Activity({ userId: currentUserId, activity: 'Unfollowed', date: Date.now(), creatorId: creatorId });
+        const activityResult = await activity.save();
+        console.log('activity result is:::');
+        console.log(activityResult);
+        console.log('Result after Unfollowing::::');
+        console.log(result);
+        res.status(200).send(result.followers);
     }
 })
 

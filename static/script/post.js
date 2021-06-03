@@ -1,3 +1,5 @@
+const Post = require("../../models/post");
+
 var likes = 16;
 var comments = 58;
 
@@ -21,6 +23,26 @@ function getDateDifference(dateDiffer) {
         dateDiffer = Math.floor(dateDiffer / (60000 * 60 * 24 * 7 * 4)).toString() + 'months';
         return dateDiffer;
     }
+}
+
+function onClickFollow(element, creatorId) {
+    console.log('creator id is: ' + creatorId);
+    $.ajax({
+        url: '/ajax/' + element.innerText,
+        type: 'POST',
+        data: { 'creatorId': creatorId },
+        success: function(totalFollowers) {
+            showSnackbar('You Followed Successfully');
+            document.getElementById('showFollowers').innerText = totalFollowers + ' Followers';
+            element.innerText === 'Follow' ? element.innerText = 'Unfollow' : element.innerText = 'Follow';
+        },
+        error: function(xhr, status, error) {
+            if (error === 'Unauthorized')
+                showSnackbar('You Are not LoggedIn!');
+            else
+                showSnackbar('something Went Wrong!');
+        }
+    });
 }
 
 function submitComment(postId) {
@@ -169,6 +191,10 @@ function actionPerformed(element, icon, postId) {
                     showSnackbar('something Went Wrong!');
             }
         });
+        setTimeout(() => {
+            var element = document.getElementById('writecomment');
+            element.scrollIntoView(true);
+        }, 500);
 
         // element.classList.toggle("fa-comment");//not working
         // element.classList.replace("fa-comment-o", "fa-comment");

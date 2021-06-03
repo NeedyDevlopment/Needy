@@ -13,12 +13,13 @@
 
 .show-snackbar {
     visibility: visible !important;
-    animation: fadeIn 0.5s, fadeOut 0.5s 3s;
+    animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+    -webkit-animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
 }
 
 @keyframes fadeIn {
     from {
-        right: 0px;
+        right: 0;
         opacity: 0;
     }
     to {
@@ -33,7 +34,7 @@
         opacity: 1;
     }
     to {
-        right: 0px;
+        right: 0;
         opacity: 0;
     }
 }

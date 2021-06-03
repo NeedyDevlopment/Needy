@@ -74,33 +74,15 @@
     flex-direction: column;
     justify-content: center;
 }
-<<<<<<< HEAD
 
 .form {
-=======
-.form{
->>>>>>> c33914f976693264898bc565970320dab1290dc6
     display: flex;
     flex-direction: column;
-   
 }
 
-<<<<<<< HEAD
 .btn {
-=======
-.btn{
->>>>>>> c33914f976693264898bc565970320dab1290dc6
     width: 85px;
 }
-.img{
-  font-size: 22px;
-  margin-left: 34px;
-  display: flex;
-  align-items: center;
- }
- img{
-  height: 18px;
- }
 
 .img {
     font-size: 22px;

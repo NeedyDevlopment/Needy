@@ -11,8 +11,6 @@ html
         include ../static/css/snackbar.css
         include ../static/css/commentbox.css
 
-   
-  
     block style
          
     block scripts
@@ -32,11 +30,12 @@ html
           div.div#contactUs #[a(href="/") Contact Us ]
           div.div#aboutUs #[a(href="/") About Us]
           div.last 
-              button.btn#myBtn Login
-              button.btn#Singupbtn #[a(href="/signup") Signup] 
+            if(isLoggedIn)
               button.btn#logoutbtn #[a(href="/logout") Logout]
               button.btn#profilebtn #[a(href="/profile") MyProfile] 
-    div#snackbar Your like added to this post.
+            else   
+              button.btn#myBtn Login
+            //-   button.btn#Singupbtn #[a(href="/signup") Signup]
     #myModal.modal
         .modal-content
             .modal-header
@@ -56,6 +55,7 @@ html
                         input(type='password' placeholder='Enter your password' name='password')
                     button.btn(type='submit') Login 
             
+    div#snackbar Your like added to this post.
       
     script(src="../static/script/login.js")
     block content
