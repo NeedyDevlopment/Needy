@@ -63,9 +63,9 @@
 }
 
 .modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
+  padding: 10px 16px;
+  background-color: #5cb85c;
+  color: white;
 }
 
 .modal-body {
@@ -74,14 +74,50 @@
     flex-direction: column;
     justify-content: center;
 }
-
-.form {
+.loginform{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-content: center;
+   
+}
+label input{
+  width: 117%;
+    margin: 2px;
+    padding: 8px;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 22px;
 }
 
-.btn {
-    width: 85px;
+.btn1{
+  width: 70px;
+  margin-top: 10px;
+  margin-left: 4px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background: black;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  height: 37px;
+}
+.img1{
+  font-size: 27px;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+ }
+ img{
+  height: 30px;
+ }
+ .btn1:active{
+   background-color: green;
+   color: white;
+ }
+::placeholder{
+  font-size: 22px;
+  color: black;
 }
 
 .img {

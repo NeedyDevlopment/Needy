@@ -6,41 +6,67 @@ block content
     form(action='/SignupSubmission' method="Post")
         .container
             h1 Signup
-            .form(style="outline") 
-                label(for='name')
-                    .b
-                        img(src="/static/images/user.png")
-                        b(style="margin:2px") Username
-                    input(type='text' placeholder='Enter your first name and last name' name='name' )
-                label(for='email')
-                    .b
-                        img(src="/static/images/email.png" style="margin:-1px;")
-                        b(style="margin:5px") Email
-                    input(type='email' placeholder='Enter your email' name='email' )
-                label(for='password')
-                    .b
-                        img(src="/static/images/password.png" )
-                        b(style="margin:5px") Password
-                           
-                    input(type='password' placeholder='Enter your password' name='password')
-                label(for='cpassword')
-                    .b
-                        img(src="/static/images/password.png" )
-                        b(style="margin:5px") Comfirm Password
-                    input(type='password' placeholder='Enter your comfirm password' name='cpassword')
-                label(for="city")
-                    .b
-                        img(src="/static/images/city.png" )
-                        b(style="margin:5px") City
-                    input(type="text" placeholder="Enter your city" name="city")
-                label(for="work")
-                    .b
-                        img(src="/static/images/city.png" )
-                        b(style="margin:5px") Contact No
-                    input(type="number" placeholder="Enter your contact Number" name="contact")
-                label(for="work")
-                    .b
-                        img(src="/static/images/workplace.png" )
-                        b(style="margin:5px") Company Name
-                    input(type="text" placeholder="Enter your company name/work place" name="work")
-                button.btn(type='submit') Signup
+            .form( ) 
+                    label(for='name' class="label")
+                        .b
+                            img(src="/static/images/user.png" )
+                            b(style="margin:2px") Username
+                        input(type='text' placeholder='Enter your first name and last name' name='name' class="input" oninvalid="InvalidMsg(this);"
+                            required)
+                    label(for='email' class="label")
+                        .b
+                            img(src="/static/images/email.png" style="margin-top: 4px;")
+                            b(style="margin:5px") Email
+                        input(type='email' placeholder='Enter your email' name='email' id="email" class="input" oninvalid="InvalidEmail(this);" required )
+                
+                    label(for="city" class="label")
+                        .b
+                            img(src="/static/images/city.png" style="margin-top: 4px;")
+                            b(style="margin:5px ") City
+                        input(type="text" placeholder="Enter your city" list="cities" name="city" class="input" id="city" oninvalid="Invalidcity(this);"  required)
+                        datalist#cities
+                            option Gandhinagar
+                            option Ahmedabad
+                            option Surat
+                            option Baroda
+                            option Rajkot
+                            option Mehsana
+                            option Kutch
+                            option Palanpur
+
+                    label(for="contact" class="label")
+                        .b
+                            img(src="/static/images/phone.jpg"  style="margin-top: 4px;")
+                            b(style="margin:5px; white-space: nowrap;") Contact No 
+                        input(type="number" placeholder="Enter your Number" name="contact" class="input" oninvalid="Invalidnumber(this);" required)
+                    label(for="work" class="label")
+                        .b
+                            img(src="/static/images/workplace.png" style="margin-top: 4px;")
+                            b(style="margin:5px;white-space: nowrap;") Work Place
+                        input(type="text" placeholder="Enter your work place/company name" name="work" class="input" oninvalid="Invalidplace(this);" required)
+                    label(for='password' class="label")
+                        .b
+                            img(src="/static/images/password.png" style="margin-top: 4px;" )
+                            b(style="margin:5px") Password
+                            
+                        input(type='password' placeholder='Enter your password' id="pass" class="input" name='password' oninvalid="Invalidpass(this);"
+                        title="Must contain at least one number and one uppercase and lowercase letter and one special, and at least 7 or more characters" maxlength="15" required)
+                        
+                        input(type="checkbox" onclick="myFunction()" class="input" style="margin:-150px; height:13px;") 
+                        p(style="margin-left: 60px; margin-top: -19px; white-space: nowrap;") Show Password
+                    label(for='cpassword' class="label")
+                        .b
+                            img(src="/static/images/password.png" style="margin-top: 4px;")
+                            b(style="margin:5px;white-space: nowrap;") Confirm Password
+
+                        input(type='password' id="cpass" class="input" placeholder='Enter your confirm password' name='cpassword' oninvalid="Invalidcpass(this);"  required)
+
+                    button(type='submit' class="btnsignup") Signup
+
+    script(src="../static/script/signup.js")
+   
+    
+   
+
+    
+  
