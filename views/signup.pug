@@ -1,5 +1,7 @@
 extends basic.pug
-    
+block style 
+    style 
+        include ../static/css/signup.css
 block content    
     form(action='/SignupSubmission' method="Post")
         .container
