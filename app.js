@@ -72,8 +72,6 @@ app.get("/myactivity", AuthForRegister, async (req, res, next) => {
   next();
 });
 
-<<<<<<< HEAD
-=======
 //POST_SYNTEX
 app.get("/post", AuthForRegister, (req, res, next) => {
   console.log(post.likes, post.comments);
@@ -81,7 +79,6 @@ app.get("/post", AuthForRegister, (req, res, next) => {
   res.status(200).render("post.pug", params);
   next();
 });
->>>>>>> cf581be4975722915d78c99c29f51b17be97a142
 
 //Signup Stuff
 app.get("/signup", (req, res) => {

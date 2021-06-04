@@ -78,7 +78,9 @@
 #myBtn{
   cursor: pointer;
 }
-
-#myBtn {
+#profilebtn a {
     cursor: pointer;
+    text-decoration: none;
+    color: white;
 }
+
