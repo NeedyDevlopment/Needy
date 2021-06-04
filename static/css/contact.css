@@ -5,78 +5,121 @@
 }
 
 body {
-  background-color: white;
+  background-image:  url('../static/images/back2.jpg') ;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 2px solid black;
+  width: 46%;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+    justify-content: center;
+    align-items: center;
+    margin-top: 18px;
+    border-radius: 23px;
+    padding-bottom: 12px;
+    
+    margin-left: 418px;
 }
-input[type="text"],
+
+
+input[type="text"],input[type="number"],
 select,
 textarea {
-  width: 25%;
+  width: 48%;
   padding: 12px;
-  border: 2px solid #ccc;
+  border: 2px solid black;
   border-radius: 8px;
-
+  outline: none;
   margin-top: 6px;
   margin-bottom: 16px;
 }
 #email {
-  width: 25%;
+  width: 48%;
   padding: 12px;
-  border: 2px solid #ccc;
+  outline: none;
+  border: 2px solid black;
   border-radius: 8px;
-
+  
   margin-top: 6px;
   margin-bottom: 16px;
 }
 textarea {
-  width: 25%;
+  width: 48%;
+  outline: none;
   height: 175px;
   padding: 12px;
-  border: 2px solid #ccc;
+  border: 2px solid black;
   border-radius: 8px;
   margin-top: 6px;
   margin-bottom: 16px;
-  margin-left: 30px;
   font-family: system-ui;
+  font-size: 22px;
 }
-
-input[type="button"] {
-  width: 6%;
+input{
+  font-size: 22px;
+}
+button[type="submit"].button {
+  width: 17%;
   padding: 12px 20px;
-
+  background-color: black;
   border-radius: 8px;
+  font-size: 22px;
   cursor: pointer;
+  color: white;
+  border: 2px solid black;
 }
 
-input[type="button"]:hover {
+button[type="submit"].button:active {
   background-color: #45a049;
   color: white;
 }
-h1 {
-  margin: 50px;
+.h1 {
+  margin: 19px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid;
+    padding: 7px;
+}
+.h11{
+  text-align: center;
+  margin-left: 9px;
+  margin-top: 12px;
+}
+b.cu1,.cu2,.cu3,.cu4{
+  font-size: 25px;
 }
 .cu1 {
-  margin-left: -255px;
-}
-.cu4 {
-  margin-left: -245px;
+  margin-left: -224px;
 }
 .cu2 {
-  margin-left: -280px;
+  margin-left: -264px;
 }
 .cu3 {
-  margin-left: -280px;
+  margin-left: -256px;
+}
+.cu4 {
+  margin-left: -200px;
 }
 .foll {
   display: flex;
   flex-direction: row;
   justify-content: center;
 
-  margin-top: -32px;
+  margin-top: 12px;
+}
+hr{
+  margin: 28px;
+  border: 2px solid black;
+}
+#footer {
+  display: flex;
+  border: 2px solid black;
+  background: black;
+  color: white;
+  text-align: center;
+  min-height: 4vh;
+  justify-content: center;
+  margin-top: 45px;
 }

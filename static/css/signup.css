@@ -1,56 +1,93 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body{
-    background-color: blanchedalmond;
-  }
- h1{
-  text-align: center;
-  margin: 48px;
- }
- .form{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+
+  background-image: url(../static/images/back1.jpg);
+  background-repeat: no-repeat;
+  background-size: 128%;
+}
+
+.container {
+  width: 34%;
   display: flex;
+  flex-direction: column;
+  border: 3px solid wheat;
   justify-content: center;
   align-items: center;
+  margin-top: 18px;
+  border-radius: 23px;
+  padding-bottom: 12px;
+  background: transparent;
+  color: floralwhite;
+  margin-left: 667px;
+}
+h1 {
+  text-align: center;
+  margin: 9px;
+}
+.form {
+  display: flex;
   flex-direction: column;
-  padding: 0px;
-  margin: -15px;
-  margin-left: -200px;
- }
- input{
+  justify-content: center;
+  border-top: 2px solid gainsboro;
+  padding: 32px;
+  margin: -3px;
+}
+.input {
   margin: 10px;
   padding: 4px;
-  
   border: 2px solid black;
-  border-radius: 8px;
+  border-radius: 5px;
   margin-left: 35px;
   width: 400px;
   outline: none;
-  
- }
- label{
-   width: 15%;
- }
- .btn{
+  height: 44px;
+  border-width: medium;
+  font-size: 22px;
+}
+.label {
+  width: 15%;
+}
+.btnsignup {
   border: 2px solid black;
   border-radius: 5px;
-  margin-left: 180px;
+
   cursor: pointer;
-  background-color: royalblue;
+  background-color: black;
   font-size: 18px;
   padding: 4px;
-  color: wheat;
- }
- .btn:hover{
-     background-color: red;
-     color: white;
- }
- .b{
+  color: white;
+
+  width: 84px;
+  margin-left: 180px;
+}
+.btnsignup:active{
+  background:green;
+  color: white;
+}
+.b {
   font-size: 22px;
   margin-left: 34px;
- }
- img{
-  height: 18px;
- }
+  display: flex;
+  flex-direction: row;
+}
+.b img {
+  height: 27px;
+}
+#footer {
+  display: flex;
+  border: 2px solid black;
+  background: black;
+  color: white;
+  text-align: center;
+  min-height: 4vh;
+  justify-content: center;
+  margin-top: 45px;
+}
+::placeholder {
+  font-size: 22px;
+  color: black;
+}

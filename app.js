@@ -17,10 +17,7 @@ app.get("/", (req, res) => {
   const params = { likes: 10, comments: 20 };
   res.status(200).render("myActivity.pug", params);
 });
-app.get("/home", (req, res) => {
-  const params = { };
-  res.status(200).render("home.pug", params);
-});
+
 
 app.get("/signup", (req, res) => {
   const params = { };
