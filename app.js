@@ -53,13 +53,11 @@ app.get("/", AuthForRegister, async (req, res, next) => {
   console.log(req.session.token);
   console.log(req.session.isLoggedIn);
   // const params = { likes: 10, comments: 20 };
-  res
-    .status(200)
-    .render("homepage.pug", {
-      posts: postsArray,
-      currentUserId: currentUserId._id,
-      isLoggedIn: req.session.isLoggedIn,
-    });
+  res.status(200).render("homepage.pug", {
+    posts: postsArray,
+    currentUserId: currentUserId._id,
+    isLoggedIn: req.session.isLoggedIn,
+  });
   console.log(currentUserId);
   // var dummyArray = ['60abba07e7471f703081aeb9'];
   // console.log(dummyArray.indexOf(currentUserId._id));

@@ -1,0 +1,45 @@
+.avatar {
+    border-radius: 50%;
+    align-self: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+  
+  }
+.same {
+  display: inline-block;
+  text-align: center;
+  padding:10px;
+  border:auto 50px;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  border-radius: 5px;
+  width : 50%;
+  resize :vertical;
+  margin :8px 0;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  align-content: center;
+
+}
+
+.container {
+  margin: 0 auto;
+  background: white;
+  max-width: 100%;
+  width: 1200px;
+
+
+}
+span {
+    display: inline-flex;
+    padding: .2em;
+  
+}
+
+* {
+  box-sizing: border-box;
+}
+
+  
