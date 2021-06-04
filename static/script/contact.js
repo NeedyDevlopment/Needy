@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // var activity = document.getElementById("activity");
     // activity.style = "display:none;";
   });
-function Invalidname(textbox) {
+function Invalidtitle(textbox) {
   if (textbox.value === "") {
-    textbox.setCustomValidity("Entering a username is necessary!");
+    textbox.setCustomValidity("Entering a title is necessary!");
   } else {
     textbox.setCustomValidity("");
   }
