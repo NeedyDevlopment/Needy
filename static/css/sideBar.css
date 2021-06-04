@@ -1,0 +1,18 @@
+#sideBarContent {
+  color: white;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  background-color: yellowgreen;
+  margin: 20px 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.Category,
+.Cities {
+  padding: 2px;
+  margin: auto;
+  font-size: larger;
+  font-weight: 900;
+}
