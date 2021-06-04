@@ -1,6 +1,29 @@
 style 
     include ../static/css/sideBar.css
+script(src="../static/script/sidebar.js") 
 div#sideBarContent
     .header
         .Category Category
         .Cities City
+    .content 
+        .categoriesOptions
+            .optionForCategory  
+                input(type="button", name="category" ,value="All Category") 
+            .optionForCategory  
+                input(type="button", name="category" ,value="Offer") 
+            .optionForCategory  
+                input(type="button", name="category" ,value="Houserent") 
+            .optionForCategory  
+                input(type="button", name="category" ,value="Advertise") 
+        .citiesOptions
+            .optionForCity   
+                input(type="button", name="city" ,value="All city")
+            .optionForCity   
+                input(type="button", name="city" ,value="Ahmedabad")
+            .optionForCity   
+                input(type="button", name="city" ,value="Rajkot")
+    .footerSidebar
+        form(action="")
+            input(type="hidden", id="finalCity" ,name="city",value="") 
+            input(type="hidden", id="finalCategory",name="category",value="") 
+            input.filterBtn(type="submit", value="Filter")

@@ -5,14 +5,77 @@
   display: flex;
   flex-direction: row;
   background-color: yellowgreen;
-  margin: 20px 10px;
+  margin: 20px 10px 0px 10px;
   padding: 10px;
   border-radius: 5px;
 }
 .Category,
 .Cities {
   padding: 2px;
-  margin: auto;
   font-size: larger;
   font-weight: 900;
+  width: 50%;
+  text-align: center;
+}
+#sideBarContent .content {
+  display: flex;
+  flex-direction: row;
+  background-color: yellowgreen;
+  margin: 2px 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.categoriesOptions,
+.citiesOptions {
+  padding: 2px;
+  font-size: large;
+  width: 50%;
+  text-align: center;
+  scroll-behavior: smooth;
+  overflow-y: visible;
+  overflow-x: hidden;
+  height: 450px;
+}
+.categoriesOptions::-webkit-scrollbar-thumb,
+.citiesOptions::-webkit-scrollbar-thumb {
+  background-color: black;
+  outline: 1px solid black;
+}
+.categoriesOptions::-webkit-scrollbar,
+.citiesOptions::-webkit-scrollbar {
+  width: 3px;
+}
+.optionForCategory,
+.optionForCity {
+  margin: 4px auto;
+}
+.optionForCategory input[type="button"],
+.optionForCity input[type="button"] {
+  background-color: yellow;
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 30px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.selectedValue {
+  background-color: rgb(104, 104, 5) !important;
+  color: white;
+}
+.filterBtn {
+  outline: none;
+  background-color: yellowgreen;
+  margin: 2px 10px;
+  padding: 10px;
+  width: 94%;
+  border-radius: 5px;
+  font-size: 20px;
+  letter-spacing: 3px;
+  font-weight: 900;
+  cursor: pointer;
+  color: white;
+}
+.filterBtn:active {
+  background-color: rgb(71, 105, 1);
 }
