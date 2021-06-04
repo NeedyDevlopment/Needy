@@ -32,6 +32,8 @@ $(document).ready(function () {
         $(element).children().addClass("selectedValue");
       }
     });
+    $("#finalCity").val(city);
+    $("#finalCategory").val(category);
   }
   selectCategoryAndCity("All city", "All Category");
 });
