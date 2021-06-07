@@ -13,8 +13,8 @@ module.exports.AuthForLogin = function(req, res, next) {
         next();
     } else {
         console.log('you are not loggedin,so can\'t use our resourses,please Login First!');
-        // res.redirect('/login');
         res.redirect('/login');
+        // res.redirect('/');
         // document.getElementById('myModal').style.display = "block";
     }
 }

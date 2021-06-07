@@ -3,10 +3,11 @@ var modal = document.getElementById("myModal");
 var btn = document.getElementById("myBtn");
 
 var span = document.getElementsByClassName("close")[0];
-
-btn.onclick = function() {
-    modal.style.display = "block";
-};
+if (btn) {
+    btn.onclick = function() {
+        modal.style.display = "block";
+    };
+}
 // module.exports = function changeStyle() {
 //     console.log('changeStyle called');
 //     var modal = document.getElementById("myModal");

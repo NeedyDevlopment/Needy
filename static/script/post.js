@@ -1,4 +1,44 @@
-const Post = require("../../models/post");
+// import browserEnv from 'browser-env';
+// console.log(window.isSecureContext);
+console.log('post.js running...');
+// const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
+// // check for service worker
+// if ('serviceWorker' in navigator) {
+//     send().catch(err => console.log(err));
+// }
+// // Register serviceWorker,Register Push,Send Push
+// async function send() {
+//     //Register service worker
+//     console.log('Registering service worker...');
+//     const register = await navigator.serviceWorker.register('/worker.js', {
+//         scope: '/'
+//     });
+//     console.log('service worker registered...');
+//     //Register push
+//     console.log('Registering Push...');
+//     const subscription = await register.pushManager.subscribe({
+//         userVisibleOnly: true,
+//         applicationServerKey: publicVapidkey
+//     });
+//     console.log('Push Registered...');
+
+//     //send Push notification
+//     console.log('sending push....');
+//     await fetch('/subscribe', {
+//         method: 'POST',
+//         body: JSON.stringify(subscription),
+//         headers: {
+//             'content-type': 'application/json'
+//         }
+//     });
+//     console.log('push sent...');
+// }
+
+$(document).ready(function() {
+    if (document.getElementById("message").innerHTML != '') {
+        showSnackbar(document.getElementById("message").innerHTML)
+    }
+})
 
 var likes = 16;
 var comments = 58;
@@ -25,15 +65,15 @@ function getDateDifference(dateDiffer) {
     }
 }
 
-function onClickFollow(element, creatorId) {
+function onClickFollow(element, creatorId, postId) {
     console.log('creator id is: ' + creatorId);
     $.ajax({
         url: '/ajax/' + element.innerText,
         type: 'POST',
         data: { 'creatorId': creatorId },
         success: function(totalFollowers) {
-            showSnackbar('You Followed Successfully');
-            document.getElementById('showFollowers').innerText = totalFollowers + ' Followers';
+            showSnackbar('You ' + element.innerText + ' Successfully');
+            document.getElementById('showFollowers' + postId).innerText = totalFollowers + ' Followers';
             element.innerText === 'Follow' ? element.innerText = 'Unfollow' : element.innerText = 'Follow';
         },
         error: function(xhr, status, error) {
@@ -90,13 +130,8 @@ function actionPerformed(element, icon, postId) {
             url: '/ajax/like',
             type: 'POST',
             data: { "incLikes": incLikes, "postId": postId },
+
             success: function(totalLikes) {
-                // element.classList.toggle("fa-thumbs-up");now not working
-                // if (element.classList.contains("fa-thumbs-up")) {
-
-                // } else {
-
-                // }
                 if (p.innerText === 'like') {
                     element.classList.replace("fa-thumbs-o-up", "fa-thumbs-up");
                     p.innerText = 'unlike';
@@ -209,6 +244,7 @@ function actionPerformed(element, icon, postId) {
                 type: 'POST',
                 data: { "postId": postId },
                 success: function(res) {
+                    showSnackbar('You saved Successfully!');
                     element.classList.replace("fa-bookmark-o", "fa-bookmark");
                     p.innerText = 'saved';
                     // else {
