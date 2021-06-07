@@ -3,7 +3,9 @@ block scripts
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    script(src="../static/script/post.js")
    script(src="../static/script/commentbox.js") 
-   script(src="../static/script/snackbar.js")
+   script(src="../static/script/snackbar.js")  
+   //- script(src="./client.js")
+   //- script(src="../static/script/worker.js")
 block style
    style
       include ../static/css/post.css
@@ -12,6 +14,7 @@ block style
       include ../static/css/homePage.css
    link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 block content 
+   p#message= message    
    div.container
       div.postsContainer
          each post in posts  
@@ -20,8 +23,8 @@ block content
                   img(src="../static/imagesForPost/profile.png")
                   p#name= post.creator.username  
                      small= 'at '+ post.date   
-                  b#showFollowers 567 Followers    
-                  button(id="f-btn",onclick="onClickFollow(this,'"+post.creator._id+"')") Follow
+                  b(id="showFollowers"+post._id,class="showFollowers")= post.creator.followers+' Followers'    
+                  button(id="f-btn",onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
                div#main
                   div#head
                      //- div#descTime
@@ -63,5 +66,7 @@ block content
                         b Write comment
                         textarea(name="writtencomment" id="writtencomment" cols="35" rows="4")
                         button(id="submitcomment") Add Comment
+      //- script.
+      //-  if(message != null){showSnackbar(message)}  
       div.sideNavbar
          include ./sideBar.pug

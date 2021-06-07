@@ -47,6 +47,11 @@ const userSchema = new mongoose.Schema({
   },
   followersArray: [],
   savedPosts: [],
+  followingsArray: [],
+  followings: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

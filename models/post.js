@@ -4,7 +4,11 @@ const postSchema = new mongoose.Schema({
     creator: {
         _id: String,
         username: String,
-        email: String
+        email: String,
+        followers: {
+            type: Number,
+            default: 0
+        }
     },
     date: String,
     category: String,

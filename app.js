@@ -1,24 +1,156 @@
-const post = require("./static/script/post");
+// const post = require("./static/script/post");
 const User = require("./models/user");
 const Post = require("./models/post");
 const Activity = require("./models/userActivity");
 // const changeStyle = require("./static/script/login");//not working
 const bcrypt = require("bcrypt");
 const express = require("express");
+const mongoose = require("mongoose");
 const session = require("express-session");
 const MongodbSession = require("connect-mongodb-session")(session);
 const jwt = require("jsonwebtoken");
 const dateformat = require("dateformat");
 const _ = require("lodash");
+const EventEmitter = require("events");
 const path = require("path");
 const multer = require("multer");
+const webpush = require("web-push");
 const { AuthForRegister, AuthForLogin } = require("./middleware/auth");
 const fs = require("fs");
 const app = express();
 const port = 80;
+var nodemailer = require("nodemailer");
+
+var message = null;
+
+//Notification
+// const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
+// const privateVapidkey = 'innkCySAscKgt5Tl5S-P3SUpSMS9ZCEifRCIcSWhM6s';
+
+// webpush.setVapidDetails('mailto:test@test.com', publicVapidkey, privateVapidkey);
+
+// app.post('/subscribe', (req, res) => {
+//     const subscription = req.body;
+//     res.status(201).json({});
+
+//     const payload = JSON.stringify({ title: 'Push Test' });
+
+//     webpush.sendNotification(subscription, payload);
+// })
+
+//Sending Mail
+
+// var transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: 'forexternaluse505@gmail.com',
+//         pass: 'ahpatel9@'
+//     }
+// });
+
+// var mailOptions = {
+//     from: 'forexternaluse505@gmail.com',
+//     to: 'ahpatel99999@gmail.com',
+//     subject: 'Sending Email using Node.js',
+//     text: 'That was easy!'
+// };
+
+// transporter.sendMail(mailOptions, function(error, info) {
+//     if (error) {
+//         console.log(error);
+//     } else {
+//         console.log('Email sent: ' + info.response);
+//     }
+// });
+
+const emitter = new EventEmitter();
+emitter.on("Followed", async (args) => {
+  console.log("event listened");
+  const result = await Post.updateMany(
+    { "creator._id": args.creatorId },
+    {
+      $inc: {
+        "creator.followers": 1,
+      },
+    }
+  );
+  console.log("after followed updating:::::::::::::::::::::::::::::::::::::");
+  console.log(result);
+});
+emitter.on("Unfollowed", async (args) => {
+  console.log("event listened");
+  const result = await Post.updateMany(
+    { "creator._id": args.creatorId },
+    {
+      $inc: {
+        "creator.followers": -1,
+      },
+    }
+  );
+  console.log("after unfollowed updating");
+  console.log(result);
+});
+
+emitter.on("postAdded", async (args) => {
+  const followersArrayDoc = await User.findById(args.creatorId).select([
+    "followersArray",
+    "username",
+  ]);
+  console.log("FollowersArrayDoc is::::::::::::::::::::: ");
+  console.log(followersArrayDoc);
+  const followersArray = followersArrayDoc.followersArray.map((stringId) =>
+    mongoose.Types.ObjectId(stringId)
+  );
+  const creatorUsername = followersArrayDoc.username;
+  console.log("followersArray with objecId");
+  console.log(followersArray);
+  const followersDoc = await User.find({
+    _id: {
+      $in: followersArray,
+    },
+  });
+  console.log("followersDoc::::");
+  console.log(followersDoc);
+  const followers = followersDoc.map((follower) => {
+    return { email: follower.email, username: follower.username };
+  });
+  console.log(followers);
+  //sending mail
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "forexternaluse505@gmail.com",
+      pass: "ahpatel9@",
+    },
+  });
+
+  var msg = {
+    from: "forexternaluse505@gmail.com",
+    // to: 'ahpatel99999@gmail.com',
+    // subject: 'Hello From Needy!',
+    // text: 'That was easy!'
+  };
+  followers.forEach(function (follower, i, array) {
+    msg.subject = "Hello " + follower.username;
+    msg.to = follower.email;
+    msg.text = creatorUsername + " Added new Post. Check Out it!";
+    transporter.sendMail(msg, function (err) {
+      if (err) {
+        console.log("Sending to " + follower.email + " failed: " + err);
+        return;
+      } else {
+        console.log("Sent to " + follower.email);
+      }
+    });
+  });
+});
+// setTimeout(() => {
+//     emitter.emit('postAdded', { creatorId: mongoose.Types.ObjectId('60ba09bdd910fc88b07d21fc') })
+// }, 2000);
 
 //SESSION STORING
 const store = new MongodbSession({
+  // uri: 'mongodb://localhost/sessions',
   uri: "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority",
   collection: "mysessions",
 });
@@ -36,11 +168,17 @@ app.use(
 
 //Express specific stuff here
 app.use("/static", express.static("static"));
+app.use("/views", express.static("views"));
 app.use(express.urlencoded());
 
 //PUG SPECIFIC STUFF HERE
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
+
+app.use((req, res, next) => {
+  res.setHeader("Service-Worker-Allowed", "/");
+  next();
+});
 
 //HOME
 app.get("/", AuthForRegister, async (req, res, next) => {
@@ -49,14 +187,23 @@ app.get("/", AuthForRegister, async (req, res, next) => {
     ["_id"]
   );
   const postsArray = await Post.find({}).sort("date");
+  const currentUserFollowingsArray = await User.findOne({
+    _id: currentUserId._id,
+  }).select("followingsArray");
+  console.log("followings Array:;:");
+  console.log(currentUserFollowingsArray);
   console.log(postsArray);
   console.log(req.session.token);
   console.log(req.session.isLoggedIn);
+  console.log("message is:;", message);
   // const params = { likes: 10, comments: 20 };
+  // res.writeHead(200, { 'Service-Worker-Allowed': "/" });
   res.status(200).render("homepage.pug", {
     posts: postsArray,
     currentUserId: currentUserId._id,
+    currentUserFollowingsArray: currentUserFollowingsArray.followingsArray,
     isLoggedIn: req.session.isLoggedIn,
+    message: message,
   });
   console.log(currentUserId);
   // var dummyArray = ['60abba07e7471f703081aeb9'];
@@ -124,7 +271,9 @@ app.post("/SignupSubmission", async (req, res) => {
   );
   req.session.token = token;
   req.session.email = user.email;
-  res.send(req.body);
+  // res.send(req.body);
+  message = "You Signup Successfully.";
+  res.redirect("/");
 });
 //Login
 app.post("/login", async (req, res) => {
@@ -141,13 +290,15 @@ app.post("/login", async (req, res) => {
   req.session.email = user.email;
   req.session.isLoggedIn = true;
   // res.status(200).send("you login successfully");
-  res.status(200).redirect("/");
+  // res.status(200).redirect('/');
+  message = "You login Successfully.";
+  res.redirect("/");
 });
 
 app.get("/login", (req, res, next) => {
-  res
-    .status(200)
-    .send("Here For this action we have to Open Login Modal using Javascript!");
+  // res.status(200).send('Here For this action we have to Open Login Modal using Javascript!');
+  message = "Please login First to create Post!";
+  res.redirect("/");
   next();
 });
 
@@ -155,7 +306,9 @@ app.get("/login", (req, res, next) => {
 app.get("/logout", (req, res) => {
   // res.cookie('isLoggedIn', false, { expires: new Date(253402300000000), overwrite: true, secure: false, httpOnly: true })
   delete req.session.isLoggedIn;
-  res.status(200).send("you logout successfully");
+  // res.status(200).send("you logout successfully");
+  message = "You logout Successfully.";
+  res.redirect("/");
 });
 
 //DeleteAccount
@@ -199,13 +352,21 @@ app.post(
   "/createpostSubmission",
   upload.single("image"),
   async (req, res, next) => {
+    const currentUserId = await _.pick(
+      jwt.verify(req.session.token, "MySecureKey"),
+      ["_id"]
+    );
     console.log(req.file);
     console.log("Token: ", req.session.token);
-    const creator = _.pick(jwt.verify(req.session.token, "MySecureKey"), [
+    var creator = _.pick(jwt.verify(req.session.token, "MySecureKey"), [
       "_id",
       "username",
       "email",
     ]);
+    const creatorsFollowers = await User.findOne({
+      _id: currentUserId._id,
+    }).select("followers");
+    creator.followers = creatorsFollowers.followers;
     const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
     const post = new Post({
       creator: creator,
@@ -221,12 +382,15 @@ app.post(
       },
     });
     const result = await post.save();
+    emitter.emit("postAdded", { creatorId: creator._id });
     // res.status(200).send(result);
     const params = {
       data: post.image.data,
       contentType: post.image.contentType,
     };
-    res.status(200).render("createpostSubmission", params);
+    // res.status(200).render('createpostSubmission', params);
+    message = "Your post added successfully.";
+    res.redirect("/");
     next();
   }
 );
@@ -269,6 +433,7 @@ app.get("/profile", async (req, res, next) => {
 app.post("/ajax/:action", async (req, res, next) => {
   console.log("inside ajax endpoint");
   const action = req.params.action;
+  console.log("action is::" + action);
   if (!req.session.isLoggedIn && action != "getcomment") {
     //here if user is not logged in user can see all comments but do not add comment
     console.log("you are not logged in");
@@ -415,22 +580,40 @@ app.post("/ajax/:action", async (req, res, next) => {
     console.log("result of adding comment is:;;");
     console.log(result);
     return res.status(200).send(result);
-  } else if ("req.params.action" === "Follow") {
+  } else if (req.params.action === "Follow") {
     const creatorId = req.body.creatorId;
-    var result = await User.findByIdAndUpdate(
-      creatorId,
-      {
-        $addToSet: {
-          followersArray: {
-            followerId: currentUserId,
+    console.log("creator id is" + creatorId);
+    try {
+      var result = await User.findByIdAndUpdate(
+        creatorId,
+        {
+          $addToSet: {
+            followersArray: currentUserId._id,
+          },
+          $inc: {
+            followers: 1,
           },
         },
+        { new: true }
+      );
+    } catch (error) {
+      console.log("error is:::");
+      console.log(error);
+    }
+    emitter.emit("Followed", { creatorId: creatorId });
+    const anotherResult = await User.findOneAndUpdate(
+      { _id: currentUserId._id },
+      {
+        $addToSet: {
+          followingsArray: creatorId,
+        },
         $inc: {
-          followers: 1,
+          followings: 1,
         },
       },
       { new: true }
     );
+    // const anotherResult2 = await Post.find({ creator._id: creatorId });
     const activity = new Activity({
       userId: currentUserId,
       activity: "followed",
@@ -442,19 +625,35 @@ app.post("/ajax/:action", async (req, res, next) => {
     console.log(activityResult);
     console.log("Result after following::::");
     console.log(result);
-    res.status(200).send(result.followers);
-  } else if ("req.params.action" === "unfollow") {
+    res.status(200).send(result.followers + "");
+  } else if (req.params.action === "Unfollow") {
     const creatorId = req.body.creatorId;
-    var result = await User.findByIdAndUpdate(
-      creatorId,
-      {
-        $pull: {
-          followersArray: {
-            followerId: currentUserId,
+    try {
+      var result = await User.findByIdAndUpdate(
+        creatorId,
+        {
+          $pull: {
+            followersArray: currentUserId._id,
+          },
+          $inc: {
+            followers: -1,
           },
         },
+        { new: true }
+      );
+    } catch (error) {
+      console.log("error is:::");
+      console.log(error);
+    }
+    emitter.emit("Unfollowed", { creatorId: creatorId });
+    const anotherResult = await User.findOneAndUpdate(
+      { _id: currentUserId._id },
+      {
+        $pull: {
+          followingsArray: creatorId,
+        },
         $inc: {
-          followers: -1,
+          followings: -1,
         },
       },
       { new: true }
@@ -470,7 +669,7 @@ app.post("/ajax/:action", async (req, res, next) => {
     console.log(activityResult);
     console.log("Result after Unfollowing::::");
     console.log(result);
-    res.status(200).send(result.followers);
+    res.status(200).send(result.followers + "");
   }
 });
 

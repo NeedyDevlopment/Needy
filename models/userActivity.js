@@ -15,7 +15,7 @@ const activitySchema = new mongoose.Schema({
     },
     postId: {
         type: mongoose.Types.ObjectId,
-        required: true
+        // required: true we don't require postId for following and Unfollowing 
     },
     commentText: String
 });
