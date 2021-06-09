@@ -3,33 +3,41 @@ extends ./basic.pug
 block style 
   style 
     include ../static/css/profile.css 
-
 block content
-
-    div( class="container")
-      if photo 
-        img( src="../static/imagesForPost/profile.jpg" alt="Avatar" class="avatar")
-      else 
-        div(class="avatar" id="avatardiv")= username.split(' ').length === 1 ? username.charAt(0).toUpperCase() :username.split(' ')[0].charAt(0).toUpperCase()+username.split(' ')[1].charAt(0).toUpperCase()     
-        div( class="innercontainer")
-            label( class="one")  Name :
-            input( type="text" name="name" id="name" class="same" value=username)
-            br
-            label( class="one") Email :
-            input( type="email" name="email" id="email" class="same" value=email)
-            br
-            label( class="one") City :
-            input( type="text" name="city" id="city" class="same" value=city)
-            br
+    div(class="container")
+      div.upperDiv
+        div.image
+          if photo
+            div.innerImage
+              img( src="../static/imagesForPost/profile.jpg" alt="Avatar" class="avatar")
+          else
+            div.innerImage
+              div(class="avatar" id="avatardiv")= username.split(' ').length === 1 ? username.charAt(0).toUpperCase() :username.split(' ')[0].charAt(0).toUpperCase()+username.split(' ')[1].charAt(0).toUpperCase()
+          .cameraIcon 
+            |&#128247;
+            input(type="file" class="imageInput" name="profileImg" title="Upload Profile From Here")
+        div.infoPerson
+          div.input
+            label( class="")  Name :
+            input( type="text" name="username" id="username" class="" value=username)
+          div.input
+            label( class="") Email :
+            input( type="email" name="email" id="email" class="" value=email)
+          div.input
             label( class="one") Contact No :
-            input( type="number" name="contactno" id="contactno" class="same" value=contact)
-            br
+            input( type="number" name="contactno" id="contactno" class="" value=contact)
+        div.actionButtons
+          button( type="button" class= "editBtn" id="editBtn") Edit Profile
+          button( type="button" class= "changePass" id="changePass") Change Password  
+          button(type="button" class= "deleteBtn" id="deleteBtn") Delete Account
+      div.lowerDiv
+        div.inputFields
+          div.input
+            label(class="") City :
+            input( type="text" name="city" id="city" class="" value=city)
+          div.input
             label( class="one") Work Place :
-            input( type="text" name="workplace" id="workplace" class="same" value=companyname)
-            br
-            button( type="button" class="same" id="saveBtn") #[a(href="/deleteAccount") Save Changes]
-            br
-            button( type="button" class= "same" id="premiumBtn") #[a(href="/deleteAccount") Get Subscription]
-            button(type="button" class= "same" id="deleteBtn") #[a(href="/deleteAccount") Delete Account]  
-            br
+            input( type="text" name="workplace" id="workplace" class="" value=companyname)
+        div.saveButton
+          button( type="button" class="btn" id="saveBtn") Save Changes
         

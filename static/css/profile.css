@@ -1,93 +1,187 @@
 body {
-    width: 100%;
-    height: 100%;
+  background: url("../../static/images/Shadow-Fall-Background.svg") center
+    no-repeat;
+  background-size: cover;
+  color: aliceblue;
 }
-
-.avatar {
-    border-radius: 50%;
-    align-self: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15px;
-    width: 200px;
-    height: 200px;
-}
-
-#avatardiv {
-    border: 1px solid grey;
-    font-size: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.same {
-    display: inline-block;
-    text-align: center;
-    padding: 10px;
-    border: 0;
-    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 5px;
-    width: 50%;
-    /* resize: vertical; */
-    margin: 8px 0;
-    /* display: flex;
-    justify-content: center; */
-    box-sizing: border-box;
-    /* align-content: center; */
-    text-align: start;
-}
-
 .container {
-    margin: 0 auto;
-    background: white;
-    /* max-width: 100%;
-    width: 1200px; */
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
 }
-
-.innercontainer {
-    width: 90%;
-    height: auto;
-    margin-left: 360px;
-    margin-top: 15px;
-    /* border: 1px solid grey; */
+.upperDiv {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
 }
-
-#saveBtn,
-#premiumBtn,
-#deleteBtn {
-    margin-left: 50px;
-    text-align: center;
+.upperDiv .image {
+  margin: 10px;
+  width: 15%;
+  border-radius: 5px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
-
-#deleteBtn a {
-    text-decoration: none;
-    color: red;
+.upperDiv .innerImage {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
 }
-
-#saveBtn a {
-    text-decoration: none;
-    color: green;
+.upperDiv .innerImage div {
+  position: relative;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  font-size: 100px;
+  color: #c8d6ff;
 }
-
-#premiumBtn a {
-    text-decoration: none;
-    color: blue;
+.upperDiv .innerImage img {
+  position: relative;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  border-radius: 5px;
 }
-
-#saveBtn:hover,
-#premiumBtn:hover,
-#deleteBtn:hover {
-    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+.upperDiv .image .cameraIcon {
+  background-color: black;
+  position: absolute;
+  bottom: 0px;
+  border-radius: 5px;
+  width: 100%;
+  height: 32px;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 24px;
+  cursor: pointer;
 }
-
-* {
-    box-sizing: border-box;
+.imageInput {
+  position: absolute;
+  cursor: pointer;
+  left: 0px;
+  bottom: 0px;
+  width: -webkit-fill-available;
+  padding: 10px 0px;
+  opacity: 0;
 }
-
-input:focus {
-    border: 2px solid grey;
+.upperDiv .infoPerson {
+  margin: 10px;
+  width: 70%;
+  border: 1px solid black;
+}
+.upperDiv .input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px auto;
+  width: 85%;
+  position: relative;
+}
+.upperDiv .input label {
+  padding: 10px;
+  width: 20%;
+  font-size: 18px;
+}
+.upperDiv .input input {
+  padding: 10px;
+  width: 300px;
+  background-color: rgb(236, 235, 235);
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.active {
+  background-color: rgb(173, 173, 173);
+}
+.upperDiv .actionButtons {
+  margin: 10px;
+  width: 16%;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+.upperDiv .actionButtons button {
+  padding: 10px;
+  font-weight: 900;
+  color: aliceblue;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none !important;
+  margin: 15px 5px;
+}
+.deleteBtn {
+  background-color: rgb(255, 38, 0);
+}
+.editBtn {
+  background-color: rgb(70, 145, 243);
+}
+.changePass {
+  background-color: rgb(253, 160, 74);
+}
+.deleteBtn:hover {
+  background-color: rgb(167, 26, 1);
+}
+.editBtn:hover {
+  background-color: rgb(47, 97, 161);
+}
+.changePass:hover {
+  background-color: rgb(156, 100, 47);
+}
+.lowerDiv {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 20px;
+  min-height: 250px;
+  align-items: center;
+}
+.lowerDiv .inputFields {
+  margin: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  width: 100%;
+}
+.lowerDiv .input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px auto;
+  width: 90%;
+  position: relative;
+  border: black;
+}
+.lowerDiv .input label {
+  padding: 10px;
+  width: 15%;
+  font-size: 18px;
+}
+.lowerDiv .input input {
+  padding: 10px;
+  width: 500px;
+  background-color: rgb(236, 235, 235);
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.lowerDiv .saveButton button {
+  padding: 10px;
+  font-weight: 900;
+  color: aliceblue;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none !important;
+  margin: 5px;
+  background-color: rgb(75, 153, 92);
+}
+.lowerDiv .saveButton button:hover {
+  background-color: rgb(53, 107, 65);
 }
