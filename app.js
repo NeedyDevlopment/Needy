@@ -150,7 +150,8 @@ emitter.on("postAdded", async (args) => {
 
 //SESSION STORING
 const store = new MongodbSession({
-  // uri: 'mongodb://localhost/sessions',
+  // uri: "mongodb://localhost/Needy",
+  // uri: 'mongodb://localhost/sessions', // ashwin
   uri: "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority",
   collection: "mysessions",
 });
