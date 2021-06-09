@@ -27,7 +27,7 @@ block content
                   img(src="../static/imagesForPost/profile.png")
                   p#name= post.creator.username  
                      small= ' at '+ post.date   
-                  b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id)= post.creator.followers+' Followers'    
+                  b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id+" showFollowers")= post.creator.followers+' Followers'    
                   button(id="f-btn",class="f-btn"+post.creator._id,onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
                div#main
                   div#head
