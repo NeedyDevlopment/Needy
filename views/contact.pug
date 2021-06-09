@@ -15,7 +15,7 @@ block content
 
             label(for='number') 
             b.cu3 Phone
-            input(type='number' name='number' placeholder='Enter your phone number' oninvalid="Invalidnumber(this);" required)
+            input(type='number' name='number' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long"  placeholder='Enter your phone number' oninvalid="Invalidnumber(this);" required)
             
             label(for='name') 
             b.cu1 Title

@@ -17,7 +17,8 @@ block content
                         .b
                             img(src="/static/images/email.webp" style="margin-top: 4px;")
                             b(style="margin:5px") Email
-                        input(type='email' placeholder='Enter your email' name='email' id="email" class="input" oninvalid="InvalidEmail(this);" required )
+                        input(type='email' placeholder='Enter your email' name='email' id="email" class="input" 
+                        oninvalid="InvalidEmail(this);" required )
                 
                     label(for="city" class="label")
                         .b
@@ -38,7 +39,7 @@ block content
                         .b
                             img(src="/static/images/phone.jpg"  style="margin-top: 4px;")
                             b(style="margin:5px; white-space: nowrap;") Contact No 
-                        input(type="number" placeholder="Enter your Number" name="contact" class="input" oninvalid="Invalidnumber(this);" required)
+                        input(type="number" placeholder="Enter your Number" name="contact" class="input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" oninvalid="Invalidnumber(this);" required)
                     label(for="work" class="label")
                         .b
                             img(src="/static/images/work.png" style="margin-top: 4px;")

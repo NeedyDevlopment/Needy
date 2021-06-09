@@ -75,6 +75,7 @@ button[type="submit"].button:active {
   background-color: #45a049;
   color: white;
 }
+
 .h1 {
   margin: 19px;
     width: 100%;
@@ -122,4 +123,9 @@ hr{
   min-height: 4vh;
   justify-content: center;
   margin-top: 45px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

@@ -27,6 +27,29 @@ function InvalidEmail(textbox) {
     textbox.setCustomValidity("");
   }
 }
+function Invalidcity(textbox) {
+  if (textbox.value === "") {
+    textbox.setCustomValidity("Entering a city is necessary!");
+  } else {
+    textbox.setCustomValidity("");
+  }
+}
+
+function Invalidnumber(textbox) {
+  if (textbox.value === "") {
+    textbox.setCustomValidity("Entering a contact number is necessary!");
+  } else {
+    textbox.setCustomValidity("");
+  }
+}
+function Invalidplace(textbox) {
+  if (textbox.value === "") {
+    textbox.setCustomValidity("Entering a work place is necessary!");
+  } else {
+    textbox.setCustomValidity("");
+  }
+}
+
 
 function Invalidpass(textbox) {
   var pass = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
@@ -60,27 +83,4 @@ function Invalidcpass(textbox) {
     textbox.setCustomValidity("");
   }
 }
-function Invalidcity(textbox) {
-  if (textbox.value === "") {
-    textbox.setCustomValidity("Entering a city is necessary!");
-  } else {
-    textbox.setCustomValidity("");
-  }
-}
-
-function Invalidnumber(textbox) {
-  if (textbox.value === "") {
-    textbox.setCustomValidity("Entering a contact number is necessary!");
-  } else {
-    textbox.setCustomValidity("");
-  }
-}
-function Invalidplace(textbox) {
-  if (textbox.value === "") {
-    textbox.setCustomValidity("Entering a work place is necessary!");
-  } else {
-    textbox.setCustomValidity("");
-  }
-}
-
 
