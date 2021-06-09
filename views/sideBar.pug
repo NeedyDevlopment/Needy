@@ -1,6 +1,6 @@
 style 
     include ../static/css/sideBar.css
-script(src="../static/script/sidebar.js") 
+script(src="../static/script/sidebar.js")
 div#sideBarContent
     .header
         .Category Category
@@ -15,13 +15,21 @@ div#sideBarContent
                 input(type="button", name="category" ,value="Houserent") 
             .optionForCategory  
                 input(type="button", name="category" ,value="Advertise") 
+            .optionForCategory  
+                input(type="button", name="category" ,value="hiring") 
         .citiesOptions
             .optionForCity   
-                input(type="button", name="city" ,value="All city")
+                input(type="button", name="city" ,value="All City")
             .optionForCity   
                 input(type="button", name="city" ,value="Ahmedabad")
             .optionForCity   
+                input(type="button", name="city" ,value="mahesana")
+            .optionForCity   
+                input(type="button", name="city" ,value="Delhi")
+            .optionForCity   
                 input(type="button", name="city" ,value="Rajkot")
+            .optionForCity   
+                input(type="button", name="city" ,value="Palanpur")
             .optionForCity   
                 input(type="button", name="city" ,value="Rajkot")
             .optionForCity   
@@ -47,7 +55,8 @@ div#sideBarContent
             .optionForCity   
                 input(type="button", name="city" ,value="Rajkot")
     .footerSidebar
-        form(action="")
-            input(type="hidden", id="finalCity" ,name="city",value="") 
-            input(type="hidden", id="finalCategory",name="category",value="") 
+        form(action="/",method="GET")
+            input(type="hidden", id="finalCity" ,name="city",value=filter.city) 
+            input(type="hidden", id="finalCategory",name="category",value=filter.category) 
+            //- input.filterBtn(type="button", value="Filter",onclick="onFilter()")
             input.filterBtn(type="submit", value="Filter")

@@ -34,14 +34,15 @@ console.log('post.js running...');
 //     console.log('push sent...');
 // }
 
+var msg = "happy Birthday";
+let posts = [];
+console.log(posts);
+
 $(document).ready(function() {
     if (document.getElementById("message").innerHTML != '') {
         showSnackbar(document.getElementById("message").innerHTML)
     }
 })
-
-var likes = 16;
-var comments = 58;
 
 function getDateDifference(dateDiffer) {
     if (dateDiffer < 60000) {
@@ -73,8 +74,16 @@ function onClickFollow(element, creatorId, postId) {
         data: { 'creatorId': creatorId },
         success: function(totalFollowers) {
             showSnackbar('You ' + element.innerText + ' Successfully');
-            document.getElementById('showFollowers' + postId).innerText = totalFollowers + ' Followers';
-            element.innerText === 'Follow' ? element.innerText = 'Unfollow' : element.innerText = 'Follow';
+            // document.getElementById('showFollowers' + postId).innerText = totalFollowers + ' Followers';
+            var showFollowerElementArray = document.getElementsByClassName('showFollowers' + creatorId);
+            [...showFollowerElementArray].forEach((fTextElement) => {
+                fTextElement.innerText = totalFollowers + ' Followers';
+            });
+            var followButtonArray = document.getElementsByClassName('f-btn' + creatorId);
+            [...followButtonArray].forEach((fButtonlement) => {
+                fButtonlement.innerText === 'Follow' ? fButtonlement.innerText = 'Unfollow' : fButtonlement.innerText = 'Follow';
+
+            });
         },
         error: function(xhr, status, error) {
             if (error === 'Unauthorized')
@@ -267,5 +276,54 @@ function actionPerformed(element, icon, postId) {
         //     element.classList.replace("fa-bookmark", "fa-bookmark-o");
         // }
     }
+}
+
+
+//Remain to add this feature for future implementation
+function onFilter() {
+    var selectedCity = $("#finalCity").val();
+    var selectedCategory = $("#finalCategory").val();
+    $.ajax({
+        url: '/?category=' + selectedCategory + '&city=' + selectedCity,
+        type: 'GET',
+        // data: { "postId": postId },
+        // beforeSend: function() {
+        //     $('.loader').show();
+        // },
+        // complete: function() {
+        //     $('.loader').hide();
+        // },
+        success: function(postsData) {
+            msg = "happy birthday Chnaged!";
+            // posts = postsData.posts;
+            console.log(postsData);
+            // $(".postsContainer").remove();
+            document.getElementsByClassName("postsContainer")[0].innerHTML = postsData;
+            // $(".postsContainer").innerHTML = "<p>innerHtMLSEND</p>"
+            // var innercommentcontainer = $('#innercommentcontainer');
+            // var writecomment = document.getElementById('writecomment');
+            // if (postsData.posts.length === 0) {
+            // $("<div id='nocomment' class='commentdiv'><p>No Comments Added Yet! Become first one to comment.</p></div>").insertAfter($('.loader'));
+            showSnackbar("successss!!")
+
+            // } else {
+            //     document.getElementById('showComments' + postId).innerText = commentsArray.length + ' Comments';
+            //     console.log(commentsArray);
+            //     commentsArray.forEach((comment) => {
+            //         var usernametoBePrinted = element.id === comment.userId ? 'You' : comment.username;
+            //         var dateDiffer = new Date().getTime() - comment.date;
+            //         console.log(dateDiffer);
+            //         $("<div class='commentdiv'><img src='../static/imagesForPost/profile.png'><b>&nbsp;" + usernametoBePrinted + "<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + getDateDifference(dateDiffer) + " ago</small></b><p id='commentP'>" + comment.commentText + "</p></div>").insertAfter($('.loader'));
+            //     });
+            // }
+        },
+        error: function(xhr, status, error) {
+            if (error === 'Unauthorized')
+                showSnackbar('You Are not LoggedIn!');
+            else
+                showSnackbar('something Went Wrong!');
+        }
+    });
+
 }
 // module.exports = { 'likes': likes, 'comments': comments }

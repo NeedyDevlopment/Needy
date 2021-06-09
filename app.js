@@ -15,6 +15,7 @@ const EventEmitter = require("events");
 const path = require("path");
 const multer = require("multer");
 const webpush = require("web-push");
+const pug = require("pug");
 const { AuthForRegister, AuthForLogin } = require("./middleware/auth");
 const fs = require("fs");
 const app = express();
@@ -155,6 +156,12 @@ const store = new MongodbSession({
   uri: "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority",
   collection: "mysessions",
 });
+// app.use(
+//   session({
+//     secret: "key that will sign cookie",
+//     uri: 'mongodb://localhost/sessions',
+//     collection: 'mysessions'
+// })
 app.use(
   session({
     secret: "key that will sign cookie",
@@ -183,17 +190,74 @@ app.use((req, res, next) => {
 
 //HOME
 app.get("/", AuthForRegister, async (req, res, next) => {
+  const selectedCategory = req.query.category;
+  const selectedCity = req.query.city;
+  console.log("city: " + selectedCity + " and category " + selectedCategory);
   const currentUserId = await _.pick(
     jwt.verify(req.session.token, "MySecureKey"),
     ["_id"]
   );
-  const postsArray = await Post.find({}).sort("date");
-  const currentUserFollowingsArray = await User.findOne({
-    _id: currentUserId._id,
-  }).select("followingsArray");
-  console.log("followings Array:;:");
-  console.log(currentUserFollowingsArray);
-  console.log(postsArray);
+  const currentUser = await User.findOne({ _id: currentUserId._id });
+  let postsArray;
+  var messageToSend = message;
+  message = null;
+  if (selectedCategory && selectedCity) {
+    if (selectedCategory == "All Category" && selectedCity == "All City") {
+      postsArray = await Post.find().sort("date");
+    } else if (selectedCategory == "All Category") {
+      postsArray = await Post.find({ city: selectedCity }).sort("date");
+    } else if (selectedCity == "All City") {
+      postsArray = await Post.find({ category: selectedCategory }).sort("date");
+    } else {
+      postsArray = await Post.find({
+        category: selectedCategory,
+        city: selectedCity,
+      }).sort("date");
+    }
+    return res.status(200).render("homepage.pug", {
+      posts: postsArray,
+      currentUserId: currentUserId._id,
+      currentUserFollowingsArray: currentUser.followingsArray,
+      isLoggedIn: req.session.isLoggedIn,
+      message: messageToSend,
+      filter: { category: selectedCategory, city: selectedCity },
+    });
+    // var dummy = "dummy";
+    // var post = postsArray[0];
+    // res.send(pug.render("p#dummyhai hey " + dummy + " Baby"));
+    // var t = "p#name= hello" + post.title + "";
+    // return res.send(pug.render(t));
+    // var templateToShown = `div#post_container(style="width: 80%;")
+    // div#profile
+    //    img(src="../static/imagesForPost/profile.png")
+    //    p#name= ${post.creator.username}
+    //       small= 'at '+ ${post.date}
+    //    b(id="showFollowers"+${post._id},class="showFollowers")= post.creator.followers+' Followers'
+    //    button(id="f-btn",onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
+    // div#main
+    //    div#head
+    //       div#count
+    //          p(id='showLikes'+post._id)= post.likes+ ' Likes'
+    //          p(id='showComments'+post._id)= post.comments+ ' Comments'
+    //    div#main-img-desc
+    //       img#PostImg(src='data:'+post.image.contentType+';base64,'+post.image.data.toString('base64'))
+    //       div.details
+    //          div#title
+    //                p #[b Title: ]  #{post.title}
+    //          div#discription
+    //                p #[b Description: ]  #{post.description}
+    //                p #[b Contact No: ]  #{post.contact}
+    //                p #[b City: ]  #{post.city}`;
+    // res.send(pug.render(templateToShown));
+  } else {
+    console.log("city and category is not selected");
+    postsArray = await Post.find({ city: currentUser.city }).sort("date");
+    console.log(postsArray);
+  }
+  // .select('followingsArray');
+  // console.log('followings Array:;:');
+  // console.log(currentUserFollowingsArray);
+  // console.log(postsArray);
   console.log(req.session.token);
   console.log(req.session.isLoggedIn);
   console.log("message is:;", message);
@@ -202,11 +266,12 @@ app.get("/", AuthForRegister, async (req, res, next) => {
   res.status(200).render("homepage.pug", {
     posts: postsArray,
     currentUserId: currentUserId._id,
-    currentUserFollowingsArray: currentUserFollowingsArray.followingsArray,
+    currentUserFollowingsArray: currentUser.followingsArray,
     isLoggedIn: req.session.isLoggedIn,
-    message: message,
+    message: messageToSend,
+    filter: { category: "All Category", city: currentUser.city },
   });
-  console.log(currentUserId);
+  // console.log(currentUserId);
   // var dummyArray = ['60abba07e7471f703081aeb9'];
   // console.log(dummyArray.indexOf(currentUserId._id));
   // console.log(currentUserId._id);
@@ -232,24 +297,12 @@ app.get("/signup", (req, res) => {
   const params = {};
   res.status(200).render("signup.pug", params);
 });
-app.get("/contact", (req, res) => {
-  // req.session.isAdmin = true;
-  const params = {};
-  res.status(200).render("contact.pug", params);
-});
-app.get("/postanand", (req, res) => {
-  // req.session.isAdmin = true;
-  const params = {};
-  res.status(200).render("PostAnand.pug", params);
-});
 
 app.post("/SignupSubmission", async (req, res) => {
-  if (req.session.token) {
-    res.send(
-      "You are tring to create multiple account on this device which is against policy! If you want to continue on this action you have to Delete Existed Account."
-    );
-    res.end();
-  }
+  // if (req.session.token) {
+  //     res.send('You are tring to create multiple account on this device which is against policy! If you want to continue on this action you have to Delete Existed Account.');
+  //     res.end();
+  // }
   let user = await User.findOne({ email: req.body.email });
   if (user) res.status(403).send("User already registered.");
   const salt = await bcrypt.genSalt(10);
