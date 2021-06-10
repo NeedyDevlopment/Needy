@@ -10,7 +10,7 @@ block content
             h1 CreatePost
             .postlabels
                 label(for='category')  Category  
-                input#category(type="text" placeholder="Enter Your Category" list="categories" oninvalid="Invalidcat(this);" name="city" required)
+                input#category(type="text" placeholder="Enter Your Category" list="categories" oninvalid="Invalidcat(this);" oninput="Invalidcat(this);" name="city" required)
                 datalist#categories
                     option Offer
                     option Employment
@@ -22,7 +22,7 @@ block content
                     
                 br
                 label(for='city')  City 
-                input#city(type="text" placeholder="Enter Your City" list="cities" name="city" oninvalid="Invalidcity(this);" required)
+                input#city(type="text" placeholder="Enter Your City" list="cities" name="city" oninvalid="Invalidcity(this);" oninput="Invalidcity(this);" required)
                 datalist#cities
                     option Mumbai
                     option Delhi
@@ -37,16 +37,16 @@ block content
                 br
                 
                 label(for='title')  Title 
-                input#title(type='text' name='title' placeholder="Enter Name Of Your Post" oninvalid="Invalidtitle(this);" required)
+                input#title(type='text' name='title' placeholder="Enter Name Of Your Post" oninvalid="Invalidtitle(this);"  oninput="Invalidtitle(this);" required)
                 br
                 label(for='Description') Description :
-                textarea#description(name='Description' placeholder="Description Of Your Post" oninvalid="InvalidDesc(this);" required)
+                textarea#description(name='Description' placeholder="Description Of Your Post" oninvalid="InvalidDesc(this);" oninput="InvalidDesc(this);" required)
                 br
                 label(for='contact')  Contact No 
-                input#contact(type='number' name='contact' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" placeholder="Enter Your Contact No" oninvalid="Invalidnum(this);" required)
+                input#contact(type='number' name='contact' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);Invalidnum(this);" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" placeholder="Enter Your Contact No" oninvalid="Invalidnum(this);" required)
                 br
                 label(for='img')  Select Image 
-                input#img(type='file' name='image' accept='image/*' oninvalid="Invalidfile(this);" required)
+                input#img(type='file' name='image' accept='image/*' oninvalid="Invalidfile(this);" oninput="Invalidfile(this);" required)
                 
                 button(type='submit' class="postbtn") CreatePost
                 br

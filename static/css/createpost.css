@@ -51,6 +51,7 @@ input#category,
   font-size: 20px;
   outline: none;
   padding-left: 12px;
+  color: white;
 }
 label {
   font-size: 25px;

@@ -1,44 +1,54 @@
 document.addEventListener("DOMContentLoaded", function () {
     var element = document.getElementById("contactUs");
     element.classList.add("active");
-    // var activity = document.getElementById("activity");
-    // activity.style = "display:none;";
+  
   });
-function Invalidtitle(textbox) {
-  if (textbox.value === "") {
-    textbox.setCustomValidity("Entering a title is necessary!");
+
+function Invalidtitle() {
+  var title = document.getElementById('title');
+  if (title.value === "") {
+    title.setCustomValidity("Entering a title is necessary!");
+    
   } else {
-    textbox.setCustomValidity("");
+    title.setCustomValidity("");
   }
+  return true;
 }
-function Invalidmail(textbox) {
+function Invalidmail() {
+  var mail = document.getElementById('email');
   var x = document.getElementById('email').value;
   var atposition = x.indexOf("@");
   var dotposition = x.lastIndexOf(".");
-  if (textbox.value === "") {
-    textbox.setCustomValidity("Entering an email is necessary!");
+  if ( mail.value === "") {
+    mail.setCustomValidity("Entering an email is necessary!");
   } else if (
     atposition < 1 ||
     dotposition < atposition + 2 ||
     dotposition + 2 >= x.length
-  ) {
-    textbox.setCustomValidity("Please enter an email address which is valid!");
-  } else {
-    textbox.setCustomValidity("");
+    ) {
+      mail.setCustomValidity("Please enter an email address which is valid!");
+    } else {
+      mail.setCustomValidity("");
+    }
+    return true;
   }
-}
-
-function Invalidnumber(textbox) {
-  if (textbox.value === "") {
-    textbox.setCustomValidity("Entering a contact number is necessary!");
-  } else {
-    textbox.setCustomValidity("");
+  
+  function Invalidnumber() {
+    var number = document.getElementById('num');
+    if (number.value === "") {
+      number.setCustomValidity("Entering a contact number is necessary!");
+    } else {
+      number.setCustomValidity("");
+    }
+    return true;
   }
-}
-function Invalidmess(textbox) {
-  if (textbox.value === "") {
-    textbox.setCustomValidity("Entering a message is necessary!");
-  } else {
-    textbox.setCustomValidity("");
+  function Invalidmess() {
+    var desc = document.getElementById('desc');
+    if (desc.value === "") {
+      desc.setCustomValidity("Entering a message is necessary!");
+    } else {
+      desc.setCustomValidity("");
+    }
+    return true;
   }
-}
+  
