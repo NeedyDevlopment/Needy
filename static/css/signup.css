@@ -82,7 +82,7 @@ h1 {
   border: 2px solid black;
   background: black;
   color: white;
-  text-align: center;
+  align-items: center;
   min-height: 4vh;
   justify-content: center;
   margin-top: 45px;

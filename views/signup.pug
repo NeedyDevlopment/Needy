@@ -11,46 +11,48 @@ block content
                         .b
                             img(src="/static/images/username.png" )
                             b(style="margin:2px") Username
-                        input(type='text' placeholder='Enter your first name and last name' name='name' class="input" oninvalid="InvalidMsg(this);"
+                        input(type='text' placeholder='Enter Your First Name and Last Name' name='name' class="input" oninvalid="InvalidMsg(this);"
                             required)
                     label(for='email' class="label")
                         .b
                             img(src="/static/images/email.webp" style="margin-top: 4px;")
                             b(style="margin:5px") Email
-                        input(type='email' placeholder='Enter your email' name='email' id="email" class="input" 
+                        input(type='email' placeholder='Enter Your Email' name='email' id="email" class="input" 
                         oninvalid="InvalidEmail(this);" required )
                 
                     label(for="city" class="label")
                         .b
                             img(src="/static/images/city.png" style="margin-top: 4px;")
                             b(style="margin:5px ") City
-                        input(type="text" placeholder="Enter your city" list="cities" name="city" class="input" id="city" oninvalid="Invalidcity(this);"  required)
+                        input(type="text" placeholder="Enter Your City" list="cities" name="city" class="input" id="city" oninvalid="Invalidcity(this);"  required)
                         datalist#cities
-                            option Gandhinagar
+                            option Mumbai
+                            option Delhi
+                            option Bangalore
+                            option Hyderabad
                             option Ahmedabad
+                            option Chennai
+                            option Kolkata
                             option Surat
-                            option Baroda
-                            option Rajkot
-                            option Mehsana
-                            option Kutch
-                            option Palanpur
+                            option Pune
+                            option Jaipur
 
                     label(for="contact" class="label")
                         .b
                             img(src="/static/images/phone.jpg"  style="margin-top: 4px;")
                             b(style="margin:5px; white-space: nowrap;") Contact No 
-                        input(type="number" placeholder="Enter your Number" name="contact" class="input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" oninvalid="Invalidnumber(this);" required)
+                        input(type="number" placeholder="Enter Your Number" name="contact" class="input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" oninvalid="Invalidnumber(this);" required)
                     label(for="work" class="label")
                         .b
                             img(src="/static/images/work.png" style="margin-top: 4px;")
                             b(style="margin:5px;white-space: nowrap;") Work Place
-                        input(type="text" placeholder="Enter your work place/company name" name="work" class="input" oninvalid="Invalidplace(this);" required)
+                        input(type="text" placeholder="Enter Your Work Place/Company Name" name="work" class="input" oninvalid="Invalidplace(this);" required)
                     label(for='password' class="label")
                         .b
                             img(src="/static/images/password.png" style="margin-top: 4px;" )
                             b(style="margin:5px") Password
                             
-                        input(type='password' placeholder='Enter your password' id="pass" class="input" name='password' oninvalid="Invalidpass(this);"
+                        input(type='password' placeholder='Enter Your Password' id="pass" class="input" name='password' oninvalid="Invalidpass(this);"
                         title="Must contain at least one number and one uppercase and lowercase letter and one special, and at least 7 or more characters" maxlength="15" required)
                         
                         input(type="checkbox" onclick="myFunction()" class="input" style="margin:-150px; height:13px;") 
@@ -60,7 +62,7 @@ block content
                             img(src="/static/images/password.png" style="margin-top: 4px;")
                             b(style="margin:5px;white-space: nowrap;") Confirm Password
 
-                        input(type='password' id="cpass" class="input" placeholder='Enter your confirm password' name='cpassword' oninvalid="Invalidcpass(this);"  required)
+                        input(type='password' id="cpass" class="input" placeholder='Enter Your Confirm Password' name='cpassword' oninvalid="Invalidcpass(this);"  required)
 
                     button(type='submit' class="btnsignup") Signup
 
