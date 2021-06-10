@@ -9,9 +9,9 @@ html
         include ../static/css/navbar.css 
         include ../static/css/login.css 
     block style
+    script(src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous")
+    script(src="../static/script/navbar.js")  
     block scripts
-      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-      script(src="../static/script/navbar.js")  
   body
     nav.navbar
           div.start 
@@ -28,7 +28,7 @@ html
               button.btn#profilebtn #[a(href="/profile") MyProfile] 
             else   
               button.btn#myBtn Login
-            //-   button.btn#Singupbtn #[a(href="/signup") Signup]
+              button.btn#Singupbtn #[a(href="/signup") Signup]
     #myModal.modal
         .modal-content
             .modal-header

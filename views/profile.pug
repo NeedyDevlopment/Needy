@@ -3,6 +3,8 @@ extends ./basic.pug
 block style 
   style 
     include ../static/css/profile.css 
+block scripts 
+  script(src="../static/script/profile.js") 
 block content
     div(class="container")
       div.upperDiv
@@ -16,7 +18,13 @@ block content
           .cameraIcon 
             |&#128247;
             input(type="file" class="imageInput" name="profileImg" title="Upload Profile From Here")
+          .activities 
+            p followers #[span 0]
+            p Posts #[span 0]
+            p following #[span 0]
         div.infoPerson
+          h1.infoTitle Your Personal Info
+          hr
           div.input
             label( class="")  Name :
             input( type="text" name="username" id="username" class="" value=username)
@@ -28,16 +36,18 @@ block content
             input( type="number" name="contactno" id="contactno" class="" value=contact)
         div.actionButtons
           button( type="button" class= "editBtn" id="editBtn") Edit Profile
+          button( type="button" class="saveBtn" id="saveBtn") Save Changes
+          button( type="button" class="cancelBtn" id="cancelBtn") Cancel 
           button( type="button" class= "changePass" id="changePass") Change Password  
           button(type="button" class= "deleteBtn" id="deleteBtn") Delete Account
       div.lowerDiv
         div.inputFields
+          h1.workPlaceInfo Work Place Info
           div.input
             label(class="") City :
             input( type="text" name="city" id="city" class="" value=city)
           div.input
             label( class="one") Work Place :
             input( type="text" name="workplace" id="workplace" class="" value=companyname)
-        div.saveButton
-          button( type="button" class="btn" id="saveBtn") Save Changes
+         
         
