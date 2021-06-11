@@ -5,25 +5,25 @@ block style
         include ../static/css/contact.css
 
 block content
-    form(action='/contact' method="post")
+    form(action='/contact' method="get")
         .container 
             h1(class="h1") Contact Us
 
             label(for='email') 
             b.cu2 Email
-            input(type='email' name='email' placeholder='Enter your email' id="email" oninvalid="Invalidmail(this);" required)
+            input(type='email' name='email'  placeholder='Enter Your Email' id="email" oninvalid="Invalidmail();" oninput="Invalidmail();" required)
 
             label(for='number') 
             b.cu3 Phone
-            input(type='number' name='number' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long"  placeholder='Enter your phone number' oninvalid="Invalidnumber(this);" required)
+            input(type='number' name='number' id="num" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);Invalidnumber();" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long"  placeholder='Enter Your Phone Number' oninvalid="Invalidnumber();" required)
             
             label(for='name') 
             b.cu1 Title
-            input(type='text' name='name' placeholder='Enter your title' oninvalid="Invalidtitle(this);" required)
+            input(type='text' id="title" name='name' placeholder='Enter Your Title' oninvalid="Invalidtitle();" oninput="Invalidtitle();" required)
 
             label(for='desc') 
             b.cu4 Description
-            textarea(name='desc' type="text" placeholder='Type your message' oninvalid="Invalidmess(this);" required)
+            textarea(name='desc' type="text" id="desc" placeholder='Type Your Message' oninvalid="Invalidmess();" oninput="Invalidmess();" required)
 
             button(type="submit" class="button") Submit
 
