@@ -121,6 +121,10 @@ body {
   outline: none;
   font-size: 16px;
 }
+.upperDiv .input .contactno::-webkit-inner-spin-button,
+.upperDiv .input .contactno::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
 .active {
   background-color: rgb(173, 173, 173) !important;
 }
@@ -190,6 +194,9 @@ body {
   margin: 20px auto;
   width: 90%;
   position: relative;
+}
+.lowerDiv .input .city::-webkit-calendar-picker-indicator {
+  opacity: 0;
 }
 .lowerDiv .input label {
   padding: 10px;

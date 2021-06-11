@@ -34,7 +34,7 @@ block content
               input( type="email" name="email" id="email" class="" value=email)
             div.input
               label( class="one") Contact No :
-              input( type="number" name="contactno" id="contactno" class="" value=contact)
+              input( type="number" name="contactno" id="contactno" class="contactno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" value=contact)
           div.actionButtons
             button( type="button" class= "editBtn" id="editBtn") Edit Profile
             button( type="submit" class="saveBtn" id="saveBtn") Save Changes
@@ -47,7 +47,18 @@ block content
             hr
             div.input
               label(class="") City :
-              input( type="text" name="city" id="city" class="" value=city)
+              input( type="text" name="city" list="cities" id="city" class="city" value=city)
+              datalist#cities
+                            option Mumbai
+                            option Delhi
+                            option Bangalore
+                            option Hyderabad
+                            option Ahmedabad
+                            option Chennai
+                            option Kolkata
+                            option Surat
+                            option Pune
+                            option Jaipur
             div.input
               label( class="one") Work Place :
               input( type="text" name="workplace" id="workplace" class="" value=companyname)
