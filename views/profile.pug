@@ -7,47 +7,49 @@ block scripts
   script(src="../static/script/profile.js") 
 block content
     div(class="container")
-      div.upperDiv
-        div.image
-          if photo
-            div.innerImage
-              img( src="../static/imagesForPost/profile.jpg" alt="Avatar" class="avatar")
-          else
-            div.innerImage
-              div(class="avatar" id="avatardiv")= username.split(' ').length === 1 ? username.charAt(0).toUpperCase() :username.split(' ')[0].charAt(0).toUpperCase()+username.split(' ')[1].charAt(0).toUpperCase()
-          .cameraIcon 
-            |&#128247;
-            input(type="file" class="imageInput" name="profileImg" title="Upload Profile From Here")
-          .activities 
-            p followers #[span 0]
-            p Posts #[span 0]
-            p following #[span 0]
-        div.infoPerson
-          h1.infoTitle Your Personal Info
-          hr
-          div.input
-            label( class="")  Name :
-            input( type="text" name="username" id="username" class="" value=username)
-          div.input
-            label( class="") Email :
-            input( type="email" name="email" id="email" class="" value=email)
-          div.input
-            label( class="one") Contact No :
-            input( type="number" name="contactno" id="contactno" class="" value=contact)
-        div.actionButtons
-          button( type="button" class= "editBtn" id="editBtn") Edit Profile
-          button( type="button" class="saveBtn" id="saveBtn") Save Changes
-          button( type="button" class="cancelBtn" id="cancelBtn") Cancel 
-          button( type="button" class= "changePass" id="changePass") Change Password  
-          button(type="button" class= "deleteBtn" id="deleteBtn") Delete Account
-      div.lowerDiv
-        div.inputFields
-          h1.workPlaceInfo Work Place Info
-          div.input
-            label(class="") City :
-            input( type="text" name="city" id="city" class="" value=city)
-          div.input
-            label( class="one") Work Place :
-            input( type="text" name="workplace" id="workplace" class="" value=companyname)
+      form(action="", method="get") 
+        div.upperDiv
+          div.image
+            if photo
+              div.innerImage
+                img( src="../static/imagesForPost/profile.jpg" alt="Avatar" class="avatar")
+            else
+              div.innerImage
+                div(class="avatar" id="avatardiv")= username.split(' ').length === 1 ? username.charAt(0).toUpperCase() :username.split(' ')[0].charAt(0).toUpperCase()+username.split(' ')[1].charAt(0).toUpperCase()
+            .cameraIcon 
+              |&#128247;
+              input(type="file" class="imageInput" name="profileImg" title="Upload Profile From Here")
+            .activities 
+              p followers #[span 0]
+              p Posts #[span 0]
+              p following #[span 0]
+          div.infoPerson
+            h1.infoTitle Your Personal Info
+            hr
+            div.input
+              label( class="")  Name :
+              input( type="text" name="username" id="username" class="" value=username)
+            div.input
+              label( class="") Email :
+              input( type="email" name="email" id="email" class="" value=email)
+            div.input
+              label( class="one") Contact No :
+              input( type="number" name="contactno" id="contactno" class="" value=contact)
+          div.actionButtons
+            button( type="button" class= "editBtn" id="editBtn") Edit Profile
+            button( type="submit" class="saveBtn" id="saveBtn") Save Changes
+            button( type="button" class="cancelBtn" id="cancelBtn") Cancel 
+            button( type="button" class= "changePass" id="changePass") Change Password  
+            button(type="button" class= "deleteBtn" id="deleteBtn") Delete Account
+        div.lowerDiv
+          div.inputFields
+            h1.workPlaceInfo Work Place Info
+            hr
+            div.input
+              label(class="") City :
+              input( type="text" name="city" id="city" class="" value=city)
+            div.input
+              label( class="one") Work Place :
+              input( type="text" name="workplace" id="workplace" class="" value=companyname)
          
         
