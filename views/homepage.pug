@@ -37,7 +37,7 @@ block content
                         p(id='showLikes'+post._id)= post.likes+ ' Likes' 
                         p(id='showComments'+post._id)= post.comments+ ' Comments'
                   div#main-img-desc     
-                     img#PostImg(src='data:'+post.image.contentType+';base64,'+post.image.data.toString('base64'))
+                     img#PostImg(src="../"+post.image)
                      div.details
                         div#title 
                               p #[b Title: ]  #{post.title} 

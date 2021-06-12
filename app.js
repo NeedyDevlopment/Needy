@@ -24,6 +24,13 @@ var nodemailer = require("nodemailer");
 
 var message = null;
 
+/////////////////////// Work Of jainish ////////////////////////////////
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+// res.cookie("name", "jainish",{maxAge: 360000}); // this code is for set cookie on any request here time in ms
+// res.clearCookie(cookieName);
+////////////////////////////////////////////////////////////////////////
+
 //Notification
 // const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
 // const privateVapidkey = 'innkCySAscKgt5Tl5S-P3SUpSMS9ZCEifRCIcSWhM6s';
@@ -383,7 +390,7 @@ app.get("/deleteAccount", async (req, res, next) => {
 //IMAGE UPLOAD AND STORING IN DATABASE
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "D://usersPost/"),
+  destination: (req, file, cb) => cb(null, "./static/usersPost/"),
   filename: (req, file, cb) => cb(null, file.originalname),
 });
 const fileFilter = (req, file, cb) => {
@@ -434,10 +441,7 @@ app.post(
       title: req.body.title,
       description: req.body.Description,
       contact: req.body.contact,
-      image: {
-        data: fs.readFileSync(path.join("D:/usersPost", req.file.originalname)),
-        contentType: req.file.mimetype,
-      },
+      image: "./static/usersPost/" + req.file.originalname,
     });
     const result = await post.save();
     emitter.emit("postAdded", { creatorId: creator._id });
@@ -469,6 +473,9 @@ app.get("/profile", async (req, res, next) => {
   res.status(200).render("profile.pug", profile);
   next();
 });
+
+//Profile handling for update the record
+app.post("/profile", async (req, res, next) => {});
 
 //HANDLE Ajax Request
 // app.post('/action/:postId', async(req, res, next) => {
