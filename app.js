@@ -183,7 +183,7 @@ app.get("/", async(req, res, next) => {
     const selectedCity = req.query.city;
     //Getting CurrentUser Infirmation
     const currentUserId = req.session.token ? await _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id']) : '';
-    const currentUser = req.session.token ? await User.findOne({ _id: currentUserId._id }) : { followingsArray: [] };
+    const currentUser = req.session.token ? await User.findOne({ _id: currentUserId._id }) : { followingsArray: [], city: "All City" };
     let postsArray;
     var messageToSend = message;
     message = null;
@@ -212,13 +212,17 @@ app.get("/", async(req, res, next) => {
         console.log("city and category is not selected");
         // postsArray = await Post.find({ city: currentUser.city }).sort('date');
         // console.log(postsArray);
-        postsArray = await Post.find().sort('date');
+        if (currentUser.city === "All City") {
+            postsArray = await Post.find().limit(5).skip(5 * (currentPage - 1)).sort('date');
+        } else {
+            postsArray = await Post.find({ city: currentUser.city }).limit(5).skip(5 * (currentPage - 1)).sort('date');
+        }
         console.log(postsArray);
-        return res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: "All Category", city: "All City" }, totalPosts: 11 });
+        return res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: "All Category", city: currentUser.city }, totalPosts: 11 });
     }
     next();
 });
-app.get("/myactivity", AuthForRegister, async(req, res, next) => {
+app.get("/myactivity", async(req, res, next) => {
     const params = { likes: 10, comments: 20 };
     res.status(200).render("myActivity.pug", params);
     next();
@@ -369,7 +373,7 @@ app.post('/createpostSubmission', upload.single('image'), async(req, res, next) 
 })
 
 //CREATEPOST
-app.get("/createpost", AuthForRegister, AuthForLogin, (req, res, next) => {
+app.get("/createpost", AuthForLogin, (req, res, next) => {
     if (!fs.existsSync('D://usersPost')) {
         fs.mkdirSync('D://usersPost');
     }
