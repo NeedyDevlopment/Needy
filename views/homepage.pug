@@ -38,8 +38,6 @@ block content
                   button(id="f-btn",class="f-btn"+post.creator._id,onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
                div#main
                   div#head
-                     //- div#descTime
-                     //-     p  You Added This Post 1 hour ago....
                      div#count 
                         p(id='showLikes'+post._id)= post.likes+ ' Likes' 
                         p(id='showComments'+post._id)= post.comments+ ' Comments'
@@ -53,9 +51,6 @@ block content
                               p #[b Description: ]  #{post.description}
                               p #[b Contact No: ]  #{post.contact}
                               p #[b City: ]  #{post.city}
-                        //- div#EditDeleteButton 
-                        //-      button.editButton Edit
-                        //-      button.deleteButton Delete
                div#actiondiv
                   div#like
                      i(class=post.likedArray.includes(currentUserId) ?"fa fa-thumbs-up" :"fa fa-thumbs-o-up",onclick="actionPerformed(this,  'like','"+post._id+"')")
@@ -78,11 +73,7 @@ block content
                         b Write comment
                         textarea(name="writtencomment" id="writtencomment" cols="35" rows="4")
                         button(id="submitcomment") Add Comment
-      //- script.
-      //-  if(message != null){showSnackbar(message)}  
       div.sideNavbar
          include ./sideBar.pug
       div#id01.w3-modal
          include ./dialogBox.pug 
-   //- div.center
-   //-    include ./pagination.pug       
