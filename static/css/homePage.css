@@ -20,11 +20,22 @@
     height: -webkit-fill-available;
 }
 
-#message {
+#message,
+#getCity,
+#getCategory,
+#getTotalPosts {
     visibility: hidden;
     width: 0;
     height: 0;
 }
+
+
+/* #d-message {
+    display: block;
+    color: white;
+    background-color: black;
+    height: 100px;
+} */
 
 #filterNotFound {
     text-align: center;
