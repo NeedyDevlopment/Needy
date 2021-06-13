@@ -320,23 +320,7 @@ function onFilter() {
             console.log(postsData);
             // $(".postsContainer").remove();
             document.getElementsByClassName("postsContainer")[0].innerHTML = postsData;
-            // $(".postsContainer").innerHTML = "<p>innerHtMLSEND</p>"
-            // var innercommentcontainer = $('#innercommentcontainer');
-            // var writecomment = document.getElementById('writecomment');
-            // if (postsData.posts.length === 0) {
-            // $("<div id='nocomment' class='commentdiv'><p>No Comments Added Yet! Become first one to comment.</p></div>").insertAfter($('.loader'));
             showSnackbar("successss!!")
-
-            // } else {
-            //     document.getElementById('showComments' + postId).innerText = commentsArray.length + ' Comments';
-            //     console.log(commentsArray);
-            //     commentsArray.forEach((comment) => {
-            //         var usernametoBePrinted = element.id === comment.userId ? 'You' : comment.username;
-            //         var dateDiffer = new Date().getTime() - comment.date;
-            //         console.log(dateDiffer);
-            //         $("<div class='commentdiv'><img src='../static/imagesForPost/profile.png'><b>&nbsp;" + usernametoBePrinted + "<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + getDateDifference(dateDiffer) + " ago</small></b><p id='commentP'>" + comment.commentText + "</p></div>").insertAfter($('.loader'));
-            //     });
-            // }
         },
         error: function(xhr, status, error) {
             if (error === 'Unauthorized')
@@ -352,9 +336,16 @@ var currentPage = 1;
 // var AjaxPosts = [];
 $(window).scroll(function() {
     // if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+    // var postHeight = $("#post_container").height();
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        console.log("inside If Block");
+        var totalPosts = $("#getTotalPosts").text();
+        console.log("value of P" + totalPosts);
+        console.log((currentPage * 5) > totalPosts);
+        if ((currentPage * 5) > totalPosts) {
+            return;
+        }
         currentPage = currentPage + 1;
+        console.log("inside If Block");
         //    var city = $("#finalCity").val(city);
         //    var category = $("#finalCategory").val(category);
         var city = document.getElementById("getCity").innerHTML;
@@ -380,67 +371,67 @@ $(window).scroll(function() {
             type: 'Post',
             data: { "currentPage": currentPage, "city": city, "category": category },
             success: function(res) {
-                console.log("success");
-                console.log(res);
-                message = "Happy Birthday Changed";
+                // console.log("success");
+                // console.log(res);
+                // message = "Happy Birthday Changed";
                 // var post = res.posts[0];
-                var AjaxPosts = res.posts;
-                var currentUserFollowingsArray = res.currentUserFollowingsArray;
-                var currentUserId = res.currentUserId;
-                var filter = res.filter;
-                var isLoggedIn = res.isLoggedIn;
-                var postsForAppend = "";
-                AjaxPosts.forEach(function(post) {
-                    // var image = post.image.toString();
-                    var image = "http://localhost/static/usersPost/60c313b4b0898064088548d2Home.png";
-                    // var imageData = post.image.data.toString('base64');
-                    postsForAppend += `<div id="post_container", style="width: 80%;">
-                    <div id="profile"><img src="../static/imagesForPost/profile.png" />
-                        <p id="name">${post.creator.username} <small>at ${post.date}</small></p><b class="showFollowers${post.creator._id}", id="showFollowers${post._id}">${post.creator.followers}Followers </b><button class="f-btn${post.creator._id}", id="f-btn",onclick="onClickFollow(this,${post.creator._id},${post._id})">${currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'}</button>
-                        </div>
-                    <div id="main">
-                    <div id="head">
-                    <div id="count">
-                                <p id="showLikes${post._id}">${post.likes} Likes </p>
-                                <p id="showComments${post._id}">${post.likes} Comments</p>
-                            </div>
-                            </div>
-                        <div id="main-img-desc"><img id="PostImg",src=${image} />
-                        <div class="details">
-                                <div id="title">
-                                <p><b>Title: </b>${post.title} </p>
-                                </div>
-                                <div id="discription">
-                                <p><b>Description: </b>${post.description} </p>
-                                <p><b>Contact No: </b>${post.contact} </p>
-                                <p><b>City: </b>${post.city} </p>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                <div id="actiondiv">
-                                <div id="like"><i class="${post.likedArray.includes(currentUserId) ?"fa fa-thumbs-up" :"fa fa-thumbs-o-up"}", onclick="actionPerformed(this,'like',${post._id})"></i>
-                                <p id="showliketext${post._id}">${post.likedArray.includes(currentUserId) ? 'unlike' : 'like'}</p>
-                                </div>
-                                <div id="comment"><i class="${post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass"}", id="${currentUserId}", onclick="actionPerformed(this,'comment',${post._id})"></i>
-                                <p id="showcommenttext${post._id}">${post.commentedArrayWithOnlyUserId.includes(currentUserId) ? 'commented' : 'comment'} </p>
-                                </div>
-                                <div id="share",onclick="actionPerformed(this,'share',${post._id})"><img src="../static/imagesForPost/share.png" />share </div>
-                                <div id="save"><i class="${post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o"}", onclick="actionPerformed(this,'save',${post._id})"></i>
-                                <p id="showsavetext${post._id}">${post.savedArray.includes(currentUserId) ? 'saved' : 'save'} </p>
-                                </div>
-                                </div>
-                                <div id="maincommentcontainer">
-                                <h4 id="commentHeader">All Comments <button id="closebutton", onclick="hidecommentbox(true)">&#10006</button> </h4>
-                                <div id="innercommentcontainer">
-                                <div class="loader">...Loading</div>
-                                <div class="writecommentdiv", id="writecomment"><b>Write comment</b><textarea name="writtencomment", id="writtencomment", cols="35", rows="4"></textarea><button id="submitcomment">Add Comment</button></div>
-                                </div>
-                                </div>
-                                </div>`;
-                });
+                // var AjaxPosts = res.posts;
+                // var currentUserFollowingsArray = res.currentUserFollowingsArray;
+                // var currentUserId = res.currentUserId;
+                // var filter = res.filter;
+                // var isLoggedIn = res.isLoggedIn;
+                // var postsForAppend = "";
+                // AjaxPosts.forEach(function(post) {
+                // var image = post.image.toString();
+                // var image = "http://localhost/static/usersPost/60c313b4b0898064088548d2Home.png";
+                // var imageData = post.image.data.toString('base64');
+                // postsForAppend += `<div id="post_container", style="width: 80%;">
+                // <div id="profile"><img src="../static/imagesForPost/profile.png" />
+                //     <p id="name">${post.creator.username} <small>at ${post.date}</small></p><b class="showFollowers${post.creator._id}", id="showFollowers${post._id}">${post.creator.followers}Followers </b><button class="f-btn${post.creator._id}", id="f-btn",onclick="onClickFollow(this,${post.creator._id},${post._id})">${currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'}</button>
+                //     </div>
+                // <div id="main">
+                // <div id="head">
+                // <div id="count">
+                //             <p id="showLikes${post._id}">${post.likes} Likes </p>
+                //             <p id="showComments${post._id}">${post.likes} Comments</p>
+                //         </div>
+                //         </div>
+                //     <div id="main-img-desc"><img id="PostImg",src=${image} />
+                //     <div class="details">
+                //             <div id="title">
+                //             <p><b>Title: </b>${post.title} </p>
+                //             </div>
+                //             <div id="discription">
+                //             <p><b>Description: </b>${post.description} </p>
+                //             <p><b>Contact No: </b>${post.contact} </p>
+                //             <p><b>City: </b>${post.city} </p>
+                //             </div>
+                //             </div>
+                //             </div>
+                //             </div>
+                //             <div id="actiondiv">
+                //             <div id="like"><i class="${post.likedArray.includes(currentUserId) ?"fa fa-thumbs-up" :"fa fa-thumbs-o-up"}", onclick="actionPerformed(this,'like',${post._id})"></i>
+                //             <p id="showliketext${post._id}">${post.likedArray.includes(currentUserId) ? 'unlike' : 'like'}</p>
+                //             </div>
+                //             <div id="comment"><i class="${post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass"}", id="${currentUserId}", onclick="actionPerformed(this,'comment',${post._id})"></i>
+                //             <p id="showcommenttext${post._id}">${post.commentedArrayWithOnlyUserId.includes(currentUserId) ? 'commented' : 'comment'} </p>
+                //             </div>
+                //             <div id="share",onclick="actionPerformed(this,'share',${post._id})"><img src="../static/imagesForPost/share.png" />share </div>
+                //             <div id="save"><i class="${post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o"}", onclick="actionPerformed(this,'save',${post._id})"></i>
+                //             <p id="showsavetext${post._id}">${post.savedArray.includes(currentUserId) ? 'saved' : 'save'} </p>
+                //             </div>
+                //             </div>
+                //             <div id="maincommentcontainer">
+                //             <h4 id="commentHeader">All Comments <button id="closebutton", onclick="hidecommentbox(true)">&#10006</button> </h4>
+                //             <div id="innercommentcontainer">
+                //             <div class="loader">...Loading</div>
+                //             <div class="writecommentdiv", id="writecomment"><b>Write comment</b><textarea name="writtencomment", id="writtencomment", cols="35", rows="4"></textarea><button id="submitcomment">Add Comment</button></div>
+                //             </div>
+                //             </div>
+                //             </div>`;
+                // });
                 // AjaxPosts = res.posts;
-                $(".postsContainer").append(postsForAppend);
+                $(".postsContainer").append(res);
                 // $(".postsContainer").append(AjaxPosts);
 
             },

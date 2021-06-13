@@ -165,7 +165,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use((req, res, next) => {
     res.setHeader('Service-Worker-Allowed', "/");
     next();
-})
+});
 
 //HOME
 app.get("/", async(req, res, next) => {
@@ -207,54 +207,15 @@ app.get("/", async(req, res, next) => {
         //     console.log("Sending Response of AJAX")
         //     return res.status(200).send({ posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity } });
         // }
-        return res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity } });
-        // var dummy = "dummy";
-        // var post = postsArray[0];
-        // res.send(pug.render("p#dummyhai hey " + dummy + " Baby"));
-        // var t = "p#name= hello" + post.title + "";
-        // return res.send(pug.render(t));
-        // var templateToShown = `div#post_container(style="width: 80%;") 
-        // div#profile
-        //    img(src="../static/imagesForPost/profile.png")
-        //    p#name= ${post.creator.username}  
-        //       small= 'at '+ ${post.date}   
-        //    b(id="showFollowers"+${post._id},class="showFollowers")= post.creator.followers+' Followers'    
-        //    button(id="f-btn",onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
-        // div#main
-        //    div#head
-        //       div#count 
-        //          p(id='showLikes'+post._id)= post.likes+ ' Likes' 
-        //          p(id='showComments'+post._id)= post.comments+ ' Comments'
-        //    div#main-img-desc     
-        //       img#PostImg(src='data:'+post.image.contentType+';base64,'+post.image.data.toString('base64'))
-        //       div.details
-        //          div#title 
-        //                p #[b Title: ]  #{post.title} 
-        //          div#discription 
-        //                p #[b Description: ]  #{post.description}
-        //                p #[b Contact No: ]  #{post.contact}
-        //                p #[b City: ]  #{post.city}`;
-        // res.send(pug.render(templateToShown));
+        return res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity }, totalPosts: 11 });
     } else {
         console.log("city and category is not selected");
-        postsArray = await Post.find({ city: currentUser.city }).sort('date');
+        // postsArray = await Post.find({ city: currentUser.city }).sort('date');
+        // console.log(postsArray);
+        postsArray = await Post.find().sort('date');
         console.log(postsArray);
-        return res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: "All Category", city: currentUser.city } });
+        return res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: "All Category", city: "All City" }, totalPosts: 11 });
     }
-    // .select('followingsArray');
-    // console.log('followings Array:;:');
-    // console.log(currentUserFollowingsArray);
-    // console.log(postsArray);
-    // console.log(req.session.token);
-    // console.log(req.session.isLoggedIn);
-    // console.log('message is:;', message);
-    // const params = { likes: 10, comments: 20 };
-    // res.writeHead(200, { 'Service-Worker-Allowed': "/" });
-
-    // console.log(currentUserId);
-    // var dummyArray = ['60abba07e7471f703081aeb9'];
-    // console.log(dummyArray.indexOf(currentUserId._id));
-    // console.log(currentUserId._id);
     next();
 });
 app.get("/myactivity", AuthForRegister, async(req, res, next) => {
@@ -619,17 +580,22 @@ app.post("/getPosts", async(req, res, next) => {
     const currentUser = req.session.token ? await User.findOne({ _id: currentUserId._id }) : { followingsArray: [] };
     let postaArray = [];
     let messageToSend = '';
+    let totalPosts;
     // if (selectedCategory && selectedCity) {
     if (selectedCategory == "All Category" && selectedCity == "All City") {
         postsArray = await Post.find().limit(5).skip(5 * (currentPage - 1)).sort('date');
+        totalPosts = await Post.count({});
     } else if (selectedCategory == "All Category") {
         postsArray = await Post.find({ city: selectedCity }).limit(5).skip(5 * (currentPage - 1)).sort('date');
+        totalPosts = await Post.count({ city: selectedCity });
     } else if (selectedCity == "All City") {
         postsArray = await Post.find({ category: selectedCategory }).limit(5).skip(5 * (currentPage - 1)).sort('date');
+        totalPosts = await Post.count({ category: selectedCategory });
     } else {
         postsArray = await Post.find({ category: selectedCategory, city: selectedCity }).limit(5).skip(5 * (currentPage - 1)).sort('date');
+        totalPosts = await Post.count({ category: selectedCategory, city: selectedCity });
     }
-    return res.status(200).send({ posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity } });
+    return res.status(200).render("dynamicPost.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity, totalPosts: 11 } });
 
 });
 
