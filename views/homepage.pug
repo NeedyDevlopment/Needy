@@ -12,11 +12,17 @@ block style
       include ../static/css/commentbox.css
       include ../static/css/snackbar.css
       include ../static/css/homePage.css
+      include ../static/css/dialogBox.css
+      include ../static/css/pagination.css
+      
    link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+   link(rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css')
 block content 
    script.
-      console.log(msg);   
-   p#message= message    
+      console.log(message);   
+   p#message= message 
+   p#getCity= filter.city   
+   p#getCategory= filter.category  
    div.container
       div.postsContainer
          if posts.length == 0
@@ -37,7 +43,8 @@ block content
                         p(id='showLikes'+post._id)= post.likes+ ' Likes' 
                         p(id='showComments'+post._id)= post.comments+ ' Comments'
                   div#main-img-desc     
-                     img#PostImg(src='data:'+post.image.contentType+';base64,'+post.image.data.toString('base64'))
+                     //- img#PostImg(src='data:'+post.image.contentType+';base64,'+post.image.data.toString('base64'))
+                     img#PostImg(src=post.image)
                      div.details
                         div#title 
                               p #[b Title: ]  #{post.title} 
@@ -74,3 +81,7 @@ block content
       //-  if(message != null){showSnackbar(message)}  
       div.sideNavbar
          include ./sideBar.pug
+      div#id01.w3-modal
+         include ./dialogBox.pug 
+   //- div.center
+   //-    include ./pagination.pug       

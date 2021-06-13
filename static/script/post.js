@@ -34,9 +34,30 @@ console.log('post.js running...');
 //     console.log('push sent...');
 // }
 
-var msg = "happy Birthday";
+var message = "happy Birthday";
+var msg = "is msg";
 let posts = [];
 console.log(posts);
+
+function onClickOnLogout() {
+    document.getElementById('id01').style.display = 'block';
+}
+
+function onCloseDialogBox() {
+    document.getElementById('id01').style.display = 'none';
+}
+
+function onCancelLogoutDialogBox() {
+    document.getElementById('id01').style.display = 'none';
+    return;
+}
+
+function onContinueLogoutDialogBox() {
+    document.getElementById('id01').style.display = 'none';
+    $.get("/logout", function(data, status) {
+        console.log(data);
+    })
+}
 
 $(document).ready(function() {
     if (document.getElementById("message").innerHTML != '') {
@@ -327,3 +348,111 @@ function onFilter() {
 
 }
 // module.exports = { 'likes': likes, 'comments': comments }
+var currentPage = 1;
+// var AjaxPosts = [];
+$(window).scroll(function() {
+    // if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        console.log("inside If Block");
+        currentPage = currentPage + 1;
+        //    var city = $("#finalCity").val(city);
+        //    var category = $("#finalCategory").val(category);
+        var city = document.getElementById("getCity").innerHTML;
+        var category = document.getElementById("getCategory").innerHTML;
+        console.log("city is::" + city + " and Category is:  " + category);
+
+        // $.ajax({
+        //     // url: "/?city=" + city + "&category=" + category,
+        //     // url: "/",
+        //     url: "/getPosts",
+        //     type: "GET",
+        //     data: { currentPage: 2, hello: "Hello" },
+        //     success: function(responseData) {
+        //         console.log("success");
+        //         console.log(responseData);
+        //     },
+        //     error: function() {
+        //         console.log("Error occured During AjAx");
+        //     }
+        // });
+        $.ajax({
+            url: '/getPosts',
+            type: 'Post',
+            data: { "currentPage": currentPage, "city": city, "category": category },
+            success: function(res) {
+                console.log("success");
+                console.log(res);
+                message = "Happy Birthday Changed";
+                // var post = res.posts[0];
+                var AjaxPosts = res.posts;
+                var currentUserFollowingsArray = res.currentUserFollowingsArray;
+                var currentUserId = res.currentUserId;
+                var filter = res.filter;
+                var isLoggedIn = res.isLoggedIn;
+                var postsForAppend = "";
+                AjaxPosts.forEach(function(post) {
+                    // var image = post.image.toString();
+                    var image = "http://localhost/static/usersPost/60c313b4b0898064088548d2Home.png";
+                    // var imageData = post.image.data.toString('base64');
+                    postsForAppend += `<div id="post_container", style="width: 80%;">
+                    <div id="profile"><img src="../static/imagesForPost/profile.png" />
+                        <p id="name">${post.creator.username} <small>at ${post.date}</small></p><b class="showFollowers${post.creator._id}", id="showFollowers${post._id}">${post.creator.followers}Followers </b><button class="f-btn${post.creator._id}", id="f-btn",onclick="onClickFollow(this,${post.creator._id},${post._id})">${currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'}</button>
+                        </div>
+                    <div id="main">
+                    <div id="head">
+                    <div id="count">
+                                <p id="showLikes${post._id}">${post.likes} Likes </p>
+                                <p id="showComments${post._id}">${post.likes} Comments</p>
+                            </div>
+                            </div>
+                        <div id="main-img-desc"><img id="PostImg",src=${image} />
+                        <div class="details">
+                                <div id="title">
+                                <p><b>Title: </b>${post.title} </p>
+                                </div>
+                                <div id="discription">
+                                <p><b>Description: </b>${post.description} </p>
+                                <p><b>Contact No: </b>${post.contact} </p>
+                                <p><b>City: </b>${post.city} </p>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                <div id="actiondiv">
+                                <div id="like"><i class="${post.likedArray.includes(currentUserId) ?"fa fa-thumbs-up" :"fa fa-thumbs-o-up"}", onclick="actionPerformed(this,'like',${post._id})"></i>
+                                <p id="showliketext${post._id}">${post.likedArray.includes(currentUserId) ? 'unlike' : 'like'}</p>
+                                </div>
+                                <div id="comment"><i class="${post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass"}", id="${currentUserId}", onclick="actionPerformed(this,'comment',${post._id})"></i>
+                                <p id="showcommenttext${post._id}">${post.commentedArrayWithOnlyUserId.includes(currentUserId) ? 'commented' : 'comment'} </p>
+                                </div>
+                                <div id="share",onclick="actionPerformed(this,'share',${post._id})"><img src="../static/imagesForPost/share.png" />share </div>
+                                <div id="save"><i class="${post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o"}", onclick="actionPerformed(this,'save',${post._id})"></i>
+                                <p id="showsavetext${post._id}">${post.savedArray.includes(currentUserId) ? 'saved' : 'save'} </p>
+                                </div>
+                                </div>
+                                <div id="maincommentcontainer">
+                                <h4 id="commentHeader">All Comments <button id="closebutton", onclick="hidecommentbox(true)">&#10006</button> </h4>
+                                <div id="innercommentcontainer">
+                                <div class="loader">...Loading</div>
+                                <div class="writecommentdiv", id="writecomment"><b>Write comment</b><textarea name="writtencomment", id="writtencomment", cols="35", rows="4"></textarea><button id="submitcomment">Add Comment</button></div>
+                                </div>
+                                </div>
+                                </div>`;
+                });
+                // AjaxPosts = res.posts;
+                $(".postsContainer").append(postsForAppend);
+                // $(".postsContainer").append(AjaxPosts);
+
+            },
+            error: function(xhr, status, error) {
+                if (error === 'Unauthorized')
+                    showSnackbar('You Are not LoggedIn!');
+                else
+                    showSnackbar('something Went Wrong!');
+            }
+        });
+        var message = "nice";
+        console.log("Ajax Call...");
+        // console.log("current filter: " + filter.city + " " + filter.category);
+    }
+})

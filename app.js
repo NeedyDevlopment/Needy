@@ -168,25 +168,45 @@ app.use((req, res, next) => {
 })
 
 //HOME
-app.get("/", AuthForRegister, async(req, res, next) => {
+app.get("/", async(req, res, next) => {
+    //when coming from logout redirection getting message
+    // console.log("dhjjhjd::::" + req.body.currentPage);
+    // console.log("dhjjhjdHello::::" + req.body.hello);
+    const currentPage = 1;
+    // const isAjaxRequest = req.body.currentPage ? true : false;
+    if (req.query.message) {
+        message = "You Logout Successfully.";
+    }
+    console.log(req.header("message"))
+        //getting filter
     const selectedCategory = req.query.category;
     const selectedCity = req.query.city;
-    console.log("city: " + selectedCity + " and category " + selectedCategory);
-    const currentUserId = await _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id']);
-    const currentUser = await User.findOne({ _id: currentUserId._id });
+    //Getting CurrentUser Infirmation
+    const currentUserId = req.session.token ? await _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id']) : '';
+    const currentUser = req.session.token ? await User.findOne({ _id: currentUserId._id }) : { followingsArray: [] };
     let postsArray;
     var messageToSend = message;
     message = null;
+    // if (isAjaxRequest) {
+    //     currentPage = req.body.currentPage;
+    //     console.log("This is a AJAX Request");
+    // }
+    // console.log("currentPage: " + currentPage);
+
     if (selectedCategory && selectedCity) {
         if (selectedCategory == "All Category" && selectedCity == "All City") {
-            postsArray = await Post.find().sort('date');
+            postsArray = await Post.find().limit(5).skip(5 * (currentPage - 1)).sort('date');
         } else if (selectedCategory == "All Category") {
-            postsArray = await Post.find({ city: selectedCity }).sort('date');
+            postsArray = await Post.find({ city: selectedCity }).limit(5).skip(5 * (currentPage - 1)).sort('date');
         } else if (selectedCity == "All City") {
-            postsArray = await Post.find({ category: selectedCategory }).sort('date');
+            postsArray = await Post.find({ category: selectedCategory }).limit(5).skip(5 * (currentPage - 1)).sort('date');
         } else {
-            postsArray = await Post.find({ category: selectedCategory, city: selectedCity }).sort('date');
+            postsArray = await Post.find({ category: selectedCategory, city: selectedCity }).limit(5).skip(5 * (currentPage - 1)).sort('date');
         }
+        // if (isAjaxRequest) {
+        //     console.log("Sending Response of AJAX")
+        //     return res.status(200).send({ posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity } });
+        // }
         return res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity } });
         // var dummy = "dummy";
         // var post = postsArray[0];
@@ -219,17 +239,18 @@ app.get("/", AuthForRegister, async(req, res, next) => {
         console.log("city and category is not selected");
         postsArray = await Post.find({ city: currentUser.city }).sort('date');
         console.log(postsArray);
+        return res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: "All Category", city: currentUser.city } });
     }
     // .select('followingsArray');
     // console.log('followings Array:;:');
     // console.log(currentUserFollowingsArray);
     // console.log(postsArray);
-    console.log(req.session.token);
-    console.log(req.session.isLoggedIn);
-    console.log('message is:;', message);
+    // console.log(req.session.token);
+    // console.log(req.session.isLoggedIn);
+    // console.log('message is:;', message);
     // const params = { likes: 10, comments: 20 };
     // res.writeHead(200, { 'Service-Worker-Allowed': "/" });
-    res.status(200).render("homepage.pug", { posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: "All Category", city: currentUser.city } });
+
     // console.log(currentUserId);
     // var dummyArray = ['60abba07e7471f703081aeb9'];
     // console.log(dummyArray.indexOf(currentUserId._id));
@@ -312,10 +333,11 @@ app.get("/login", (req, res, next) => {
 //Logout 
 app.get("/logout", (req, res) => {
     // res.cookie('isLoggedIn', false, { expires: new Date(253402300000000), overwrite: true, secure: false, httpOnly: true })
-    delete req.session.isLoggedIn;
+    // delete req.session.isLoggedIn;
+    req.session.isLoggedIn = false;
     // res.status(200).send("you logout successfully");
-    message = "You logout Successfully.";
-    res.redirect("/");
+    // message = "You logout Successfully.";
+    res.redirect("/?message=yes");
 });
 
 //DeleteAccount
@@ -330,10 +352,12 @@ app.get('/deleteAccount', async(req, res, next) => {
 });
 
 //IMAGE UPLOAD AND STORING IN DATABASE
-
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, "D://usersPost/"),
-    filename: (req, file, cb) => cb(null, file.originalname)
+    destination: (req, file, cb) => cb(null, "./static/usersPost/"),
+    filename: async(req, file, cb) => {
+        const currentUserId = await _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id']);
+        cb(null, currentUserId._id + file.originalname)
+    }
 });
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jfif') {
@@ -367,10 +391,11 @@ app.post('/createpostSubmission', upload.single('image'), async(req, res, next) 
         title: req.body.title,
         description: req.body.Description,
         contact: req.body.contact,
-        image: {
-            data: fs.readFileSync(path.join('D:/usersPost', req.file.originalname)),
-            contentType: req.file.mimetype
-        }
+        // image: {
+        //     data: fs.readFileSync(path.join('D:/usersPost', req.file.originalname)),
+        //     contentType: req.file.mimetype
+        // }
+        image: "./static/usersPost/" + currentUserId._id + req.file.originalname
     });
     const result = await post.save();
     emitter.emit('postAdded', { creatorId: creator._id });
@@ -584,6 +609,29 @@ app.post('/ajax/:action', async(req, res, next) => {
         res.status(200).send(result.followers + '');
     }
 })
+app.post("/getPosts", async(req, res, next) => {
+    console.log("currentPage is:;:::" + req.body.currentPage);
+    // return res.status(200).send("Successfully");
+    const selectedCity = req.body.city;
+    const selectedCategory = req.body.category;
+    const currentPage = req.body.currentPage;
+    const currentUserId = req.session.token ? await _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id']) : '';
+    const currentUser = req.session.token ? await User.findOne({ _id: currentUserId._id }) : { followingsArray: [] };
+    let postaArray = [];
+    let messageToSend = '';
+    // if (selectedCategory && selectedCity) {
+    if (selectedCategory == "All Category" && selectedCity == "All City") {
+        postsArray = await Post.find().limit(5).skip(5 * (currentPage - 1)).sort('date');
+    } else if (selectedCategory == "All Category") {
+        postsArray = await Post.find({ city: selectedCity }).limit(5).skip(5 * (currentPage - 1)).sort('date');
+    } else if (selectedCity == "All City") {
+        postsArray = await Post.find({ category: selectedCategory }).limit(5).skip(5 * (currentPage - 1)).sort('date');
+    } else {
+        postsArray = await Post.find({ category: selectedCategory, city: selectedCity }).limit(5).skip(5 * (currentPage - 1)).sort('date');
+    }
+    return res.status(200).send({ posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity } });
+
+});
 
 
 
