@@ -1,6 +1,6 @@
 extends ./basic.pug   
 block scripts 
-   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+   //- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    script(src="../static/script/post.js")
    script(src="../static/script/commentbox.js") 
    script(src="../static/script/snackbar.js")  
@@ -29,6 +29,11 @@ block content
                      small= ' at '+ post.date   
                   b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id+" showFollowers")= post.creator.followers+' Followers'    
                   button(id="f-btn",class="f-btn"+post.creator._id,onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
+                     //- if(currentUserFollowingsArray.includes(post.creator._id))
+                     //-    span #[i(class="fas fa-user-minus")] Unfollow
+                     //- else 
+                     //-    span #[i(class="fas fa-user-plus")] follow
+                     
                div#main
                   div#head
                      //- div#descTime

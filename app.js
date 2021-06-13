@@ -24,12 +24,16 @@ var nodemailer = require("nodemailer");
 
 var message = null;
 
-/////////////////////// Work Of jainish ////////////////////////////////
+/////////////////////// ----------------------------Work Of jainish------------------------------- //////////////////
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
+// id , password , email
 // res.cookie("name", "jainish",{maxAge: 360000}); // this code is for set cookie on any request here time in ms
 // res.clearCookie(cookieName);
-////////////////////////////////////////////////////////////////////////
+
+// res.session.userId = currentUserId;
+// res.session.isLoggedIn = true;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Notification
 // const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
