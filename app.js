@@ -479,7 +479,13 @@ app.get("/profile", async (req, res, next) => {
 });
 
 //Profile handling for update the record
-app.post("/profile", async (req, res, next) => {});
+app.post("/profile", async (req, res, next) => {
+  const name = req.body.username;
+  const contactNo = req.body.contactno;
+  const city = req.body.city;
+  const workPlace = req.body.workplace;
+  const profileImg = re.body.profileImg;
+});
 
 //HANDLE Ajax Request
 // app.post('/action/:postId', async(req, res, next) => {
