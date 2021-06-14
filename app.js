@@ -456,6 +456,13 @@ app.post(
       _id: currentUserId._id,
     }).select("followers");
     creator.followers = creatorsFollowers.followers;
+    console.log(
+      req.body.category,
+      req.body.city,
+      req.body.title,
+      req.body.Description,
+      req.body.contact
+    );
     const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
     const post = new Post({
       creator: creator,
@@ -474,10 +481,10 @@ app.post(
     const result = await post.save();
     emitter.emit("postAdded", { creatorId: creator._id });
     // res.status(200).send(result);
-    const params = {
-      data: post.image.data,
-      contentType: post.image.contentType,
-    };
+    // const params = {
+    //   data: post.image.data,
+    //   contentType: post.image.contentType,
+    // };
     // res.status(200).render('createpostSubmission', params);
     message = "Your post added successfully.";
     res.redirect("/");
