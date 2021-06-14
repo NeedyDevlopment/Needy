@@ -48,7 +48,9 @@ function onCloseDialogBox() {
 }
 
 function onCancelLogoutDialogBox() {
+    // document.getElementsByClassName("w3-animate-zoom")[0].classList.replace('w3-animate-zoom', 'w3-animate-zoomOut');
     document.getElementById('id01').style.display = 'none';
+
     return;
 }
 

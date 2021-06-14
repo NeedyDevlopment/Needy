@@ -222,9 +222,11 @@ app.get("/", async(req, res, next) => {
     }
     next();
 });
-app.get("/myactivity", async(req, res, next) => {
+app.get("/myactivity", AuthForLogin, async(req, res, next) => {
+    const currentUserId = await _.pick(jwt.verify(req.session.token, 'MySecureKey'), ['_id']);
+    const usersPost = await Post.find({ "creator._id": currentUserId._id }).sort('date');
     const params = { likes: 10, comments: 20 };
-    res.status(200).render("myActivity.pug", params);
+    res.status(200).render("myActivity.pug", { posts: usersPost });
     next();
 });
 
