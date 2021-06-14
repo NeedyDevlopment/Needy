@@ -1,4 +1,3 @@
-// const post = require("./static/script/post");
 const User = require("./models/user");
 const Post = require("./models/post");
 const Activity = require("./models/userActivity");
@@ -23,17 +22,6 @@ const port = 80;
 var nodemailer = require("nodemailer");
 
 var message = null;
-
-/////////////////////// ----------------------------Work Of jainish------------------------------- //////////////////
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
-// id , password , email
-// res.cookie("name", "jainish",{maxAge: 360000}); // this code is for set cookie on any request here time in ms
-// res.clearCookie(cookieName);
-
-// res.session.userId = currentUserId;
-// res.session.isLoggedIn = true;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Notification
 // const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
@@ -162,17 +150,9 @@ emitter.on("postAdded", async (args) => {
 
 //SESSION STORING
 const store = new MongodbSession({
-  uri: "mongodb://localhost/Needy",
-  // uri: 'mongodb://localhost/sessions', // ashwin
-  // uri: "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority",
+  uri: "mongodb://localhost/sessions",
   collection: "mysessions",
 });
-// app.use(
-//   session({
-//     secret: "key that will sign cookie",
-//     uri: 'mongodb://localhost/sessions',
-//     collection: 'mysessions'
-// })
 app.use(
   session({
     secret: "key that will sign cookie",
@@ -202,10 +182,7 @@ app.use((req, res, next) => {
 //HOME
 app.get("/", async (req, res, next) => {
   //when coming from logout redirection getting message
-  // console.log("dhjjhjd::::" + req.body.currentPage);
-  // console.log("dhjjhjdHello::::" + req.body.hello);
   const currentPage = 1;
-  // const isAjaxRequest = req.body.currentPage ? true : false;
   if (req.query.message) {
     message = "You Logout Successfully.";
   }
@@ -223,12 +200,6 @@ app.get("/", async (req, res, next) => {
   let postsArray;
   var messageToSend = message;
   message = null;
-  // if (isAjaxRequest) {
-  //     currentPage = req.body.currentPage;
-  //     console.log("This is a AJAX Request");
-  // }
-  // console.log("currentPage: " + currentPage);
-
   if (selectedCategory && selectedCity) {
     if (selectedCategory == "All Category" && selectedCity == "All City") {
       postsArray = await Post.find()
@@ -254,19 +225,17 @@ app.get("/", async (req, res, next) => {
         .skip(5 * (currentPage - 1))
         .sort("date");
     }
-    // if (isAjaxRequest) {
-    //     console.log("Sending Response of AJAX")
-    //     return res.status(200).send({ posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity } });
-    // }
-    return res.status(200).render("homepage.pug", {
-      posts: postsArray,
-      currentUserId: currentUserId._id,
-      currentUserFollowingsArray: currentUser.followingsArray,
-      isLoggedIn: req.session.isLoggedIn,
-      message: messageToSend,
-      filter: { category: selectedCategory, city: selectedCity },
-      totalPosts: 11,
-    });
+    return res
+      .status(200)
+      .render("homepage.pug", {
+        posts: postsArray,
+        currentUserId: currentUserId._id,
+        currentUserFollowingsArray: currentUser.followingsArray,
+        isLoggedIn: req.session.isLoggedIn,
+        message: messageToSend,
+        filter: { category: selectedCategory, city: selectedCity },
+        totalPosts: 11,
+      });
   } else {
     console.log("city and category is not selected");
     // postsArray = await Post.find({ city: currentUser.city }).sort('date');
@@ -283,15 +252,17 @@ app.get("/", async (req, res, next) => {
         .sort("date");
     }
     console.log(postsArray);
-    return res.status(200).render("homepage.pug", {
-      posts: postsArray,
-      currentUserId: currentUserId._id,
-      currentUserFollowingsArray: currentUser.followingsArray,
-      isLoggedIn: req.session.isLoggedIn,
-      message: messageToSend,
-      filter: { category: "All Category", city: currentUser.city },
-      totalPosts: 11,
-    });
+    return res
+      .status(200)
+      .render("homepage.pug", {
+        posts: postsArray,
+        currentUserId: currentUserId._id,
+        currentUserFollowingsArray: currentUser.followingsArray,
+        isLoggedIn: req.session.isLoggedIn,
+        message: messageToSend,
+        filter: { category: "All Category", city: currentUser.city },
+        totalPosts: 11,
+      });
   }
   next();
 });
@@ -321,10 +292,6 @@ app.get("/signup", (req, res) => {
   // req.session.isAdmin = true;
   const params = {};
   res.status(200).render("signup.pug", params);
-});
-app.get("/contact", (req, res) => {
-  const params = {};
-  res.status(200).render("contact.pug", params);
 });
 
 app.post("/SignupSubmission", async (req, res) => {
@@ -481,10 +448,10 @@ app.post(
     const result = await post.save();
     emitter.emit("postAdded", { creatorId: creator._id });
     // res.status(200).send(result);
-    // const params = {
-    //   data: post.image.data,
-    //   contentType: post.image.contentType,
-    // };
+    const params = {
+      data: post.image.data,
+      contentType: post.image.contentType,
+    };
     // res.status(200).render('createpostSubmission', params);
     message = "Your post added successfully.";
     res.redirect("/");
@@ -508,28 +475,6 @@ app.get("/profile", async (req, res, next) => {
   res.status(200).render("profile.pug", profile);
   next();
 });
-
-//Profile handling for update the record
-app.post("/profile", async (req, res, next) => {});
-
-//HANDLE Ajax Request
-// app.post('/action/:postId', async(req, res, next) => {
-//     console.log('inside action endpoint');
-//     const postId = req.params.postId;
-//     const incLikes = req.query.incLikes;
-//     console.log('increment:::' + incLikes);
-//     const result = await Post.findByIdAndUpdate(postId, {
-//         $inc: {
-//             'likes': incLikes
-//         }
-//     }, { new: true });
-
-//     res.status(200).send(result.likes);
-//     console.log(result);
-//     console.log('after sending response:::::::::::::::::::::::');
-//     console.log('after sending response:::::::::::::::::::::::');
-//     console.log(result.likes);
-// }) // not working
 app.post("/ajax/:action", async (req, res, next) => {
   console.log("inside ajax endpoint");
   const action = req.params.action;
@@ -700,6 +645,76 @@ app.post("/ajax/:action", async (req, res, next) => {
       console.log("error is:::");
       console.log(error);
     }
+    emitter.emit("Followed", { creatorId: creatorId });
+    const anotherResult = await User.findOneAndUpdate(
+      { _id: currentUserId._id },
+      {
+        $addToSet: {
+          followingsArray: creatorId,
+        },
+        $inc: {
+          followings: 1,
+        },
+      },
+      { new: true }
+    );
+    // const anotherResult2 = await Post.find({ creator._id: creatorId });
+    const activity = new Activity({
+      userId: currentUserId,
+      activity: "followed",
+      date: Date.now(),
+      creatorId: creatorId,
+    });
+    const activityResult = await activity.save();
+    console.log("activity result is:::");
+    console.log(activityResult);
+    console.log("Result after following::::");
+    console.log(result);
+    res.status(200).send(result.followers + "");
+  } else if (req.params.action === "Unfollow") {
+    const creatorId = req.body.creatorId;
+    try {
+      var result = await User.findByIdAndUpdate(
+        creatorId,
+        {
+          $pull: {
+            followersArray: currentUserId._id,
+          },
+          $inc: {
+            followers: -1,
+          },
+        },
+        { new: true }
+      );
+    } catch (error) {
+      console.log("error is:::");
+      console.log(error);
+    }
+    emitter.emit("Unfollowed", { creatorId: creatorId });
+    const anotherResult = await User.findOneAndUpdate(
+      { _id: currentUserId._id },
+      {
+        $pull: {
+          followingsArray: creatorId,
+        },
+        $inc: {
+          followings: -1,
+        },
+      },
+      { new: true }
+    );
+    const activity = new Activity({
+      userId: currentUserId,
+      activity: "Unfollowed",
+      date: Date.now(),
+      creatorId: creatorId,
+    });
+    const activityResult = await activity.save();
+    console.log("activity result is:::");
+    console.log(activityResult);
+    console.log("Result after Unfollowing::::");
+    console.log(result);
+    res.status(200).send(result.followers + "");
   }
 });
 app.post("/getPosts", async (req, res, next) => {
@@ -749,18 +764,20 @@ app.post("/getPosts", async (req, res, next) => {
       city: selectedCity,
     });
   }
-  return res.status(200).render("dynamicPost.pug", {
-    posts: postsArray,
-    currentUserId: currentUserId._id,
-    currentUserFollowingsArray: currentUser.followingsArray,
-    isLoggedIn: req.session.isLoggedIn,
-    message: messageToSend,
-    filter: {
-      category: selectedCategory,
-      city: selectedCity,
-      totalPosts: 11,
-    },
-  });
+  return res
+    .status(200)
+    .render("dynamicPost.pug", {
+      posts: postsArray,
+      currentUserId: currentUserId._id,
+      currentUserFollowingsArray: currentUser.followingsArray,
+      isLoggedIn: req.session.isLoggedIn,
+      message: messageToSend,
+      filter: {
+        category: selectedCategory,
+        city: selectedCity,
+        totalPosts: 11,
+      },
+    });
 });
 
 //start server
