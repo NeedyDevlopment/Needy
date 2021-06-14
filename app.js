@@ -258,17 +258,15 @@ app.get("/", async (req, res, next) => {
     //     console.log("Sending Response of AJAX")
     //     return res.status(200).send({ posts: postsArray, currentUserId: currentUserId._id, currentUserFollowingsArray: currentUser.followingsArray, isLoggedIn: req.session.isLoggedIn, message: messageToSend, filter: { category: selectedCategory, city: selectedCity } });
     // }
-    return res
-      .status(200)
-      .render("homepage.pug", {
-        posts: postsArray,
-        currentUserId: currentUserId._id,
-        currentUserFollowingsArray: currentUser.followingsArray,
-        isLoggedIn: req.session.isLoggedIn,
-        message: messageToSend,
-        filter: { category: selectedCategory, city: selectedCity },
-        totalPosts: 11,
-      });
+    return res.status(200).render("homepage.pug", {
+      posts: postsArray,
+      currentUserId: currentUserId._id,
+      currentUserFollowingsArray: currentUser.followingsArray,
+      isLoggedIn: req.session.isLoggedIn,
+      message: messageToSend,
+      filter: { category: selectedCategory, city: selectedCity },
+      totalPosts: 11,
+    });
   } else {
     console.log("city and category is not selected");
     // postsArray = await Post.find({ city: currentUser.city }).sort('date');
@@ -285,23 +283,28 @@ app.get("/", async (req, res, next) => {
         .sort("date");
     }
     console.log(postsArray);
-    return res
-      .status(200)
-      .render("homepage.pug", {
-        posts: postsArray,
-        currentUserId: currentUserId._id,
-        currentUserFollowingsArray: currentUser.followingsArray,
-        isLoggedIn: req.session.isLoggedIn,
-        message: messageToSend,
-        filter: { category: "All Category", city: currentUser.city },
-        totalPosts: 11,
-      });
+    return res.status(200).render("homepage.pug", {
+      posts: postsArray,
+      currentUserId: currentUserId._id,
+      currentUserFollowingsArray: currentUser.followingsArray,
+      isLoggedIn: req.session.isLoggedIn,
+      message: messageToSend,
+      filter: { category: "All Category", city: currentUser.city },
+      totalPosts: 11,
+    });
   }
   next();
 });
-app.get("/myactivity", async (req, res, next) => {
+app.get("/myactivity", AuthForLogin, async (req, res, next) => {
+  const currentUserId = await _.pick(
+    jwt.verify(req.session.token, "MySecureKey"),
+    ["_id"]
+  );
+  const usersPost = await Post.find({ "creator._id": currentUserId._id }).sort(
+    "date"
+  );
   const params = { likes: 10, comments: 20 };
-  res.status(200).render("myActivity.pug", params);
+  res.status(200).render("myActivity.pug", { posts: usersPost });
   next();
 });
 
@@ -739,20 +742,18 @@ app.post("/getPosts", async (req, res, next) => {
       city: selectedCity,
     });
   }
-  return res
-    .status(200)
-    .render("dynamicPost.pug", {
-      posts: postsArray,
-      currentUserId: currentUserId._id,
-      currentUserFollowingsArray: currentUser.followingsArray,
-      isLoggedIn: req.session.isLoggedIn,
-      message: messageToSend,
-      filter: {
-        category: selectedCategory,
-        city: selectedCity,
-        totalPosts: 11,
-      },
-    });
+  return res.status(200).render("dynamicPost.pug", {
+    posts: postsArray,
+    currentUserId: currentUserId._id,
+    currentUserFollowingsArray: currentUser.followingsArray,
+    isLoggedIn: req.session.isLoggedIn,
+    message: messageToSend,
+    filter: {
+      category: selectedCategory,
+      city: selectedCity,
+      totalPosts: 11,
+    },
+  });
 });
 
 //start server
