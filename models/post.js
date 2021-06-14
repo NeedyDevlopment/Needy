@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
-  creator: {
-    _id: String,
-    username: String,
-    email: String,
-    followers: {
-      type: Number,
-      default: 0,
+    creator: {
+        _id: String,
+        username: String,
+        email: String,
+        followers: {
+            type: Number,
+            default: 0,
+        },
     },
     date: String,
     category: String,
@@ -21,18 +22,17 @@ const postSchema = new mongoose.Schema({
     // },
     image: String,
     likes: {
-      type: Number,
-      default: 0,
+        type: Number,
+        default: 0,
     },
     comments: {
-      type: Number,
-      default: 0,
+        type: Number,
+        default: 0,
     },
     likedArray: [],
     commentedArray: [],
     commentedArrayWithOnlyUserId: [],
     savedArray: [],
-  },
 });
 const Post = mongoose.model("Post", postSchema);
 module.exports = Post;
