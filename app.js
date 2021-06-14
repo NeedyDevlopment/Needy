@@ -1,4 +1,3 @@
-// const post = require("./static/script/post");
 const User = require("./models/user");
 const Post = require("./models/post");
 const Activity = require("./models/userActivity");
@@ -23,17 +22,6 @@ const port = 80;
 var nodemailer = require("nodemailer");
 
 var message = null;
-
-/////////////////////// ----------------------------Work Of jainish------------------------------- //////////////////
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
-// id , password , email
-// res.cookie("name", "jainish",{maxAge: 360000}); // this code is for set cookie on any request here time in ms
-// res.clearCookie(cookieName);
-
-// res.session.userId = currentUserId;
-// res.session.isLoggedIn = true;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Notification
 // const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
@@ -162,17 +150,9 @@ emitter.on("postAdded", async (args) => {
 
 //SESSION STORING
 const store = new MongodbSession({
-  uri: "mongodb://localhost/Needy",
-  // uri: 'mongodb://localhost/sessions', // ashwin
-  // uri: "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority",
+  uri: "mongodb://localhost/sessions",
   collection: "mysessions",
 });
-// app.use(
-//   session({
-//     secret: "key that will sign cookie",
-//     uri: 'mongodb://localhost/sessions',
-//     collection: 'mysessions'
-// })
 app.use(
   session({
     secret: "key that will sign cookie",
@@ -200,30 +180,50 @@ app.use((req, res, next) => {
 });
 
 //HOME
-app.get("/", AuthForRegister, async (req, res, next) => {
+app.get("/", async (req, res, next) => {
+  //when coming from logout redirection getting message
+  const currentPage = 1;
+  if (req.query.message) {
+    message = "You Logout Successfully.";
+  }
+  console.log(req.header("message"));
+  //getting filter
   const selectedCategory = req.query.category;
   const selectedCity = req.query.city;
-  console.log("city: " + selectedCity + " and category " + selectedCategory);
-  const currentUserId = await _.pick(
-    jwt.verify(req.session.token, "MySecureKey"),
-    ["_id"]
-  );
-  const currentUser = await User.findOne({ _id: currentUserId._id });
+  //Getting CurrentUser Infirmation
+  const currentUserId = req.session.token
+    ? await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"])
+    : "";
+  const currentUser = req.session.token
+    ? await User.findOne({ _id: currentUserId._id })
+    : { followingsArray: [], city: "All City" };
   let postsArray;
   var messageToSend = message;
   message = null;
   if (selectedCategory && selectedCity) {
     if (selectedCategory == "All Category" && selectedCity == "All City") {
-      postsArray = await Post.find().sort("date");
+      postsArray = await Post.find()
+        .limit(5)
+        .skip(5 * (currentPage - 1))
+        .sort("date");
     } else if (selectedCategory == "All Category") {
-      postsArray = await Post.find({ city: selectedCity }).sort("date");
+      postsArray = await Post.find({ city: selectedCity })
+        .limit(5)
+        .skip(5 * (currentPage - 1))
+        .sort("date");
     } else if (selectedCity == "All City") {
-      postsArray = await Post.find({ category: selectedCategory }).sort("date");
+      postsArray = await Post.find({ category: selectedCategory })
+        .limit(5)
+        .skip(5 * (currentPage - 1))
+        .sort("date");
     } else {
       postsArray = await Post.find({
         category: selectedCategory,
         city: selectedCity,
-      }).sort("date");
+      })
+        .limit(5)
+        .skip(5 * (currentPage - 1))
+        .sort("date");
     }
     return res.status(200).render("homepage.pug", {
       posts: postsArray,
@@ -232,65 +232,46 @@ app.get("/", AuthForRegister, async (req, res, next) => {
       isLoggedIn: req.session.isLoggedIn,
       message: messageToSend,
       filter: { category: selectedCategory, city: selectedCity },
+      totalPosts: 11,
     });
-    // var dummy = "dummy";
-    // var post = postsArray[0];
-    // res.send(pug.render("p#dummyhai hey " + dummy + " Baby"));
-    // var t = "p#name= hello" + post.title + "";
-    // return res.send(pug.render(t));
-    // var templateToShown = `div#post_container(style="width: 80%;")
-    // div#profile
-    //    img(src="../static/imagesForPost/profile.png")
-    //    p#name= ${post.creator.username}
-    //       small= 'at '+ ${post.date}
-    //    b(id="showFollowers"+${post._id},class="showFollowers")= post.creator.followers+' Followers'
-    //    button(id="f-btn",onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
-    // div#main
-    //    div#head
-    //       div#count
-    //          p(id='showLikes'+post._id)= post.likes+ ' Likes'
-    //          p(id='showComments'+post._id)= post.comments+ ' Comments'
-    //    div#main-img-desc
-    //       img#PostImg(src='data:'+post.image.contentType+';base64,'+post.image.data.toString('base64'))
-    //       div.details
-    //          div#title
-    //                p #[b Title: ]  #{post.title}
-    //          div#discription
-    //                p #[b Description: ]  #{post.description}
-    //                p #[b Contact No: ]  #{post.contact}
-    //                p #[b City: ]  #{post.city}`;
-    // res.send(pug.render(templateToShown));
   } else {
     console.log("city and category is not selected");
-    postsArray = await Post.find({ city: currentUser.city }).sort("date");
+    // postsArray = await Post.find({ city: currentUser.city }).sort('date');
+    // console.log(postsArray);
+    if (currentUser.city === "All City") {
+      postsArray = await Post.find()
+        .limit(5)
+        .skip(5 * (currentPage - 1))
+        .sort("date");
+    } else {
+      postsArray = await Post.find({ city: currentUser.city })
+        .limit(5)
+        .skip(5 * (currentPage - 1))
+        .sort("date");
+    }
     console.log(postsArray);
+    return res.status(200).render("homepage.pug", {
+      posts: postsArray,
+      currentUserId: currentUserId._id,
+      currentUserFollowingsArray: currentUser.followingsArray,
+      isLoggedIn: req.session.isLoggedIn,
+      message: messageToSend,
+      filter: { category: "All Category", city: currentUser.city },
+      totalPosts: 11,
+    });
   }
-  // .select('followingsArray');
-  // console.log('followings Array:;:');
-  // console.log(currentUserFollowingsArray);
-  // console.log(postsArray);
-  console.log(req.session.token);
-  console.log(req.session.isLoggedIn);
-  console.log("message is:;", message);
-  // const params = { likes: 10, comments: 20 };
-  // res.writeHead(200, { 'Service-Worker-Allowed': "/" });
-  res.status(200).render("homepage.pug", {
-    posts: postsArray,
-    currentUserId: currentUserId._id,
-    currentUserFollowingsArray: currentUser.followingsArray,
-    isLoggedIn: req.session.isLoggedIn,
-    message: messageToSend,
-    filter: { category: "All Category", city: currentUser.city },
-  });
-  // console.log(currentUserId);
-  // var dummyArray = ['60abba07e7471f703081aeb9'];
-  // console.log(dummyArray.indexOf(currentUserId._id));
-  // console.log(currentUserId._id);
   next();
 });
-app.get("/myactivity", AuthForRegister, async (req, res, next) => {
+app.get("/myactivity", AuthForLogin, async (req, res, next) => {
+  const currentUserId = await _.pick(
+    jwt.verify(req.session.token, "MySecureKey"),
+    ["_id"]
+  );
+  const usersPost = await Post.find({ "creator._id": currentUserId._id }).sort(
+    "date"
+  );
   const params = { likes: 10, comments: 20 };
-  res.status(200).render("myActivity.pug", params);
+  res.status(200).render("myActivity.pug", { posts: usersPost });
   next();
 });
 
@@ -307,10 +288,6 @@ app.get("/signup", (req, res) => {
   // req.session.isAdmin = true;
   const params = {};
   res.status(200).render("signup.pug", params);
-});
-app.get("/contact", (req, res) => {
-  const params = {};
-  res.status(200).render("contact.pug", params);
 });
 
 app.post("/SignupSubmission", async (req, res) => {
@@ -374,10 +351,11 @@ app.get("/login", (req, res, next) => {
 //Logout
 app.get("/logout", (req, res) => {
   // res.cookie('isLoggedIn', false, { expires: new Date(253402300000000), overwrite: true, secure: false, httpOnly: true })
-  delete req.session.isLoggedIn;
+  // delete req.session.isLoggedIn;
+  req.session.isLoggedIn = false;
   // res.status(200).send("you logout successfully");
-  message = "You logout Successfully.";
-  res.redirect("/");
+  // message = "You logout Successfully.";
+  res.redirect("/?message=yes");
 });
 
 //DeleteAccount
@@ -392,10 +370,15 @@ app.get("/deleteAccount", async (req, res, next) => {
 });
 
 //IMAGE UPLOAD AND STORING IN DATABASE
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "./static/usersPost/"),
-  filename: (req, file, cb) => cb(null, file.originalname),
+  filename: async (req, file, cb) => {
+    const currentUserId = await _.pick(
+      jwt.verify(req.session.token, "MySecureKey"),
+      ["_id"]
+    );
+    cb(null, currentUserId._id + file.originalname);
+  },
 });
 const fileFilter = (req, file, cb) => {
   if (
@@ -436,6 +419,13 @@ app.post(
       _id: currentUserId._id,
     }).select("followers");
     creator.followers = creatorsFollowers.followers;
+    console.log(
+      req.body.category,
+      req.body.city,
+      req.body.title,
+      req.body.Description,
+      req.body.contact
+    );
     const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
     const post = new Post({
       creator: creator,
@@ -445,7 +435,11 @@ app.post(
       title: req.body.title,
       description: req.body.Description,
       contact: req.body.contact,
-      image: "./static/usersPost/" + req.file.originalname,
+      // image: {
+      //     data: fs.readFileSync(path.join('D:/usersPost', req.file.originalname)),
+      //     contentType: req.file.mimetype
+      // }
+      image: "./static/usersPost/" + currentUserId._id + req.file.originalname,
     });
     const result = await post.save();
     emitter.emit("postAdded", { creatorId: creator._id });
@@ -462,7 +456,7 @@ app.post(
 );
 
 //CREATEPOST
-app.get("/createpost", AuthForRegister, AuthForLogin, (req, res, next) => {
+app.get("/createpost", AuthForLogin, (req, res, next) => {
   if (!fs.existsSync("D://usersPost")) {
     fs.mkdirSync("D://usersPost");
   }
@@ -477,34 +471,6 @@ app.get("/profile", async (req, res, next) => {
   res.status(200).render("profile.pug", profile);
   next();
 });
-
-//Profile handling for update the record
-app.post("/profile", async (req, res, next) => {
-  const name = req.body.username;
-  const contactNo = req.body.contactno;
-  const city = req.body.city;
-  const workPlace = req.body.workplace;
-  const profileImg = re.body.profileImg;
-});
-
-//HANDLE Ajax Request
-// app.post('/action/:postId', async(req, res, next) => {
-//     console.log('inside action endpoint');
-//     const postId = req.params.postId;
-//     const incLikes = req.query.incLikes;
-//     console.log('increment:::' + incLikes);
-//     const result = await Post.findByIdAndUpdate(postId, {
-//         $inc: {
-//             'likes': incLikes
-//         }
-//     }, { new: true });
-
-//     res.status(200).send(result.likes);
-//     console.log(result);
-//     console.log('after sending response:::::::::::::::::::::::');
-//     console.log('after sending response:::::::::::::::::::::::');
-//     console.log(result.likes);
-// }) // not working
 app.post("/ajax/:action", async (req, res, next) => {
   console.log("inside ajax endpoint");
   const action = req.params.action;
@@ -746,6 +712,66 @@ app.post("/ajax/:action", async (req, res, next) => {
     console.log(result);
     res.status(200).send(result.followers + "");
   }
+});
+app.post("/getPosts", async (req, res, next) => {
+  console.log("currentPage is:;:::" + req.body.currentPage);
+  // return res.status(200).send("Successfully");
+  const selectedCity = req.body.city;
+  const selectedCategory = req.body.category;
+  const currentPage = req.body.currentPage;
+  const currentUserId = req.session.token
+    ? await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"])
+    : "";
+  const currentUser = req.session.token
+    ? await User.findOne({ _id: currentUserId._id })
+    : { followingsArray: [] };
+  let postaArray = [];
+  let messageToSend = "";
+  let totalPosts;
+  // if (selectedCategory && selectedCity) {
+  if (selectedCategory == "All Category" && selectedCity == "All City") {
+    postsArray = await Post.find()
+      .limit(5)
+      .skip(5 * (currentPage - 1))
+      .sort("date");
+    totalPosts = await Post.count({});
+  } else if (selectedCategory == "All Category") {
+    postsArray = await Post.find({ city: selectedCity })
+      .limit(5)
+      .skip(5 * (currentPage - 1))
+      .sort("date");
+    totalPosts = await Post.count({ city: selectedCity });
+  } else if (selectedCity == "All City") {
+    postsArray = await Post.find({ category: selectedCategory })
+      .limit(5)
+      .skip(5 * (currentPage - 1))
+      .sort("date");
+    totalPosts = await Post.count({ category: selectedCategory });
+  } else {
+    postsArray = await Post.find({
+      category: selectedCategory,
+      city: selectedCity,
+    })
+      .limit(5)
+      .skip(5 * (currentPage - 1))
+      .sort("date");
+    totalPosts = await Post.count({
+      category: selectedCategory,
+      city: selectedCity,
+    });
+  }
+  return res.status(200).render("dynamicPost.pug", {
+    posts: postsArray,
+    currentUserId: currentUserId._id,
+    currentUserFollowingsArray: currentUser.followingsArray,
+    isLoggedIn: req.session.isLoggedIn,
+    message: messageToSend,
+    filter: {
+      category: selectedCategory,
+      city: selectedCity,
+      totalPosts: 11,
+    },
+  });
 });
 
 //start server

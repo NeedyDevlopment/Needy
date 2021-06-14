@@ -16,6 +16,10 @@ const postSchema = new mongoose.Schema({
   title: String,
   description: String,
   contact: Number,
+  // image: {
+  //     data: Buffer,
+  //     contentType: String
+  // },
   image: String,
   likes: {
     type: Number,
