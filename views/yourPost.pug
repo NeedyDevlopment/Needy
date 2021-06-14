@@ -2,13 +2,14 @@ style
    include ../static/css/yourPost.css
 link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css") 
 script 
-   include ../static/script/post.js
+   //- include ../static/script/post.js
+   include ../static/script/yourPost.js
 div#post_container 
-   div#profile
-      img(src="../static/imagesForPost/profile.png")
-      p#name ashwin chaudhary  
-         small at 15-05-2021 10:30
-      button#f-btn Follow
+   //- div#profile
+   //-    img(src="../static/imagesForPost/profile.png")
+   //-    p#name ashwin chaudhary  
+   //-       small at 15-05-2021 10:30
+   //-    button#f-btn Follow
    div#main
       div#head
          div#descTime
@@ -20,11 +21,11 @@ div#post_container
          img#PostImg(src='../static/imagesForPost/Home.jpg')
          div.details
             div#title 
-               p #[b Title] : I want to give my house on rent. 
+               p #[b Title] : #[input(id="titleEdit",class="NormalMode",val="I want to give my house on rent.", type="text")] 
             div#discription 
-               p #[b Description] : My house is 2 BHK,it has two pair of  bathroom-sandash,also it has one private room where couple can sex without any tension. it is in residental area.You can contact me on 
-               p #[b phone] : 6354584377 
+               p #[b Description] : #[input( id="descEdit",class="NormalMode",val="My house is 2 BHK,it has two pair of  bathroom-sandash,also it has one private room where couple can sex without any tension. it is in residental area.You can contact me on ", type="text")] 
+               p #[b phone] : #[input( id="contactEdit",class="NormalMode",val="6354584377", type="text")] 
             div#EditDeleteButton 
-               button.editButton Edit
-               button.deleteButton Delete
+               button#editBtn.editButton(onclick="OnEdit(this)") Edit
+               button#deleteBtn.deleteButton(onclick="OnDelete(this)") Delete
      
