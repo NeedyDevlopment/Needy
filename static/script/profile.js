@@ -1,6 +1,9 @@
 $(document).ready(function () {
-  //   var element = document.getElementById("profilebtn");
-  //   element.classList.add("active");
+  // var element = document.getElementById("profilebtn");
+  // element.classList.add("active");
+  if ($("#forSnackBarCalling").text()) {
+    showSnackbar($("#forSnackBarCalling").text());
+  }
   $("input").attr("disabled", true);
   $("#saveBtn").hide();
   $("#cancelBtn").hide();
@@ -31,3 +34,18 @@ $(document).ready(function () {
     $("input").removeClass("active");
   });
 });
+function onClickOnDelete() {
+  document.getElementById("deleteAccountConfirmation").style.display = "block";
+}
+
+function onCloseDialogBox() {
+  document.getElementById("deleteAccountConfirmation").style.display = "none";
+}
+function onCancelDeleteDialogBox() {
+  document.getElementById("deleteAccountConfirmation").style.display = "none";
+  return;
+}
+
+function onContinueDeleteDialogBox() {
+  document.getElementById("deleteAccountConfirmation").style.display = "none";
+}

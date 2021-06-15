@@ -225,17 +225,15 @@ app.get("/", async (req, res, next) => {
         .skip(5 * (currentPage - 1))
         .sort("date");
     }
-    return res
-      .status(200)
-      .render("homepage.pug", {
-        posts: postsArray,
-        currentUserId: currentUserId._id,
-        currentUserFollowingsArray: currentUser.followingsArray,
-        isLoggedIn: req.session.isLoggedIn,
-        message: messageToSend,
-        filter: { category: selectedCategory, city: selectedCity },
-        totalPosts: 11,
-      });
+    return res.status(200).render("homepage.pug", {
+      posts: postsArray,
+      currentUserId: currentUserId._id,
+      currentUserFollowingsArray: currentUser.followingsArray,
+      isLoggedIn: req.session.isLoggedIn,
+      message: messageToSend,
+      filter: { category: selectedCategory, city: selectedCity },
+      totalPosts: 11,
+    });
   } else {
     console.log("city and category is not selected");
     // postsArray = await Post.find({ city: currentUser.city }).sort('date');
@@ -252,17 +250,15 @@ app.get("/", async (req, res, next) => {
         .sort("date");
     }
     console.log(postsArray);
-    return res
-      .status(200)
-      .render("homepage.pug", {
-        posts: postsArray,
-        currentUserId: currentUserId._id,
-        currentUserFollowingsArray: currentUser.followingsArray,
-        isLoggedIn: req.session.isLoggedIn,
-        message: messageToSend,
-        filter: { category: "All Category", city: currentUser.city },
-        totalPosts: 11,
-      });
+    return res.status(200).render("homepage.pug", {
+      posts: postsArray,
+      currentUserId: currentUserId._id,
+      currentUserFollowingsArray: currentUser.followingsArray,
+      isLoggedIn: req.session.isLoggedIn,
+      message: messageToSend,
+      filter: { category: "All Category", city: currentUser.city },
+      totalPosts: 11,
+    });
   }
   next();
 });
@@ -369,8 +365,11 @@ app.get("/logout", (req, res) => {
 
 //DeleteAccount
 app.get("/deleteAccount", async (req, res, next) => {
-  const _id = jwt.verify(req.session.token, "MySecureKey");
-  const result = await User.findOneAndDelete({ _id: _id }); //we can also use email which is also stored in session
+  const currentUserId = await _.pick(
+    jwt.verify(req.session.token, "MySecureKey"),
+    ["_id"]
+  );
+  const result = await User.findOneAndDelete({ _id: currentUserId._id }); //we can also use email which is also stored in session
   console.log("Deleted::::");
   console.log(result);
   req.session.destroy();
@@ -378,7 +377,7 @@ app.get("/deleteAccount", async (req, res, next) => {
   res.redirect("/");
 });
 
-//IMAGE UPLOAD AND STORING IN DATABASE
+//IMAGE UPLOAD AND STORING IN DATABASE FOR POSTS
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "./static/usersPost/"),
   filename: async (req, file, cb) => {
@@ -389,6 +388,20 @@ const storage = multer.diskStorage({
     cb(null, currentUserId._id + file.originalname);
   },
 });
+
+//IMAGE UPLOAD AND STORING DATABASE FOR PROFILE
+const profileStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "./static/profiles/"),
+  filename: async (req, file, cb) => {
+    const currentUserId = await _.pick(
+      jwt.verify(req.session.token, "MySecureKey"),
+      ["_id"]
+    );
+    cb(null, currentUserId._id + file.originalname);
+  },
+});
+
+//file filter for image file
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/jpeg" ||
@@ -401,8 +414,18 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+//UPLOAD FOR POSTS
 const upload = multer({
   storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+  fileFilter: fileFilter,
+});
+
+//UPLOAD FOR PROFILE
+const uploadProfileImage = multer({
+  storage: profileStorage,
   limits: {
     fileSize: 1024 * 1024 * 5,
   },
@@ -480,6 +503,54 @@ app.get("/profile", async (req, res, next) => {
   res.status(200).render("profile.pug", profile);
   next();
 });
+
+//Updating the profile
+app.post(
+  "/profile",
+  uploadProfileImage.single("profileImg"),
+  async (req, res, next) => {
+    const currentUserId = await _.pick(
+      jwt.verify(req.session.token, "MySecureKey"),
+      ["_id"]
+    ); // getting current user id
+    let profileImg = (await User.findOne({ _id: currentUserId }, { photo: 1 }))
+      .photo;
+    if (req.file) {
+      profileImg =
+        "./static/profiles/" + currentUserId._id + req.file.originalname; // path for the stored profile images
+    }
+    const username = req.body.username;
+    const city = req.body.city;
+    const workplace = req.body.workplace;
+    const contactno = req.body.contactno;
+    var newValues = {
+      $set: {
+        username: username,
+        city: city,
+        companyname: workplace,
+        contact: contactno,
+        photo: profileImg,
+      },
+    };
+    let message = "";
+    const updation = await User.updateOne(
+      { _id: currentUserId },
+      newValues,
+      function (err, res) {
+        if (err) {
+          message = "Something Went Wrong";
+        }
+      }
+    );
+    const profile = await User.findOne({ _id: currentUserId._id });
+    if (message === "") {
+      message = "Profile Updated Successfully.";
+    }
+    profile.message = message;
+    res.status(200).render("profile.pug", profile);
+  }
+);
+
 app.post("/ajax/:action", async (req, res, next) => {
   console.log("inside ajax endpoint");
   const action = req.params.action;
@@ -769,20 +840,28 @@ app.post("/getPosts", async (req, res, next) => {
       city: selectedCity,
     });
   }
-  return res
-    .status(200)
-    .render("dynamicPost.pug", {
-      posts: postsArray,
-      currentUserId: currentUserId._id,
-      currentUserFollowingsArray: currentUser.followingsArray,
-      isLoggedIn: req.session.isLoggedIn,
-      message: messageToSend,
-      filter: {
-        category: selectedCategory,
-        city: selectedCity,
-        totalPosts: 11,
-      },
-    });
+  return res.status(200).render("dynamicPost.pug", {
+    posts: postsArray,
+    currentUserId: currentUserId._id,
+    currentUserFollowingsArray: currentUser.followingsArray,
+    isLoggedIn: req.session.isLoggedIn,
+    message: messageToSend,
+    filter: {
+      category: selectedCategory,
+      city: selectedCity,
+      totalPosts: 11,
+    },
+  });
+});
+
+//for opening login moodal
+app.post("/loginModal", async (req, res, next) => {
+  res.render("login.pug");
+});
+
+// Forgot password post request
+app.post("/forgotPassword", async (req, res, next) => {
+  res.render("forgotPassword.pug");
 });
 
 //start server
