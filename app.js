@@ -293,6 +293,11 @@ app.get("/signup", (req, res) => {
   const params = {};
   res.status(200).render("signup.pug", params);
 });
+app.get("/contact", (req, res) => {
+  // req.session.isAdmin = true;
+  const params = {};
+  res.status(200).render("contact.pug", params);
+});
 
 app.post("/SignupSubmission", async (req, res) => {
   // if (req.session.token) {
