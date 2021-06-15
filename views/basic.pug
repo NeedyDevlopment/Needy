@@ -26,7 +26,7 @@ html
           div.last 
             if(isLoggedIn)
               //- button.btn#logoutbtn #[a(href="/logout") Logout]
-              button(id="logoutbtn",class="btn",onclick="onClickOnLogout()") Logout
+              button(id="logoutbtn",class="btn",onclick="showDialogBox('logout')") Logout
               button.btn#profilebtn #[a(href="/profile") MyProfile] 
             else   
               button.btn#myBtn Login
