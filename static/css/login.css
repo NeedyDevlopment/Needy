@@ -1,65 +1,65 @@
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 50%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s;
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
 }
 
 @-webkit-keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0;
-    }
-    to {
-        top: 0;
-        opacity: 1;
-    }
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 @keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0;
-    }
-    to {
-        top: 0;
-        opacity: 1;
-    }
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 .close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .modal-header {
@@ -69,28 +69,28 @@
 }
 
 .modal-body {
-    padding: 32px 150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  padding: 32px 99px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.loginform{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-   
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin-left: 10px;
 }
-label input{
-  width: 117%;
-    margin: 2px;
-    padding: 8px;
-    border: 2px solid black;
-    border-radius: 5px;
-    font-size: 22px;
+label input {
+  width: 100%;
+  margin: 2px;
+  padding: 8px;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 22px;
 }
 
-.btn1{
+.btn1 {
   width: 70px;
   margin-top: 10px;
   margin-left: 4px;
@@ -102,28 +102,63 @@ label input{
   cursor: pointer;
   height: 37px;
 }
-.img1{
+.img1 {
   font-size: 27px;
   margin-left: 5px;
   display: flex;
   align-items: center;
- }
- img{
+}
+img {
   height: 30px;
- }
- .btn1:active{
-   background-color: green;
-   color: white;
- }
-::placeholder{
+}
+.btn1:active {
+  background-color: green;
+  color: white;
+}
+::placeholder {
   font-size: 22px;
   color: black;
 }
 
 .img {
-    font-size: 22px;
-    margin-left: 34px;
-    display: flex;
-    align-items: center;
+  font-size: 22px;
+  margin-left: 34px;
+  display: flex;
+  align-items: center;
 }
-
+.redirector {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+h3 {
+  cursor: pointer;
+}
+h3:hover {
+  color: rgb(51, 113, 207);
+}
+.partitioned {
+  outline: none !important;
+  padding-left: 15px;
+  border: none;
+  border-bottom: 1px solid black;
+  width: 50px;
+  border-radius: 0;
+  text-align: center;
+}
+.partitioned::-webkit-outer-spin-button,
+.partitioned::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.otpInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.forgotEmail {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+  outline: none !important;
+}

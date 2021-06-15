@@ -849,6 +849,16 @@ app.post("/getPosts", async (req, res, next) => {
   });
 });
 
+//for opening login moodal
+app.post("/loginModal", async (req, res, next) => {
+  res.render("login.pug");
+});
+
+// Forgot password post request
+app.post("/forgotPassword", async (req, res, next) => {
+  res.render("forgotPassword.pug");
+});
+
 //start server
 app.listen(port, () => {
   console.log(`the application started successfully on port ${port}`);

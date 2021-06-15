@@ -1,0 +1,19 @@
+.modal-header
+    span.close &times;
+    h1(style="justify-content: center;display: flex;") Login
+.modal-body
+    form(action="/login" method="Post" class="loginform" )
+        label(for='email')
+            .img1
+                img(src="../static/images/email.webp" style="margin:-1px;")
+                b(style="margin:5px") Email
+            input(type='email' placeholder='Enter your email' name='email' )
+        label(for='password')
+            .img1
+                img(src="../static/images/password.png" )
+                b(style="margin:5px") Password
+            input(type='password' placeholder='Enter your password' name='password')
+        .redirector 
+            button(type='submit' class="btn1") Login
+            h3#forgotPassword Forgot Password ?
+script(src="../static/script/login.js") 

@@ -30,30 +30,13 @@ html
               button(id="logoutbtn",class="btn",onclick="onClickOnLogout()") Logout
               button.btn#profilebtn #[a(href="/profile") MyProfile] 
             else   
-              button.btn#myBtn Login
+              button.btn#loginBtn Login
               button.btn#Singupbtn #[a(href="/signup") Signup]
     #myModal.modal
         .modal-content
-            .modal-header
-                span.close &times;
-                h1(style="justify-content: center;display: flex;") Login
-            .modal-body
-                form(action="/login" method="Post" class="loginform" )
-                    label(for='email')
-                        .img1
-                            img(src="../static/images/email.webp" style="margin:-1px;")
-                            b(style="margin:5px") Email
-                        input(type='email' placeholder='Enter your email' name='email' )
-                    label(for='password')
-                        .img1
-                            img(src="../static/images/password.png" )
-                            b(style="margin:5px") Password
-                        input(type='password' placeholder='Enter your password' name='password')
-                    button(type='submit' class="btn1") Login 
+            
             
     div#snackbar Your like added to this post.
-      
-    script(src="../static/script/login.js")
     block content
     footer#footer 
             | Copyright &copy; 2021 Needy.com | All Rigts reserved
