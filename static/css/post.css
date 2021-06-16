@@ -159,15 +159,16 @@ body {
   flex-direction: row;
   margin-top: 10px;
   margin-bottom: 5px;
-  padding: opx 10px;
-  padding: 10px;
+  padding: 0px 10px;
+  /* padding: 10px; */
   align-items: center;
   position: relative;
 }
 
 #profile img {
-  height: 34px;
-  width: 64px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }
 
 #profile #f-btn {
@@ -175,20 +176,24 @@ body {
   width: 76px;
   position: absolute;
   right: 10px;
-  background-color: slategrey;
-  color: blanchedalmond;
+  background-color: #3288dd;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
   outline: none;
   cursor: pointer;
   border: none;
+  font-family: sans-serif;
+  border-radius: 5px;
+  box-shadow: 1px 3px 3px 1px black;
 }
 
 #profile #f-btn:hover {
-  background-color: transparent;
-  border: 3px solid #00d7c3;
-  border-radius: 50px;
-  -webkit-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
-  color: #d70e00;
+  background-color: #096bcc;
+}
+#profile #f-btn:active {
+  background-color: #074c92;
+  box-shadow: none;
 }
 
 #name {

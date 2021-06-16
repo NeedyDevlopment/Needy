@@ -30,7 +30,10 @@ block content
          each post in posts  
             div#post_container(style="width: 80%;") 
                div#profile
-                  img(src="../static/imagesForPost/profile.png")
+                  if(post.creator.photo)
+                     img(src=post.creator.photo)
+                  else
+                     img(src="../static/imagesForPost/profile.png")
                   p#name= post.creator.username  
                      small= ' at '+ post.date   
                   b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id+" showFollowers")= post.creator.followers+' Followers'    

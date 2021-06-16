@@ -444,6 +444,11 @@ app.post(
       _id: currentUserId._id,
     }).select("followers");
     creator.followers = creatorsFollowers.followers;
+
+    //for image of creater in post
+    creator.photo = (
+      await User.findOne({ _id: currentUserId._id }, { photo: 1 })
+    ).photo;
     console.log(
       req.body.category,
       req.body.city,
