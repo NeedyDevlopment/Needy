@@ -162,3 +162,53 @@ h3:hover {
   border-bottom: 1px solid black;
   outline: none !important;
 }
+#errorDisplay {
+  color: red;
+  text-align: center;
+  font-size: 15px;
+  animation-name: blink;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#OTPSEND {
+  padding: 10px;
+  border: 1px solid green;
+  font-size: 16px;
+  width: 115px;
+  border-radius: 5px;
+}
+.border-below {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+  outline: none !important;
+}
+.border-below::placeholder {
+  font-size: 18px;
+  padding: 2px;
+}
+::placeholder {
+  color: #888;
+}
+.btn1:disabled {
+  border: none;
+  cursor: none;
+  background-color: rgb(80, 71, 71);
+}

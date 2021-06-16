@@ -22,6 +22,14 @@ const port = 80;
 var nodemailer = require("nodemailer");
 
 var message = null;
+const webEmail = "forexternaluse505@gmail.com";
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: webEmail,
+    pass: "ahpatel9@",
+  },
+});
 
 //Notification
 // const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
@@ -37,16 +45,6 @@ var message = null;
 
 //     webpush.sendNotification(subscription, payload);
 // })
-
-//Sending Mail
-
-// var transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//         user: 'forexternaluse505@gmail.com',
-//         pass: 'ahpatel9@'
-//     }
-// });
 
 // var mailOptions = {
 //     from: 'forexternaluse505@gmail.com',
@@ -451,6 +449,11 @@ app.post(
       _id: currentUserId._id,
     }).select("followers");
     creator.followers = creatorsFollowers.followers;
+
+    //for image of creater in post
+    creator.photo = (
+      await User.findOne({ _id: currentUserId._id }, { photo: 1 })
+    ).photo;
     console.log(
       req.body.category,
       req.body.city,
@@ -862,6 +865,92 @@ app.post("/loginModal", async (req, res, next) => {
 // Forgot password post request
 app.post("/forgotPassword", async (req, res, next) => {
   res.render("forgotPassword.pug");
+});
+
+function generateOTP() {
+  var digits = "0123456789";
+  let OTP = "";
+  for (let i = 0; i < 4; i++) {
+    OTP += digits[Math.floor(Math.random() * 10)];
+  }
+  return OTP;
+}
+
+var OTP;
+//For sending the OTP To the email
+app.post("/sendOTP", async (req, res, next) => {
+  let user = await User.findOne({ email: req.body.email });
+  if (user == null) {
+    res.send({ error: "User Not Exists ! Please Check Email Once." });
+    return;
+  } else {
+    OTP = generateOTP();
+    var mailOptions = {
+      from: webEmail,
+      to: req.body.email,
+      subject: "OTP For Forgot Password",
+      text: OTP,
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) {
+        res.send({ error: "Something Went Wrong ! Please Try Again" });
+        return;
+      } else {
+        res.send({ success: "Email Sent" });
+        return;
+      }
+    });
+  }
+});
+
+//check OTP
+app.post("/checkOTP", async (req, res, next) => {
+  let user = await User.findOne({ email: req.body.email });
+  if (user == null) {
+    res.send({ error: "User Not Exists ! Please Check Email Once." });
+    return;
+  } else {
+    if (OTP == req.body.OTP) {
+      res.send({ success: "OTP is Valid" });
+      return;
+    } else {
+      res.send({ error: "OTP is Not Valid" });
+      return;
+    }
+  }
+});
+
+//Reset Password Modal Show
+app.post("/displayResetPassword", async (req, res, next) => {
+  var email = req.body.email;
+  res.render("resetPassword.pug", { email: email });
+});
+
+//reset the password
+app.post("/resetPassword", async (req, res, next) => {
+  var email = req.body.email;
+  var password = req.body.password;
+  let user = await User.findOne({ email: email });
+  if (user == null) {
+    res.send({ error: "User Not Exists ! Try Again ." });
+    return;
+  } else {
+    const salt = await bcrypt.genSalt(10);
+    let hashPassword = await bcrypt.hash(password, salt);
+    await User.updateOne(
+      { email: email },
+      { $set: { password: hashPassword } },
+      function (err) {
+        if (err) {
+          res.send({ error: "Something Went Wrong! Try Again" });
+          return;
+        } else {
+          res.send({ success: "Password Updated SuccessFully!" });
+          return;
+        }
+      }
+    );
+  }
 });
 
 //start server
