@@ -1,30 +1,21 @@
-style
-   include ../static/css/yourPost.css
-link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css") 
-script 
-   //- include ../static/script/post.js
-   include ../static/script/yourPost.js
-div#post_container 
-   //- div#profile
-   //-    img(src="../static/imagesForPost/profile.png")
-   //-    p#name ashwin chaudhary  
-   //-       small at 15-05-2021 10:30
-   //-    button#f-btn Follow
+
+each post in posts   
+ div#post_container 
    div#main
       div#head
          div#descTime
             p  You Added This Post 1 hour ago....
          div#count 
-            p  #{likes} Likes 
-            p  #{comments} Comments
+            p=post.likes+ 'Likes' 
+            p=post.comments+ 'Comments'
       div#main-img-desc     
-         img#PostImg(src='../static/imagesForPost/Home.jpg')
+         img#PostImg(src=post.image)
          div.details
             div#title 
-               p #[b Title] : #[input(id="titleEdit",class="NormalMode",val="I want to give my house on rent.", type="text")] 
+               p #[b Title] : #[input(id="titleEdit",class="NormalMode",value=post.title, type="text" autofocus)] 
             div#discription 
-               p #[b Description] : #[input( id="descEdit",class="NormalMode",val="My house is 2 BHK,it has two pair of  bathroom-sandash,also it has one private room where couple can sex without any tension. it is in residental area.You can contact me on ", type="text")] 
-               p #[b phone] : #[input( id="contactEdit",class="NormalMode",val="6354584377", type="text")] 
+               p #[b Description] : #[input( id="descEdit",class="NormalMode",value=post.description, type="text" autofocus)] 
+               p #[b phone] : #[input( id="contactEdit",class="NormalMode",value=post.contact, type="text" autofocus)] 
             div#EditDeleteButton 
                button#editBtn.editButton(onclick="OnEdit(this)") Edit
                button#deleteBtn.deleteButton(onclick="OnDelete(this)") Delete

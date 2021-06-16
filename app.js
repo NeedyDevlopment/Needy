@@ -198,22 +198,30 @@ app.get("/", async (req, res, next) => {
   let postsArray;
   var messageToSend = message;
   message = null;
+  var totalPosts;
   if (selectedCategory && selectedCity) {
     if (selectedCategory == "All Category" && selectedCity == "All City") {
       postsArray = await Post.find()
         .limit(5)
         .skip(5 * (currentPage - 1))
-        .sort("date");
+        .sort("-date");
+      totalPosts = await Post.count({});
     } else if (selectedCategory == "All Category") {
       postsArray = await Post.find({ city: selectedCity })
         .limit(5)
         .skip(5 * (currentPage - 1))
-        .sort("date");
+        .sort("-date");
+      totalPosts = await Post.count({
+        city: selectedCity,
+      });
     } else if (selectedCity == "All City") {
       postsArray = await Post.find({ category: selectedCategory })
         .limit(5)
         .skip(5 * (currentPage - 1))
-        .sort("date");
+        .sort("-date");
+      totalPosts = await Post.count({
+        category: selectedCategory,
+      });
     } else {
       postsArray = await Post.find({
         category: selectedCategory,
@@ -221,7 +229,11 @@ app.get("/", async (req, res, next) => {
       })
         .limit(5)
         .skip(5 * (currentPage - 1))
-        .sort("date");
+        .sort("-date");
+      totalPosts = await Post.count({
+        category: selectedCategory,
+        city: selectedCity,
+      });
     }
     return res.status(200).render("homepage.pug", {
       posts: postsArray,
@@ -230,7 +242,7 @@ app.get("/", async (req, res, next) => {
       isLoggedIn: req.session.isLoggedIn,
       message: messageToSend,
       filter: { category: selectedCategory, city: selectedCity },
-      totalPosts: 11,
+      totalPosts: totalPosts,
     });
   } else {
     console.log("city and category is not selected");
@@ -240,12 +252,12 @@ app.get("/", async (req, res, next) => {
       postsArray = await Post.find()
         .limit(5)
         .skip(5 * (currentPage - 1))
-        .sort("date");
+        .sort("-date");
     } else {
       postsArray = await Post.find({ city: currentUser.city })
         .limit(5)
         .skip(5 * (currentPage - 1))
-        .sort("date");
+        .sort("-date");
     }
     console.log(postsArray);
     return res.status(200).render("homepage.pug", {
@@ -266,10 +278,18 @@ app.get("/myactivity", AuthForLogin, async (req, res, next) => {
     ["_id"]
   );
   const usersPost = await Post.find({ "creator._id": currentUserId._id }).sort(
-    "date"
+    "-date"
   );
-  const params = { likes: 10, comments: 20 };
-  res.status(200).render("myActivity.pug", { posts: usersPost });
+  const userActivities = await Activity.find({
+    userId: currentUserId._id,
+  }).populate("post");
+  console.log("user Activities:::::;");
+  console.log(userActivities);
+  // const params = { likes: 10, comments: 20 };
+  res.status(200).render("myActivity.pug", {
+    posts: usersPost,
+    userActivities: userActivities,
+  });
   next();
 });
 
@@ -562,6 +582,64 @@ app.post("/ajax/:action", async (req, res, next) => {
     jwt.verify(req.session.token, "MySecureKey"),
     ["_id"]
   );
+  // if (req.params.action === "like") {
+  //   console.log("inside like action::::::::::");
+  //   const postId = req.body.postId;
+  //   const incLikes = req.body.incLikes;
+  //   var result;
+  //   if (incLikes == 1) {
+  //     console.log("inside if block");
+  //     result = await Post.findByIdAndUpdate(
+  //       postId,
+  //       {
+  //         $inc: {
+  //           likes: incLikes,
+  //         },
+  //         $addToSet: { likedArray: currentUserId._id },
+  //       },
+  //       { new: true }
+  //     );
+  //     const activity = new Activity({
+  //       userId: currentUserId,
+  //       activity: "liked",
+  //       date: Date.now(),
+  //       postId: postId,
+  //     });
+  //     const activityResult = await activity.save();
+  //     console.log("activity result:::::::");
+  //     console.log(activityResult);
+  //     console.log("result is:;;");
+  //     console.log(result);
+  //   } else {
+  //     console.log("inside else block");
+  //     console.log("currentUser id is: " + currentUserId);
+  //     result = await Post.findByIdAndUpdate(
+  //       postId,
+  //       {
+  //         $inc: {
+  //           likes: incLikes,
+  //         },
+  //         $pull: { likedArray: currentUserId._id },
+  //       },
+  //       { new: true }
+  //     );
+  //     const activity = new Activity({
+  //       userId: currentUserId,
+  //       activity: "unliked",
+  //       date: Date.now(),
+  //       postId: postId,
+  //     });
+  //     const activityResult = await activity.save();
+  //     console.log("activity result:::::::");
+  //     console.log(activityResult);
+  //     console.log("result is:;;");
+  //     console.log(result);
+  //   }
+  //   const currentUserId = await _.pick(
+  //     jwt.verify(req.session.token, "MySecureKey"),
+  //     ["_id"]
+  //   );
+  // }
   if (req.params.action === "like") {
     console.log("inside like action::::::::::");
     const postId = req.body.postId;
@@ -580,10 +658,10 @@ app.post("/ajax/:action", async (req, res, next) => {
         { new: true }
       );
       const activity = new Activity({
-        userId: currentUserId,
-        activity: "liked",
-        date: Date.now(),
-        postId: postId,
+        userId: currentUserId._id,
+        activity_action: "liked",
+        date: dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy"),
+        post: postId,
       });
       const activityResult = await activity.save();
       console.log("activity result:::::::");
@@ -604,10 +682,10 @@ app.post("/ajax/:action", async (req, res, next) => {
         { new: true }
       );
       const activity = new Activity({
-        userId: currentUserId,
-        activity: "unliked",
-        date: Date.now(),
-        postId: postId,
+        userId: currentUserId._id,
+        activity_action: "unliked",
+        date: dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy"),
+        post: postId,
       });
       const activityResult = await activity.save();
       console.log("activity result:::::::");
@@ -634,10 +712,10 @@ app.post("/ajax/:action", async (req, res, next) => {
       { new: true }
     );
     const activity = new Activity({
-      userId: currentUserId,
-      activity: "saved",
-      date: Date.now(),
-      postId: postId,
+      userId: currentUserId._id,
+      activity_action: "saved",
+      date: dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy"),
+      post: postId,
     });
     const activityResult = await activity.save();
     console.log("activity result:::::::");
@@ -682,11 +760,11 @@ app.post("/ajax/:action", async (req, res, next) => {
       { new: true }
     );
     const activity = new Activity({
-      userId: currentUserId,
-      activity: "commented",
+      userId: currentUserId._id,
+      activity_action: "commented",
       commentText: commentText,
-      date: Date.now(),
-      postId: postId,
+      date: dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy"),
+      post: postId,
     });
     const activityResult = await activity.save();
     var result1 = await Post.findByIdAndUpdate(
@@ -701,6 +779,7 @@ app.post("/ajax/:action", async (req, res, next) => {
     return res.status(200).send(result);
   } else if (req.params.action === "Follow") {
     const creatorId = req.body.creatorId;
+    const postId = req.body.postId;
     console.log("creator id is" + creatorId);
     try {
       var result = await User.findByIdAndUpdate(
@@ -734,9 +813,10 @@ app.post("/ajax/:action", async (req, res, next) => {
     );
     // const anotherResult2 = await Post.find({ creator._id: creatorId });
     const activity = new Activity({
-      userId: currentUserId,
-      activity: "followed",
-      date: Date.now(),
+      userId: currentUserId._id,
+      activity_action: "followed",
+      date: dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy"),
+      post: postId,
       creatorId: creatorId,
     });
     const activityResult = await activity.save();
@@ -747,6 +827,7 @@ app.post("/ajax/:action", async (req, res, next) => {
     res.status(200).send(result.followers + "");
   } else if (req.params.action === "Unfollow") {
     const creatorId = req.body.creatorId;
+    const postId = req.body.postId;
     try {
       var result = await User.findByIdAndUpdate(
         creatorId,
@@ -778,9 +859,10 @@ app.post("/ajax/:action", async (req, res, next) => {
       { new: true }
     );
     const activity = new Activity({
-      userId: currentUserId,
-      activity: "Unfollowed",
-      date: Date.now(),
+      userId: currentUserId._id,
+      activity_action: "unfollowed",
+      date: dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy"),
+      post: postId,
       creatorId: creatorId,
     });
     const activityResult = await activity.save();
@@ -811,19 +893,19 @@ app.post("/getPosts", async (req, res, next) => {
     postsArray = await Post.find()
       .limit(5)
       .skip(5 * (currentPage - 1))
-      .sort("date");
+      .sort("-date");
     totalPosts = await Post.count({});
   } else if (selectedCategory == "All Category") {
     postsArray = await Post.find({ city: selectedCity })
       .limit(5)
       .skip(5 * (currentPage - 1))
-      .sort("date");
+      .sort("-date");
     totalPosts = await Post.count({ city: selectedCity });
   } else if (selectedCity == "All City") {
     postsArray = await Post.find({ category: selectedCategory })
       .limit(5)
       .skip(5 * (currentPage - 1))
-      .sort("date");
+      .sort("-date");
     totalPosts = await Post.count({ category: selectedCategory });
   } else {
     postsArray = await Post.find({
@@ -832,7 +914,7 @@ app.post("/getPosts", async (req, res, next) => {
     })
       .limit(5)
       .skip(5 * (currentPage - 1))
-      .sort("date");
+      .sort("-date");
     totalPosts = await Post.count({
       category: selectedCategory,
       city: selectedCity,
@@ -847,8 +929,80 @@ app.post("/getPosts", async (req, res, next) => {
     filter: {
       category: selectedCategory,
       city: selectedCity,
-      totalPosts: 11,
     },
+    // totalPosts: 11,
+    totalPosts: totalPosts,
+  });
+});
+
+app.post("/editPost/:action", (req, res, next) => {
+  const postId = req.body.editPostId;
+  if (req.params.action == "Edit") {
+    const editTitle = req.body.editedTitle;
+    const editDesc = req.body.editedDesc;
+    const editContact = req.body.editedContact;
+    const editCity = req.body.editedCity;
+    Post.findOneAndUpdate(
+      { _id: postId },
+      {
+        $set: {
+          title: editTitle,
+          description: editDesc,
+          contact: editContact,
+          city: editCity,
+        },
+      }
+    )
+      .then((result) => {
+        console.log("updateResult:::::");
+        console.log(result);
+        res.status(200).json({ message: "Post Updated Successfully." });
+      })
+      .catch((error) => {
+        res.status(500).json({ message: "error occured!" });
+      });
+  } else if (req.params.action == "Delete") {
+    Post.findOneAndDelete({ _id: postId })
+      .then((result) => {
+        console.log("Deleteresult::::");
+        console.log(result);
+        res.status(200).json({ message: "Post Deleted Successfully" });
+        // if (result.n > 0) {
+        //   res.status(200).json({ message: "Post Updated Successfully." });
+        // } else {
+        //   res.status(500).json({ message: "Post does not Updated Successfully." });
+        // }
+      })
+      .catch((error) => {
+        res.status(500).json({ message: "error occured!" });
+      });
+  }
+});
+app.post("/getActivityPost", async (req, res, next) => {
+  // const activity_PostId = req.body.activity_PostId;
+  // const activity_action = req.body.activity_action;
+  const activityId = req.body.activityId;
+  const activity = await Activity.findById(activityId);
+  const activity_postId = activity.post;
+  const activity_action = activity.activity_action;
+  const activity_date = activity.date;
+  const activity_comment = activity.commentText ? activity.commentText : null;
+  const post = await Post.findOne({ _id: activity_postId });
+  console.log("activity post is:::::");
+  console.log(post);
+  const currentUserId = req.session.token
+    ? await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"])
+    : "";
+  const currentUser = req.session.token
+    ? await User.findOne({ _id: currentUserId._id })
+    : { followingsArray: [] };
+  res.status(200).render("activityPost.pug", {
+    posts: [post],
+    currentUserId: currentUserId._id,
+    currentUserFollowingsArray: currentUser.followingsArray,
+    activity_action: activity_action,
+    activity_comment: activity_comment,
+    activity_date: activity_date,
   });
 });
 
@@ -897,7 +1051,6 @@ app.post("/sendOTP", async (req, res, next) => {
     });
   }
 });
-
 //check OTP
 app.post("/checkOTP", async (req, res, next) => {
   let user = await User.findOne({ email: req.body.email });

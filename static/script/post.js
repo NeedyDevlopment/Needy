@@ -39,7 +39,13 @@ var msg = "is msg";
 let posts = [];
 // console.log(posts);
 
-function onClickOnLogout() {
+function showDialogBox(message) {
+  if (message == "logout") {
+    $("#d-info").innerHTML = "Are you Sure,really want to Logout?";
+  }
+  if (message == "deletePost") {
+    $("#d-info").innerHTML = "Are you Sure,really want to Delete this post?";
+  }
   document.getElementById("id01").style.display = "block";
 }
 
@@ -56,9 +62,6 @@ function onCancelLogoutDialogBox() {
 
 function onContinueLogoutDialogBox() {
   document.getElementById("id01").style.display = "none";
-  $.get("/logout", function (data, status) {
-    console.log(data);
-  });
 }
 
 $(document).ready(function () {
@@ -96,7 +99,7 @@ function onClickFollow(element, creatorId, postId) {
   $.ajax({
     url: "/ajax/" + element.innerText,
     type: "POST",
-    data: { creatorId: creatorId },
+    data: { creatorId: creatorId, postId: postId },
     success: function (totalFollowers) {
       showSnackbar("You " + element.innerText + " Successfully");
       // document.getElementById('showFollowers' + postId).innerText = totalFollowers + ' Followers';

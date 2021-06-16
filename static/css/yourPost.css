@@ -1,194 +1,306 @@
 body {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #post_container {
-    width: 100%;
-    border: 1px solid black;
-    padding: 1px 10px;
-    background-color: whitesmoke;
-    box-shadow: 2px 2px 1px 1px black;
-    border-radius: 10px;
-    margin: 10px auto;
+  width: 100%;
+  border: 1px solid black;
+  padding: 1px 10px;
+  background-color: whitesmoke;
+  box-shadow: 2px 2px 1px 1px black;
+  border-radius: 10px;
+  margin: 10px auto;
+}
+
+#g-post_container {
+  width: 350px;
+  border: 1px solid black;
+  padding: 1px 3px;
+  background-color: whitesmoke;
+  box-shadow: 2px 2px 1px 1px black;
+  border-radius: 10px;
+  margin: 10px 10px;
+  cursor: pointer;
 }
 
 #profile {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    padding: opx 10px;
-    padding: 10px;
-    align-items: center;
-    position: relative;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: opx 10px;
+  padding: 10px;
+  align-items: center;
+  position: relative;
 }
 
 #profile img {
-    height: 34px;
-    width: 64px;
+  height: 34px;
+  width: 64px;
 }
 
 #profile #f-btn {
-    height: 30px;
-    width: 76px;
-    position: absolute;
-    right: 10px;
-    background-color: slategrey;
-    color: blanchedalmond;
-    outline: none;
-    cursor: pointer;
-    border: none;
+  height: 30px;
+  width: 76px;
+  position: absolute;
+  right: 10px;
+  background-color: slategrey;
+  color: blanchedalmond;
+  outline: none;
+  cursor: pointer;
+  border: none;
 }
 
 #profile #f-btn:hover {
-    background-color: transparent;
-    border: 3px solid #00d7c3;
-    border-radius: 50px;
-    -webkit-transition: all 0.15s ease-in-out;
-    transition: all 0.15s ease-in-out;
-    color: #d70e00;
+  background-color: transparent;
+  border: 3px solid #00d7c3;
+  border-radius: 50px;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+  color: #d70e00;
 }
 
 #name {
-    margin-inline: 10px;
-    font-size: 21px;
+  margin-inline: 10px;
+  font-size: 21px;
 }
 
 #title {
-    padding: 10px 20px;
-    font-size: 30px;
+  padding: 10px 20px;
+  font-size: 30px;
+}
+
+#g-title {
+  padding: 5px 10px;
+  font-size: 15px;
+}
+
+#city {
+  padding: 2px 20px;
+  font-size: 17px;
+}
+
+#g-city {
+  padding: 2px 10px;
+  font-size: 8px;
 }
 
 #discription {
-    padding: 2px 20px;
-    font-size: 17px;
+  padding: 2px 20px;
+  font-size: 17px;
+}
+
+#g-discription {
+  padding: 2px 10px;
+  font-size: 8px;
 }
 
 #discription p {
-    margin: 10px 0px;
-    padding-top: 5px;
+  margin: 10px 0px;
+  padding-top: 5px;
 }
 
-#discription p b {
-    font-size: 22px;
+#g-discription p {
+  margin: 5px 0px;
+  padding-top: 5px;
+}
+
+#discription p b,
+#city p b {
+  font-size: 22px;
+}
+
+#g-count {
+  margin-left: auto;
+  margin-right: 2px;
+}
+
+#g-discription p b,
+#g-city p b {
+  font-size: 11px;
 }
 
 #main #PostImg {
-    height: 300px;
-    min-width: 300px;
+  height: 300px;
+  min-width: 300px;
+}
+
+#g-main #g-PostImg {
+  height: 100px;
+  width: 100px;
 }
 
 #main-img-desc {
-    border: 1px solid #ccc;
-    background-color: oldlace;
-    display: flex;
-    flex-direction: row;
-    margin: 10px 0;
+  border: 1px solid #ccc;
+  background-color: oldlace;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+}
+
+#g-main-img-desc {
+  border: 1px solid #ccc;
+  background-color: oldlace;
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0;
 }
 
 .details {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: -webkit-fill-available;
 }
 
 div#count {
-    padding: 0px 21px;
-    display: flex;
-    justify-content: space-between;
-    width: -webkit-fill-available;
+  padding: 0px 21px;
+  display: flex;
+  justify-content: space-between;
+  width: -webkit-fill-available;
 }
 
 #head {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px 0;
+}
+
+#g-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0;
 }
 
 #descTime {
-    min-width: 80%;
-    font-size: 18px;
-    font-family: monospace;
+  min-width: 80%;
+  font-size: 18px;
+  font-family: monospace;
+}
+
+#g-descTime {
+  min-width: 40%;
+  font-size: 9px;
+  font-family: monospace;
+  text-align: center;
+}
+
+#g-descTime p {
+  font-size: 13px;
+  margin: 2px 2px;
 }
 
 #EditDeleteButton {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 150px;
-    height: 33px;
-    background-color: transparent;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 150px;
+  height: 33px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .editButton,
 .deleteButton {
-    border-radius: 10px;
-    border: none;
-    width: 45%;
-    color: whitesmoke;
-    font-weight: 900;
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
+  border-radius: 10px;
+  border: none;
+  width: 45%;
+  color: whitesmoke;
+  font-weight: 900;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
 }
 
 .editButton {
-    background-color: rgb(11, 34, 136);
+  background-color: rgb(11, 34, 136);
 }
 
 .editButton:active {
-    background-color: rgb(0, 92, 0);
+  background-color: rgb(0, 92, 0);
 }
 
 .deleteButton {
-    background-color: red;
+  background-color: red;
 }
 
 .deleteButton:active {
-    background-color: rgb(117, 2, 2);
+  background-color: rgb(117, 2, 2);
 }
-
 
 /* for tempory use in homepage post  */
 
 #actiondiv {
-    margin: 7px 0px;
-    display: flex;
-    justify-content: space-evenly;
+  margin: 7px 0px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 #actiondiv img {
-    height: 35px;
-    width: 35px;
-    display: block;
-    cursor: pointer;
+  height: 35px;
+  width: 35px;
+  display: block;
+  cursor: pointer;
 }
 
 #actiondiv div {
-    text-align: center;
+  text-align: center;
 }
 
 #actiondiv #comment img {
-    padding-left: 15px;
+  padding-left: 15px;
 }
 
 div#count {
-    padding: 0px 21px;
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0px;
+  padding: 0px 21px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
 }
 
 div#like i,
 div#comment i,
 div#save i {
-    font-size: 35px;
-    color: black;
-    display: block;
-    cursor: pointer;
+  font-size: 35px;
+  color: black;
+  display: block;
+  cursor: pointer;
+}
+
+.titleEdit,
+.descEdit,
+.contactEdit,
+.cityEdit {
+  background-color: #ffebcd00;
+  padding: 3px;
+}
+
+.titleEdit:disabled,
+.descEdit:disabled,
+.contactEdit:disabled,
+.cityEdit:disabled {
+  transition: 500ms;
+  font-size: 18px;
+  min-width: 80%;
+}
+.titleEdit:disabled {
+  font-size: 25px;
+}
+.NormalMode {
+  border: none;
+  outline: none;
+}
+
+.EditMode {
+  transition: 500ms;
+  border: none;
+  background-color: white;
+  border-radius: 3px;
+  padding: 10px;
+  width: ;
 }

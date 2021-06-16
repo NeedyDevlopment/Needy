@@ -4,11 +4,15 @@ extends basic.pug
 block style 
     style 
         include ../static/css/myActivity.css
+        include ../static/css/yourPost.css
+        link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css") 
         
     
 block scripts 
     script
         include ../static/script/myActivity.js
+        include ../static/script/yourPost.js
+        
     
     
 
@@ -21,9 +25,56 @@ block content
         div.describe
             div.post#post
                 div.ONEPOSTFOREXAMPLE
-                    h2 TOTAL POST : 01
-                include ./yourPost.pug
-            div.activity#activity 
-                div.ONEACTIVITYFOREXAMPLE
-                    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores distinctio minus magni beatae libero quasi nostrum. Libero rerum atque perspiciatis ratione voluptatem dolorem alias placeat expedita, quos veniam ipsam dolore!
-        
+                    h2='TOTAL POST : '+posts.length
+                each post in posts   
+                    div#post_container(class="post"+post._id) 
+                      div#main
+                         div#head
+                            div#descTime
+                               p='You Added This Post at '+ post.date 
+                            div#count 
+                               p=post.likes+ ' Likes' 
+                               p=post.comments+ ' Comments'
+                         div#main-img-desc     
+                            img#PostImg(src=post.image)
+                            div.details
+                               div#title 
+                                  p #[b Title] : #[input(id="titleEdit"+post._id,class="NormalMode titleEdit editPostInput"+post._id,value=post.title, type="text")] 
+                               div#discription 
+                                  p #[b Description] : #[input( id="descEdit"+post._id,class="NormalMode descEdit editPostInput"+post._id,value=post.description, type="text")] 
+                                  p #[b phone] : #[input( id="contactEdit"+post._id,class="NormalMode contactEdit editPostInput"+post._id,value=post.contact, type="number")] 
+                               div#city 
+                                  p #[b City] : #[input(id="cityEdit"+post._id,class="NormalMode cityEdit editPostInput"+post._id,value=post.city, type="text")]    
+                               div#EditDeleteButton 
+                                  button(id="editBtn"+post._id,class="editButton",onclick="OnEdit(this,'"+post._id+"')") Edit
+                                  button(id="deleteBtn"+post._id,class="deleteButton",onclick="OnDelete(this,'"+post._id+"')") Delete
+                //- include ./yourPost.pug
+            div.activity#activity.grid-container 
+                each activity in userActivities
+                    div#g-post_container(class="activity_post"+activity.post._id,onclick="onClickActivity(this,'"+activity._id+"')") 
+                      div#g-main
+                         div#g-head
+                            div#g-descTime
+                                if(activity.activity_action == 'followed' || activity.activity_action == 'unfollowed')
+                                    p='You '+activity.activity_action +' a creator of this post at '+ activity.date 
+                                else if(activity.activity_action == 'commented')
+                                    p='You commented on this post at '+ activity.date
+                                else
+                                    p='You '+activity.activity_action +' this post at '+ activity.date
+                                
+                            //- div#g-count 
+                            //-    p=post.likes+ ' Likes' 
+                            //-    p=post.comments+ ' Comments'
+                         div#g-main-img-desc     
+                            img#g-PostImg(src=activity.post.image)
+                            div.g-details
+                               div#g-title 
+                                  p #[b Title :] #{activity.post.title} 
+                               div#g-discription 
+                                  p #[b Description :] #{activity.post.description} 
+                                  p #[b phone :] #{activity.post.contact}
+                               div#g-city 
+                                  p #[b City :] #{activity.post.city}
+    //- div.z-post_container
+    //-     p Hello                              
+    div.z-post_container#activityPost 

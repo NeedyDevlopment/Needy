@@ -66,6 +66,10 @@
     transition: 400ms;
 }
 
+.post {
+    width: inherit;
+}
+
 .ONEPOSTFOREXAMPLE,
 .ONEACTIVITYFOREXAMPLE {
     border-radius: 10px;
@@ -75,6 +79,60 @@
     box-shadow: 2px 2px 1px 1px black;
 }
 
+
+/* .ONEACTIVITYFOREXAMPLE {
+    width: 300px !important;
+} */
+
 body {
     background-color: white;
+}
+
+#action-content {
+    font-size: 17px;
+    padding: 5px 5px;
+}
+
+#action-content img {
+    height: 14px;
+}
+
+#action-content p span {
+    float: right;
+}
+
+.grid-container {
+    /* display: flex;
+    flex-direction: column; */
+    display: grid;
+    grid-template-columns: auto auto auto;
+    /* grid-template-columns: 33% 33% 33%; */
+    /* grid-column-gap: 15px; */
+}
+
+
+/* #g-post_container {
+    width: 200px;
+
+} */
+
+.z-post_container {
+    display: none;
+    z-index: 3;
+    position: fixed;
+    top: 105px;
+    left: 145px;
+    width: 80%;
+    /* transition: width 1s; */
+    /* height: 500px;
+    width: 500px;
+    background-color: rebeccapurple; */
+}
+
+#activityCloseBtn {
+    margin-left: auto;
+    outline: none;
+    cursor: pointer;
+    /* border: none; */
+    padding: 0px 11px;
 }

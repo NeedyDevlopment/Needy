@@ -14,7 +14,7 @@ html
     script(src="../static/script/navbar.js") 
     script(src="../static/script/snackbar.js") 
     block scripts
-  body
+  body#body
     nav.navbar
           div.start 
             | LOGO
@@ -27,7 +27,7 @@ html
           div.last 
             if(isLoggedIn)
               //- button.btn#logoutbtn #[a(href="/logout") Logout]
-              button(id="logoutbtn",class="btn",onclick="onClickOnLogout()") Logout
+              button(id="logoutbtn",class="btn",onclick="showDialogBox('logout')") Logout
               button.btn#profilebtn #[a(href="/profile") MyProfile] 
             else   
               button.btn#loginBtn Login
