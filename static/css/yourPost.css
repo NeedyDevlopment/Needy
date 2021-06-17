@@ -67,30 +67,29 @@ body {
 }
 
 #title {
+  display: flex;
   padding: 10px 20px;
   font-size: 30px;
+  align-items: center;
 }
 
 #g-title {
   padding: 5px 10px;
   font-size: 15px;
 }
-
-#city {
-  padding: 2px 20px;
-  font-size: 17px;
-}
-
 #g-city {
   padding: 2px 10px;
   font-size: 8px;
 }
 
-#discription {
+#discription,
+#city,
+#phoneNo {
+  display: flex;
   padding: 2px 20px;
   font-size: 17px;
+  align-items: center;
 }
-
 #g-discription {
   padding: 2px 10px;
   font-size: 8px;
@@ -98,7 +97,11 @@ body {
 
 #discription p {
   margin: 10px 0px;
-  padding-top: 5px;
+  font-size: 22px;
+}
+#phoneNo p {
+  margin: 10px 0px;
+  font-size: 22px;
 }
 
 #g-discription p {
@@ -106,8 +109,8 @@ body {
   padding-top: 5px;
 }
 
-#discription p b,
-#city p b {
+#discription p,
+#city p {
   font-size: 22px;
 }
 
@@ -278,8 +281,13 @@ div#save i {
 .cityEdit {
   background-color: #ffebcd00;
   padding: 3px;
+  margin-left: 10px;
 }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .titleEdit:disabled,
 .descEdit:disabled,
 .contactEdit:disabled,
@@ -295,12 +303,20 @@ div#save i {
   border: none;
   outline: none;
 }
-
+.details .divlabel {
+  display: flex;
+  align-items: center;
+}
+.details p {
+  width: 127px;
+  font-weight: 900;
+}
 .EditMode {
   transition: 500ms;
   border: none;
   background-color: white;
   border-radius: 3px;
   padding: 10px;
-  width: ;
+  width: 80%;
+  outline: none;
 }
