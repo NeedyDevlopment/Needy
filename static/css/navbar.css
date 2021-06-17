@@ -86,3 +86,10 @@
 #myBtn {
   cursor: pointer;
 }
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: black;
+  outline: 1px solid black;
+}

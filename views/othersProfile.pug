@@ -1,0 +1,50 @@
+extends basic.pug 
+
+block style 
+    style 
+        include ../static/css/othersProfile.css
+block scripts 
+    script(src="../static/script/othersProfile.js") 
+block content 
+    .container 
+        .profileDetails
+            .imageAndFollowButton 
+                .imageDiv 
+                    img(src="../static/imagesForPost/profile.png", alt="")
+                .followButtonDiv 
+                    button(type="button" ) Follow
+            .followerPostsFollowing 
+                .followersDiv
+                    b Followers
+                    span 200
+                .postsDiv 
+                    b Posts
+                    span 23
+                .followingDiv
+                    b Following
+                    span 203
+            .userDetails 
+                .header User Details 
+                .detailDiv 
+                    span UserName  
+                    p Jainish kunjadiya 
+                hr
+                .detailDiv 
+                    span City 
+                    p Ahmedabad
+                hr
+                .detailDiv 
+                    span Company Name 
+                    p Google
+                hr
+                .detailDiv 
+                    span Total Likes 
+                    p 2001 likes
+                hr
+                .detailDiv 
+                    span Total Comments
+                    p 200 comments
+        .followersFollowing 
+            include f_list.pug
+
+        

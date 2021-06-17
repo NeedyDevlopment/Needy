@@ -1101,6 +1101,10 @@ app.post("/resetPassword", async (req, res, next) => {
   }
 });
 
+app.get("/othersProfile", async (req, res, next) => {
+  res.render("othersProfile.pug");
+});
+
 //start server
 app.listen(port, () => {
   console.log(`the application started successfully on port ${port}`);
