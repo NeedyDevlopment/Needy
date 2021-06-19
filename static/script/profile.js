@@ -49,3 +49,26 @@ function onCancelDeleteDialogBox() {
 function onContinueDeleteDialogBox() {
   document.getElementById("deleteAccountConfirmation").style.display = "none";
 }
+
+
+
+
+$(document).ready(function(){
+
+  $("#changePass").click(function(){
+  
+    
+    $.ajax({
+      type:"post",
+      url:"/changePasswordModal",
+      success:function(data){
+        $(".modal-content").html(data);
+        
+        $("#myModal").css("display","block");
+      }
+    });
+    
+  })
+  
+})
+  

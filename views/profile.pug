@@ -4,11 +4,15 @@ block style
   style 
     include ../static/css/profile.css
     include ../static/css/dialogBox.css 
+    
 block scripts 
   script(src="../static/script/profile.js") 
 block content
+    
     div(class="container")
+           
       form(action="/profile"  method="post" enctype='multipart/form-data') 
+
         p#forSnackBarCalling= message
         div.upperDiv
           div.image
@@ -73,5 +77,8 @@ block content
               p#d-info(style="color:black;") Are You Sure , do you really want to Delete Account?
             footer.w3-container.w3-teal#d-footer
               button(onclick="onCancelDeleteDialogBox()") Cancel 
-              button(onclick="onContinueDeleteDialogBox()") #[a(href="/deleteAccount") Continue] 
+              button(onclick="onContinueDeleteDialogBox()") #[a(href="/deleteAccount") Continue]
+ 
+    //- script(src="../static/script/change password.js") 
+ 
         
