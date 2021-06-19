@@ -1,0 +1,266 @@
+body {
+  background: url("../static/images/othersProfileBackground.jpg") no-repeat
+    center;
+  background-size: cover;
+}
+.container {
+  min-height: 500px;
+  display: flex;
+  width: 90%;
+  padding: 10px 0px;
+  margin: auto;
+  flex-direction: row;
+  background-color: rgba(192, 192, 192, 0.452);
+}
+.profileDetails {
+  margin: 0px auto;
+  width: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.imageAndFollowButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  margin: 10px 5px;
+  background-color: #c0c0c078;
+  margin-bottom: 0px;
+}
+.imageAndFollowButton .imageDiv {
+  padding: 10px 0px;
+}
+.imageAndFollowButton .imageDiv img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border: none;
+}
+.imageAndFollowButton .followButtonDiv {
+  position: absolute;
+  right: 70px;
+  top: 41px;
+}
+.imageAndFollowButton .followButtonDiv button {
+  outline: none !important;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  box-shadow: 1px 2px 10px 3px black;
+  background-color: white;
+  padding: 5px 10px;
+  width: 100px;
+  font-family: cursive;
+}
+.imageAndFollowButton .followButtonDiv button:active {
+  box-shadow: none;
+  border: 1px solid black;
+}
+.followerPostsFollowing {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 0px;
+  margin: 10px 5px;
+  margin-top: 0px;
+  font-family: monospace;
+  background-color: #c0c0c078;
+}
+.followerPostsFollowing b {
+  font-size: 20px;
+}
+.followerPostsFollowing span {
+  padding-top: 10px;
+  font-size: 17px;
+}
+.followerPostsFollowing .followersDiv,
+.followerPostsFollowing .postsDiv,
+.followerPostsFollowing .followingDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 30px;
+  width: 150px;
+}
+.followerPostsFollowing .followersDiv,
+.followerPostsFollowing .postsDiv {
+  border-right: 2px solid black;
+}
+.followerPostsFollowing .followersDiv,
+.followerPostsFollowing .followingDiv {
+  cursor: pointer;
+}
+.followerPostsFollowing .followersDiv:hover,
+.followerPostsFollowing .followingDiv:hover {
+  color: blue;
+}
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 5px;
+  padding-bottom: 20px;
+  background-color: #c0c0c078;
+}
+.userDetails .header {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 900;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  border-bottom: 2px solid black;
+}
+.userDetails .detailDiv {
+  width: 80%;
+  margin: 0px auto;
+  padding: 10px 15px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.userDetails .detailDiv span {
+  width: 40%;
+  text-align: center;
+  border-right: 2px solid black;
+  font-weight: 900;
+}
+.userDetails .detailDiv p {
+  font-family: monospace;
+  margin-left: 20px;
+  text-align: center;
+  width: 60%;
+}
+.userDetails hr {
+  width: 80%;
+  margin: auto;
+  border: none;
+  border-bottom: 1px solid black;
+}
+.followersFollowing {
+  width: 400px;
+  position: relative;
+  display: none;
+  padding: 10px 5px;
+  border-radius: 30px;
+  margin-right: 5px;
+  animation: page 2s;
+}
+@keyframes page {
+  0% {
+    width: 100px;
+    opacity: 0;
+  }
+  40% {
+    width: 400px;
+    opacity: 0;
+    height: 0px;
+  }
+  100% {
+    opacity: 1;
+    height: 500px;
+  }
+}
+/* /////////////////////////------------For Side List Css -------------------///////////////////////// */
+.f_container {
+  background-color: white;
+  height: 552px;
+  margin: 10px 0px;
+  animation: heightScroll 2s 1 0.6s;
+}
+@keyframes heightScroll {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 500px;
+  }
+}
+@keyframes heightScrollReverse {
+  from {
+    height: 500px;
+  }
+  to {
+    height: 0px;
+  }
+}
+.f_container .header {
+  position: relative;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+}
+.f_container .header p {
+  font-size: 28px;
+  font-family: monospace;
+  font-weight: 900;
+}
+.f_container .header span {
+  position: absolute;
+  right: 16px;
+  font-size: 18px;
+  cursor: pointer;
+  font-family: monospace;
+  top: 17px;
+}
+.f_container .header span:hover {
+  color: red;
+}
+.f_container .usersContainer {
+  overflow: auto;
+  height: 490px;
+  animation: heightScroll 2s 1 0.8s;
+}
+.f_container .userBlock {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 0px;
+  margin: 5px;
+  height: 50px;
+  border-bottom: 1px solid black;
+  position: relative;
+  align-items: center;
+}
+.f_container .userBlock .img {
+  padding: 0px 5px;
+  margin: 0;
+}
+.f_container .userBlock .img img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.f_container .userBlock .name {
+  font-size: 18px;
+  width: 150px;
+}
+.f_container .userBlock .f_button {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+}
+.f_container .userBlock .f_button button {
+  width: 68px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-family: monospace;
+  font-weight: 900;
+  box-shadow: 1px 2px 10px 3px black;
+  background-color: white;
+}
+.f_container .userBlock .f_button button:active {
+  box-shadow: none;
+  border: 1px solid black;
+  background-color: rgba(255, 255, 255, 0.685);
+  font-weight: 100;
+}
+.f_container .displayNone {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 28px;
+  color: red;
+  text-align: center;
+}

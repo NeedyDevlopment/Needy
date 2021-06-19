@@ -20,6 +20,7 @@ const fs = require("fs");
 const app = express();
 const port = 80;
 var nodemailer = require("nodemailer");
+const { after, forEach } = require("lodash");
 
 var message = null;
 const webEmail = "forexternaluse505@gmail.com";
@@ -70,6 +71,10 @@ const transporter = nodemailer.createTransport({
 //         console.log('Email sent: ' + info.response);
 //     }
 // });
+
+app.get("/contact", async (req, res, next) => {
+  res.status(200).render("contact.pug");
+});
 
 const emitter = new EventEmitter();
 emitter.on("Followed", async (args) => {
@@ -195,6 +200,7 @@ app.get("/", async (req, res, next) => {
     message = "You Logout Successfully.";
   }
   console.log(req.header("message"));
+  console.log(req.header("message"));
   //getting filter
   const selectedCategory = req.query.category;
   const selectedCity = req.query.city;
@@ -282,6 +288,7 @@ app.get("/", async (req, res, next) => {
   }
   next();
 });
+
 app.get("/myactivity", AuthForLogin, async (req, res, next) => {
   const currentUserId = await _.pick(
     jwt.verify(req.session.token, "MySecureKey"),
@@ -290,20 +297,15 @@ app.get("/myactivity", AuthForLogin, async (req, res, next) => {
   const usersPost = await Post.find({ "creator._id": currentUserId._id }).sort(
     "-date"
   );
-  const userActivities = await Activity.find({
+  let userActivities = await Activity.find({
     userId: currentUserId._id,
-  }).populate("post");
-  console.log("user Activities:::::;");
-  console.log(userActivities);
-  // const params = { likes: 10, comments: 20 };
-  res
-    .status(200)
-    .render("myActivity.pug", {
-      posts: usersPost,
-      userActivities: userActivities,
-      isLoggedIn: req.session.isLoggedIn,
-    });
-  next();
+  })
+    .populate("post")
+    .populate("creator");
+  res.status(200).render("myActivity.pug", {
+    posts: usersPost,
+    userActivities: userActivities,
+  });
 });
 
 //POST_SYNTEX
@@ -325,7 +327,6 @@ app.get("/contact", (req, res) => {
   const params = {};
   res.status(200).render("contact.pug", params);
 });
-
 
 app.post("/SignupSubmission", async (req, res) => {
   // if (req.session.token) {
@@ -601,64 +602,6 @@ app.post("/ajax/:action", async (req, res, next) => {
     jwt.verify(req.session.token, "MySecureKey"),
     ["_id"]
   );
-  // if (req.params.action === "like") {
-  //   console.log("inside like action::::::::::");
-  //   const postId = req.body.postId;
-  //   const incLikes = req.body.incLikes;
-  //   var result;
-  //   if (incLikes == 1) {
-  //     console.log("inside if block");
-  //     result = await Post.findByIdAndUpdate(
-  //       postId,
-  //       {
-  //         $inc: {
-  //           likes: incLikes,
-  //         },
-  //         $addToSet: { likedArray: currentUserId._id },
-  //       },
-  //       { new: true }
-  //     );
-  //     const activity = new Activity({
-  //       userId: currentUserId,
-  //       activity: "liked",
-  //       date: Date.now(),
-  //       postId: postId,
-  //     });
-  //     const activityResult = await activity.save();
-  //     console.log("activity result:::::::");
-  //     console.log(activityResult);
-  //     console.log("result is:;;");
-  //     console.log(result);
-  //   } else {
-  //     console.log("inside else block");
-  //     console.log("currentUser id is: " + currentUserId);
-  //     result = await Post.findByIdAndUpdate(
-  //       postId,
-  //       {
-  //         $inc: {
-  //           likes: incLikes,
-  //         },
-  //         $pull: { likedArray: currentUserId._id },
-  //       },
-  //       { new: true }
-  //     );
-  //     const activity = new Activity({
-  //       userId: currentUserId,
-  //       activity: "unliked",
-  //       date: Date.now(),
-  //       postId: postId,
-  //     });
-  //     const activityResult = await activity.save();
-  //     console.log("activity result:::::::");
-  //     console.log(activityResult);
-  //     console.log("result is:;;");
-  //     console.log(result);
-  //   }
-  //   const currentUserId = await _.pick(
-  //     jwt.verify(req.session.token, "MySecureKey"),
-  //     ["_id"]
-  //   );
-  // }
   if (req.params.action === "like") {
     console.log("inside like action::::::::::");
     const postId = req.body.postId;
@@ -836,7 +779,7 @@ app.post("/ajax/:action", async (req, res, next) => {
       activity_action: "followed",
       date: dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy"),
       post: postId,
-      creatorId: creatorId,
+      creator: creatorId,
     });
     const activityResult = await activity.save();
     console.log("activity result is:::");
@@ -882,7 +825,7 @@ app.post("/ajax/:action", async (req, res, next) => {
       activity_action: "unfollowed",
       date: dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy"),
       post: postId,
-      creatorId: creatorId,
+      creator: creatorId,
     });
     const activityResult = await activity.save();
     console.log("activity result is:::");
@@ -1125,25 +1068,25 @@ app.post("/resetPassword", async (req, res, next) => {
   }
 });
 app.post("/changepassword", async (req, res, next) => {
-  
   var oldPassword = req.body.oldPassword;
   var newPassword = req.body.newPassword;
   const currentUserId = await _.pick(
     jwt.verify(req.session.token, "MySecureKey"),
     ["_id"]
-  ); 
- 
-  const password = (await User.findOne({_id:currentUserId._id},{password:1})).password;
-  
-  if(!(await bcrypt.compare(oldPassword,password))){
-    res.send({error:"old password wrong"});
+  );
+
+  const password = (
+    await User.findOne({ _id: currentUserId._id }, { password: 1 })
+  ).password;
+
+  if (!(await bcrypt.compare(oldPassword, password))) {
+    res.send({ error: "old password wrong" });
     return;
-  }
-  else {
+  } else {
     const salt = await bcrypt.genSalt(10);
     let hashPassword = await bcrypt.hash(newPassword, salt);
     await User.updateOne(
-      {_id:currentUserId._id},
+      { _id: currentUserId._id },
       { $set: { password: hashPassword } },
       function (err) {
         if (err) {
@@ -1213,6 +1156,81 @@ app.post("/sendMail", (req, res, next) => {
     }
   });
 });
+app.get("/othersProfile", async (req, res, next) => {
+  const id = req.query.id;
+  const currentUserId = (
+    await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"])
+  )._id;
+  const user = await User.findOne({ _id: id });
+  const isLoggedIn = req.session.isLoggedIn;
+  const post = await Post.countDocuments({ "creator._id": id });
+  const likes = (
+    await Post.aggregate([
+      { $match: { "creator._id": id } },
+      { $group: { _id: "", sum: { $sum: "$likes" } } },
+    ])
+  )[0].sum;
+  const comments = (
+    await Post.aggregate([
+      { $match: { "creator._id": id } },
+      { $group: { _id: "", sum: { $sum: "$comments" } } },
+    ])
+  )[0].sum;
+  res.render("othersProfile.pug", {
+    user: user,
+    currentUserId: currentUserId,
+    post: post,
+    isLoggedIn: isLoggedIn,
+    likes: likes,
+    comments: comments,
+  });
+});
+
+async function f_list(f_Array) {
+  let f_Array_with_Datail = new Array();
+  for (let i = 0; i < f_Array.length; i++) {
+    let res = await User.findOne(
+      { _id: f_Array[i] },
+      { username: 1, photo: 1, followersArray: 1 }
+    );
+    f_Array_with_Datail.push(res);
+  }
+  return f_Array_with_Datail;
+}
+
+app.post("/showProfileFollowers", async (req, res, next) => {
+  const userId = req.body.id;
+  const currentUserId = (
+    await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"])
+  )._id;
+  const followersArray = (
+    await User.findOne({ _id: userId }, { followersArray: 1 })
+  ).followersArray;
+  f_list(followersArray).then((value) => {
+    res.render("f_list.pug", {
+      f_Array: value,
+      header: "Followers",
+      currentUserId: currentUserId,
+    });
+  });
+});
+app.post("/showProfileFollowings", async (req, res, next) => {
+  const userId = req.body.id;
+  const currentUserId = (
+    await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"])
+  )._id;
+  const followingsArray = (
+    await User.findOne({ _id: userId }, { followingsArray: 1 })
+  ).followingsArray;
+  f_list(followingsArray).then((value) => {
+    res.render("f_list.pug", {
+      f_Array: value,
+      header: "Followings",
+      currentUserId: currentUserId,
+    });
+  });
+});
+
 //start server
 app.listen(port, () => {
   console.log(`the application started successfully on port ${port}`);

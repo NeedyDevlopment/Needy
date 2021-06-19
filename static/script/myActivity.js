@@ -98,3 +98,6 @@ document.addEventListener("click", function (e) {
     $(".z-post_container").css("display", "none");
   }
 });
+function userProfile(id) {
+  window.location.href = "/othersProfile?id=" + id;
+}
