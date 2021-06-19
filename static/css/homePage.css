@@ -23,7 +23,8 @@
 #message,
 #getCity,
 #getCategory,
-#getTotalPosts {
+#getTotalPosts,
+#getIdForSharePost {
     visibility: hidden;
     width: 0;
     height: 0;

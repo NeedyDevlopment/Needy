@@ -174,9 +174,11 @@ function actionPerformed(element, icon, postId) {
 
             success: function(totalLikes) {
                 if (p.innerText === "like") {
+                    showSnackbar("You unliked a post.");
                     element.classList.replace("fa-thumbs-o-up", "fa-thumbs-up");
                     p.innerText = "unlike";
                 } else {
+                    showSnackbar("You liked a post.");
                     element.classList.replace("fa-thumbs-up", "fa-thumbs-o-up");
                     p.innerText = "like";
                 }
@@ -287,6 +289,44 @@ function actionPerformed(element, icon, postId) {
         // element.classList.replace("fa-comment-o", "fa-comment");
         // comments++;
     }
+    if (icon == "share") {
+        $('#getIdForSharePost').val(postId);
+        // var fbUrl = "https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%2Fpost%2F" + postId;
+        // var fbUrl = "https://www.facebook.com/sharer.php?u=" + encodeURIComponent("http://localhost/post/60c6efc88ddc55a2647dec8b");
+        var fbUrl = "https://www.facebook.com/sharer/sharer.php?u=http%3A//localhost/post/60c6efc88ddc55a2647dec8b"; //with meta tags
+        var twUrl = "https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%2Fpost%2F" + postId + "&text=" + encodeURIComponent("Hello From Needy,Open this link to view Post") + "&hashtags=rentalHouse,Ahmedabad";
+        // var twUrl = "https://twitter.com/intent/tweet?text=hello%20From%20Needy%0AGo%20to%20http%3A//localhost/post/60c6efc88ddc55a2647dec8b"; //with meta tags
+        // var lnUrl = "https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%2Fpost%2F" + postId;
+        // var lnUrl = "https://www.linkedin.com/shareArticle?mini=true&url=http%3A//localhost/post/60c6efc88ddc55a2647dec8b&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
+        var lnUrl = "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//github.com&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
+
+        $(".post-url").text("http://localhost/post/" + postId);
+        var eUrl = "mailto:forexternaluse505@gmail.com?cc=ThisIsCC&bcc=ThisIsBCC&subject=Post%20From%20Needy%20this%20is%20subject&body=Hey%20This%20is%20Body%20of%20email";
+        $(".fbBtn").attr("href", fbUrl);
+        $(".twBtn").attr("href", twUrl);
+        $(".lnBtn").attr("href", lnUrl);
+        // $(".eBtn").attr("href", eUrl);
+        const shareDialog = document.querySelector('.share-dialog');
+        const closeButton = document.querySelector('.close-button');
+        shareDialog.classList.add('is-open');
+        closeButton.addEventListener('click', event => {
+            shareDialog.classList.remove('is-open');
+        });
+        // shareButton.addEventListener('click', event => {
+        // console.log("share clicked");
+        // if (navigator.share) {
+        //     navigator.share({
+        //             title: 'WebShare API Demo',
+        //             url: 'http://localhost/'
+        //         }).then(() => {
+        //             console.log('sharing successfully!');
+        //         })
+        //         .catch(console.error);
+        // } else {
+        // shareDialog.classList.add('is-open');
+        // }
+        //   });
+    }
     if (icon === "save") {
         if (p.innerText === "saved") {
             showSnackbar("you already saved!");
@@ -316,6 +356,21 @@ function actionPerformed(element, icon, postId) {
         // } else {
         //     element.classList.replace("fa-bookmark", "fa-bookmark-o");
         // }
+    }
+}
+
+function CopyToClipboard(containerid) {
+    if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById(containerid));
+        range.select().createTextRange();
+        document.execCommand("copy");
+    } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById(containerid));
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        document.getElementById("copy-link").innerText = 'Copied';
     }
 }
 
