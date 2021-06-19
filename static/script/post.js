@@ -1,6 +1,10 @@
 // import browserEnv from 'browser-env';
 // console.log(window.isSecureContext);
 console.log("post.js running...");
+document.addEventListener("DOMContentLoaded", function () {
+  var element = document.getElementById("home");
+  element.classList.add("active");
+});
 // const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
 // // check for service worker
 // if ('serviceWorker' in navigator) {
@@ -95,34 +99,38 @@ function getDateDifference(dateDiffer) {
 }
 
 function onClickFollow(element, creatorId, postId) {
-  console.log("creator id is: " + creatorId);
-  $.ajax({
-    url: "/ajax/" + element.innerText,
-    type: "POST",
-    data: { creatorId: creatorId, postId: postId },
-    success: function (totalFollowers) {
-      showSnackbar("You " + element.innerText + " Successfully");
-      // document.getElementById('showFollowers' + postId).innerText = totalFollowers + ' Followers';
-      var showFollowerElementArray = document.getElementsByClassName(
-        "showFollowers" + creatorId
-      );
-      [...showFollowerElementArray].forEach((fTextElement) => {
-        fTextElement.innerText = totalFollowers + " Followers";
-      });
-      var followButtonArray = document.getElementsByClassName(
-        "f-btn" + creatorId
-      );
-      [...followButtonArray].forEach((fButtonlement) => {
-        fButtonlement.innerText === "Follow"
-          ? (fButtonlement.innerText = "Unfollow")
-          : (fButtonlement.innerText = "Follow");
-      });
-    },
-    error: function (xhr, status, error) {
-      if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-      else showSnackbar("something Went Wrong!");
-    },
-  });
+  var currentUserId = $("#profile img").attr("class");
+  if (currentUserId !== creatorId) {
+    $.ajax({
+      url: "/ajax/" + element.innerText,
+      type: "POST",
+      data: { creatorId: creatorId, postId: postId },
+      success: function (totalFollowers) {
+        showSnackbar("You " + element.innerText + " Successfully");
+        // document.getElementById('showFollowers' + postId).innerText = totalFollowers + ' Followers';
+        var showFollowerElementArray = document.getElementsByClassName(
+          "showFollowers" + creatorId
+        );
+        [...showFollowerElementArray].forEach((fTextElement) => {
+          fTextElement.innerText = totalFollowers + " Followers";
+        });
+        var followButtonArray = document.getElementsByClassName(
+          "f-btn" + creatorId
+        );
+        [...followButtonArray].forEach((fButtonlement) => {
+          fButtonlement.innerText === "Follow"
+            ? (fButtonlement.innerText = "Unfollow")
+            : (fButtonlement.innerText = "Follow");
+        });
+      },
+      error: function (xhr, status, error) {
+        if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
+        else showSnackbar("something Went Wrong!");
+      },
+    });
+  } else {
+    showSnackbar("You Can Not Follow Your Self !");
+  }
 }
 
 function submitComment(postId) {
@@ -397,4 +405,11 @@ $(window).scroll(function () {
     console.log("Ajax Call...");
     // console.log("current filter: " + filter.city + " " + filter.category);
   }
+});
+
+$(document).ready(function () {
+  $("#profile img").click(function () {
+    var id = $(this).attr("id");
+    window.location.href = "/othersProfile?id=" + id;
+  });
 });

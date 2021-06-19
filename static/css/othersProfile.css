@@ -1,3 +1,8 @@
+body {
+  background: url("../static/images/othersProfileBackground.jpg") no-repeat
+    center;
+  background-size: cover;
+}
 .container {
   min-height: 500px;
   display: flex;
@@ -20,7 +25,7 @@
   justify-content: center;
   position: relative;
   margin: 10px 5px;
-  background-color: silver;
+  background-color: #c0c0c078;
   margin-bottom: 0px;
 }
 .imageAndFollowButton .imageDiv {
@@ -40,13 +45,17 @@
 .imageAndFollowButton .followButtonDiv button {
   outline: none !important;
   border-radius: 5px;
-  background-color: rgb(0, 0, 0);
   border: none;
   font-size: 20px;
-  color: white;
+  box-shadow: 1px 2px 10px 3px black;
+  background-color: white;
   padding: 5px 10px;
   width: 100px;
   font-family: cursive;
+}
+.imageAndFollowButton .followButtonDiv button:active {
+  box-shadow: none;
+  border: 1px solid black;
 }
 .followerPostsFollowing {
   display: flex;
@@ -56,7 +65,7 @@
   margin: 10px 5px;
   margin-top: 0px;
   font-family: monospace;
-  background-color: silver;
+  background-color: #c0c0c078;
 }
 .followerPostsFollowing b {
   font-size: 20px;
@@ -82,12 +91,16 @@
 .followerPostsFollowing .followingDiv {
   cursor: pointer;
 }
+.followerPostsFollowing .followersDiv:hover,
+.followerPostsFollowing .followingDiv:hover {
+  color: blue;
+}
 .userDetails {
   display: flex;
   flex-direction: column;
   margin: 10px 5px;
   padding-bottom: 20px;
-  background-color: silver;
+  background-color: #c0c0c078;
 }
 .userDetails .header {
   text-align: center;
@@ -126,16 +139,50 @@
 }
 .followersFollowing {
   width: 400px;
+  position: relative;
   display: none;
   padding: 10px 5px;
   border-radius: 30px;
   margin-right: 5px;
+  animation: page 2s;
+}
+@keyframes page {
+  0% {
+    width: 100px;
+    opacity: 0;
+  }
+  40% {
+    width: 400px;
+    opacity: 0;
+    height: 0px;
+  }
+  100% {
+    opacity: 1;
+    height: 500px;
+  }
 }
 /* /////////////////////////------------For Side List Css -------------------///////////////////////// */
 .f_container {
   background-color: white;
   height: 552px;
   margin: 10px 0px;
+  animation: heightScroll 2s 1 0.6s;
+}
+@keyframes heightScroll {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 500px;
+  }
+}
+@keyframes heightScrollReverse {
+  from {
+    height: 500px;
+  }
+  to {
+    height: 0px;
+  }
 }
 .f_container .header {
   position: relative;
@@ -163,6 +210,7 @@
 .f_container .usersContainer {
   overflow: auto;
   height: 490px;
+  animation: heightScroll 2s 1 0.8s;
 }
 .f_container .userBlock {
   display: flex;
@@ -193,13 +241,14 @@
   top: 9px;
 }
 .f_container .userBlock .f_button button {
+  width: 68px;
   padding: 5px;
   border: none;
   outline: none;
-  box-shadow: 1px 0px 5px 2px black;
   border-radius: 5px;
   font-family: monospace;
   font-weight: 900;
+  box-shadow: 1px 2px 10px 3px black;
   background-color: white;
 }
 .f_container .userBlock .f_button button:active {
@@ -207,4 +256,11 @@
   border: 1px solid black;
   background-color: rgba(255, 255, 255, 0.685);
   font-weight: 100;
+}
+.f_container .displayNone {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 28px;
+  color: red;
+  text-align: center;
 }

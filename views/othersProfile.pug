@@ -7,44 +7,47 @@ block scripts
     script(src="../static/script/othersProfile.js") 
 block content 
     .container 
-        .profileDetails
+        .profileDetails(id=currentUserId)
             .imageAndFollowButton 
                 .imageDiv 
-                    img(src="../static/imagesForPost/profile.png", alt="")
-                .followButtonDiv 
-                    button(type="button" ) Follow
+                    if(user.photo)
+                        img(src=user.photo, alt="")
+                    else 
+                        img(src="../static/imagesForPost/profile.png", alt="")
+                if currentUserId!=user._id
+                    .followButtonDiv 
+                        button(type="button" id="f_btn"+user._id onclick="onClickFollow(this,'"+user._id+"')" )= user.followersArray.includes(currentUserId) ? "Unfollow" :"Follow"
             .followerPostsFollowing 
-                .followersDiv
+                .followersDiv(id=user._id)
                     b Followers
-                    span 200
+                    span= user.followers
                 .postsDiv 
                     b Posts
-                    span 23
-                .followingDiv
+                    span= post
+                .followingDiv(id=user._id)
                     b Following
-                    span 203
+                    span= user.followings
             .userDetails 
                 .header User Details 
                 .detailDiv 
                     span UserName  
-                    p Jainish kunjadiya 
+                    p= user.username
                 hr
                 .detailDiv 
                     span City 
-                    p Ahmedabad
+                    p= user.city
                 hr
                 .detailDiv 
                     span Company Name 
-                    p Google
+                    p= user.companyname
                 hr
                 .detailDiv 
                     span Total Likes 
-                    p 2001 likes
+                    p= likes +" Likes"
                 hr
                 .detailDiv 
                     span Total Comments
-                    p 200 comments
+                    p= comments +" Comments"
         .followersFollowing 
-            include f_list.pug
 
         

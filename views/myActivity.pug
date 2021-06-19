@@ -64,30 +64,51 @@ block content
                 //- include ./yourPost.pug
             div.activity#activity.grid-container 
                 each activity in userActivities
-                    div#g-post_container(class="activity_post"+activity.post._id,onclick="onClickActivity(this,'"+activity._id+"')") 
-                      div#g-main
-                         div#g-head
-                            div#g-descTime
-                                if(activity.activity_action == 'followed' || activity.activity_action == 'unfollowed')
-                                    p='You '+activity.activity_action +' a creator of this post at '+ activity.date 
-                                else if(activity.activity_action == 'commented')
-                                    p='You commented on this post at '+ activity.date
-                                else
-                                    p='You '+activity.activity_action +' this post at '+ activity.date
-                                
-                            //- div#g-count 
-                            //-    p=post.likes+ ' Likes' 
-                            //-    p=post.comments+ ' Comments'
-                         div#g-main-img-desc     
-                            img#g-PostImg(src=activity.post.image)
-                            div.g-details
-                               div#g-title 
-                                  p #[b Title :] #{activity.post.title} 
-                               div#g-discription 
-                                  p #[b Description :] #{activity.post.description} 
-                                  p #[b phone :] #{activity.post.contact}
-                               div#g-city 
-                                  p #[b City :] #{activity.post.city}
+                  if(activity.activity_action !== 'followed' && activity.activity_action !== 'unfollowed')
+                     div#g-post_container(class="activity_post"+activity.post._id,onclick="onClickActivity(this,'"+activity._id+"')") 
+                        div#g-main
+                           div#g-head
+                              div#g-descTime
+                                 if(activity.activity_action == 'followed' || activity.activity_action == 'unfollowed')
+                                       p='You '+activity.activity_action +' a creator of this post at '+ activity.date 
+                                 else if(activity.activity_action == 'commented')
+                                       p='You commented on this post at '+ activity.date
+                                 else
+                                       p='You '+activity.activity_action +' this post at '+ activity.date
+                                 
+                              //- div#g-count 
+                              //-    p=post.likes+ ' Likes' 
+                              //-    p=post.comments+ ' Comments'
+                           div#g-main-img-desc     
+                              img#g-PostImg(src=activity.post.image)
+                              div.g-details
+                                 div#g-title 
+                                    p #[b Title :] #{activity.post.title} 
+                                 div#g-discription 
+                                    p #[b Description :] #{activity.post.description} 
+                                    p #[b phone :] #{activity.post.contact}
+                                 div#g-city 
+                                    p #[b City :] #{activity.post.city}
+                  else 
+                     div#g-post_container(class="activity_post"+activity.creator._id onclick="userProfile('"+activity.creator._id+"');") 
+                        div#g-main
+                           div#g-head
+                              div#g-descTime
+                                 p='You '+activity.activity_action +" "+activity.creator.username+" at "+ activity.date 
+                           div#g-main-img-desc
+                              if(activity.creator.photo)
+                                 img#g-PostImg(src=activity.creator.photo)
+                              else
+                                 img#g-PostImg(src="../static/imagesForPost/profile.png")
+                              div.g-details
+                                 div#g-title 
+                                    p #[b Name :] #{activity.creator.username} 
+                                 div#g-discription 
+                                    p #[b Followers :] #{activity.creator.followers} 
+                                    p #[b Following :] #{activity.creator.followings}
+                                    //- p #[b Likes :] #{activity.likes}
+                                 //- div#g-city 
+                                 //-    p #[b City :] #{activity.post.city}
     //- div.z-post_container
     //-     p Hello                              
     div.z-post_container#activityPost 

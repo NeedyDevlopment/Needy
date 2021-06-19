@@ -33,6 +33,7 @@
 .navbar .div a {
   text-decoration: none;
   color: whitesmoke;
+  padding: 10px 0px;
 }
 
 .navbar .last {

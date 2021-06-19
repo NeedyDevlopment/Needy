@@ -86,3 +86,6 @@ $(window).click(function (event) {
 function onCloseActivity() {
   $(".z-post_container").css("display", "none");
 }
+function userProfile(id) {
+  window.location.href = "/othersProfile?id=" + id;
+}

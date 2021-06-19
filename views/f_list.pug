@@ -1,96 +1,18 @@
 .f_container
     .header 
-        p Followers
+        p= header
         span#close X
     .usersContainer
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
-        .userBlock 
-            .img
-                img(src="../static/imagesForPost/profile.png", alt="")
-            .name 
-                | Jainish Kunjadiya
-            .f_button 
-                button(type="value") Follow
+        if f_Array.length == 0
+            .displayNone No User Found 
+        each user in f_Array
+            .userBlock 
+                .img
+                    if user.photo 
+                        img(src=user.photo, alt="")
+                    else
+                        img(src="../static/imagesForPost/profile.png", alt="")
+                .name= user.username
+                .f_button 
+                    button(type="button" id="f_btn"+user._id onclick="onClickFollow(this,'"+user._id+"')")= user.followersArray.includes(currentUserId)? "Unfollow" : "Follow"
+script(src="../static/script/f_list.js") 
