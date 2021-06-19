@@ -44,7 +44,8 @@ $(document).ready(function () {
     var errorDisplay = $("#errorDisplay");
     if ($(".forgotEmail").val().trim() == "") {
       errorDisplay.text("Email is required");
-    } else {
+    } 
+    else {
       var email = $(".forgotEmail").val();
       errorDisplay.text("");
       sendButton.attr("disabled", true);
