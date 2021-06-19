@@ -1,12 +1,27 @@
-extends ./basic.pug   
+extends ./basic.pug 
+block metas
+   meta(name="description" content="Needy is a Plateform where everyone satisfy by getting there solution.")
+   meta(name="twitter:image:src" content="https://github.githubassets.com/images/modules/site/social-cards/github-social.png")
+   meta(name="twitter:site" content="@Github")
+   meta(name="twitter:card" content="summary_large_image")
+   meta(name="twitter:title" content="Needy: Where people find their perfect solution")
+   meta(name="twitter:description" content="Needy is a Place where everyone satisfy by getting there solution.")
+   meta(property="og:image" content="https://github.githubassets.com/images/modules/site/social-cards/github-social.png")
+   meta(property="og:image:alt" content="Needy is a Plateform where everyone satisfy by getting there solution.")
+   meta(property="og:site_name" content="Needy")
+   meta(property="og:type" content="object")
+   meta(property="og:title" content="Needy: Where people find their perfect solution.")
+   meta(property="og:url" content="http://localhost/post/60c6efc88ddc55a2647dec8b")
+   meta(property="og:description" content="Needy is a Plateform where everyone satisfy by getting there solution.")
+   meta(name="page-subject" content="Needy")
+   meta(property="og:image:type" content="image/png")
+   meta(property="og:image:width" content="1200")
+   meta(property="og:image:height" content="620") 
 block scripts 
-   //- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    script(src="../static/script/post.js")
    script(src="../static/script/commentbox.js") 
    script(src="../static/script/snackbar.js")  
    script(src="../static/script/share.js")  
-   //- script(src="./client.js")
-   //- script(src="../static/script/worker.js")
 block style
    style
       include ../static/css/post.css
@@ -19,43 +34,22 @@ block style
       include ../static/css/login.css
       
    link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
-block content 
-   script.
-      //- console.log(message); 
-      //- console.log(currentUserFollowingsArray);  
-   p#message= message 
-   p#getCity= filter.city   
-   p#getCategory= filter.category 
-   p#getTotalPosts= totalPosts 
-   p#getIdForSharePost
-   div.container
-      div.postsContainer
-         if posts.length == 0
-            p#filterNotFound= "No Result Found For Filter Category: "+filter.category+" and City: "+filter.city
-         each post in posts  
+block content
+            p#message= message   
             div#post_container(style="width: 80%;") 
                div#profile
-                  if(post.creator.photo)
-                     img(src=post.creator.photo)
-                  else
-                     img(src="../static/imagesForPost/profile.png")
+                  img(src="../static/imagesForPost/profile.png")
                   p#name= post.creator.username  
                      small= ' at '+ post.date   
                   b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id+" showFollowers")= post.creator.followers+' Followers'    
                   button(id="f-btn",class="f-btn"+post.creator._id,onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
-                     //- if(currentUserFollowingsArray.includes(post.creator._id))
-                     //-    span #[i(class="fas fa-user-minus")] Unfollow
-                     //- else 
-                     //-    span #[i(class="fas fa-user-plus")] follow
-                     
                div#main
                   div#head
                      div#count 
                         p(id='showLikes'+post._id)= post.likes+ ' Likes' 
                         p(id='showComments'+post._id)= post.comments+ ' Comments'
                   div#main-img-desc     
-                     //- img#PostImg(src='data:'+post.image.contentType+';base64,'+post.image.data.toString('base64'))
-                     img#PostImg(src=post.image)
+                     img#PostImg(src="http://localhost/"+post.image)
                      div.details
                         div#title 
                               p #[b Title: ]  #{post.title} 
@@ -86,21 +80,5 @@ block content
                         b Write comment
                         textarea(name="writtencomment" id="writtencomment" cols="35" rows="4")
                         button(id="submitcomment") Add Comment
-      div.sideNavbar
-         include ./sideBar.pug
-      div#id01.w3-modal
-         include ./dialogBox.pug 
-      div#share-dialog
-         include ./share.pug
-      #myModal.modal.modalForEmail
-               .modal-content
-                  .modal-header
-                     span.close(onclick="onCloseEmailModal()") &times;
-                     h1(style="justify-content: center;display: flex;") Share Post
-                  .modal-body
-                           label(for='email')
-                              .img1
-                                 img(src="../static/images/email.webp"        style="margin:-1px;")
-                                 b(style="margin:5px") Email
-                              input(type='email' placeholder='Enter your recipients email' name='email' id="recipientEmail")
-                           button(type='button' class="btn1" onclick="onEmailSend()") Send        
+            div#share-dialog
+                include ./share.pug

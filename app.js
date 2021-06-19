@@ -46,6 +46,16 @@ const transporter = nodemailer.createTransport({
 //     webpush.sendNotification(subscription, payload);
 // })
 
+//Sending Mail
+
+// var transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: 'forexternaluse505@gmail.com',
+//         pass: 'ashwin99999@'
+//     }
+// });
+
 // var mailOptions = {
 //     from: 'forexternaluse505@gmail.com',
 //     to: 'ahpatel99999@gmail.com',
@@ -118,7 +128,7 @@ emitter.on("postAdded", async (args) => {
     service: "gmail",
     auth: {
       user: "forexternaluse505@gmail.com",
-      pass: "ahpatel9@",
+      pass: "ashwin99999@",
     },
   });
 
@@ -286,10 +296,13 @@ app.get("/myactivity", AuthForLogin, async (req, res, next) => {
   console.log("user Activities:::::;");
   console.log(userActivities);
   // const params = { likes: 10, comments: 20 };
-  res.status(200).render("myActivity.pug", {
-    posts: usersPost,
-    userActivities: userActivities,
-  });
+  res
+    .status(200)
+    .render("myActivity.pug", {
+      posts: usersPost,
+      userActivities: userActivities,
+      isLoggedIn: req.session.isLoggedIn,
+    });
   next();
 });
 
@@ -510,7 +523,7 @@ app.get("/createpost", AuthForLogin, (req, res, next) => {
   if (!fs.existsSync("D://usersPost")) {
     fs.mkdirSync("D://usersPost");
   }
-  res.render("createpost.pug");
+  res.render("createpost.pug", { isLoggedIn: req.session.isLoggedIn });
   next();
 });
 
@@ -1101,6 +1114,61 @@ app.post("/resetPassword", async (req, res, next) => {
   }
 });
 
+app.get("/post/:postId", async (req, res, next) => {
+  const currentUserId = req.session.token
+    ? await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"])
+    : "";
+  const currentUser = req.session.token
+    ? await User.findOne({ _id: currentUserId._id })
+    : { followingsArray: [], city: "All City" };
+  const postId = req.params.postId;
+  const post = await Post.findById(postId);
+  res.status(200).render("sharePost.pug", {
+    post: post,
+    currentUserId: currentUserId._id,
+    currentUserFollowingsArray: currentUser.followingsArray,
+    isLoggedIn: req.session.isLoggedIn,
+  });
+  // res.status(200).render('sharePost.pug', { post: post });
+});
+app.post("/sendMail", (req, res, next) => {
+  const currentUser = req.session.token
+    ? jwt.verify(req.session.token, "MySecureKey")
+    : null;
+  const emailTo = req.body.emailTo;
+  const postId = req.body.postId;
+  const url = "http://localhost/post/" + postId;
+  if (!currentUser) {
+    return res.send(401).json({ message: "You are Not registered!" });
+  }
+
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "forexternaluse505@gmail.com",
+      pass: "ashwin99999@",
+    },
+  });
+
+  var mailOptions = {
+    from: "forexternaluse505@gmail.com",
+    to: emailTo,
+    subject: "your friend " + currentUser.username + " shared a post",
+    text: "Open this url to view post: " + url,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ message: "something went wrong!" });
+    } else {
+      console.log("successfully sent.");
+      return res
+        .status(200)
+        .json({ message: "Post shared successfully to " + emailTo });
+    }
+  });
+});
 //start server
 app.listen(port, () => {
   console.log(`the application started successfully on port ${port}`);

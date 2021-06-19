@@ -86,3 +86,15 @@ $(window).click(function (event) {
 function onCloseActivity() {
   $(".z-post_container").css("display", "none");
 }
+document.addEventListener("click", function (e) {
+  var elementDisplay =
+    document.getElementsByClassName("z-post_container")[0].style.display;
+  // console.log(e.target.id);
+  console.log(e.target.id);
+  // console.log(e.target.id != 'activityPost' && e.target.id != 'g-post_container' && elementDisplay == 'block');
+  // console.log(e.target.id == "html" || e.target.id == "body" || e.target.id == "postbtn" );
+  // console.log(e.target.offsetParent.className !== 'z-post_container');
+  if (["body", "html", "postbtn", "activitybtn"].includes(e.target.id)) {
+    $(".z-post_container").css("display", "none");
+  }
+});

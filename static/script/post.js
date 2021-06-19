@@ -171,9 +171,11 @@ function actionPerformed(element, icon, postId) {
 
       success: function (totalLikes) {
         if (p.innerText === "like") {
+          showSnackbar("You unliked a post.");
           element.classList.replace("fa-thumbs-o-up", "fa-thumbs-up");
           p.innerText = "unlike";
         } else {
+          showSnackbar("You liked a post.");
           element.classList.replace("fa-thumbs-up", "fa-thumbs-o-up");
           p.innerText = "like";
         }
@@ -186,105 +188,145 @@ function actionPerformed(element, icon, postId) {
       },
     });
 
-    // var xmlHttp = new XMLHttpRequest();
-    // xmlHttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         document.getElementById('showLikes').innerText = this.responseText;
+    //   success: function (totalLikes) {
+    //     if (p.innerText === "like") {
+    //       element.classList.replace("fa-thumbs-o-up", "fa-thumbs-up");
+    //       p.innerText = "unlike";
+    //     } else {
+    //       element.classList.replace("fa-thumbs-up", "fa-thumbs-o-up");
+    //       p.innerText = "like";
     //     }
-    // }
-    // var url = '/action/' + postId + '?incLikes=' + incLikes;
-    // xmlHttp.open('POST', url, true);
-    // xmlHttp.send(); //not Working
+    //     document.getElementById("showLikes" + postId).innerText =
+    //       totalLikes + " Likes";
+    //   },
+    //   error: function (xhr, status, error) {
+    //     if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
+    //     else showSnackbar("something Went Wrong!");
+    //   },
+    // });
   }
-  if (icon === "comment") {
-    // $('#submitcomment').onclick = function() {
-    document.getElementById("submitcomment").onclick = function () {
-      submitComment(postId);
-    };
-    // if (document.getElementById('maincommentcontainer').classList.contains('show-commentbox')) {
-    //     hidecommentbox(false);
-    // }
-    $(".commentdiv").remove(); //removing existing comments
-    if (
-      !document
-        .getElementById("maincommentcontainer")
-        .classList.contains("show-commentbox")
-    ) {
-      showcommentbox();
-    }
-    $.ajax({
-      url: "/ajax/getcomment",
-      type: "POST",
-      data: { postId: postId },
-      beforeSend: function () {
-        $(".loader").show();
-      },
-      complete: function () {
-        $(".loader").hide();
-      },
-      success: function (commentsArray) {
-        var innercommentcontainer = $("#innercommentcontainer");
-        var writecomment = document.getElementById("writecomment");
-        if (commentsArray.length === 0) {
-          // // innercommentcontainer.innerHTML = '<p>array is returned!</p>';
-          // innercommentcontainer.innerHTML = '<p>no comments added yet!</p>';
-          // var div = document.createElement("div");
-          // var p = document.createElement("p");
-          // var text = document.createTextNode('No Comments Added Yet! Become first one to comment.');
-          // var P = p.appendChild(text);
-          // var Div = div.appendChild(P);
-          // writecomment.parentNode.insertBefore(Div, writecomment.nextSibling);
-          // Div.id = 'myDiv';
-          $(
-            "<div id='nocomment' class='commentdiv'><p>No Comments Added Yet! Become first one to comment.</p></div>"
-          ).insertAfter($(".loader"));
-          // insertAfter($('#commentHeader'));
-        } else {
-          document.getElementById("showComments" + postId).innerText =
-            commentsArray.length + " Comments";
-          console.log(commentsArray);
-          // $('.commentdiv').parentNode.removeChild($('.commentdiv'))
-          // const elements = document.getElementsByClassName('.commentdiv');
-          // while (elements.length > 0) {
-          //     elements[0].parentNode.removeChild(elements[0]);
-          // }
-          // innercommentcontainer.innerHTML = '<p>here we show comments!</p>';
-          commentsArray.forEach((comment) => {
-            var usernametoBePrinted =
-              element.id === comment.userId ? "You" : comment.username;
-            var dateDiffer = new Date().getTime() - comment.date;
-            console.log(dateDiffer);
-            $(
-              "<div class='commentdiv'><img src='../static/imagesForPost/profile.png'><b>&nbsp;" +
-                usernametoBePrinted +
-                "<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                getDateDifference(dateDiffer) +
-                " ago</small></b><p id='commentP'>" +
-                comment.commentText +
-                "</p></div>"
-            ).insertAfter($(".loader"));
-            // insertAfter($('#commentHeader'));
-          });
-          //here above setting user profile image and showing date difference is remain
-        }
 
-        // element.classList.replace("fa-comment-o", "fa-comment");
-        // p.innerText = 'commented';
-      },
-      error: function (xhr, status, error) {
-        if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-        else showSnackbar("something Went Wrong!");
-      },
+  // var xmlHttp = new XMLHttpRequest();
+  // xmlHttp.onreadystatechange = function() {
+  //     if (this.readyState == 4 && this.status == 200) {
+  //         document.getElementById('showLikes').innerText = this.responseText;
+  //     }
+  // }
+  // var url = '/action/' + postId + '?incLikes=' + incLikes;
+  // xmlHttp.open('POST', url, true);
+  // xmlHttp.send(); //not Working
+}
+if (icon === "comment") {
+  // $('#submitcomment').onclick = function() {
+  document.getElementById("submitcomment").onclick = function () {
+    submitComment(postId);
+  };
+  // if (document.getElementById('maincommentcontainer').classList.contains('show-commentbox')) {
+  //     hidecommentbox(false);
+  // }
+  $(".commentdiv").remove(); //removing existing comments
+  if (
+    !document
+      .getElementById("maincommentcontainer")
+      .classList.contains("show-commentbox")
+  ) {
+    showcommentbox();
+  }
+  if (icon == "share") {
+    $("#getIdForSharePost").val(postId);
+    // var fbUrl = "https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%2Fpost%2F" + postId;
+    // var fbUrl = "https://www.facebook.com/sharer.php?u=" + encodeURIComponent("http://localhost/post/60c6efc88ddc55a2647dec8b");
+    var fbUrl =
+      "https://www.facebook.com/sharer/sharer.php?u=http%3A//localhost/post/60c6efc88ddc55a2647dec8b"; //with meta tags
+    var twUrl =
+      "https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%2Fpost%2F" +
+      postId +
+      "&text=" +
+      encodeURIComponent("Hello From Needy,Open this link to view Post") +
+      "&hashtags=rentalHouse,Ahmedabad";
+    // var twUrl = "https://twitter.com/intent/tweet?text=hello%20From%20Needy%0AGo%20to%20http%3A//localhost/post/60c6efc88ddc55a2647dec8b"; //with meta tags
+    // var lnUrl = "https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%2Fpost%2F" + postId;
+    // var lnUrl = "https://www.linkedin.com/shareArticle?mini=true&url=http%3A//localhost/post/60c6efc88ddc55a2647dec8b&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
+    var lnUrl =
+      "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//github.com&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
+
+    $(".post-url").text("http://localhost/post/" + postId);
+    var eUrl =
+      "mailto:forexternaluse505@gmail.com?cc=ThisIsCC&bcc=ThisIsBCC&subject=Post%20From%20Needy%20this%20is%20subject&body=Hey%20This%20is%20Body%20of%20email";
+    $(".fbBtn").attr("href", fbUrl);
+    $(".twBtn").attr("href", twUrl);
+    $(".lnBtn").attr("href", lnUrl);
+    // $(".eBtn").attr("href", eUrl);
+    const shareDialog = document.querySelector(".share-dialog");
+    const closeButton = document.querySelector(".close-button");
+    shareDialog.classList.add("is-open");
+    closeButton.addEventListener("click", (event) => {
+      shareDialog.classList.remove("is-open");
     });
-    setTimeout(() => {
-      var element = document.getElementById("writecomment");
-      element.scrollIntoView(true);
-    }, 500);
-
-    // element.classList.toggle("fa-comment");//not working
-    // element.classList.replace("fa-comment-o", "fa-comment");
-    // comments++;
+    // shareButton.addEventListener('click', event => {
+    // console.log("share clicked");
+    // if (navigator.share) {
+    //     navigator.share({
+    //             title: 'WebShare API Demo',
+    //             url: 'http://localhost/'
+    //         }).then(() => {
+    //             console.log('sharing successfully!');
+    //         })
+    //         .catch(console.error);
+    // } else {
+    // shareDialog.classList.add('is-open');
+    // }
+    //   });
   }
+  //   if (icon === "save") {
+  //       if (p.innerText === "saved") {
+  //           showSnackbar("you already saved!");
+  //       } else {
+  //         document.getElementById("showComments" + postId).innerText =
+  //           commentsArray.length + " Comments";
+  //         console.log(commentsArray);
+  //         // $('.commentdiv').parentNode.removeChild($('.commentdiv'))
+  //         // const elements = document.getElementsByClassName('.commentdiv');
+  //         // while (elements.length > 0) {
+  //         //     elements[0].parentNode.removeChild(elements[0]);
+  //         // }
+  //         // innercommentcontainer.innerHTML = '<p>here we show comments!</p>';
+  //         commentsArray.forEach((comment) => {
+  //           var usernametoBePrinted =
+  //             element.id === comment.userId ? "You" : comment.username;
+  //           var dateDiffer = new Date().getTime() - comment.date;
+  //           console.log(dateDiffer);
+  //           $(
+  //             "<div class='commentdiv'><img src='../static/imagesForPost/profile.png'><b>&nbsp;" +
+  //               usernametoBePrinted +
+  //               "<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+  //               getDateDifference(dateDiffer) +
+  //               " ago</small></b><p id='commentP'>" +
+  //               comment.commentText +
+  //               "</p></div>"
+  //           ).insertAfter($(".loader"));
+  //           // insertAfter($('#commentHeader'));
+  //         });
+  //         //here above setting user profile image and showing date difference is remain
+  //       }
+
+  //       // element.classList.replace("fa-comment-o", "fa-comment");
+  //       // p.innerText = 'commented';
+  //     },
+  //     error: function (xhr, status, error) {
+  //       if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
+  //       else showSnackbar("something Went Wrong!");
+  //     },
+  //   });
+  //   setTimeout(() => {
+  //     var element = document.getElementById("writecomment");
+  //     element.scrollIntoView(true);
+  //   }, 500);
+
+  //   // element.classList.toggle("fa-comment");//not working
+  //   // element.classList.replace("fa-comment-o", "fa-comment");
+  //   // comments++;
+  // }
   if (icon === "save") {
     if (p.innerText === "saved") {
       showSnackbar("you already saved!");
@@ -314,6 +356,21 @@ function actionPerformed(element, icon, postId) {
     // } else {
     //     element.classList.replace("fa-bookmark", "fa-bookmark-o");
     // }
+  }
+}
+
+function CopyToClipboard(containerid) {
+  if (document.selection) {
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy");
+  } else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    document.getElementById("copy-link").innerText = "Copied";
   }
 }
 
