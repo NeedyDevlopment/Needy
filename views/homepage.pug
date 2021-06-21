@@ -5,6 +5,7 @@ block scripts
    script(src="../static/script/commentbox.js") 
    script(src="../static/script/snackbar.js")  
    script(src="../static/script/share.js")  
+   script(src="../static/script/dialogbox.js")  
    //- script(src="./client.js")
    //- script(src="../static/script/worker.js")
 block style
@@ -13,7 +14,7 @@ block style
       include ../static/css/commentbox.css
       include ../static/css/snackbar.css
       include ../static/css/homePage.css
-      include ../static/css/dialogBox.css
+      //- include ../static/css/dialogBox.css
       include ../static/css/pagination.css
       include ../static/css/share.css
       include ../static/css/login.css
@@ -83,9 +84,7 @@ block content
                         textarea(name="writtencomment" id="writtencomment" cols="35" rows="4")
                         button(id="submitcomment") Add Comment
       div.sideNavbar
-         include ./sideBar.pug
-      div#id01.w3-modal
-         include ./dialogBox.pug 
+         include ./sideBar.pug 
       div#share-dialog
          include ./share.pug
       #myModal.modal.modalForEmail
