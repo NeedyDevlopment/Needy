@@ -14,34 +14,34 @@ block content
            
       form(action="/profile"  method="post" enctype='multipart/form-data') 
 
-        p#forSnackBarCalling= message
+        p#forSnackBarCalling= profile.message
         div.upperDiv
           div.image
-            if photo
+            if profile.photo
               div.innerImage
-                img( src=photo  alt="Avatar" class="avatar")
+                img( src=profile.photo  alt="Avatar" class="avatar")
             else
               div.innerImage
-                div(class="avatar" id="avatardiv")= username.split(' ').length === 1 ? username.charAt(0).toUpperCase() :username.split(' ')[0].charAt(0).toUpperCase()+username.split(' ')[1].charAt(0).toUpperCase()
+                div(class="avatar" id="avatardiv")= profile.username.split(' ').length === 1 ? profile.username.charAt(0).toUpperCase() :profile.username.split(' ')[0].charAt(0).toUpperCase()+profile.username.split(' ')[1].charAt(0).toUpperCase()
             .cameraIcon 
               |&#128247;
               input(type="file" class="imageInput" name="profileImg" title="Upload Profile From Here")
             .activities 
-              p followers #[span 0]
-              p Posts #[span 0]
-              p following #[span 0]
+              p followers #[span= profile.followers]
+              p Posts #[span= post]
+              p following #[span= profile.followings]
           div.infoPerson
             h1.infoTitle Your Personal Info
             hr
             div.input
               label( class="")  Name :
-              input( type="text" name="username" id="username" class="" value=username)
+              input( type="text" name="username" id="username" class="" value=profile.username)
             div.input
               label( class="") Email :
-              input( type="email" name="email" id="email" class="" value=email)
+              input( type="email" name="email" id="email" class="" value=profile.email)
             div.input
               label( class="one") Contact No :
-              input( type="number" name="contactno" id="contactno" class="contactno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" value=contact)
+              input( type="number" name="contactno" id="contactno" class="contactno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" pattern="[0-9]{10}" value=profile.contact)
           div.actionButtons
             button( type="button" class= "editBtn" id="editBtn") Edit Profile
             button( type="submit" class="saveBtn" id="saveBtn") Save Changes
@@ -54,7 +54,7 @@ block content
             hr
             div.input
               label(class="") City :
-              input( type="text" name="city" list="cities" id="city" class="city" value=city)
+              input( type="text" name="city" list="cities" id="city" class="city" value=profile.city)
               datalist#cities
                             option Mumbai
                             option Delhi
@@ -68,7 +68,7 @@ block content
                             option Jaipur
             div.input
               label( class="one") Work Place :
-              input( type="text" name="workplace" id="workplace" class="" value=companyname)
+              input( type="text" name="workplace" id="workplace" class="" value=profile.companyname)
         div#deleteAccountConfirmation.w3-modal
           .w3-modal-content.w3-animate-zoom.w3-card-4
             header.w3-container.w3-teal
