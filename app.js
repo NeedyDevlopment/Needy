@@ -72,10 +72,6 @@ const transporter = nodemailer.createTransport({
 //     }
 // });
 
-app.get("/contact", async (req, res, next) => {
-  res.status(200).render("contact.pug");
-});
-
 const emitter = new EventEmitter();
 emitter.on("Followed", async (args) => {
   console.log("event listened");
@@ -289,7 +285,13 @@ app.get("/", async (req, res, next) => {
   next();
 });
 
+app.get("/contact", async (req, res, next) => {
+  const isLoggedIn = req.session.isLoggedIn;
+  res.status(200).render("contact.pug", { isLoggedIn: isLoggedIn });
+});
+
 app.get("/myactivity", AuthForLogin, async (req, res, next) => {
+  const isLoggedIn = req.session.isLoggedIn;
   const currentUserId = await _.pick(
     jwt.verify(req.session.token, "MySecureKey"),
     ["_id"]
@@ -305,6 +307,7 @@ app.get("/myactivity", AuthForLogin, async (req, res, next) => {
   res.status(200).render("myActivity.pug", {
     posts: usersPost,
     userActivities: userActivities,
+    isLoggedIn: isLoggedIn,
   });
 });
 
@@ -536,9 +539,15 @@ app.get("/createpost", AuthForLogin, (req, res, next) => {
 
 //Displaying ProfilePage
 app.get("/profile", async (req, res, next) => {
+  const isLoggedIn = req.session.isLoggedIn;
   const decoded = jwt.verify(req.session.token, "MySecureKey");
   const profile = await User.findOne({ _id: decoded._id });
-  res.status(200).render("profile.pug", profile);
+  const post = await Post.countDocuments({ "creator._id": decoded._id });
+  res.status(200).render("profile.pug", {
+    profile: profile,
+    isLoggedIn: isLoggedIn,
+    post: post,
+  });
   next();
 });
 
@@ -547,10 +556,12 @@ app.post(
   "/profile",
   uploadProfileImage.single("profileImg"),
   async (req, res, next) => {
+    const isLoggedIn = req.session.isLoggedIn;
     const currentUserId = await _.pick(
       jwt.verify(req.session.token, "MySecureKey"),
       ["_id"]
     ); // getting current user id
+    const post = await Post.countDocuments({ "creator._id": currentUserId });
     let profileImg = (await User.findOne({ _id: currentUserId }, { photo: 1 }))
       .photo;
     if (req.file) {
@@ -585,7 +596,13 @@ app.post(
       message = "Profile Updated Successfully.";
     }
     profile.message = message;
-    res.status(200).render("profile.pug", profile);
+    res
+      .status(200)
+      .render("profile.pug", {
+        profile: profile,
+        isLoggedIn: isLoggedIn,
+        post: post,
+      });
   }
 );
 

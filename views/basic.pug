@@ -17,22 +17,26 @@ html(id="html")
     block scripts
   body(id="body")
     nav.navbar
+          .burgerIcon 
+            div
+            div
+            div
           div.start 
             | LOGO
-          div.div#home #[a(href="/") Home] 
-          div.div#category #[a(href="/") Recommandation] 
-          div.div#catpost #[a(href="/createpost") Createpost] 
-          div.div#myActivity #[a(href="/myactivity") My Activity ]
-          div.div#contactUs #[a(href="/contact") Contact Us ]
-          div.div#aboutUs #[a(href="/") About Us]
+          div.flexible
+            div.div#home Home
+            //- div.div#category #[a(href="/") Recommandation] 
+            div.div#catpost Createpost 
+            div.div#myActivity My Activity
+            div.div#contactUs Contact Us 
+            div.div#aboutUs About Us
           div.last 
             if(isLoggedIn)
-              //- button.btn#logoutbtn #[a(href="/logout") Logout]
               button(id="logoutbtn",class="btn",onclick="showDialogBox('logout')") Logout
-              button.btn#profilebtn #[a(href="/profile") MyProfile] 
+              button.btn#profilebtn MyProfile
             else   
               button.btn#loginBtn Login
-              button.btn#Singupbtn #[a(href="/signup") Signup]
+              button.btn#Singupbtn Signup
     #myModal.modal
         .modal-content
             
