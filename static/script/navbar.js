@@ -33,21 +33,24 @@ $(document).ready(function () {
     document.location.href = "/signup";
   });
 
+  $("#body").css("min-height", window.innerHeight);
   // for burger icon and below navbar
   var div = $(".flexible");
   $(".burgerIcon").click(function () {
-    if (div.attr("shown") == "true") {
-      div.hide(400);
-      div.attr("shown", false);
+    if (screen.width < 768) {
+      if (div.css("visibility") === "visible") {
+        div.addClass("animation_reverse");
+        div.removeClass("animation");
+        setTimeout(() => {
+          div.css("visibility", "hidden");
+        }, 1000);
+      } else {
+        div.css("visibility", "visible");
+        div.addClass("animation");
+        div.removeClass("animation_reverse");
+      }
     } else {
-      div.show(300);
-      div.attr("shown", true);
+      div.css("visibility", "visible");
     }
   });
-  if ($(document).width() < 768) {
-    div.hide();
-    div.attr("shown", false);
-    $(".burgerIcon").css("visibility", "visible");
-    $(".burgerIcon").css("display", "flex");
-  }
 });

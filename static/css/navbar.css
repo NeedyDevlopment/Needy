@@ -19,14 +19,41 @@
   visibility: hidden;
 }
 .burgerIcon div {
-  width: 32px;
-  height: 3px;
+  width: 39px;
+  height: 5px;
   background-color: white;
-  margin: 2px auto;
+  margin: 3px auto;
 }
 .flexible {
   display: flex;
   flex-direction: row;
+  visibility: visible;
+}
+.animation {
+  animation: 1s slowDisplay 0s 1;
+}
+.animation_reverse {
+  animation: 1s slowDisplayReverse 0s 1;
+}
+@keyframes slowDisplay {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+@keyframes slowDisplayReverse {
+  from {
+    width: 100%;
+    opacity: 1;
+  }
+  to {
+    width: 0;
+    opacity: 0;
+  }
 }
 .navbar .div {
   padding: 10px 18px;
@@ -78,7 +105,7 @@
 
 .navbar .last .btn:hover,
 .active {
-  background-color: rgb(15, 92, 95);
+  background-color: rgb(15, 92, 95) !important;
 }
 
 #Singupbtn a {
@@ -118,14 +145,14 @@
 }
 
 /* For medium size of laptop*/
-@media screen and (min-device-width: 1081px) and (max-device-width: 1280px) {
+@media screen and (min-width: 1081px) and (max-width: 1280px) {
   #body {
     background-color: blueviolet;
   }
 }
 
 /* For large size tablet and samller size laptop Screen */
-@media screen and (min-device-width: 768px) and (max-device-width: 1080px) {
+@media screen and (min-width: 768px) and (max-width: 1080px) {
   #body {
     background-color: red;
   }
@@ -141,55 +168,106 @@
 }
 
 /* For Small size Tablet Screen */
-@media screen and (max-device-width: 767px) and (min-device-width: 425px) {
+@media screen and (max-width: 767px) and (min-width: 425px) {
   #body {
     background-color: green;
+  }
+  .burgerIcon {
+    display: flex;
+    visibility: visible;
   }
   .flexible {
     flex-direction: column;
     left: 0px;
-    top: 44px;
+    top: 59px;
     position: absolute;
     background-color: black;
     z-index: 1;
     width: 100%;
+    visibility: hidden;
   }
   .navbar .div {
     padding: 13px 27px;
+    font-size: 28px;
+  }
+  .navbar .start {
+    font-size: 28px;
+  }
+  .navbar .last .btn {
+    font-size: 28px;
   }
 }
 
 /* For Large size Mobile Screen */
-@media screen and (max-device-width: 425px) and (min-device-width: 321px) {
+@media screen and (max-width: 425px) and (min-width: 321px) {
   #body {
     background-color: yellow;
+  }
+  .navbar .start {
+    font-size: 40px;
   }
   .flexible {
     flex-direction: column;
     left: 0px;
-    top: 44px;
+    top: 73px;
     position: absolute;
     background-color: black;
     z-index: 1;
     width: 100%;
+    visibility: hidden;
+    font-size: 40px;
   }
   .navbar .div {
-    padding: 13px 27px;
+    padding: 17px 27px;
+    /* font-size: 40px; */
   }
   .navbar .last {
     right: 5px;
   }
   .navbar .last .btn {
-    padding: 10px 10px;
+    /* padding: 10px 25px; */
+    /* font-size: 40px; */
   }
   .navbar .start {
     margin: 0;
   }
+  .burgerIcon {
+    display: flex;
+    visibility: visible;
+  }
 }
 
 /* For Small size Mobile Screen */
-@media screen and (max-device-width: 320px) {
+@media screen and (max-width: 320px) {
   #body {
     background-color: tomato;
+  }
+  .navbar .start {
+  }
+  .flexible {
+    flex-direction: column;
+    left: 0px;
+    top: 43px;
+    position: absolute;
+    background-color: black;
+    z-index: 1;
+    width: 100%;
+    visibility: hidden;
+  }
+  .navbar .div {
+    /* padding: 13px 27px; */
+  }
+  .navbar .last {
+    right: 5px;
+  }
+  .navbar .last .btn {
+    /* padding: 10px 25px; */
+  }
+  .navbar .start {
+    margin: 0;
+  }
+  .burgerIcon {
+    display: flex;
+    visibility: visible;
   }
 }
