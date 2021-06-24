@@ -10,17 +10,21 @@
   display: flex;
   padding: 2px;
 }
-
+#body {
+  position: relative;
+  padding-bottom: 37px;
+}
 .burgerIcon {
   padding: 3px 10px;
   justify-content: center;
   display: none;
   flex-direction: column;
   visibility: hidden;
+  padding-right: 0px;
 }
 .burgerIcon div {
-  width: 39px;
-  height: 5px;
+  width: 33px;
+  height: 4px;
   background-color: white;
   margin: 3px auto;
 }
@@ -70,7 +74,7 @@
 .navbar .start {
   color: whitesmoke;
   margin-left: 15px;
-  margin-right: 30px;
+  margin-right: 20px;
   align-items: center;
   display: flex;
   padding: 12px;
@@ -144,6 +148,16 @@
   outline: 1px solid black;
 }
 
+#footer {
+  bottom: 0px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  background-color: black;
+  padding: 10px;
+  color: aliceblue;
+}
+
 /* For medium size of laptop*/
 @media screen and (min-width: 1081px) and (max-width: 1280px) {
   #body {
@@ -157,20 +171,23 @@
     background-color: red;
   }
   .navbar .div {
-    padding: 10px 10px;
+    padding: 10px 8px;
   }
   .navbar .last {
-    right: 5px;
+    right: 2px;
   }
   .navbar .last .btn {
-    padding: 10px 10px;
+    padding: 10px 8px;
   }
 }
 
 /* For Small size Tablet Screen */
-@media screen and (max-width: 767px) and (min-width: 425px) {
+@media screen and (max-width: 768px) and (min-width: 425px) {
   #body {
     background-color: green;
+  }
+  .navbar .last {
+    right: 5px;
   }
   .burgerIcon {
     display: flex;
@@ -179,57 +196,47 @@
   .flexible {
     flex-direction: column;
     left: 0px;
-    top: 59px;
+    top: 46px;
     position: absolute;
     background-color: black;
     z-index: 1;
     width: 100%;
     visibility: hidden;
   }
-  .navbar .div {
-    padding: 13px 27px;
-    font-size: 28px;
-  }
   .navbar .start {
-    font-size: 28px;
-  }
-  .navbar .last .btn {
-    font-size: 28px;
+    margin: 0;
   }
 }
 
 /* For Large size Mobile Screen */
-@media screen and (max-width: 425px) and (min-width: 321px) {
+@media screen and (max-width: 425px) and (min-width: 361px) {
   #body {
     background-color: yellow;
-  }
-  .navbar .start {
-    font-size: 40px;
   }
   .flexible {
     flex-direction: column;
     left: 0px;
-    top: 73px;
+    top: 50px;
     position: absolute;
     background-color: black;
     z-index: 1;
     width: 100%;
     visibility: hidden;
-    font-size: 40px;
   }
   .navbar .div {
     padding: 17px 27px;
-    /* font-size: 40px; */
+    font-size: 20px;
   }
   .navbar .last {
-    right: 5px;
+    right: 2px;
   }
   .navbar .last .btn {
-    /* padding: 10px 25px; */
-    /* font-size: 40px; */
+    font-size: 20px;
+    padding: 10px 10px;
   }
   .navbar .start {
     margin: 0;
+    font-size: 20px;
   }
   .burgerIcon {
     display: flex;
@@ -238,11 +245,12 @@
 }
 
 /* For Small size Mobile Screen */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 360px) {
   #body {
     background-color: tomato;
   }
   .navbar .start {
+    font-size: 14px;
   }
   .flexible {
     flex-direction: column;
@@ -255,13 +263,14 @@
     visibility: hidden;
   }
   .navbar .div {
-    /* padding: 13px 27px; */
+    font-size: 14px;
   }
   .navbar .last {
-    right: 5px;
+    right: 2px;
   }
   .navbar .last .btn {
-    /* padding: 10px 25px; */
+    padding: 12px 3px;
+    font-size: 14px;
   }
   .navbar .start {
     margin: 0;
@@ -269,5 +278,10 @@
   .burgerIcon {
     display: flex;
     visibility: visible;
+  }
+  .burgerIcon div {
+    width: 19px;
+    height: 2px;
+    margin: 2px auto;
   }
 }

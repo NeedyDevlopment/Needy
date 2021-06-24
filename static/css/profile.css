@@ -234,90 +234,260 @@ input:disabled {
 }
 
 /* For medium size of laptop*/
-@media screen and (min-device-width: 1081px) and (max-device-width: 1280px) {
+@media screen and (min-width: 1081px) and (max-width: 1280px) {
 }
 /* For large size tablet and samller size laptop Screen */
-@media screen and (min-device-width: 768px) and (max-device-width: 1080px) {
+@media screen and (min-width: 768px) and (max-width: 1080px) {
+  .upperDiv {
+    position: relative;
+  }
+  .upperDiv .image {
+    margin: 10px 0px;
+    width: 165px;
+    border-radius: 0px;
+  }
+  .upperDiv .innerImage {
+    height: 150px;
+    width: 150px;
+  }
+  .upperDiv .innerImage img {
+    height: 150px;
+    width: 150px;
+  }
+  .upperDiv .image .cameraIcon {
+    width: 150px;
+  }
+  .upperDiv .activities {
+    width: 150px;
+  }
+  .upperDiv .activities p {
+    font-size: 14px;
+    padding: 5px 0px;
+  }
+  .upperDiv .actionButtons {
+    width: 165px;
+  }
+  .upperDiv .infoPerson {
+    margin: 10px auto;
+    width: -webkit-fill-avilable;
+  }
+  .upperDiv .infoTitle {
+    font-size: 25px;
+  }
+  .upperDiv .actionButtons button {
+    width: 147px;
+    font-size: 13px;
+    margin: 5px 5px 15px 5px;
+  }
+  .upperDiv .input {
+    width: 90%;
+    align-items: center;
+    margin: 10px auto;
+  }
+  .upperDiv .input input {
+    font-size: 16px;
+    width: -webkit-fill-available;
+  }
+  .upperDiv .input label {
+    font-size: 16px;
+    width: 135px;
+  }
+  .lowerDiv {
+    margin: 10px auto;
+    width: 100%;
+    padding: 0;
+    min-height: 0px;
+  }
+  .lowerDiv .workPlaceInfo {
+    font-size: 25px;
+  }
+  .lowerDiv .input {
+    align-items: center;
+    margin: 10px auto;
+  }
+  .lowerDiv .input label {
+    font-size: 16px;
+    width: 135px;
+  }
+  .lowerDiv .input input {
+    font-size: 16px;
+    width: -webkit-fill-available;
+  }
+  input:disabled {
+    font-size: 15px;
+  }
 }
 /* For Small size Tablet Screen */
-@media screen and (max-device-width: 767px) and (min-device-width: 425px) {
+@media screen and (max-width: 768px) and (min-width: 501px) {
+  .upperDiv {
+    position: relative;
+  }
+  .upperDiv .image {
+    margin: 10px 0px;
+    width: 165px;
+    border-radius: 0px;
+  }
+  .upperDiv .innerImage {
+    height: 150px;
+    width: 150px;
+  }
+  .upperDiv .innerImage img {
+    height: 150px;
+    width: 150px;
+  }
+  .upperDiv .image .cameraIcon {
+    width: 150px;
+  }
+  .upperDiv .activities {
+    width: 150px;
+  }
+  .upperDiv .activities p {
+    font-size: 14px;
+    padding: 5px 0px;
+  }
+  .upperDiv .actionButtons {
+    position: absolute;
+    left: 0px;
+    top: 260px;
+    width: 165px;
+    margin: 0px;
+  }
+  .upperDiv .infoPerson {
+    width: 100%;
+    margin: 10px auto;
+  }
+  .upperDiv .infoTitle {
+    font-size: 25px;
+  }
+  .upperDiv .actionButtons button {
+    font-size: 13px;
+    margin: 5px 5px 10px 5px;
+  }
+  .upperDiv .input {
+    width: 90%;
+    align-items: center;
+    margin: 10px auto;
+  }
+  .upperDiv .input input {
+    font-size: 11px;
+    width: -webkit-fill-available;
+  }
+  .upperDiv .input label {
+    font-size: 11px;
+    width: 107px;
+  }
+  .lowerDiv {
+    margin: 10px 0px 10px 165px;
+    width: -webkit-fill-available;
+    padding: 0;
+    min-height: 0px;
+  }
+  .lowerDiv .workPlaceInfo {
+    font-size: 25px;
+  }
+  .lowerDiv .input {
+    align-items: center;
+    margin: 10px auto;
+  }
+  .lowerDiv .input label {
+    font-size: 11px;
+    width: 107px;
+  }
+  .lowerDiv .input input {
+    font-size: 11px;
+    width: -webkit-fill-available;
+  }
+  input:disabled {
+    font-size: 15px;
+  }
 }
 /* For Large size Mobile Screen */
-@media screen and (max-device-width: 425px) and (min-device-width: 321px) {
-}
-/* For Small size Mobile Screen */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) and (min-width: 0px) {
   .upperDiv {
     flex-direction: column;
     position: relative;
   }
   .upperDiv .image {
-    margin: 10px 30px;
-    width: 400px;
+    margin: 10px 0px;
+    width: 165px;
   }
   .upperDiv .innerImage {
-    height: 300px;
-    width: 300px;
+    height: 150px;
+    width: 150px;
   }
   .upperDiv .innerImage img {
-    height: 300px;
-    width: 300px;
+    height: 150px;
+    width: 150px;
   }
   .upperDiv .image .cameraIcon {
-    width: 300px;
+    width: 150px;
   }
   .upperDiv .activities {
-    width: 300px;
+    width: 150px;
   }
   .upperDiv .activities p {
-    font-size: 28px;
-    padding: 17px 0px;
+    font-size: 14px;
+    padding: 5px 0px;
   }
   .upperDiv .actionButtons {
     position: absolute;
-    right: 5px;
-    width: 380px;
+    right: 0px;
+    width: 38%;
   }
   .upperDiv .infoPerson {
-    width: 93%;
-    margin: 40px auto;
+    width: 100%;
+    margin: 5px auto;
   }
   .upperDiv .infoTitle {
-    font-size: 55px;
+    font-size: 25px;
   }
   .upperDiv .actionButtons button {
-    font-size: 35px;
+    font-size: 11px;
+    font-weight: 100;
+    margin: 5px 5px 10px 5px;
   }
   .upperDiv .input {
     width: 90%;
     align-items: center;
+    margin: 10px auto;
   }
   .upperDiv .input input {
-    font-size: 35px;
-    width: 500px;
+    font-size: 13px;
+    width: 150px;
   }
   .upperDiv .input label {
-    font-size: 28px;
-    width: 180px;
+    font-size: 14px;
+    width: 95px;
   }
   .lowerDiv {
-    margin: 40px auto;
-    width: 93%;
+    margin: 5px auto;
+    width: 100%;
+    padding: 0;
+    min-height: 0px;
   }
-  .lowerDiv.workPlaceInfo {
-    font-size: 55px;
+  .lowerDiv .workPlaceInfo {
+    font-size: 25px;
   }
   .lowerDiv .input {
     align-items: center;
+    margin: 10px auto;
   }
   .lowerDiv .input label {
-    font-size: 28px;
-    width: 180px;
+    font-size: 14px;
+    width: 95px;
   }
   .lowerDiv .input input {
-    font-size: 35px;
+    font-size: 13px;
+    width: 150px;
   }
   input:disabled {
-    font-size: 50px;
+    font-size: 13px;
+  }
+}
+/* For Small size Mobile Screen */
+@media screen and (max-width: 320px) {
+  .upperDiv .actionButtons {
+    width: 80px;
+    margin-right: 0px;
   }
 }

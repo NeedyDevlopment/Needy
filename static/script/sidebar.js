@@ -3,8 +3,9 @@ $(document).ready(function () {
   var height = parseInt($(".content").css("height"));
   $(window).scroll(function () {
     var scroller = window.scrollY;
-    if (scroller < 44.5) {
-      $(".sideNavbar").css("top", 44.5 - scroller);
+    var navHeight = document.getElementsByClassName("navbar")[0].offsetHeight;
+    if (scroller < navHeight) {
+      $(".sideNavbar").css("top", navHeight - scroller);
       $(".content").css("height", height + scroller);
     } else {
       $(".sideNavbar").css("top", 0);

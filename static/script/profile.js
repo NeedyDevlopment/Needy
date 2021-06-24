@@ -38,7 +38,6 @@ $(document).ready(function () {
 function onClickOnDelete() {
   document.getElementById("deleteAccountConfirmation").style.display = "block";
 }
-
 function onCloseDialogBox() {
   document.getElementById("deleteAccountConfirmation").style.display = "none";
 }
