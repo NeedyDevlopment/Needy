@@ -9,9 +9,17 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin-left: 10px;
+  width: 100%;
+}
 .container {
-  margin-top: 18px;
-  width: 46%;
+    margin-top: 18px;
+    width: 670px;
     display: flex;
     flex-direction: column;
     border: 3px solid black;
@@ -117,12 +125,12 @@ hr{
   margin: 28px;
   border: 2px solid black;
 }
-input::-webkit-outer-spin-button,
+/* input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-#footer {
+} */
+/* #footer {
   display: flex;
   border: 2px solid black;
   background: black;
@@ -131,4 +139,4 @@ input::-webkit-inner-spin-button {
   min-height: 4vh;
   justify-content: center;
   margin-top: 45px;
-}
+} */
