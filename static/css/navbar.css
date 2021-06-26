@@ -224,10 +224,7 @@
   .navbar .last {
     right: 5px;
   }
-  .navbar .last .btn {
-    /* padding: 10px 25px; */
-    /* font-size: 40px; */
-  }
+
   .navbar .start {
     margin: 0;
   }
@@ -242,8 +239,7 @@
   #body {
     background-color: tomato;
   }
-  .navbar .start {
-  }
+ 
   .flexible {
     flex-direction: column;
     left: 0px;
@@ -254,15 +250,11 @@
     width: 100%;
     visibility: hidden;
   }
-  .navbar .div {
-    /* padding: 13px 27px; */
-  }
+ 
   .navbar .last {
     right: 5px;
   }
-  .navbar .last .btn {
-    /* padding: 10px 25px; */
-  }
+  
   .navbar .start {
     margin: 0;
   }
