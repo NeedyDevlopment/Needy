@@ -7,7 +7,16 @@ var span = document.getElementsByClassName("close")[0];
 
 function OnclickeBtn() {
     console.log('eBtn clicked');
-    document.getElementsByClassName("modalForEmail")[0].style.display = "block";
+    $.ajax({
+            url: "/showModal/emailModal",
+            type: "POST",
+            success: function(emailModalPug) {
+                $("#myModal").css("display", "block");
+                $(".modal-content").html(emailModalPug);
+
+            }
+        })
+        // document.getElementsByClassName("modalForEmail")[0].style.display = "block";
     const shareDialog = document.querySelector('.share-dialog');
     shareDialog.classList.remove('is-open');
 }

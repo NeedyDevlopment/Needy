@@ -1,3 +1,32 @@
+var currentPage = 1;
+$(window).scroll(function() {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height() && $("#currentTab").text() == "post") {
+        var totalPosts = $("#getTotalPostsForMyactivity").text();
+        console.log("value of P" + totalPosts);
+        console.log(currentPage * 5 > totalPosts);
+        if (currentPage * 5 > totalPosts) {
+            return;
+        }
+        currentPage = currentPage + 1;
+        console.log("inside If Block");
+        $.ajax({
+            url: "/getPostsForMyActivity",
+            type: "Post",
+            data: { currentPage: currentPage },
+            success: function(res) {
+                $(".post").append(res);
+            },
+            error: function(xhr, status, error) {
+                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
+                else showSnackbar("something Went Wrong!");
+            },
+        });
+        console.log("Ajax Call...");
+    }
+});
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     var element = document.getElementById("myActivity");
     element.classList.add("active");
@@ -7,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var totalActivities = document.getElementById("TOTAL_ACTIVITIES");
     totalPosts.style = "display:block;";
     totalActivities.style = "display:none;";
+    $("#currentTab").text("post");
 });
 // $(document).ready(function() {
 //     $('#g-post_container').click(function() {
@@ -36,6 +66,7 @@ function post() {
     totalPosts.style = "display:block;";
     totalActivities.style = "display:none;";
     post.style = "display:block;";
+    $("#currentTab").text("post");
 }
 
 function activity() {
@@ -53,6 +84,7 @@ function activity() {
     totalPosts.style = "display:none;";
     totalActivities.style = "display:block;";
     post.style = "display:none;";
+    $("#currentTab").text("activity");
 }
 // $('#g-post_container').click(function() {
 //     console.log('clicked');
