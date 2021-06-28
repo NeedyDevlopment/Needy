@@ -15,6 +15,7 @@ html(id="html")
     script(src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous")
     script(src="../static/script/navbar.js") 
     script(src="../static/script/snackbar.js") 
+    script(src="../static/script/dialogbox.js") 
     block scripts
   body(id="body")
     nav.navbar
@@ -33,7 +34,7 @@ html(id="html")
             div.div#aboutUs About Us
           div.last 
             if(isLoggedIn)
-              button(id="logoutbtn",class="btn",onclick="showDialogBox('logout')") Logout
+              button(id="logoutbtn",class="btn",onclick="showDialogBox('logout','')") Logout
               button.btn#profilebtn MyProfile
             else   
               button.btn#loginBtn Login

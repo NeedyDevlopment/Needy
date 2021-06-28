@@ -1,14 +1,10 @@
 extends basic.pug
-
-
 block style 
     style 
         include ../static/css/myActivity.css
         include ../static/css/yourPost.css
         include ../static/css/dialogBox.css
         link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css") 
-        
-    
 block scripts 
     script
         include ../static/script/myActivity.js
@@ -26,11 +22,11 @@ block content
             button(onclick='post();').activityChangebtn#postbtn Your Posts 
             button(onclick='activity();').activityChangebtn#activitybtn Your Activity 
         div.describe
+            div.ONEPOSTFOREXAMPLE#TOTAL_POSTS
+               h2#totalPostCount='TOTAL POST : '+posts.length
             div.post#post
-                div.ONEPOSTFOREXAMPLE
-                    h2='TOTAL POST : '+posts.length
                 each post in posts   
-                    div#post_container(class="post"+post._id) 
+                    div#post_container.singlePost(class="post"+post._id) 
                       div#main
                          div#head
                             div#descTime
@@ -65,10 +61,12 @@ block content
                                   button(id="editBtn"+post._id,class="editButton",onclick="OnEdit(this,'"+post._id+"')") Edit
                                   button(id="deleteBtn"+post._id,class="deleteButton",onclick="OnDelete(this,'"+post._id+"')") Delete
                 //- include ./yourPost.pug
+            div.ONEACTIVITYFOREXAMPLE#TOTAL_ACTIVITIES
+               h2#totalActivityCount='TOTAL ACTIVITIES : '+userActivities.length    
             div.activity#activity.grid-container 
-                each activity in userActivities
+               each activity in userActivities
                   if(activity.activity_action !== 'followed' && activity.activity_action !== 'unfollowed')
-                     div#g-post_container(class="activity_post"+activity.post._id,onclick="onClickActivity(this,'"+activity._id+"')") 
+                     div#g-post_container.singleActivity(class="activity_post"+activity.post._id,onclick="onClickActivity(this,'"+activity._id+"')") 
                         div#g-main
                            div#g-head
                               div#g-descTime
@@ -93,7 +91,7 @@ block content
                                  div#g-city 
                                     p #[b City :] #{activity.post.city}
                   else 
-                     div#g-post_container(class="activity_post"+activity.creator._id onclick="userProfile('"+activity.creator._id+"');") 
+                     div#g-post_container.singleActivity(class="activity_post"+activity.creator._id onclick="userProfile('"+activity.creator._id+"');") 
                         div#g-main
                            div#g-head
                               div#g-descTime

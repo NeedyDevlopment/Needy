@@ -14,6 +14,8 @@ function OnclickeBtn() {
 
 function onCloseEmailModal() {
     document.getElementsByClassName("modalForEmail")[0].style.display = "none";
+    $("#emailError").css("display", "none");
+    $("#recipientEmail").val("");
 };
 window.addEventListener("click", function(event) {
     // console.log(event.target.id);
@@ -26,8 +28,13 @@ var isLoading = false;
 
 function onEmailSend() {
     isLoading = true;
-    $("#SendText").val('sending...');
+    $("#SendText").text('sending...');
     var recipientsEmail = $("#recipientEmail").val();
+    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(recipientsEmail)) {
+        $("#emailError").css("display", "inline");
+        $("#SendText").text('Send');
+        return;
+    }
     var postId = $('#getIdForSharePost').val();
     $.ajax({
         url: "/sendMail",
@@ -38,7 +45,7 @@ function onEmailSend() {
             document.getElementsByClassName("modalForEmail")[0].style.display = "none";
             console.log("success mail");
             showSnackbar(res.message);
-            $("#SendText").val('Send');
+            $("#SendText").text('Send');
             $("#recipientEmail").val("");
         },
         error: function(error) {
@@ -46,7 +53,7 @@ function onEmailSend() {
             document.getElementsByClassName("modalForEmail")[0].style.display = "none";
             console.log("unsuccess mail");
             showSnackbar("post does not shared to " + recipientsEmail);
-            $("#SendText").val('Send');
+            $("#SendText").text('Send');
             $("#recipientEmail").val("");
         }
     })

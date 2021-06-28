@@ -3,10 +3,6 @@ function showcommentbox() {
     var commentbox = document.getElementById('maincommentcontainer');
     commentbox.style.animation = 'fadeIn 1s';
     commentbox.classList.add('show-commentbox');
-    setTimeout(() => {
-        var element = document.getElementById('writecomment');
-        element.scrollIntoView(true);
-    }, 500);
 }
 
 function hidecommentbox(animate) {

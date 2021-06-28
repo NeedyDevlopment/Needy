@@ -62,7 +62,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "post",
-            url: "/changePasswordModal",
+            url: "/showModal/changePasswordModal",
             success: function(data) {
                 $(".modal-content").html(data);
 

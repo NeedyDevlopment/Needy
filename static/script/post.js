@@ -45,6 +45,7 @@ let posts = [];
 $(document).ready(function() {
     if (document.getElementById("message").innerHTML != "") {
         showSnackbar(document.getElementById("message").innerHTML);
+        document.getElementById("message").innerHTML = "";
     }
 });
 
@@ -98,8 +99,14 @@ function onClickFollow(element, creatorId, postId) {
                 });
             },
             error: function(xhr, status, error) {
-                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-                else showSnackbar("something Went Wrong!");
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+                if (xhr.responseJSON.message == 'user-not-loggedIn') {
+                    showSnackbar("You Are not LoggedIn!");
+                } else if (xhr.responseJSON.message == 'same-user') {
+                    showSnackbar("you can't follow yourself");
+                }
             },
         });
     } else {
@@ -169,35 +176,7 @@ function actionPerformed(element, icon, postId) {
                 else showSnackbar("something Went Wrong!");
             },
         });
-
-        //   success: function (totalLikes) {
-        //     if (p.innerText === "like") {
-        //       element.classList.replace("fa-thumbs-o-up", "fa-thumbs-up");
-        //       p.innerText = "unlike";
-        //     } else {
-        //       element.classList.replace("fa-thumbs-up", "fa-thumbs-o-up");
-        //       p.innerText = "like";
-        //     }
-        //     document.getElementById("showLikes" + postId).innerText =
-        //       totalLikes + " Likes";
-        //   },
-        //   error: function (xhr, status, error) {
-        //     if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-        //     else showSnackbar("something Went Wrong!");
-        //   },
-        // });
     }
-
-    // var xmlHttp = new XMLHttpRequest();
-    // xmlHttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         document.getElementById('showLikes').innerText = this.responseText;
-    //     }
-    // }
-    // var url = '/action/' + postId + '?incLikes=' + incLikes;
-    // xmlHttp.open('POST', url, true);
-    // xmlHttp.send(); //not Working
-
     if (icon === "comment") {
         // $('#submitcomment').onclick = function() {
         document.getElementById("submitcomment").onclick = function() {
@@ -213,6 +192,55 @@ function actionPerformed(element, icon, postId) {
         ) {
             showcommentbox();
         }
+        $.ajax({
+            url: "/ajax/getcomment",
+            type: "POST",
+            data: { postId: postId },
+            beforeSend: function() {
+                $(".loader").show();
+            },
+            complete: function() {
+                $(".loader").hide();
+            },
+            success: function(commentsArray) {
+                var innercommentcontainer = $("#innercommentcontainer");
+                var writecomment = document.getElementById("writecomment");
+                if (commentsArray.length === 0) {
+                    $(
+                        "<div id='nocomment' class='commentdiv'><p>No Comments Added Yet! Become first one to comment.</p></div>"
+                    ).insertAfter($(".loader"));
+                } else {
+                    document.getElementById("showComments" + postId).innerText =
+                        commentsArray.length + " Comments";
+                    console.log(commentsArray);
+                    commentsArray.forEach((comment) => {
+                        var usernametoBePrinted =
+                            element.id === comment.userId ? "You" : comment.username;
+                        var dateDiffer = new Date().getTime() - comment.date;
+                        console.log(dateDiffer);
+                        var userPhotoUrl = comment.userphoto ? comment.userphoto : '../static/imagesForPost/profile.png';
+                        $(
+                            "<div class='commentdiv'><img src=" + userPhotoUrl + " style='border-radius: 50%;'><b>&nbsp;" +
+                            usernametoBePrinted +
+                            "<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                            getDateDifference(dateDiffer) +
+                            " ago</small></b><p id='commentP'>" +
+                            comment.commentText +
+                            "</p></div>"
+                        ).insertAfter($(".loader"));
+                    });
+                    //here above setting user profile image and showing date difference is remain
+                }
+            },
+            error: function(xhr, status, error) {
+                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
+                else showSnackbar("something Went Wrong!");
+            },
+        });
+        setTimeout(() => {
+            var element = document.getElementById("writecomment");
+            element.scrollIntoView(true);
+        }, 1100);
     }
     if (icon == "share") {
         console.log("inside share");

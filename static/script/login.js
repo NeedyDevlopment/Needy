@@ -10,7 +10,7 @@ $(window).click(function(event) {
 $("#forgotPassword").click(function() {
     $.ajax({
         type: "post",
-        url: "/forgotPassword",
+        url: "/showModal/forgotPassword",
         success: function(data) {
             $(".modal-content").html(data);
         },
