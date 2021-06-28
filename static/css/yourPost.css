@@ -14,7 +14,7 @@ body {
 }
 
 #g-post_container {
-  width: 350px;
+  width: auto;
   border: 1px solid black;
   padding: 1px 3px;
   background-color: whitesmoke;
@@ -155,9 +155,19 @@ body {
   flex-direction: column;
   position: relative;
   width: -webkit-fill-available;
+  padding-bottom: 50px;
 }
-
+.details span {
+  padding: 10px 0px;
+}
 div#count {
+  padding: 0px 21px;
+  display: flex;
+  justify-content: space-between;
+  /* width: -webkit-fill-available; */
+  width: 230px;
+}
+div#countZIndex {
   padding: 0px 21px;
   display: flex;
   justify-content: space-between;
@@ -179,11 +189,15 @@ div#count {
 }
 
 #descTime {
-  min-width: 80%;
+  width: -webkit-fill-available;
   font-size: 18px;
   font-family: monospace;
 }
-
+#discription label,
+#city label,
+#phoneNo label {
+  font-size: 22px;
+}
 #g-descTime {
   min-width: 40%;
   font-size: 9px;
@@ -259,22 +273,6 @@ div#count {
   padding-left: 15px;
 }
 
-div#count {
-  padding: 0px 21px;
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0px;
-}
-
-div#like i,
-div#comment i,
-div#save i {
-  font-size: 35px;
-  color: black;
-  display: block;
-  cursor: pointer;
-}
-
 .titleEdit,
 .descEdit,
 .contactEdit,
@@ -294,7 +292,7 @@ input::-webkit-inner-spin-button {
 .cityEdit:disabled {
   transition: 500ms;
   font-size: 18px;
-  min-width: 80%;
+  width: 80%;
 }
 .titleEdit:disabled {
   font-size: 25px;
@@ -319,4 +317,176 @@ input::-webkit-inner-spin-button {
   padding: 10px;
   width: 80%;
   outline: none;
+}
+@media screen and (max-width: 1240px) {
+}
+@media screen and (max-width: 1080px) {
+  .details p {
+    width: 112px;
+  }
+}
+@media screen and (max-width: 768px) {
+  #main #PostImg {
+    height: 200px;
+    min-width: 200px;
+  }
+  #descTime {
+    font-size: 17px;
+  }
+  div#count {
+    padding: 0px 5px;
+  }
+  #name {
+    font-size: 20px;
+  }
+  #name small {
+    display: block;
+  }
+  .showFollowers {
+    position: absolute;
+    right: 76px;
+    font-size: 14px;
+  }
+  .details span {
+    padding: 5px 0px;
+  }
+  .details {
+    border-left: 1px solid #00000075;
+  }
+  .titleEdit:disabled {
+    font-size: 20px;
+  }
+  .titleEdit:disabled,
+  .descEdit:disabled,
+  .contactEdit:disabled,
+  .cityEdit:disabled {
+    font-size: 14px;
+  }
+  #title {
+    font-size: 20px;
+  }
+  .details p {
+    width: 80px;
+  }
+  #discription label,
+  #city label,
+  #phoneNo label {
+    font-size: 16px;
+  }
+  #discription p,
+  #city p,
+  #phoneNo p {
+    font-size: 16px;
+  }
+  .titleEdit,
+  .descEdit,
+  .contactEdit,
+  .cityEdit {
+    margin-left: 0;
+  }
+
+  #g-descTime p {
+    font-size: 11px;
+  }
+  #g-title {
+    padding: 2px 5px;
+    font-size: 12px;
+  }
+  #g-discription {
+    padding: 0px 5px;
+    font-size: 8px;
+  }
+  #g-discription p b,
+  #g-city p b {
+    font-size: 9px;
+  }
+  #g-city {
+    padding: 5px 5px;
+  }
+  div#countZIndex {
+    padding: 0px 3px;
+  }
+}
+@media screen and (max-width: 540px) {
+  #head {
+    flex-direction: column;
+  }
+  #descTime {
+    font-size: 15px;
+    border-bottom: 1px solid black;
+    margin: 5px auto;
+    padding: 5px;
+    font-family: cursive;
+  }
+  #main-img-desc {
+    flex-direction: column;
+  }
+  #EditDeleteButton {
+    right: 0px;
+    left: 0px;
+    margin: auto;
+    width: 80%;
+  }
+  #main #PostImg {
+    height: 200px;
+    min-width: -webkit-fill-available;
+  }
+  div#count {
+    width: 100%;
+    margin: 5px auto;
+  }
+  .details {
+    border: none;
+  }
+  #title {
+    font-size: 24px;
+    padding: 5px 20px;
+  }
+
+  .descEdit:disabled,
+  .contactEdit:disabled,
+  .cityEdit:disabled {
+    font-size: 16px;
+  }
+  .titleEdit:disabled {
+    font-size: 24px;
+  }
+  #discription,
+  #city,
+  #phoneNo {
+    padding: 1px 20px;
+  }
+  #discription p,
+  #city p,
+  #phoneNo p {
+    font-size: 18px;
+    margin: 4px 0px;
+  }
+  .details p {
+    width: 91px;
+  }
+  .showFollowers {
+    position: absolute;
+    right: 5px;
+    font-size: 15px;
+    top: 43px;
+  }
+  #activityCloseBtn {
+    align-self: flex-start;
+  }
+  .z-index-details {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: -webkit-fill-available;
+    padding-bottom: 0px;
+  }
+  #action-content p span {
+    display: block;
+    float: none;
+  }
+  #action-content {
+    font-size: 17px;
+    padding: 0px 5px 5px 5px;
+  }
 }

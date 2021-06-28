@@ -12,7 +12,6 @@
 }
 #body {
   position: relative;
-  padding-bottom: 37px;
 }
 .burgerIcon {
   padding: 3px 10px;
@@ -196,7 +195,6 @@
   .flexible {
     flex-direction: column;
     left: 0px;
-    top: 46px;
     position: absolute;
     background-color: black;
     z-index: 1;
@@ -216,7 +214,6 @@
   .flexible {
     flex-direction: column;
     left: 0px;
-    top: 50px;
     position: absolute;
     background-color: black;
     z-index: 1;
@@ -255,7 +252,6 @@
   .flexible {
     flex-direction: column;
     left: 0px;
-    top: 43px;
     position: absolute;
     background-color: black;
     z-index: 1;

@@ -1,115 +1,110 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 85%;
-    align-items: center;
-    min-height: 500px;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  align-items: center;
+  min-height: 500px;
+  margin: auto;
 }
 
 .buttonsdiv {
-    height: 40px;
-    margin: 10px;
-    box-shadow: 1px 1px 1px 1px black;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border-radius: 10px;
-    position: relative;
+  height: 40px;
+  margin: 10px;
+  box-shadow: 1px 1px 1px 1px black;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 10px;
+  position: relative;
 }
 
 .activityChangebtn {
-    outline: none;
-    width: 50%;
-    height: 100%;
-    border: none;
-    font-size: 18px;
-    background-color: transparent;
-    cursor: pointer;
-    position: relative;
-    border-radius: 10px;
-    font-weight: 900;
-    transition: 400ms;
+  outline: none;
+  width: 50%;
+  height: 100%;
+  border: none;
+  font-size: 18px;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  border-radius: 10px;
+  font-weight: 900;
+  transition: 400ms;
 }
 
 #postbtn {
-    color: white;
+  color: white;
 }
 
 .colourful {
-    left: 0;
-    background: rgb(15, 92, 95);
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    border-radius: 10px;
-    transition: 400ms;
+  left: 0;
+  background: rgb(15, 92, 95);
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  border-radius: 10px;
+  transition: 400ms;
 }
 
 .describe {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .discribe .post,
 .discribe .activity {
-    width: 100%;
-    transition: 400ms;
+  width: 100%;
+  transition: 400ms;
 }
 
 .post {
-    width: inherit;
+  width: inherit;
 }
 
 .ONEPOSTFOREXAMPLE,
 .ONEACTIVITYFOREXAMPLE {
-    border-radius: 10px;
-    padding: 10px;
-    border: 1px solid black;
-    margin-top: 10px;
-    box-shadow: 2px 2px 1px 1px black;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  margin-top: 10px;
+  box-shadow: 2px 2px 1px 1px black;
 }
-
 
 /* .ONEACTIVITYFOREXAMPLE {
     width: 300px !important;
 } */
 
 body {
-    background-color: white;
+  background-color: white;
 }
 
 #action-content {
-    font-size: 17px;
-    padding: 5px 5px;
+  font-size: 17px;
+  padding: 5px 5px;
 }
 
 #action-content img {
-    height: 14px;
+  height: 14px;
 }
 
 #action-content p span {
-    float: right;
+  float: right;
 }
 
 .grid-container {
-    /* display: flex;
-    flex-direction: column; */
-    display: grid;
-    grid-template-columns: auto auto auto;
-    /* grid-template-columns: 33% 33% 33%; */
-    /* grid-column-gap: 15px; */
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 100%;
 }
-
 
 /* #g-post_container {
     width: 200px;
@@ -117,22 +112,41 @@ body {
 } */
 
 .z-post_container {
-    display: none;
-    z-index: 3;
-    position: fixed;
-    top: 105px;
-    left: 145px;
-    width: 80%;
-    /* transition: width 1s; */
-    /* height: 500px;
-    width: 500px;
-    background-color: rebeccapurple; */
+  display: none;
+  z-index: 3;
+  position: fixed;
+  top: 105px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80%;
 }
 
 #activityCloseBtn {
-    margin-left: auto;
-    outline: none;
-    cursor: pointer;
-    /* border: none; */
-    padding: 0px 11px;
+  margin-left: auto;
+  outline: none;
+  cursor: pointer;
+  /* border: none; */
+  padding: 0px 11px;
+}
+@media screen and (max-width: 1240px) {
+}
+@media screen and (max-width: 1080px) {
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 540px) {
+  .grid-container {
+    grid-template-columns: auto;
+  }
+  .activityChangebtn {
+    font-size: 16px;
+  }
+  .ONEPOSTFOREXAMPLE h2,
+  .ONEACTIVITYFOREXAMPLE h2 {
+    font-size: 18px;
+  }
 }

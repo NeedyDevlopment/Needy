@@ -1,23 +1,23 @@
 .postsContainer {
-    width: 80%;
+  width: 80%;
 }
 
 #dummyhai {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 .container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .sideNavbar {
-    background-color: rgb(242, 242, 189);
-    width: 20%;
-    position: fixed;
-    right: 0px;
-    height: -webkit-fill-available;
+  background-color: rgb(242, 242, 189);
+  width: 20%;
+  position: fixed;
+  right: 0px;
+  height: -webkit-fill-available;
 }
 
 #message,
@@ -25,11 +25,10 @@
 #getCategory,
 #getTotalPosts,
 #getIdForSharePost {
-    visibility: hidden;
-    width: 0;
-    height: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
 }
-
 
 /* #d-message {
     display: block;
@@ -39,9 +38,84 @@
 } */
 
 #filterNotFound {
-    text-align: center;
-    font-weight: bold;
-    font-size: 30px;
-    margin: 50px 0px;
-    /* justify-content: center; */
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 50px auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 80%;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.filterOpenButton {
+  width: 90%;
+  margin: 5px auto;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.filterOpenButton button {
+  outline: none !important;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  width: 100%;
+  font-size: 16px;
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(248, 222, 184),
+    rgb(119, 86, 36)
+  );
+}
+.filterOpenButton button:active {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(119, 86, 36),
+    rgb(248, 222, 184)
+  );
+}
+
+@media screen and (min-width: 1080px) and (max-width: 1240px) {
+}
+@media screen and (max-width: 1080px) {
+  .sideNavbar {
+    width: 200px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .sideNavbar {
+    width: 170px;
+  }
+  .postsContainer {
+    width: 72%;
+  }
+  #filterNotFound {
+    font-size: 28px;
+  }
+}
+@media screen and (max-width: 560px) {
+  .filterOpenButton {
+    display: flex;
+  }
+  .postsContainer {
+    width: 100%;
+  }
+  .sideNavbar {
+    display: none;
+    right: 0;
+    width: 90%;
+    left: 0;
+    margin: 10px auto;
+    position: relative;
+  }
+  #filterNotFound {
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 400px) {
+  #filterNotFound {
+    font-size: 20px;
+  }
 }

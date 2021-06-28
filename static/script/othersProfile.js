@@ -23,7 +23,7 @@ $(document).ready(function () {
       },
     });
   });
-  if (screen.width < 321) {
+  if (screen.width < 641) {
     $(".followersFollowing").height($(".container").height());
   }
 });

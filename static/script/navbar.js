@@ -33,8 +33,15 @@ $(document).ready(function () {
     document.location.href = "/signup";
   });
   $("#body").css("min-height", window.innerHeight);
+  $("#body").css(
+    "padding-bottom",
+    document.getElementById("footer").offsetHeight
+  );
   // for burger icon and below navbar
   var div = $(".flexible");
+  if (screen.width <= 768) {
+    div.css("top", $(".navbar").height());
+  }
   $(".burgerIcon").click(function () {
     if (screen.width <= 768) {
       if (div.css("visibility") == "visible") {

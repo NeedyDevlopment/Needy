@@ -4,23 +4,25 @@ each post in posts
                   img(src="../static/imagesForPost/profile.png")
                   p#name= post.creator.username  
                      small= 'at '+ post.date   
-                  b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id)= post.creator.followers+' Followers'
+                  b(id="showFollowers"+post._id,class="showFollowers showFollowers"+post.creator._id)= post.creator.followers+' Followers'
                   button#activityCloseBtn(onclick="onCloseActivity()") Close   
                   //- button(id="f-btn",class="f-btn"+post.creator._id,onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
                div#main
                   div#head
-                     div#count 
+                     div#countZIndex 
                         p(id='showLikes'+post._id)= post.likes+ ' Likes' 
                         p(id='showComments'+post._id)= post.comments+ ' Comments'
                   div#main-img-desc     
                      img#PostImg(src=post.image)
-                     div.details
-                        div#title 
-                              p #[b Title: ]  #{post.title} 
+                     div.details.z-index-details
+                        div#title
+                              span  #[b Title: ] #{post.title} 
                         div#discription 
-                              p #[b Description: ]  #{post.description}
-                              p #[b Contact No: ]  #{post.contact}
-                              p #[b City: ]  #{post.city}
+                              span #[b Description: ] #{post.description}
+                        div#phoneNo
+                              span #[b Contact No: ] #{post.contact}
+                        div#city
+                              span #[b City: ] #{post.city}
                div#action-content
                   if(activity_action === 'commented') 
                      p #[b Your Comment: ] #{activity_comment} 

@@ -145,7 +145,7 @@ body {
 }
 
 #post_container {
-  width: 100%;
+  width: 80%;
   border: 1px solid black;
   padding: 1px 10px;
   background-color: whitesmoke;
@@ -346,4 +346,141 @@ div#save i {
 .showFollowers {
   right: 98px;
   position: absolute;
+}
+@media screen and (min-width: 1080px) and (max-width: 1240px) {
+}
+@media screen and (max-width: 1080px) {
+  #main #PostImg {
+    min-width: 200px;
+    height: 200px;
+  }
+  #title {
+    font-size: 25px;
+  }
+  #discription p b {
+    font-size: 18px;
+  }
+  #discription {
+    font-size: 16px;
+  }
+  #name {
+    margin-inline: 10px;
+    font-size: 18px;
+    width: 55%;
+  }
+  div#like i,
+  div#comment i,
+  div#save i {
+    font-size: 28px;
+    color: black;
+  }
+  #actiondiv img {
+    height: 28px;
+    width: 28px;
+  }
+  #actiondiv div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #profile #f-btn {
+    height: 28px;
+    width: 65px;
+    right: 0px;
+    font-size: 14px;
+  }
+  .showFollowers {
+    right: 69px;
+    position: absolute;
+    font-size: 14px;
+  }
+  #actiondiv div {
+    width: 80px;
+  }
+}
+@media screen and (max-width: 768px) {
+  #post_container {
+    width: 90%;
+  }
+  #main-img-desc {
+    flex-direction: column;
+  }
+  #profile {
+    padding: 0px;
+  }
+  #profile #f-btn {
+    height: 25px;
+    width: 60px;
+    right: 0px;
+    font-size: 12px;
+  }
+  .showFollowers {
+    right: 64px;
+    font-size: 12px;
+  }
+  div#count {
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px 3px;
+  }
+  #main #PostImg {
+    min-width: -webkit-fill-available;
+    height: 300px;
+    margin: 10px;
+  }
+  #name {
+    font-size: 16px;
+    width: 44%;
+  }
+  #name small {
+    display: block;
+    font-size: 11px;
+  }
+  .details {
+    border-top: 1px solid black;
+  }
+  #title {
+    padding: 10px 20px 0px 20px;
+  }
+}
+@media screen and (max-width: 560px) {
+}
+@media screen and (max-width: 400px) {
+  #actiondiv div p {
+    width: 70px;
+    font-size: 13px;
+  }
+  #actiondiv div {
+    width: 57px;
+  }
+  #actiondiv #share {
+    font-size: 13px;
+  }
+  #name {
+    font-size: 14px;
+    width: 46%;
+  }
+  #profile #f-btn {
+    top: 0px;
+  }
+  .showFollowers {
+    right: 0px;
+    font-size: 11px;
+    top: 34px;
+  }
+  #main #PostImg {
+    min-width: -webkit-fill-available;
+    height: 200px;
+    margin: 5px;
+  }
+  #title {
+    font-size: 22px;
+  }
+  #discription p b {
+    font-size: 16px;
+  }
+  #discription {
+    font-size: 14px;
+  }
 }
