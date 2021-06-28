@@ -32,13 +32,12 @@ $(document).ready(function () {
   $("#Singupbtn").click(function () {
     document.location.href = "/signup";
   });
-
   $("#body").css("min-height", window.innerHeight);
   // for burger icon and below navbar
   var div = $(".flexible");
   $(".burgerIcon").click(function () {
-    if (screen.width < 768) {
-      if (div.css("visibility") === "visible") {
+    if (screen.width <= 768) {
+      if (div.css("visibility") == "visible") {
         div.addClass("animation_reverse");
         div.removeClass("animation");
         setTimeout(() => {
