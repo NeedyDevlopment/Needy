@@ -21,12 +21,14 @@
   visibility: hidden;
   padding-right: 0px;
 }
+
 .burgerIcon div {
   width: 33px;
   height: 4px;
   background-color: white;
   margin: 3px auto;
 }
+
 .flexible {
   display: flex;
   flex-direction: row;
@@ -58,6 +60,7 @@
     opacity: 0;
   }
 }
+
 .navbar .div {
   padding: 10px 18px;
   color: white;

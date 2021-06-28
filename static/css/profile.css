@@ -4,6 +4,7 @@ body {
   background-size: cover;
   color: aliceblue;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -12,10 +13,12 @@ body {
   background-color: #8080804a;
   margin-top: 10px;
 }
+
 .upperDiv {
   display: flex;
   flex-direction: row;
 }
+
 .upperDiv .image {
   padding: 5px;
   margin: 10px;
@@ -27,12 +30,14 @@ body {
   align-items: center;
   background-color: #80808070;
 }
+
 .upperDiv .innerImage {
   position: relative;
   height: 200px;
   width: 200px;
   border-radius: 5px;
 }
+
 .upperDiv .innerImage div {
   position: relative;
   justify-content: center;
@@ -43,6 +48,7 @@ body {
   font-size: 100px;
   color: #c8d6ff;
 }
+
 .upperDiv .innerImage img {
   position: relative;
   justify-content: center;
@@ -51,6 +57,7 @@ body {
   align-items: center;
   border-radius: 3px;
 }
+
 .upperDiv .image .cameraIcon {
   background-color: black;
   position: relative;
@@ -61,6 +68,11 @@ body {
   font-size: 24px;
   transition: 400ms;
 }
+
+/* .cameraIcon:hover {
+    cursor: pointer;
+} */
+
 .imageInput {
   position: absolute;
   left: 0px;
@@ -69,6 +81,7 @@ body {
   padding: 10px 0px;
   opacity: 0;
 }
+
 .upperDiv .activities {
   display: flex;
   text-align: center;
@@ -76,28 +89,33 @@ body {
   text-align: center;
   width: 250px;
 }
+
 .upperDiv .activities p {
   width: 33.33%;
   padding: 17px 10px;
   display: flex;
   flex-direction: column;
 }
+
 .upperDiv .infoPerson {
   margin: 10px;
   width: 70%;
   /* border: 1px solid black; */
   background-color: #80808070;
 }
+
 .upperDiv .infoTitle {
   text-align: center;
   padding: 10px;
 }
+
 .upperDiv hr,
 .lowerDiv hr {
   height: 14px;
   background-color: black;
   border: none;
 }
+
 .upperDiv .input {
   display: flex;
   flex-direction: row;
@@ -106,6 +124,7 @@ body {
   width: 85%;
   position: relative;
 }
+
 .upperDiv .input label {
   padding: 10px;
   width: 120px;
@@ -121,6 +140,7 @@ body {
   outline: none;
   font-size: 16px;
 }
+
 .upperDiv .input .contactno::-webkit-inner-spin-button,
 .upperDiv .input .contactno::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -128,12 +148,14 @@ body {
 .activeInput {
   background-color: rgb(173, 173, 173) !important;
 }
+
 .upperDiv .actionButtons {
   margin: 10px;
   width: 210px;
   display: flex;
   flex-direction: column;
 }
+
 .upperDiv .actionButtons button {
   padding: 10px;
   font-weight: 900;
@@ -144,36 +166,47 @@ body {
   margin: 5px 5px 30px 5px;
   cursor: pointer;
 }
+
 .deleteBtn {
   background-color: rgb(255, 38, 0);
 }
+
 .editBtn {
   background-color: rgb(70, 145, 243);
 }
+
 .saveBtn {
   background-color: rgb(75, 153, 92);
 }
+
 .saveBtn:active {
   background-color: rgb(53, 107, 65);
 }
+
 .cancelBtn {
   background-color: rgb(255, 38, 0);
 }
+
 .cancelBtn:active {
   background-color: rgb(167, 26, 1);
 }
+
 .changePass {
   background-color: rgb(253, 160, 74);
 }
+
 .deleteBtn:active {
   background-color: rgb(167, 26, 1);
 }
+
 .editBtn:active {
   background-color: rgb(47, 97, 161);
 }
+
 .changePass:active {
   background-color: rgb(156, 100, 47);
 }
+
 .lowerDiv {
   display: flex;
   flex-direction: column;
@@ -182,11 +215,13 @@ body {
   min-height: 250px;
   align-items: center;
 }
+
 .lowerDiv .inputFields {
   padding: 10px;
   width: 100%;
   background-color: #80808070;
 }
+
 .lowerDiv .input {
   display: flex;
   flex-direction: row;
@@ -195,18 +230,22 @@ body {
   width: 90%;
   position: relative;
 }
+
 .lowerDiv .input .city::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
+
 .lowerDiv .input label {
   padding: 10px;
   width: 15%;
   font-size: 18px;
 }
+
 .lowerDiv .workPlaceInfo {
   text-align: center;
   padding: 10px;
 }
+
 .lowerDiv .input input {
   padding: 10px;
   width: 500px;
@@ -216,9 +255,11 @@ body {
   outline: none;
   font-size: 16px;
 }
+
 input {
   transition: 400ms;
 }
+
 input:disabled {
   transition: 400ms;
   background-color: transparent !important;
@@ -227,6 +268,7 @@ input:disabled {
   font-weight: bold;
   letter-spacing: 1px;
 }
+
 #forSnackBarCalling {
   display: none;
   width: 0;

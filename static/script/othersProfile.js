@@ -4,7 +4,7 @@ $(document).ready(function () {
     $.ajax({
       type: "post",
       data: { id: id },
-      url: "/showProfileFollowers",
+      url: "/profile/showProfileFollowers",
       success: function (data) {
         $(".followersFollowing").html(data);
         $(".followersFollowing").css("display", "block");
@@ -16,7 +16,7 @@ $(document).ready(function () {
     $.ajax({
       type: "post",
       data: { id: id },
-      url: "/showProfileFollowings",
+      url: "/profile/showProfileFollowings",
       success: function (data) {
         $(".followersFollowing").html(data);
         $(".followersFollowing").css("display", "block");

@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("#loginBtn").click(function () {
       $.ajax({
         method: "post",
-        url: "/loginModal",
+        url: "/showModal/loginModal",
         success: function (data) {
           $("#myModal").css("display", "block");
           $(".modal-content").html(data);

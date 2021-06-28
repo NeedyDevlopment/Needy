@@ -192,9 +192,17 @@ body {
 #profile #f-btn:hover {
   background-color: #096bcc;
 }
+
 #profile #f-btn:active {
   background-color: #074c92;
   box-shadow: none;
+}
+
+#profile #f-btn:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: default;
 }
 
 #name {

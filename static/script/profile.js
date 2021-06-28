@@ -55,7 +55,7 @@ $(document).ready(function () {
   $("#changePass").click(function () {
     $.ajax({
       type: "post",
-      url: "/changePasswordModal",
+      url: "/showModal/changePasswordModal",
       success: function (data) {
         $(".modal-content").html(data);
 
