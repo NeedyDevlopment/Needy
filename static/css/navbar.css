@@ -213,6 +213,7 @@
 @media screen and (max-width: 425px) and (min-width: 361px) {
   #body {
     background-color: yellow;
+    
   }
   .flexible {
     flex-direction: column;
@@ -242,7 +243,9 @@
     display: flex;
     visibility: visible;
   }
+  
 }
+
 
 /* For Small size Mobile Screen */
 @media screen and (max-width: 360px) {
@@ -284,3 +287,4 @@
     margin: 2px auto;
   }
 }
+

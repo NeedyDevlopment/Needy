@@ -9,8 +9,9 @@ block scripts
 block content
 
     .postcontainer
-        form(action='/createPost' method='post' enctype='multipart/form-data')
-            h1 CreatePost
+        h1 CreatePost
+        hr
+        form(action='/createpostSubmission' method='post' enctype='multipart/form-data')
             .postlabels
                 label(for='category')  Category  
                 input#category(type="text" placeholder="Enter Your Category" list="categories" oninvalid="Invalidcat(this);" oninput="Invalidcat(this);" name="category" required)
@@ -42,7 +43,7 @@ block content
                 label(for='title')  Title 
                 input#title(type='text' name='title' placeholder="Enter Name Of Your Post" oninvalid="Invalidtitle(this);"  oninput="Invalidtitle(this);" required)
                 br
-                label(for='Description') Description :
+                label(for='Description') Description 
                 textarea#description(name='Description' placeholder="Description Of Your Post" oninvalid="InvalidDesc(this);" oninput="InvalidDesc(this);" required)
                 br
                 label(for='contact')  Contact No 
