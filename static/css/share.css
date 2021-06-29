@@ -130,3 +130,20 @@ header {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.close-button {
+  outline: none;
+  border: none !important;
+}
+.close-button:hover {
+  color: red;
+}
+@media screen and (max-width: 500) {
+  .link {
+    flex-direction: column;
+  }
+  .share-button,
+  .copy-link {
+    margin: auto;
+    margin-top: 10px;
+  }
+}
