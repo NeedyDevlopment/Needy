@@ -10,11 +10,6 @@ router.post("/forgotPassword", async(req, res, next) => {
     res.render("forgotPassword.pug");
 });
 
-//emailModal
-router.post("/emailModal", async(req, res, next) => {
-    res.render("emailModal.pug");
-});
-
 //Reset Password Modal Show
 router.post("/displayResetPassword", async(req, res, next) => {
     var email = req.body.email;

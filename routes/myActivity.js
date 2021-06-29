@@ -16,19 +16,15 @@ router.get("/", AuthForLogin, async(req, res, next) => {
     const usersPost = await Post.find({ "creator._id": currentUserId._id }).sort(
         "-date"
     );
-    const totalPostsForMyactivity = await Post.countDocuments({ "creator._id": currentUserId._id });
     let userActivities = await Activity.find({
             userId: currentUserId._id,
         })
         .populate("post")
         .populate("creator");
-    const totalActivitiesForMyactivity = await Activity.countDocuments({ "creator._id": currentUserId._id });
     res.status(200).render("myActivity.pug", {
         posts: usersPost,
         userActivities: userActivities,
         isLoggedIn: isLoggedIn,
-        totalPostsForMyactivity: totalPostsForMyactivity,
-        totalActivitiesForMyactivity: totalActivitiesForMyactivity
     });
 });
 

@@ -106,3 +106,16 @@ block content
          include ./sideBar.pug 
       div#share-dialog
          include ./share.pug
+      #myModal.modal.modalForEmail
+               .modal-content
+                  .modal-header
+                     span.close(onclick="onCloseEmailModal()") &times;
+                     h1(style="justify-content: center;display: flex;") Share Post
+                  .modal-body
+                           label(for='email')
+                              .img1
+                                 img(src="../static/images/email.webp"        style="margin:-1px;")
+                                 b(style="margin:5px") Email
+                              input(type='email' placeholder='Enter your recipients email' name='email' id="recipientEmail")
+                           p#emailError Invalid Email    
+                           button(type='button' class="btn1" id="SendText" onclick="onEmailSend()") Send        
