@@ -1,3 +1,56 @@
+var currentPageForGettingPosts = 1;
+var currentPageForGettingActivities = 1;
+$(window).scroll(function() {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height() && $("#currentTab").text() == "post") {
+        console.log("inside myactivity scroll for getting posts");
+        var totalPosts = $("#getTotalPostsForMyactivity").text();
+        console.log("value of P" + totalPosts);
+        console.log(currentPageForGettingPosts * 5 > totalPosts);
+        if (currentPageForGettingPosts * 5 > totalPosts) {
+            return;
+        }
+        currentPageForGettingPosts = currentPageForGettingPosts + 1;
+        console.log("inside If Block");
+        $.ajax({
+            url: "/getContentOnScrollForMyActivity/getPosts",
+            type: "Post",
+            data: { currentPage: currentPageForGettingPosts },
+            success: function(res) {
+                $(".post").append(res);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+                showSnackbar("something Went Wrong!");
+            },
+        });
+        console.log("Ajax Call...");
+    } else if ($(window).scrollTop() + $(window).height() >= $(document).height() && $("#currentTab").text() == "activity") {
+        console.log("inside myactivity scroll for getting activities");
+        var totalActivities = $("#getTotalActivitiesForMyactivity").text();
+        console.log("value of P" + totalActivities);
+        console.log(currentPageForGettingActivities * 12 > totalActivities);
+        if (currentPageForGettingActivities * 12 > totalActivities) {
+            return;
+        }
+        currentPageForGettingActivities = currentPageForGettingActivities + 1;
+        console.log("inside If Block");
+        $.ajax({
+            url: "/getContentOnScrollForMyActivity/getActivities",
+            type: "Post",
+            data: { currentPage: currentPageForGettingActivities },
+            success: function(res) {
+                $("#activity").append(res);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+                showSnackbar("something Went Wrong!");
+            },
+        });
+        console.log("Ajax Call...");
+    }
+});
+
+
 document.addEventListener("DOMContentLoaded", function() {
     var element = document.getElementById("myActivity");
     element.classList.add("active");
@@ -7,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var totalActivities = document.getElementById("TOTAL_ACTIVITIES");
     totalPosts.style = "display:block;";
     totalActivities.style = "display:none;";
+    $("#currentTab").text("post");
 });
 // $(document).ready(function() {
 //     $('#g-post_container').click(function() {
@@ -36,6 +90,8 @@ function post() {
     totalPosts.style = "display:block;";
     totalActivities.style = "display:none;";
     post.style = "display:block;";
+    $("#currentTab").text("post");
+
 }
 
 function activity() {
@@ -53,6 +109,8 @@ function activity() {
     totalPosts.style = "display:none;";
     totalActivities.style = "display:block;";
     post.style = "display:none;";
+    $("#currentTab").text("activity");
+
 }
 // $('#g-post_container').click(function() {
 //     console.log('clicked');

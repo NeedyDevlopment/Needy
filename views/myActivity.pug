@@ -22,8 +22,10 @@ block content
             button(onclick='post();').activityChangebtn#postbtn Your Posts 
             button(onclick='activity();').activityChangebtn#activitybtn Your Activity 
         div.describe
+            p#getTotalPostsForMyactivity.extraPForMyActivityPage=totalPostsForMyactivity
+            p#getTotalActivitiesForMyactivity.extraPForMyActivityPage=totalActivitiesForMyactivity
             div.ONEPOSTFOREXAMPLE#TOTAL_POSTS
-               h2#totalPostCount='TOTAL POST : '+posts.length
+               h2#totalPostCount='TOTAL POSTS : '+totalPostsForMyactivity
             div.post#post
                 each post in posts   
                     div#post_container.singlePost(class="post"+post._id) 
@@ -62,7 +64,7 @@ block content
                                   button(id="deleteBtn"+post._id,class="deleteButton",onclick="OnDelete(this,'"+post._id+"')") Delete
                 //- include ./yourPost.pug
             div.ONEACTIVITYFOREXAMPLE#TOTAL_ACTIVITIES
-               h2#totalActivityCount='TOTAL ACTIVITIES : '+userActivities.length    
+               h2#totalActivityCount='TOTAL ACTIVITIES : '+totalActivitiesForMyactivity    
             div.activity#activity.grid-container 
                each activity in userActivities
                   if(activity.activity_action !== 'followed' && activity.activity_action !== 'unfollowed')

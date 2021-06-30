@@ -15,7 +15,7 @@ router.post("/", async(req, res, next) => {
     const activity_action = activity.activity_action;
     const activity_date = activity.date;
     const activity_comment = activity.commentText ? activity.commentText : null;
-    const post = await Post.findOne({ _id: activity_postId });
+    const post = await Post.findOne({ _id: activity_postId }).populate("creator");
     console.log("activity post is:::::");
     console.log(post);
     const currentUserId = req.session.token ?

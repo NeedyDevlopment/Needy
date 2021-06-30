@@ -61,6 +61,11 @@ router.post(
         );
         const profile = await User.findOne({ _id: currentUserId._id });
         if (message === "") {
+            // const updateUsernameinPost = await Post.updateMany({ "creator._id": currentUserId }, {
+            //     $set: {
+            //         "creator.username": username
+            //     }
+            // });
             message = "Profile Updated Successfully.";
         }
         profile.message = message;

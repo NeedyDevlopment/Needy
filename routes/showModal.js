@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/loginModal", async(req, res, next) => {
-    res.render("login.pug");
+    res.render("login.pug", { Modal: req.body.Modal });
+    next();
 });
 
 // Forgot password post request

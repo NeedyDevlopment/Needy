@@ -66,6 +66,7 @@ router.get("", async(req, res, next) => {
         // console.log(postsArray);
         if (currentUser.city === "All City") {
             postsArray = await Post.find()
+                .populate("creator")
                 .limit(5)
                 .skip(5 * (currentPage - 1))
                 .sort("-date");
@@ -76,12 +77,14 @@ router.get("", async(req, res, next) => {
             totalPosts = await Post.count({});
         } else {
             postsArray = await Post.find({ city: currentUser.city })
+                .populate("creator")
                 .limit(5)
                 .skip(5 * (currentPage - 1))
                 .sort("-date");
             totalPosts = await Post.count({ city: currentUser.city });
             if (postsArray.length == 0) {
                 postsArray = await Post.find()
+                    .populate("creator")
                     .limit(5)
                     .skip(5 * (currentPage - 1))
                     .sort("-date");

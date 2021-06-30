@@ -215,10 +215,10 @@ function actionPerformed(element, icon, postId) {
                     console.log(commentsArray);
                     commentsArray.forEach((comment) => {
                         var usernametoBePrinted =
-                            element.id === comment.userId ? "You" : comment.username;
+                            element.id === comment.user._id ? "You" : comment.user.username;
                         var dateDiffer = new Date().getTime() - comment.date;
                         console.log(dateDiffer);
-                        var userPhotoUrl = comment.userphoto ? comment.userphoto : '../static/imagesForPost/profile.png';
+                        var userPhotoUrl = comment.user.photo ? comment.user.photo : '../static/imagesForPost/profile.png';
                         $(
                             "<div class='commentdiv'><img src=" + userPhotoUrl + " style='border-radius: 50%;'><b>&nbsp;" +
                             usernametoBePrinted +
@@ -421,7 +421,7 @@ var currentPage = 1;
 $(window).scroll(function() {
     // if ($(window).scrollTop() == $(document).height() - $(window).height()) {
     // var postHeight = $("#post_container").height();
-    if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height() && $("#currentTab").text() == "") {
         var totalPosts = $("#getTotalPosts").text();
         console.log("value of P" + totalPosts);
         console.log(currentPage * 5 > totalPosts);
@@ -473,4 +473,18 @@ $(document).ready(function() {
         var id = $(this).attr("id");
         window.location.href = "/othersProfile?id=" + id;
     });
+
+    if ($("#ebtn")) {
+        $("#eBtn").click(function() {
+            $.ajax({
+                method: "post",
+                url: "/showModal/loginModal",
+                data: { Modal: "email" },
+                success: function(data) {
+                    $("#myModal").css("display", "block");
+                    $(".modal-content").html(data);
+                },
+            });
+        });
+    }
 });
