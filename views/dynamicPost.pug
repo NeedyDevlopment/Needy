@@ -37,11 +37,11 @@ each post in posts
                      i(class=post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o",onclick="actionPerformed(this,  'save','"+post._id+"')")
                      p(id='showsavetext'+post._id)= post.savedArray.includes(currentUserId) ? 'saved' : 'save'  
 
-               div(id="maincommentcontainer")
-                  h4#commentHeader All Comments #[button(id="closebutton",onclick="hidecommentbox(true)") &#10006] 
-                  div(id="innercommentcontainer")
+               div(id="maincommentcontainer"+post._id , class="maincommentcontainer")
+                  hr
+                  h4#commentHeader All Comments #[button(id="closebutton",onclick="hidecommentbox('"+post._id+"')") &#10006;] 
+                  div(class="writecommentdiv",id="writecomment")
+                        textarea(name="writtencomment" id="writtencomment"+post._id placeholder="Comment Here ..." cols="35" rows="4")
+                        button(id="submitcomment"+post._id) #[i(class="material-icons") &#xe163;]
+                  div(id="innercommentcontainer"+post._id,  class="innercommentcontainer")
                      div(class="loader") ...Loading
-                     div(class="writecommentdiv",id="writecomment")
-                        b Write comment
-                        textarea(name="writtencomment" id="writtencomment" cols="35" rows="4")
-                        button(id="submitcomment") Add Comment
