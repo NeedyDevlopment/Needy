@@ -13,10 +13,10 @@ router.get("/", AuthForLogin, async(req, res, next) => {
     const currentUserId = await _.pick(
         jwt.verify(req.session.token, "MySecureKey"), ["_id"]
     );
-    const usersPost = await Post.find({ "creator._id": currentUserId._id }).populate("creator").limit(5).sort(
+    const usersPost = await Post.find({ "creator": currentUserId._id }).populate("creator").limit(5).sort(
         "-date"
     );
-    const totalPostsForMyactivity = await Post.countDocuments({ "creator._id": currentUserId._id });
+    const totalPostsForMyactivity = await Post.countDocuments({ "creator": currentUserId._id });
     let userActivities = await Activity.find({
             userId: currentUserId._id,
         })
@@ -25,6 +25,7 @@ router.get("/", AuthForLogin, async(req, res, next) => {
         .populate("creator");
     const totalActivitiesForMyactivity = await Activity.countDocuments({ userId: currentUserId._id });
     console.log("totalactivities             " + totalActivitiesForMyactivity);
+    console.log("usersPost             " + usersPost);
     res.status(200).render("myActivity.pug", {
         posts: usersPost,
         userActivities: userActivities,

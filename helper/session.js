@@ -14,6 +14,7 @@ module.exports = function setSession(app) {
             store: store,
             cookie: {
                 expires: new Date(253402300000000),
+                httpOnly: true
             },
         })
     );

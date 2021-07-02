@@ -114,10 +114,20 @@ function onClickFollow(element, creatorId, postId) {
     }
 }
 
+function getSanatizedString(inputString) {
+    return inputString.replace(/\&/g, '&amp;')
+        .replace(/\</g, '&lt;')
+        .replace(/\>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/\'/g, '&#x27')
+        .replace(/\//g, '&#x2F');
+}
+
 function submitComment(postId) {
     console.log("postId is::::");
     console.log(postId);
-    var commentText = document.getElementById("writtencomment").value;
+    var commentText = getSanatizedString(document.getElementById("writtencomment").value);
+
     document.getElementById("writtencomment").value = "";
     console.log("written comment is:::" + commentText);
     $.ajax({
