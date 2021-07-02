@@ -21,7 +21,7 @@ router.get("/:postId", async(req, res, next) => {
     const currentUser = req.session.token ?
         await User.findOne({ _id: currentUserId._id }) : { followingsArray: [], city: "All City" };
     const postId = req.params.postId;
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate("creator");
     res.status(200).render("sharePost.pug", {
         post: post,
         currentUserId: currentUserId._id,

@@ -1,19 +1,32 @@
-.modal-header
-    span.close &times;
-    h1(style="justify-content: center;display: flex;") Login
-.modal-body
-    form(action="/login" method="Post" class="loginform" )
-        label(for='email')
-            .img1
-                img(src="../static/images/email.webp" style="margin:-1px;")
-                b(style="margin:5px") Email
-            input(type='email' placeholder='Enter your email' name='email' )
-        label(for='password')
-            .img1
-                img(src="../static/images/password.png" )
-                b(style="margin:5px") Password
-            input(type='password' placeholder='Enter your password' name='password')
-        .redirector 
-            button(type='submit' class="btn1") Login
-            h3#forgotPassword Forgot Password ?
+if(Modal == "login")
+    .modal-header
+        span.close &times;
+        h1(style="justify-content: center;display: flex;") Login
+    .modal-body
+        form(action="/login" method="Post" class="loginform" )
+            label(for='email')
+                .img1
+                    img(src="../static/images/email.webp" style="margin:-1px;")
+                    b(style="margin:5px") Email
+                input(type='email' placeholder='Enter your email' name='email' )
+            label(for='password')
+                .img1
+                    img(src="../static/images/password.png" )
+                    b(style="margin:5px") Password
+                input(type='password' placeholder='Enter your password' name='password')
+            .redirector 
+                button(type='submit' class="btn1") Login
+                h3#forgotPassword Forgot Password ?
+else if(Modal == "email")            
+    .modal-header
+        span.close(onclick="onCloseEmailModal()") &times;
+        h1(style="justify-content: center;display: flex;") Share Post
+    .modal-body
+            label(for='email')
+                .img1
+                    img(src="../static/images/email.webp" style="margin:-1px;")
+                    b(style="margin:5px") Email
+                input(type='email' placeholder='Enter your recipients email' name='email' id="recipientEmail")
+            p#emailError Invalid Email    
+            button(type='button' class="btn1" id="SendText" onclick="onEmailSend()") Send                        
 script(src="../static/script/login.js") 

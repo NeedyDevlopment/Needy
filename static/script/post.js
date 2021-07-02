@@ -427,7 +427,10 @@ var currentPage = 1;
 $(window).scroll(function () {
   // if ($(window).scrollTop() == $(document).height() - $(window).height()) {
   // var postHeight = $("#post_container").height();
-  if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+  if (
+    $(window).scrollTop() + $(window).height() >= $(document).height() &&
+    $("#currentTab").text() == ""
+  ) {
     var totalPosts = $("#getTotalPosts").text();
     console.log("value of P" + totalPosts);
     console.log(currentPage * 5 > totalPosts);
@@ -472,11 +475,52 @@ $(window).scroll(function () {
     console.log("Ajax Call...");
     // console.log("current filter: " + filter.city + " " + filter.category);
   }
-});
+  currentPage = currentPage + 1;
+  console.log("inside If Block");
+  //    var city = $("#finalCity").val(city);
+  //    var category = $("#finalCategory").val(category);
+  var city = document.getElementById("getCity").innerHTML;
+  var category = document.getElementById("getCategory").innerHTML;
+  console.log("city is::" + city + " and Category is:  " + category);
 
-$(document).ready(function () {
-  $("#profile img").click(function () {
-    var id = $(this).attr("id");
-    window.location.href = "/othersProfile?id=" + id;
+  // $.ajax({
+  //     // url: "/?city=" + city + "&category=" + category,
+  //     // url: "/",
+  //     url: "/getPosts",
+  //     type: "GET",
+  //     data: { currentPage: 2, hello: "Hello" },
+  //     success: function(responseData) {
+  //         console.log("success");
+  //         console.log(responseData);
+  //     },
+  //     error: function() {
+  //         console.log("Error occured During AjAx");
+  //     }
+  // });
+  $.ajax({
+    url: "/getPosts",
+    type: "Post",
+    data: { currentPage: currentPage, city: city, category: category },
+    success: function (res) {
+      $(".postsContainer").append(res);
+    },
+    error: function (xhr, status, error) {
+      if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
+      else showSnackbar("something Went Wrong!");
+    },
   });
+
+  if ($("#ebtn")) {
+    $("#eBtn").click(function () {
+      $.ajax({
+        method: "post",
+        url: "/showModal/loginModal",
+        data: { Modal: "email" },
+        success: function (data) {
+          $("#myModal").css("display", "block");
+          $(".modal-content").html(data);
+        },
+      });
+    });
+  }
 });

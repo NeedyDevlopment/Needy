@@ -9,32 +9,26 @@ const _ = require("lodash");
 const EventEmitter = require("events");
 const emitter = new EventEmitter();
 
-emitter.on("Followed", async (args) => {
-  console.log("event listened");
-  const result = await Post.updateMany(
-    { "creator._id": args.creatorId },
-    {
-      $inc: {
-        "creator.followers": 1,
-      },
-    }
-  );
-  console.log("after followed updating:::::::::::::::::::::::::::::::::::::");
-  console.log(result);
-});
-emitter.on("Unfollowed", async (args) => {
-  console.log("event listened");
-  const result = await Post.updateMany(
-    { "creator._id": args.creatorId },
-    {
-      $inc: {
-        "creator.followers": -1,
-      },
-    }
-  );
-  console.log("after unfollowed updating");
-  console.log(result);
-});
+// emitter.on("Followed", async(args) => {
+//     console.log("event listened");
+//     const result = await Post.updateMany({ "creator._id": args.creatorId }, {
+//         $inc: {
+//             "creator.followers": 1,
+//         },
+//     });
+//     console.log("after followed updating:::::::::::::::::::::::::::::::::::::");
+//     console.log(result);
+// });
+// emitter.on("Unfollowed", async(args) => {
+//     console.log("event listened");
+//     const result = await Post.updateMany({ "creator._id": args.creatorId }, {
+//         $inc: {
+//             "creator.followers": -1,
+//         },
+//     });
+//     console.log("after unfollowed updating");
+//     console.log(result);
+// });
 
 router.post("/:action", async (req, res, next) => {
   console.log("inside ajax endpoint");
@@ -137,7 +131,9 @@ router.post("/:action", async (req, res, next) => {
   } else if (req.params.action === "getcomment") {
     console.log("inside get comment action::::::::::");
     const postId = req.body.postId;
-    var result = await Post.findById(postId).select("commentedArray");
+    var result = await Post.findById(postId)
+      .populate("commentedArray.user")
+      .select("commentedArray");
     console.log("result of getting comment is:;;");
     console.log(result.commentedArray);
     return res.status(200).send(_.sortBy(result.commentedArray, "date"));
@@ -153,9 +149,7 @@ router.post("/:action", async (req, res, next) => {
       {
         $push: {
           commentedArray: {
-            userId: currentUserId._id,
-            username: commentedBy.username,
-            userphoto: commentedBy.photo,
+            user: currentUserId,
             commentText: commentText,
             date: Date.now(),
           },

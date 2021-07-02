@@ -26,8 +26,8 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 app.use((req, res, next) => {
-  res.setHeader("Service-Worker-Allowed", "/");
-  next();
+    res.setHeader("Service-Worker-Allowed", "/");
+    next();
 });
 
 //router imports
@@ -50,6 +50,7 @@ const homePageRouter = require("./routes/homePage");
 const showModalRouter = require("./routes/showModal");
 const otpOperationRouter = require("./routes/otpOperation");
 const pwOperationRouter = require("./routes/pwOperation");
+const getContentOnScrollForMyActivityRouter = require("./routes/getContentOnScrollForMyActivity");
 
 //using router
 app.use("/contact", contactRouter);
@@ -71,7 +72,8 @@ app.use("/", homePageRouter);
 app.use("/showModal", showModalRouter);
 app.use("/otpOperation", otpOperationRouter);
 app.use("/pwOperation", pwOperationRouter);
+app.use("/getContentOnScrollForMyActivity", getContentOnScrollForMyActivityRouter);
 
 app.listen(port, () => {
-  console.log(`the application started successfully on port ${port}`);
+    console.log(`the application started successfully on port ${port}`);
 });

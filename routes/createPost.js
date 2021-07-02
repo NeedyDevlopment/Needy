@@ -111,7 +111,7 @@ router.post(
         );
         const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
         const post = new Post({
-            creator: creator,
+            creator: currentUserId,
             date: currentDate,
             category: req.body.category,
             city: req.body.city,

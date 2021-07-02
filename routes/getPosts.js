@@ -22,18 +22,21 @@ router.post("/", async(req, res, next) => {
     // if (selectedCategory && selectedCity) {
     if (selectedCategory == "All Category" && selectedCity == "All City") {
         postsArray = await Post.find()
+            .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
             .sort("-date");
         totalPosts = await Post.count({});
     } else if (selectedCategory == "All Category") {
         postsArray = await Post.find({ city: selectedCity })
+            .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
             .sort("-date");
         totalPosts = await Post.count({ city: selectedCity });
     } else if (selectedCity == "All City") {
         postsArray = await Post.find({ category: selectedCategory })
+            .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
             .sort("-date");
@@ -43,6 +46,7 @@ router.post("/", async(req, res, next) => {
                 category: selectedCategory,
                 city: selectedCity,
             })
+            .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
             .sort("-date");
