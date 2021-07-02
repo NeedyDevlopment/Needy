@@ -47,25 +47,24 @@ $(document).ready(function () {
 
 function getDateDifference(dateDiffer) {
   if (dateDiffer < 60000) {
-    dateDiffer = Math.floor(dateDiffer / 1000).toString() + " seconds";
+    dateDiffer = Math.floor(dateDiffer / 1000).toString() + "seconds";
     return dateDiffer;
   } else if (dateDiffer < 3600000) {
-    dateDiffer = Math.floor(dateDiffer / 60000).toString() + " minutes";
+    dateDiffer = Math.floor(dateDiffer / 60000).toString() + "minutes";
     return dateDiffer;
   } else if (dateDiffer < 86400000) {
-    dateDiffer = Math.floor(dateDiffer / (60000 * 60)).toString() + " hours";
+    dateDiffer = Math.floor(dateDiffer / (60000 * 60)).toString() + "hours";
     return dateDiffer;
   } else if (dateDiffer < 604800016.56) {
-    dateDiffer =
-      Math.floor(dateDiffer / (60000 * 60 * 24)).toString() + " days";
+    dateDiffer = Math.floor(dateDiffer / (60000 * 60 * 24)).toString() + "days";
     return dateDiffer;
   } else if (dateDiffer < 2629800000) {
     dateDiffer =
-      Math.floor(dateDiffer / (60000 * 60 * 24 * 7)).toString() + " weeks";
+      Math.floor(dateDiffer / (60000 * 60 * 24 * 7)).toString() + "weeks";
     return dateDiffer;
   } else if (dateDiffer < 31557600000) {
     dateDiffer =
-      Math.floor(dateDiffer / (60000 * 60 * 24 * 7 * 4)).toString() + " months";
+      Math.floor(dateDiffer / (60000 * 60 * 24 * 7 * 4)).toString() + "months";
     return dateDiffer;
   }
 }
@@ -114,8 +113,8 @@ function onClickFollow(element, creatorId, postId) {
 function submitComment(postId) {
   console.log("postId is::::");
   console.log(postId);
-  var commentText = document.getElementById("writtencomment" + postId).value;
-  document.getElementById("writtencomment" + postId).value = "";
+  var commentText = document.getElementById("writtencomment").value;
+  document.getElementById("writtencomment").value = "";
   console.log("written comment is:::" + commentText);
   $.ajax({
     url: "/ajax/addcomment",
@@ -427,7 +426,6 @@ $(window).scroll(function () {
     $(window).scrollTop() + $(window).height() >= $(document).height() &&
     $("#currentTab").text() == ""
   ) {
-    alert("running...");
     var totalPosts = $("#getTotalPosts").text();
     console.log("value of P" + totalPosts);
     console.log(currentPage * 5 > totalPosts);
@@ -472,39 +470,12 @@ $(window).scroll(function () {
     console.log("Ajax Call...");
     // console.log("current filter: " + filter.city + " " + filter.category);
   }
-  currentPage = currentPage + 1;
-  console.log("inside If Block");
-  //    var city = $("#finalCity").val(city);
-  //    var category = $("#finalCategory").val(category);
-  var city = document.getElementById("getCity").innerHTML;
-  var category = document.getElementById("getCategory").innerHTML;
-  console.log("city is::" + city + " and Category is:  " + category);
+});
 
-  // $.ajax({
-  //     // url: "/?city=" + city + "&category=" + category,
-  //     // url: "/",
-  //     url: "/getPosts",
-  //     type: "GET",
-  //     data: { currentPage: 2, hello: "Hello" },
-  //     success: function(responseData) {
-  //         console.log("success");
-  //         console.log(responseData);
-  //     },
-  //     error: function() {
-  //         console.log("Error occured During AjAx");
-  //     }
-  // });
-  $.ajax({
-    url: "/getPosts",
-    type: "Post",
-    data: { currentPage: currentPage, city: city, category: category },
-    success: function (res) {
-      $(".postsContainer").append(res);
-    },
-    error: function (xhr, status, error) {
-      if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-      else showSnackbar("something Went Wrong!");
-    },
+$(document).ready(function () {
+  $("#profile img").click(function () {
+    var id = $(this).attr("id");
+    window.location.href = "/othersProfile?id=" + id;
   });
 
   if ($("#ebtn")) {
