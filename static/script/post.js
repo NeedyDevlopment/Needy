@@ -1,10 +1,6 @@
 // import browserEnv from 'browser-env';
 // console.log(window.isSecureContext);
 console.log("post.js running...");
-document.addEventListener("DOMContentLoaded", function () {
-  var element = document.getElementById("home");
-  element.classList.add("active");
-});
 // const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
 // // check for service worker
 // if ('serviceWorker' in navigator) {
@@ -431,6 +427,7 @@ $(window).scroll(function () {
     $(window).scrollTop() + $(window).height() >= $(document).height() &&
     $("#currentTab").text() == ""
   ) {
+    alert("running...");
     var totalPosts = $("#getTotalPosts").text();
     console.log("value of P" + totalPosts);
     console.log(currentPage * 5 > totalPosts);
