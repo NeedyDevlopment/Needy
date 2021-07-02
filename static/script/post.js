@@ -39,9 +39,11 @@ var msg = "is msg";
 let posts = [];
 // console.log(posts);
 $(document).ready(function () {
-  if (document.getElementById("message").innerHTML != "") {
-    showSnackbar(document.getElementById("message").innerHTML);
-    document.getElementById("message").innerHTML = "";
+  if (document.getElementById("message")) {
+    if (document.getElementById("message").innerHTML != "") {
+      showSnackbar(document.getElementById("message").innerHTML);
+      document.getElementById("message").innerHTML = "";
+    }
   }
 });
 
@@ -423,7 +425,8 @@ $(window).scroll(function () {
   // if ($(window).scrollTop() == $(document).height() - $(window).height()) {
   // var postHeight = $("#post_container").height();
   if (
-    $(window).scrollTop() + $(window).height() >= $(document).height() &&
+    Math.ceil($(window).scrollTop()) + $(window).height() >=
+      $(document).height() &&
     $("#currentTab").text() == ""
   ) {
     var totalPosts = $("#getTotalPosts").text();
