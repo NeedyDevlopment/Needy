@@ -113,8 +113,8 @@ function onClickFollow(element, creatorId, postId) {
 function submitComment(postId) {
   console.log("postId is::::");
   console.log(postId);
-  var commentText = document.getElementById("writtencomment").value;
-  document.getElementById("writtencomment").value = "";
+  var commentText = document.getElementById("writtencomment" + postId).value;
+  document.getElementById("writtencomment" + postId).value = "";
   console.log("written comment is:::" + commentText);
   $.ajax({
     url: "/ajax/addcomment",
@@ -212,11 +212,11 @@ function actionPerformed(element, icon, postId) {
           console.log(commentsArray);
           commentsArray.forEach((comment) => {
             var usernametoBePrinted =
-              element.id === comment.userId ? "You" : comment.username;
+              element.id === comment.user._id ? "You" : comment.user.username;
             var dateDiffer = new Date().getTime() - comment.date;
             console.log(dateDiffer);
-            var userPhotoUrl = comment.userphoto
-              ? comment.userphoto
+            var userPhotoUrl = comment.user.photo
+              ? comment.user.photo
               : "../static/imagesForPost/profile.png";
             $(
               "<div class='commentdiv'><div class='headerOfComment'><img src=" +
