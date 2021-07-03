@@ -11,7 +11,17 @@ $(document).ready(function () {
       "height",
       $(".sideNavbar").height() - footerHeight - 2 * headerHeight
     );
-
+    if ($(window).height() == $(document).height()) {
+      bodyFooterHeight = $("#footer").height();
+      $(".sideNavbar").css(
+        "height",
+        window.innerHeight - 2 * bodyFooterHeight - $(".navbar").height()
+      );
+      $(".content").css(
+        "height",
+        $(".sideNavbar").height() - footerHeight - 2 * headerHeight
+      );
+    }
     $(window).scroll(function () {
       var scroller = window.scrollY;
       var navHeight = document.getElementsByClassName("navbar")[0].offsetHeight;
