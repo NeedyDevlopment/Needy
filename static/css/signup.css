@@ -208,5 +208,9 @@ input::-webkit-inner-spin-button {
   .form label input[type='checkbox']{
     width: 400px;
 
+
+  }
+  #footer{
+    padding: 5px;
   }
 }
