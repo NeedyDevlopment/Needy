@@ -29,6 +29,7 @@ router.get("/", AuthForLogin, async (req, res, next) => {
     userId: currentUserId._id,
   });
   console.log("totalactivities             " + totalActivitiesForMyactivity);
+  console.log("usersPost             " + usersPost);
   res.status(200).render("myActivity.pug", {
     posts: usersPost,
     userActivities: userActivities,
