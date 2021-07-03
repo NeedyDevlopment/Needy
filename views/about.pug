@@ -1,0 +1,59 @@
+extends ./basic.pug
+block style
+   style 
+      include ../static/css/about.css 
+block scripts 
+block content 
+   div.container 
+      div.about 
+        div.header
+           h2 About Website
+        div.content
+           p Now a days giving an advertisement is very expensive for local merchents and business.Also all merchents are not capable for giving advertisement through complecated process,that's why we are introducing this effective plateform. 
+           p This Plateform is for enhancing one's business.Through this  plateform one can advertise thier business locally.By exploring this plateform user can get satisfaction for thier need.Here company or merchents can post detail about their product and other user can became informative about company's product.
+      div.feature 
+          div.header 
+             h2 Features
+          div.content 
+             div.f-content  
+                h3 Add Advertisement  
+                p we are providing simple way to adding advertisement.
+             div.f-content  
+                h3 User's Reaction  
+                p User can Like,Comment,Save and Share an advertisement.
+             div.f-content  
+                h3 Profile  
+                p User and Merchents can see their detail in profile section and also can edit and delete details of profile.
+             div.f-content  
+                h3 Follow  
+                p User can follow any company's profile for getting update from that company.
+             div.f-content  
+                h3 Edit Advertisement  
+                p Company can edit their existing advertise and can delete  also.
+             div.f-content  
+                h3 Activity  
+                p User can see their all activity in Myactivity section.
+             div.f-content  
+                h3 Filter  
+                p User can filter advertise as per their preference.
+      div.rules
+         div.header 
+            h2 Rules
+         div.content 
+            ul 
+              li Don't post advertisement with wrong details.
+              li Don't post related to religion,cast etc...
+              li Don’t ask for Likes, Comments, or Shares.
+              li Don’t use unprofessional languague.
+              li Don’t use any abusive words.
+              li Don't misuse other's details.   
+      hr
+      h1( class="h11") Follow Us
+      .foll 
+          a(href='//www.facebook.com') 
+            img(src='/static/images/facebook.png' style="height:42px")
+          a(href='https://www.instagram.com/')
+            img(src='/static/images/instagram.png' style="height:42px" )
+          a(href='https://www.linkedin.com/')
+            img(src='/static/images/linkedin.png' style="height:42px")           
+                

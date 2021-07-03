@@ -1,8 +1,9 @@
 const Post = require("../models/post");
 const express = require("express");
 const router = express.Router();
+const Activity = require("../models/userActivity");
 
-router.post("/:action", (req, res, next) => {
+router.post("/:action", async(req, res, next) => {
     const postId = req.body.editPostId;
     if (req.params.action == "Edit") {
         const editTitle = req.body.editedTitle;
@@ -26,21 +27,16 @@ router.post("/:action", (req, res, next) => {
                 res.status(500).json({ message: "error occured!" });
             });
     } else if (req.params.action == "Delete") {
-        Post.findOneAndDelete({ _id: postId })
-            .then(async(result) => {
-                console.log("Deleteresult::::");
-                console.log(result);
-                res.status(200).json({ message: "Post Deleted Successfully" });
-                const deleteActivity = await Activity.deleteMany({ post: postId });
-                // if (result.n > 0) {
-                //   res.status(200).json({ message: "Post Updated Successfully." });
-                // } else {
-                //   res.status(500).json({ message: "Post does not Updated Successfully." });
-                // }
-            })
-            .catch((error) => {
-                res.status(500).json({ message: "error occured!" });
-            });
+        const postDeleted = await Post.findOneAndDelete({ _id: postId });
+        console.log("Deleteresult::::");
+        console.log(postDeleted);
+        const deleteActivity = await Activity.deleteMany({ post: postId });
+        res.status(200).json({ message: "Post Deleted Successfully" });
+        // if (result.n > 0) {
+        //   res.status(200).json({ message: "Post Updated Successfully." });
+        // } else {
+        //   res.status(500).json({ message: "Post does not Updated Successfully." });
+        // }
     }
 });
 

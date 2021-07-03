@@ -52,6 +52,7 @@ const otpOperationRouter = require("./routes/otpOperation");
 const pwOperationRouter = require("./routes/pwOperation");
 const getContentOnScrollForMyActivityRouter = require("./routes/getContentOnScrollForMyActivity");
 const getContactsRouter = require("./routes/getContacts");
+const aboutUsRouter = require("./routes/about");
 
 //using router
 app.use("/contact", contactRouter);
@@ -75,6 +76,7 @@ app.use("/otpOperation", otpOperationRouter);
 app.use("/pwOperation", pwOperationRouter);
 app.use("/getContentOnScrollForMyActivity", getContentOnScrollForMyActivityRouter);
 app.use("/getContacts", getContactsRouter);
+app.use("/about", aboutUsRouter);
 
 app.listen(port, () => {
     console.log(`the application started successfully on port ${port}`);

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    var existingprofileImage = $(".avatar").attr("src");
     var element = document.getElementById("profilebtn");
     element.classList.add("active");
     if ($("#forSnackBarCalling").text()) {
@@ -32,6 +33,7 @@ $(document).ready(function() {
         $("#changePass").show(400);
         $("#deleteBtn").show(400);
         $("input").removeClass("active");
+        $(".avatar").attr("src", existingprofileImage);
     });
 });
 

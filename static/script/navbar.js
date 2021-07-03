@@ -25,7 +25,7 @@ $(document).ready(function() {
         document.location.href = "/contact";
     });
     $("#aboutUs").click(function() {
-        document.location.href = "/";
+        document.location.href = "/about";
     });
     $("#profilebtn").click(function() {
         document.location.href = "/profile";
