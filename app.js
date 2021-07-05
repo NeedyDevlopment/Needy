@@ -10,7 +10,7 @@ const path = require("path");
 const webpush = require("web-push");
 const pug = require("pug");
 const app = express();
-const port = 80;
+const port = process.env.PORT || 3000;
 
 //SESSION STORING
 require("./helper/session")(app);
@@ -78,6 +78,6 @@ app.use("/getContentOnScrollForMyActivity", getContentOnScrollForMyActivityRoute
 app.use("/getContacts", getContactsRouter);
 app.use("/about", aboutUsRouter);
 
-app.listen(port, () => {
+app.listen(3000, () => {
     console.log(`the application started successfully on port ${port}`);
 });
