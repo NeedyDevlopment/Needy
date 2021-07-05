@@ -84,6 +84,6 @@ app.use(
 app.use("/getContacts", getContactsRouter);
 app.use("/about", aboutUsRouter);
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`the application started successfully on port ${port}`);
 });
