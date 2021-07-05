@@ -2,7 +2,7 @@ const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const cookies = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 // const emailExistence = require('email-existence');
 // const Verifier = require("email-verifier");
 // const emailValidator = require('deep-email-validator');
@@ -60,7 +60,6 @@ const pwOperationRouter = require("./routes/pwOperation");
 const getContentOnScrollForMyActivityRouter = require("./routes/getContentOnScrollForMyActivity");
 const getContactsRouter = require("./routes/getContacts");
 const aboutUsRouter = require("./routes/about");
-const cookieParser = require("cookie-parser");
 
 //using router
 app.use("/contact", contactRouter);
