@@ -4,13 +4,19 @@
   "description": "web app for advertisement",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "14.16.1",
+    "npm": "6.14.12"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "browser-env": "^3.3.0",
+    "compression": "^1.7.4",
     "config": "^3.3.6",
     "connect-mongodb-session": "^2.4.1",
     "cookie-parser": "^1.4.5",
@@ -21,6 +27,7 @@
     "email-verifier": "^0.4.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "helmet": "^4.6.0",
     "jsdom": "^16.6.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
