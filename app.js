@@ -15,7 +15,7 @@ const port = 80;
 //SESSION STORING
 require("./helper/session")(app);
 //session declaration must be declared before all routes, otherwise in routes of routes folder we cannot access req.session.isLoggedin
-
+require("./middleware/prod")(app);
 //Express specific stuff here
 app.use("/static", express.static("static"));
 app.use("/views", express.static("views"));
