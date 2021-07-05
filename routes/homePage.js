@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const Post = require("../models/post");
 var LocalStorage = require("node-localstorage").LocalStorage;
-var localStorage = new LocalStorage('../scratch');
+var localStorage = new LocalStorage('./scratch');
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const express = require("express");
