@@ -1,0 +1,73 @@
+extends basic.pug
+block style 
+    style 
+        include ../static/css/signup.css
+block content    
+    form(action='/signup' method="Post" name="form" )
+        .container
+            h1 Signup
+            .form( ) 
+                    label(for='name' class="label")
+                        .b
+                            img(src="/static/images/username.png")
+                            b(style="margin:2px") Username
+                        input(type='text' id="username" placeholder='Enter Your First Name and Last Name' name='name' class="input" oninvalid="InvalidMsg();" oninput ="InvalidMsg();" required)
+                    label(for='email' class="label")
+                        .b
+                            img(src="/static/images/email.webp" style="margin-top: 4px;")
+                            b(style="margin:5px") Email
+                        input(type='email' placeholder='Enter Your Email' name='email' id="email" class="input" 
+                        oninvalid ="InvalidEmail();" oninput="InvalidEmail();" required )
+                
+                    label(for="city" class="label")
+                        .b
+                            img(src="/static/images/city.png" style="margin-top: 4px;")
+                            b(style="margin:5px ") City
+                        input(type="text" placeholder="Enter Your City" list="cities" name="city" class="input" id="city" oninvalid="Invalidcity();" oninput="Invalidcity();"  required)
+                        datalist#cities
+                            option Mumbai
+                            option Delhi
+                            option Bangalore
+                            option Hyderabad
+                            option Ahmedabad
+                            option Chennai
+                            option Kolkata
+                            option Surat
+                            option Pune
+                            option Jaipur
+
+                    label(for="contact" class="label")
+                        .b
+                            img(src="/static/images/phone.jpg"  style="margin-top: 4px;")
+                            b(style="margin:5px; white-space: nowrap;") Contact No 
+                        input(type="number" placeholder="Enter Your Number" name="contact" id="number" class="input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);Invalidnumber();" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" oninvalid="Invalidnumber();"  required)
+                    label(for="work" class="label")
+                        .b
+                            img(src="/static/images/work.png" style="margin-top: 4px;")
+                            b(style="margin:5px;white-space: nowrap;") Work Place
+                        input(type="text" placeholder="Enter Your Work Place/Company Name" name="work" class="input" oninvalid="Invalidplace();" oninput="Invalidplace();" id="work" required)
+                    label(for='password' class="label")
+                        .b
+                            img(src="/static/images/password.png" style="margin-top: 4px;")
+                            b(style="margin:5px") Password
+                            
+                        input(type='password' placeholder='Enter Your Password' id="pass" class="input" name='password' oninvalid="Invalidpass();" oninput="Invalidpass();" title="Must contain at least one number and one uppercase and lowercase letter and one special, and at least 7 or more characters" maxlength="15" required)
+                        
+                        input(type="checkbox" onclick="myFunction()" class="input" style="margin:-150px; height:13px;") 
+                        p(style="margin-left: 60px; margin-top: -19px; white-space: nowrap;") Show Password
+                    label(for='cpassword' class="label")
+                        .b
+                            img(src="/static/images/password.png" style="margin-top: 4px;")
+                            b(style="margin:5px;white-space: nowrap;") Confirm Password
+
+                        input(type='password' id="cpass" class="input" placeholder='Enter Your Confirm Password' name='cpassword' oninvalid="Invalidcpass();" oninput="Invalidcpass();"  required)
+
+                    button(type='submit' class="btnsignup") Signup
+    script(src="../static/script/signup.js")
+
+   
+    
+   
+
+    
+  

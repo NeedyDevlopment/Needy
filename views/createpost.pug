@@ -1,0 +1,58 @@
+extends basic.pug
+block style 
+    style 
+        include ../static/css/createpost.css
+        include ../static/css/dialogBox.css
+block scripts 
+       script(src="../static/script/dialogbox.js")        
+
+block content
+
+    .postcontainer
+        h1 CreatePost
+        hr
+        form(action='/createpost' method='post' enctype='multipart/form-data')
+            .postlabels
+                label(for='category')  Category  
+                input#category(type="text" placeholder="Enter Your Category" list="categories" oninvalid="Invalidcat(this);" oninput="Invalidcat(this);" name="category" required)
+                datalist#categories
+                    option Offer
+                    option Employment
+                    option Restaurant
+                    option Houses
+                    option hiring
+                    option Education
+                    option Gym & Fitness 
+                    
+                br
+                label(for='city')  City 
+                input#city(type="text" placeholder="Enter Your City" list="cities" name="city" oninvalid="Invalidcity(this);" oninput="Invalidcity(this);" required)
+                datalist#cities
+                    option Mumbai
+                    option Delhi
+                    option Bangalore
+                    option Hyderabad
+                    option Ahmedabad
+                    option Chennai
+                    option Kolkata
+                    option Surat
+                    option Pune
+                    option Jaipur
+                br
+                
+                label(for='title')  Title 
+                input#title(type='text' name='title' placeholder="Enter Name Of Your Post" oninvalid="Invalidtitle(this);"  oninput="Invalidtitle(this);" required)
+                br
+                label(for='Description') Description 
+                textarea#description(name='Description' placeholder="Description Of Your Post" oninvalid="InvalidDesc(this);" oninput="InvalidDesc(this);" required)
+                br
+                label(for='contact')  Contact No 
+                input#contact(type='number' name='contact' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);Invalidnum(this);" maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" placeholder="Enter Your Contact No" oninvalid="Invalidnum(this);" required)
+                br
+                label(for='img')  Select Image 
+                input#img(type='file' name='image' accept='image/*' oninvalid="Invalidfile(this);" oninput="Invalidfile(this);" required)
+                
+                button(type='submit' class="postbtn") CreatePost
+                br
+                br
+    script(src="../static/script/createpost.js") 

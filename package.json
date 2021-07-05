@@ -1,0 +1,41 @@
+{
+  "name": "needy",
+  "version": "1.0.0",
+  "description": "web app for advertisement",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "v14.x",
+    "npm": "6.x"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "browser-env": "^3.3.0",
+    "compression": "^1.7.4",
+    "config": "^3.3.6",
+    "connect-mongodb-session": "^2.4.1",
+    "cookie-parser": "^1.4.5",
+    "dateformat": "^4.5.1",
+    "deep-email-validator": "^0.1.18",
+    "ejs": "^3.1.6",
+    "email-existence": "^0.1.6",
+    "email-verifier": "^0.4.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "helmet": "^4.6.0",
+    "jsdom": "^16.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.12.15",
+    "multer": "^1.4.2",
+    "node-localstorage": "^2.2.1",
+    "nodemailer": "^6.6.1",
+    "npm": "^7.19.1",
+    "pug": "^3.0.2",
+    "web-push": "^3.4.4"
+  }
+}

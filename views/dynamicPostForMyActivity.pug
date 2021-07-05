@@ -1,0 +1,35 @@
+each post in posts   
+    div#post_container.singlePost(class="post"+post._id) 
+        div#main
+            div#head
+                div#descTime
+                    p='You Added This Post at '+ post.date 
+                div#count 
+                    p=post.likes+ ' Likes' 
+                    p=post.comments+ ' Comments'
+            div#main-img-desc     
+                img#PostImg(src=post.image)
+                div.details
+                    div#title 
+                        div.divlabel 
+                            p Title 
+                            label : 
+                        input(id="titleEdit"+post._id,class="NormalMode titleEdit editPostInput"+post._id,value=post.title, type="text") 
+                    div#discription
+                        div.divlabel  
+                            p Description 
+                            label : 
+                        input( id="descEdit"+post._id,class="NormalMode descEdit editPostInput"+post._id,value=post.description, type="text") 
+                    div#phoneNo
+                        div.divlabel  
+                            p phone 
+                            label : 
+                        input( id="contactEdit"+post._id,class="NormalMode contactEdit editPostInput"+post._id,value=post.contact, type="number")
+                    div#city 
+                        div.divlabel  
+                            p City 
+                            label : 
+                        input(id="cityEdit"+post._id,class="NormalMode cityEdit editPostInput"+post._id,value=post.city, type="text")    
+                    div#EditDeleteButton 
+                        button(id="editBtn"+post._id,class="editButton",onclick="OnEdit(this,'"+post._id+"')") Edit
+                        button(id="deleteBtn"+post._id,class="deleteButton",onclick="OnDelete(this,'"+post._id+"')") Delete

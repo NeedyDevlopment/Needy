@@ -1,0 +1,108 @@
+extends ./basic.pug   
+block scripts 
+   //- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+   script(src="../static/script/post.js")
+   script(src="../static/script/commentbox.js") 
+   script(src="../static/script/snackbar.js")  
+   script(src="../static/script/share.js")  
+   script(src="../static/script/dialogbox.js")  
+   script(src="../static/script/homePage.js")  
+   //- script(src="./client.js")
+   //- script(src="../static/script/worker.js")
+block style
+   style
+      include ../static/css/post.css
+      include ../static/css/commentbox.css
+      include ../static/css/snackbar.css
+      include ../static/css/homePage.css
+      //- include ../static/css/dialogBox.css
+      include ../static/css/pagination.css
+      include ../static/css/share.css
+      include ../static/css/login.css
+   link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+   link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+block content 
+   script.
+      //- console.log(message); 
+      //- console.log(currentUserFollowingsArray);  
+   p#message= message 
+   p#getCity= filter.city   
+   p#getCategory= filter.category 
+   p#getTotalPosts= totalPosts 
+   p#getIdForSharePost
+   div.filterOpenButton
+      button(type="button" id="openFilter" ) #[i.fa.fa-filter] Filter
+   div.container
+      div.postsContainer
+         if posts.length == 0
+            p#filterNotFound= "No Result Found For Filter Category: "+filter.category+" and City: "+filter.city
+         each post in posts  
+            div#post_container 
+               div#profile
+                  if(post.creator.photo)
+                     img(id=post.creator._id  ,class= currentUserId , src=post.creator.photo)
+                  else
+                     img(id=post.creator._id , src="../static/imagesForPost/profile.png")
+                  p#name= post.creator.username  
+                     small= ' at '+ post.date   
+                  b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id+" showFollowers")= post.creator.followers+' Followers'  
+                  if(currentUserId != post.creator._id)    
+                     button(id="f-btn",class="f-btn"+post.creator._id,onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
+                  else
+                     button(id="f-btn" class="f-btn"+post.creator._id title="can't follow to yourself" disabled)= 'Follow'  
+                     
+               div#main
+                  div#head
+                     div#count 
+                        p(id='showLikes'+post._id)= post.likes+ ' Likes' 
+                        p(id='showComments'+post._id)= post.comments+ ' Comments'
+                  div#main-img-desc     
+                     //- img#PostImg(src='data:'+post.image.contentType+';base64,'+post.image.data.toString('base64'))
+                     img#PostImg(src=post.image)
+                     div.details
+                        div#title 
+                              p #[b Title: ]  #{post.title} 
+                        div#discription 
+                              p #[b Description: ]  #{post.description}
+                              p #[b Contact No: ]  #{post.contact}
+                              p #[b City: ]  #{post.city}
+               div#actiondiv
+                  if(currentUserId != post.creator._id)
+                     div#like
+                        i(class=post.likedArray.includes(currentUserId) ?"fa fa-thumbs-up" :"fa fa-thumbs-o-up",onclick="actionPerformed(this,  'like','"+post._id+"')")
+                        p(id='showliketext'+post._id)= post.likedArray.includes(currentUserId) ? 'unlike' : 'like'  
+                     div#comment
+                        i(class=post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass",id=currentUserId,onclick="actionPerformed(this,'comment','"+post._id+"')")
+                        p(id='showcommenttext'+post._id) comment    
+                     div(id="share",onclick="actionPerformed(this,'share','"+post._id+"')")
+                        img(src="../static/images/share (1).png")
+                        | share  
+                     div#save
+                        i(class=post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o",onclick="actionPerformed(this,  'save','"+post._id+"')")
+                        p(id='showsavetext'+post._id)= post.savedArray.includes(currentUserId) ? 'saved' : 'save' 
+                  else
+                     div#like.DisableAction
+                        i(class="fa fa-thumbs-o-up" title="can't like to your own post.")
+                        p(id='showliketext'+post._id)='like'  
+                     div#comment
+                        i(class=post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass",id=currentUserId,onclick="actionPerformed(this,'comment','"+post._id+"')")
+                        p(id='showcommenttext'+post._id) comment    
+                     div(id="share",onclick="actionPerformed(this,'share','"+post._id+"')")
+                        img(src="../static/images/share (1).png")
+                        | share  
+                     div#save
+                        i(class=post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o",onclick="actionPerformed(this,  'save','"+post._id+"')")
+                        p(id='showsavetext'+post._id)= post.savedArray.includes(currentUserId) ? 'saved' : 'save' 
+               div(id="maincommentcontainer"+post._id , class="maincommentcontainer")
+                  hr
+                  h4#commentHeader All Comments #[button(id="closebutton",onclick="hidecommentbox('"+post._id+"')") &#10006;] 
+                  div(class="writecommentdiv",id="writecomment")
+                        textarea(name="writtencomment" id="writtencomment"+post._id placeholder="Comment Here ..." cols="35" rows="4")
+                        button(id="submitcomment"+post._id) #[i(class="material-icons") &#xe163;]
+                  div(id="innercommentcontainer"+post._id,  class="innercommentcontainer")
+                     div(class="loader") ...Loading
+                     
+      div.sideNavbar
+         include ./sideBar.pug 
+      div#share-dialog
+         include ./share.pug

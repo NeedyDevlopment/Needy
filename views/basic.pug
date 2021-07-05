@@ -1,0 +1,51 @@
+doctype html
+html(id="html")
+  head
+    meta(http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate')
+    meta(http-equiv='Pragma' content='no-cache')
+    meta(http-equiv='Expires' content='0')
+    meta(name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no")
+    block metas
+    title Needy 
+    style 
+        include ../static/css/navbar.css 
+        include ../static/css/login.css 
+        include ../static/css/snackbar.css
+        include ../static/css/dialogBox.css
+    block style
+    script(src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous")
+    script(src="../static/script/navbar.js") 
+    script(src="../static/script/snackbar.js") 
+    script(src="../static/script/dialogbox.js") 
+    block scripts
+  body(id="body")
+    p#currentTab
+    nav.navbar
+          .burgerIcon 
+            div
+            div
+            div
+          div.start 
+            | NeeDY
+          div.flexible
+            div.div#home Home
+            //- div.div#category #[a(href="/") Recommandation] 
+            div.div#catpost Createpost 
+            div.div#myActivity My Activity
+            div.div#contactUs Contact Us 
+            div.div#aboutUs About Us
+          div.last 
+            if(isLoggedIn)
+              button(id="logoutbtn",class="btn",onclick="showDialogBox('logout','')") Logout
+              button.btn#profilebtn MyProfile
+            else   
+              button.btn#loginBtn Login
+              button.btn#Singupbtn Signup
+    #myModal.modal
+        .modal-content
+    div#id01.w3-modal
+         include ./dialogBox.pug        
+    div#snackbar Your like added to this post.
+    block content
+    section#footer 
+            | Copyright &copy; 2021 Needy.com | All Rigts reserved

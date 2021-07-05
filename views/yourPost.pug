@@ -1,0 +1,22 @@
+
+each post in posts   
+ div#post_container 
+   div#main
+      div#head
+         div#descTime
+            p  You Added This Post 1 hour ago....
+         div#count 
+            p=post.likes+ 'Likes' 
+            p=post.comments+ 'Comments'
+      div#main-img-desc     
+         img#PostImg(src=post.image)
+         div.details
+            div#title 
+               p #[b Title] : #[input(id="titleEdit",class="NormalMode",value=post.title, type="text" autofocus)] 
+            div#discription 
+               p #[b Description] : #[input( id="descEdit",class="NormalMode",value=post.description, type="text" autofocus)] 
+               p #[b phone] : #[input( id="contactEdit",class="NormalMode",value=post.contact, type="text" autofocus)] 
+            div#EditDeleteButton 
+               button#editBtn.editButton(onclick="OnEdit(this)") Edit
+               button#deleteBtn.deleteButton(onclick="OnDelete(this)") Delete
+     

@@ -1,0 +1,53 @@
+extends basic.pug 
+
+block style 
+    style 
+        include ../static/css/othersProfile.css
+block scripts 
+    script(src="../static/script/othersProfile.js") 
+block content 
+    .container 
+        .profileDetails(id=currentUserId)
+            .imageAndFollowButton 
+                .imageDiv 
+                    if(user.photo)
+                        img(src=user.photo, alt="")
+                    else 
+                        img(src="../static/imagesForPost/profile.png", alt="")
+                if currentUserId!=user._id
+                    .followButtonDiv 
+                        button(type="button" id="f_btn"+user._id onclick="onClickFollow(this,'"+user._id+"')" )= user.followersArray.includes(currentUserId) ? "Unfollow" :"Follow"
+            .followerPostsFollowing 
+                .followersDiv(id=user._id)
+                    b Followers
+                    span= user.followers
+                .postsDiv 
+                    b Posts
+                    span= post
+                .followingDiv(id=user._id)
+                    b Following
+                    span= user.followings
+            .userDetails 
+                .header User Details 
+                .detailDiv 
+                    span UserName  
+                    p= user.username
+                hr
+                .detailDiv 
+                    span City 
+                    p= user.city
+                hr
+                .detailDiv 
+                    span Company Name 
+                    p= user.companyname
+                hr
+                .detailDiv 
+                    span Total Likes 
+                    p= likes +" Likes"
+                hr
+                .detailDiv 
+                    span Total Comments
+                    p= comments +" Comments"
+        .followersFollowing 
+
+        

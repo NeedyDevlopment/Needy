@@ -1,0 +1,324 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("../static/images/back3.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.postcontainer h1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.postcontainer hr{
+  width: 741px;
+}
+
+.postcontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 752px;
+  border: 5px solid red;
+  margin: 30px auto;
+  background: transparent;
+  color: white;
+  padding: 12px;
+  box-shadow: 0px 0px 30px 5px;
+
+  border-radius: 20px;
+}
+.postlabels {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 15px;
+}
+input#category,
+#city,
+#title,
+#description,
+#contact {
+  width: 420px;
+  height: 40px;
+  border: 4px solid white;
+  border-radius: 5px;
+  background: transparent;
+  font-size: 20px;
+  outline: none;
+  padding-left: 12px;
+  color: white;
+}
+label {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+::placeholder {
+  font-size: 20px;
+  color: white;
+}
+textarea::placeholder {
+  font-family: sans-serif;
+}
+textarea#description {
+  padding-top: 5px;
+  height: 186px;
+}
+.postbtn {
+  width: 133px;
+  height: 48px;
+  margin-top: 10px;
+  border: 4px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0px;
+  background: green;
+  color: white;
+}
+.postbtn:active {
+  background: rgb(10, 233, 10);
+}
+input[type="file"] {
+  border: 4px solid white;
+  width: 418px;
+  padding: 5px;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#footer {
+  display: flex;
+  border: 2px solid black;
+  background: black;
+  color: white;
+  min-height: 4vh;
+  justify-content: center;
+  margin-top: 45px;
+  align-items: center;
+}
+@media screen and (min-width:769px) and (max-width: 976px) {
+  .postcontainer {
+    width: 618px;
+  
+  }
+  .postcontainer hr {
+    width: 608px;
+  }
+  .postcontainer form {
+    width: 545px;
+  }
+  input#category,
+  #city,
+  #title,
+  #description,
+  #contact {
+    width: 500px;
+  }
+  input[type="file"] {
+    width: 500px;
+  }
+
+}
+
+@media screen and (min-width:565px) and (max-width:769px) {
+  .postcontainer {
+    width: 418px;
+    
+  }
+  .postcontainer hr {
+    width: 407px;
+  }
+  .postcontainer form {
+    width: 362px;
+  }
+  input#category,
+  #city,
+  #title,
+  #description,
+  #contact {
+    width: 345px;
+  }
+  input[type="file"] {
+    width: 345px;
+  }
+}
+@media screen and (min-width:425px) and (max-width:565px) {
+  .postcontainer {
+    width: 292px;
+    
+  }
+  .postcontainer hr {
+    width: 282px;
+  }
+  .postcontainer form {
+    width: 245px;
+  }
+  input#category,
+  #city,
+  #title,
+  #description,
+  #contact {
+    width: 245px;
+    height: 37px;
+    border: 2px solid;
+    font-size: 15px;
+    border-radius: 3px;
+
+  }
+  input[type="file"] {
+    width: 245px;
+    height: 37px;
+    border: 2px solid;
+    font-size: 15px;
+    border-radius: 3px;
+
+  }
+  ::placeholder{
+    font-size: 15px;
+  }
+  .postbtn{
+    border: 2px solid;
+    height: 29px;
+    width: 104px;
+    border-radius: 3px;
+  }
+}
+
+@media screen and (min-width:360px) and (max-width:425px) {
+  .postcontainer {
+    width: 292px;
+    box-shadow: 0px 0px 18px 5px;
+    height: 681px;
+    
+  }
+  .postcontainer h1{
+    font-size: 25px;
+    padding-bottom: 5px;
+  }
+  .postcontainer hr {
+    width: 282px;
+  }
+  .postcontainer form {
+    width: 245px;
+  }
+  label{
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+  input#category,
+  #city,
+  #title,
+  #description,
+  #contact {
+    width: 245px;
+    height: 37px;
+    border: 2px solid;
+    font-size: 15px;
+    border-radius: 3px;
+
+  }
+  textarea#description {
+    padding-top: 5px;
+    height: 104px;
+  }
+  
+  input[type="file"] {
+    width: 245px;
+    height: 37px;
+    border: 2px solid;
+    font-size: 15px;
+    border-radius: 3px;
+
+  }
+  ::placeholder{
+    font-size: 15px;
+  }
+  .postbtn{
+    border: 2px solid;
+    height: 29px;
+    width: 104px;
+    font-size: 17px;
+    border-radius: 3px;
+  }
+}
+@media screen and (max-width:361px) {
+  .postcontainer {
+    width: 253px;
+    box-shadow: 0px 0px 10px 5px;
+    height: 550px;
+    border: 3px solid red;
+    border-radius: 5px;
+    margin-bottom: 48px;
+    
+  }
+  .postcontainer h1{
+    font-size: 25px;
+    padding-top: 20px;
+  }
+  .postcontainer hr {
+    width: 249px;
+  }
+  .postcontainer form {
+    width: 200px;
+  }
+  label{
+    font-size: 15px;
+  }
+  .postlabels{
+    margin-top: 5px;
+    height: 515px;
+  }
+  input#category,
+  #city,
+  #title,
+  #description,
+  #contact {
+    width: 200px;
+    height: 20px;
+    border: 2px solid;
+    font-size: 12px;
+    border-radius: 3px;
+    padding-left: 4px;
+
+  }
+  textarea#description {
+    padding-top: 5px;
+    height: 75px;
+  }
+  
+  input[type="file"] {
+    width: 200px;
+    height: 23px;
+    border: 2px solid;
+    font-size: 12px;
+    border-radius: 3px;
+    padding: 0px;
+    padding-left: 4px;
+
+  }
+  ::placeholder{
+    font-size: 12px;
+  }
+  .postbtn{
+    border: 2px solid;
+    height: 26px;
+    width: 75px;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+}
