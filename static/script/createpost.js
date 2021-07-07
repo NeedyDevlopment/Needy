@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {
   var element = document.getElementById("catpost");
   element.classList.add("active");
   // for category

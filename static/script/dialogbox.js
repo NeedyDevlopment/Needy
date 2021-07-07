@@ -66,12 +66,10 @@ function setUpdatedTotalPostAndTotalActivity(deletedpostId) {
   $("#totalActivityCount").text("TOTAL ACTIVITIES : " + totalActivity);
 }
 
-document.addEventListener("DOMContentLoded", function () {
-  document
-    .getElementById("dialogCancel")
-    .addEventListener("click", function () {
-      onCancelLogoutDialogBox();
-    });
+$(document).ready(function () {
+  $("#dialogCancel").click(function () {
+    onCancelLogoutDialogBox();
+  });
   document
     .getElementById("continueDialogBtn")
     .addEventListener("click", function () {

@@ -7,7 +7,6 @@ $(document).ready(function () {
   });
   // for sending the email
   $("#SendText").click(function () {
-    console.log("hello");
     onEmailSend();
   });
   // for close the email
@@ -29,6 +28,7 @@ function onCloseEmailModal() {
   // document.getElementsByClassName("modalForEmail")[0].style.display = "none";
   $("#emailError").css("display", "none");
   $("#recipientEmail").val("");
+  $("#myModal").css("display", "none");
 }
 var isLoading = false;
 

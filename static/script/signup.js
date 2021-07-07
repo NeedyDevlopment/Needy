@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {
   var element = document.getElementById("Singupbtn");
   // element.classList.add("active");
   // for username
