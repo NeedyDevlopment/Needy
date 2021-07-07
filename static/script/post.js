@@ -282,9 +282,9 @@ function actionPerformed(element, icon, postId) {
     // var fbUrl = "https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%2Fpost%2F" + postId;
     // var fbUrl = "https://www.facebook.com/sharer.php?u=" + encodeURIComponent("http://localhost/post/60c6efc88ddc55a2647dec8b");
     var fbUrl =
-      "https://www.facebook.com/sharer/sharer.php?u=http%3A//localhost/post/60c6efc88ddc55a2647dec8b"; //with meta tags
+      "https://www.facebook.com/sharer/sharer.php?u=http%3A//needy24x7.herokuapp.com/post/60c6efc88ddc55a2647dec8b"; //with meta tags
     var twUrl =
-      "https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%2Fpost%2F" +
+      "https://twitter.com/intent/tweet?url=http%3A%2F%2Fneedy24x7.herokuapp.com%2Fpost%2F" +
       postId +
       "&text=" +
       encodeURIComponent("Hello From Needy,Open this link to view Post") +
@@ -295,7 +295,7 @@ function actionPerformed(element, icon, postId) {
     var lnUrl =
       "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//github.com&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
 
-    $(".post-url").text("http://localhost/post/" + postId);
+    $(".post-url").text("http://needy24x7.herokuapp.com/post/" + postId);
     var eUrl =
       "mailto:forexternaluse505@gmail.com?cc=ThisIsCC&bcc=ThisIsBCC&subject=Post%20From%20Needy%20this%20is%20subject&body=Hey%20This%20is%20Body%20of%20email";
     $(".fbBtn").attr("href", fbUrl);
