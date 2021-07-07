@@ -4,7 +4,7 @@ block style
     style 
         include ../static/css/othersProfile.css
 block scripts 
-    script(src="../static/script/othersProfile.js") 
+    script(src="../static/script/othersProfile.js",nonce="2726c7f26c") 
 block content 
     .container 
         .profileDetails(id=currentUserId)
@@ -16,7 +16,7 @@ block content
                         img(src="../static/imagesForPost/profile.png", alt="")
                 if currentUserId!=user._id
                     .followButtonDiv 
-                        button(type="button" id="f_btn"+user._id onclick="onClickFollow(this,'"+user._id+"')" )= user.followersArray.includes(currentUserId) ? "Unfollow" :"Follow"
+                        button(type="button" id="f_btn"+user._id  value=user._id class="follow_button" )= user.followersArray.includes(currentUserId) ? "Unfollow" :"Follow"
             .followerPostsFollowing 
                 .followersDiv(id=user._id)
                     b Followers

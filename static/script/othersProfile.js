@@ -19,6 +19,7 @@ $(document).ready(function () {
       url: "/profile/showProfileFollowings",
       success: function (data) {
         $(".followersFollowing").html(data);
+        wrap("../static/script/f_list.js");
         $(".followersFollowing").css("display", "block");
       },
     });
@@ -26,6 +27,10 @@ $(document).ready(function () {
   if (screen.width < 641) {
     $(".followersFollowing").height($(".container").height());
   }
+  $(".follow_button").click(function () {
+    var user_id = $(this).attr("value");
+    onClickFollow($(this)[0], user_id);
+  });
 });
 
 function onClickFollow(element, creatorId) {

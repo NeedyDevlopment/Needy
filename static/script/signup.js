@@ -1,8 +1,64 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//   var element = document.getElementById("Singupbtn");
-//   // element.classList.add("active");
-
-// });
+document.addEventListener("DOMContentLoaded", function () {
+  var element = document.getElementById("Singupbtn");
+  // element.classList.add("active");
+  // for username
+  document.getElementById("username").addEventListener("input", function () {
+    InvalidMsg();
+  });
+  document.getElementById("username").addEventListener("invalid", function () {
+    InvalidMsg();
+  });
+  //for email
+  document.getElementById("email").addEventListener("input", function () {
+    InvalidEmail();
+  });
+  document.getElementById("email").addEventListener("invalid", function () {
+    InvalidEmail();
+  });
+  //for city
+  document.getElementById("city").addEventListener("input", function () {
+    Invalidcity();
+  });
+  document.getElementById("city").addEventListener("invalid", function () {
+    Invalidcity();
+  });
+  //for phone number
+  document.getElementById("number").addEventListener("input", function () {
+    Invalidnumber();
+    var number = document.getElementById("number");
+    if (number.value.length > number.maxLength) {
+      number.value = number.value.slice(0, number.maxLength);
+    }
+  });
+  document.getElementById("number").addEventListener("invalid", function () {
+    Invalidnumber();
+  });
+  //for workplace
+  document.getElementById("work").addEventListener("input", function () {
+    Invalidplace();
+  });
+  document.getElementById("work").addEventListener("invalid", function () {
+    Invalidplace();
+  });
+  //for password
+  document.getElementById("pass").addEventListener("input", function () {
+    Invalidpass();
+  });
+  document.getElementById("pass").addEventListener("invalid", function () {
+    Invalidpass();
+  });
+  // for checkbox
+  document.getElementById("checkbox").addEventListener("click", function () {
+    myFunction();
+  });
+  //for cpassword
+  document.getElementById("cpass").addEventListener("input", function () {
+    Invalidcpass();
+  });
+  document.getElementById("cpass").addEventListener("invalid", function () {
+    Invalidcpass();
+  });
+});
 
 function InvalidMsg() {
   var msg = document.getElementById("username");

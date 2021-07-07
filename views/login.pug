@@ -19,7 +19,7 @@ if(Modal == "login")
                 h3#forgotPassword Forgot Password ?
 else if(Modal == "email")            
     .modal-header
-        span.close(onclick="onCloseEmailModal()") &times;
+        span.close &times;
         h1(style="justify-content: center;display: flex;") Share Post
     .modal-body
             label(for='email')
@@ -28,5 +28,4 @@ else if(Modal == "email")
                     b(style="margin:5px") Email
                 input(type='email' placeholder='Enter your recipients email' name='email' id="recipientEmail")
             p#emailError Invalid Email    
-            button(type='button' class="btn1" id="SendText" onclick="onEmailSend()") Send                        
-script(src="../static/script/login.js") 
+            button(type='button' class="btn1" id="SendText") Send                        

@@ -1,6 +1,6 @@
 each activity in userActivities
     if(activity.activity_action !== 'followed' && activity.activity_action !== 'unfollowed')
-        div#g-post_container.singleActivity(class="activity_post"+activity.post._id,onclick="onClickActivity(this,'"+activity._id+"')") 
+        div#g-post_container.singleActivity(class="activity_post"+activity.post._id,class="showPerticularActivity", value=activity._id) 
             div#g-main
                 div#g-head
                     div#g-descTime
@@ -10,10 +10,6 @@ each activity in userActivities
                             p='You commented on this post at '+ activity.date
                         else
                             p='You '+activity.activity_action +' this post at '+ activity.date
-                                 
-                              //- div#g-count 
-                              //-    p=post.likes+ ' Likes' 
-                              //-    p=post.comments+ ' Comments'
                 div#g-main-img-desc     
                     img#g-PostImg(src=activity.post.image)
                     div.g-details
@@ -25,7 +21,7 @@ each activity in userActivities
                         div#g-city 
                             p #[b City :] #{activity.post.city}
     else 
-        div#g-post_container.singleActivity(class="activity_post"+activity.creator._id onclick="userProfile('"+activity.creator._id+"');") 
+        div#g-post_container.singleActivity(class="activity_post"+activity.creator._id,class="showPerticularUser" ,value=activity.creator._id) 
             div#g-main
                 div#g-head
                     div#g-descTime

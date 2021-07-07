@@ -15,3 +15,10 @@ function hidecommentbox(postId) {
     commentbox.classList.remove("show-commentbox");
   }, 1000);
 }
+
+$(document).ready(function () {
+  $(".closebutton").click(function () {
+    var post_id = $(this).attr("value");
+    hidecommentbox(post_id);
+  });
+});

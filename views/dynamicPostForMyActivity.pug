@@ -31,5 +31,5 @@ each post in posts
                             label : 
                         input(id="cityEdit"+post._id,class="NormalMode cityEdit editPostInput"+post._id,value=post.city, type="text")    
                     div#EditDeleteButton 
-                        button(id="editBtn"+post._id,class="editButton",onclick="OnEdit(this,'"+post._id+"')") Edit
-                        button(id="deleteBtn"+post._id,class="deleteButton",onclick="OnDelete(this,'"+post._id+"')") Delete
+                        button(id="editBtn"+post._id,class="editButton",value=post._id) Edit
+                        button(id="deleteBtn"+post._id,class="deleteButton",value=post._id) Delete
