@@ -62,9 +62,9 @@ $(document).ready(function () {
     actionPerformed($(this)[0], "save", post_id);
   });
   $(".followButton").click(function () {
-    var post_id = $(this).attr(value);
-    post_id = split(" ", post_id);
-    actionPerformed($(this)[0], post_id[0], post_id[1]);
+    var post_id = $(this).attr("value");
+    post_id = post_id.split(" ");
+    onClickFollow($(this)[0], post_id[0], post_id[1]);
   });
 });
 
