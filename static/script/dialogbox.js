@@ -1,7 +1,7 @@
 function showDialogBox(message, editPostId) {
   if (message == "logout") {
     $("#d-info").text("Are you Sure,really want to Logout?");
-    if ($("#continueDialogBtn a").attr("href") == "#") {
+    if ($("#continueDialogBtn a").attr("href") == null) {
       $("#continueDialogBtn a").attr("id", "continueDialogLink");
       $("#continueDialogBtn a").attr("href", "/logout");
     }
@@ -10,7 +10,7 @@ function showDialogBox(message, editPostId) {
     $("#d-info").text("Are you Sure,really want to Delete this post?");
     $("#continueDialogBtn a").attr("id", "deletePostButton");
     $("#continueDialogBtn a").attr("value", editPostId);
-    $("#continueDialogBtn a").attr("href", "#");
+    $("#continueDialogBtn a").attr("href", null);
   }
   document
     .getElementsByClassName("w3-modal-content")[0]
@@ -71,20 +71,16 @@ $(document).ready(function () {
     onCancelLogoutDialogBox();
   });
   document
-    .getElementById("continueDialogBtn")
-    .addEventListener("click", function () {
-      onContinueLogoutDialogBox();
-    });
-  document
     .getElementsByClassName("dialogBoxCancelButton")[0]
     .addEventListener("click", function () {
       onCloseDialogBox();
     });
-  if (document.getElementById("deletePostButton")) {
-    document
-      .getElementById("deletePostButton")
-      .addEventListener("click", function () {
-        onContinueDeleteDialogBox(this.attributes["value"].value);
-      });
-  }
+  $("#continueDialogLink").on("click", function (e) {
+    console.log($("#deletePostButton")[0]);
+    if ($("#deletePostButton")[0]) {
+      e.preventDefault();
+      onContinueDeleteDialogBox($(this).attr("value"));
+    }
+    onContinueLogoutDialogBox();
+  });
 });

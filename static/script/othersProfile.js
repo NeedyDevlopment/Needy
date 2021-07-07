@@ -7,6 +7,7 @@ $(document).ready(function () {
       url: "/profile/showProfileFollowers",
       success: function (data) {
         $(".followersFollowing").html(data);
+        wrap("../static/script/f_list.js");
         $(".followersFollowing").css("display", "block");
       },
     });
