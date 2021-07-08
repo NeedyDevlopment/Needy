@@ -477,7 +477,7 @@ input:disabled {
     width: 150px;
   }
   .upperDiv .activities p {
-    font-size: 14px;
+    font-size: 12px;
     padding: 5px 0px;
   }
   .upperDiv .actionButtons {
@@ -507,7 +507,7 @@ input:disabled {
     width: 150px;
   }
   .upperDiv .input label {
-    font-size: 14px;
+    font-size: 13px;
     width: 95px;
   }
   .lowerDiv {

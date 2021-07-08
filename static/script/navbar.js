@@ -37,7 +37,7 @@ $(document).ready(function () {
   $("#logoutbtn").click(function () {
     showDialogBox("logout", "");
   });
-  $("#body").css("min-height", window.innerHeight);
+  $("#body").css("min-height", window.innerHeight + 2 * $(".navbar").height());
   $("#body").css(
     "padding-bottom",
     document.getElementById("footer").offsetHeight

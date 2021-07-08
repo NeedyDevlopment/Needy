@@ -11,7 +11,7 @@ $(document).ready(function () {
       "height",
       $(".sideNavbar").height() - footerHeight - 2 * headerHeight
     );
-    if ($(window).height() == $(document).height()) {
+    if ($(window).height() + $("#footer").height() == $(document).height()) {
       bodyFooterHeight = $("#footer").height();
       $(".sideNavbar").css(
         "height",
@@ -22,13 +22,19 @@ $(document).ready(function () {
         $(".sideNavbar").height() - footerHeight - 2 * headerHeight
       );
     }
-    $(window).scroll(function () {
+    $(document.body).on("touchmove", onScrollForSideBar); // for mobile
+    $(window).on("scroll", onScrollForSideBar);
+    function onScrollForSideBar() {
       var scroller = window.scrollY;
       var navHeight = document.getElementsByClassName("navbar")[0].offsetHeight;
       if (scroller < navHeight) {
         $(".sideNavbar").css("top", navHeight - scroller);
         $(".sideNavbar").css("height", sideNavBarHeight + scroller);
-      } else if (
+      } else {
+        $(".sideNavbar").css("top", 0);
+        $(".sideNavbar").css("height", window.innerHeight);
+      }
+      if (
         scroller >=
         $(document).height() - $(window).height() - 2 * $("#footer").height()
       ) {
@@ -38,15 +44,12 @@ $(document).ready(function () {
             $(window).height() -
             2 * $("#footer").height());
         $(".sideNavbar").css("height", window.innerHeight - bodyFooterHeight);
-      } else {
-        $(".sideNavbar").css("top", 0);
-        $(".sideNavbar").css("height", window.innerHeight);
       }
       $(".content").css(
         "height",
         $(".sideNavbar").height() - footerHeight - 2 * headerHeight
       );
-    });
+    }
   } else {
     $(document).ready(function () {
       $("#openFilter").click(function () {

@@ -1,6 +1,8 @@
 var currentPageForGettingPosts = 1;
 var currentPageForGettingActivities = 1;
-$(window).scroll(function () {
+$(document.body).on("touchmove", onScrollForActivity); // for mobile
+$(window).on("scroll", onScrollForActivity);
+function onScrollForActivity() {
   if (
     Math.ceil($(window).scrollTop()) + $(window).height() >=
       $(document).height() &&
@@ -56,7 +58,7 @@ $(window).scroll(function () {
     });
     console.log("Ajax Call...");
   }
-});
+}
 
 function post() {
   var color = document.getElementById("colourful");

@@ -452,7 +452,10 @@ function onFilter() {
 // module.exports = { 'likes': likes, 'comments': comments }
 var currentPage = 1;
 // var AjaxPosts = [];
-$(window).scroll(function () {
+
+$(document.body).on("touchmove", onScrollHomePost); // for mobile
+$(window).on("scroll", onScrollHomePost);
+function onScrollHomePost() {
   // if ($(window).scrollTop() == $(document).height() - $(window).height()) {
   // var postHeight = $("#post_container").height();
   if (
@@ -504,7 +507,7 @@ $(window).scroll(function () {
     console.log("Ajax Call...");
     // console.log("current filter: " + filter.city + " " + filter.category);
   }
-});
+}
 
 $(document).ready(function () {
   $("#profile img").click(function () {
