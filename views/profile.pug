@@ -6,8 +6,8 @@ block style
     include ../static/css/dialogBox.css 
     
 block scripts 
-  script(src="../static/script/profile.js") 
-  script(src="../static/script/dialogbox.js") 
+  script(src="../static/script/profile.js",nonce="2726c7f26c") 
+  script(src="../static/script/dialogbox.js",nonce="2726c7f26c") 
 block content
     
     div(class="container")
@@ -47,7 +47,7 @@ block content
             button( type="submit" class="saveBtn" id="saveBtn") Save Changes
             button( type="button" class="cancelBtn" id="cancelBtn") Cancel 
             button( type="button" class= "changePass" id="changePass") Change Password  
-            button( type="button" class= "deleteBtn" id="deleteBtn" onclick="onClickOnDelete();") Delete Account
+            button( type="button" class= "deleteBtn" id="deleteBtn") Delete Account
         div.lowerDiv
           div.inputFields
             h1.workPlaceInfo Work Place Info
@@ -72,13 +72,13 @@ block content
         div#deleteAccountConfirmation.w3-modal
           .w3-modal-content.w3-animate-zoom.w3-card-4
             header.w3-container.w3-teal
-              span.w3-button.w3-display-topright(onclick="onCloseDialogBox();") &times;
+              span.w3-button.w3-display-topright.DeleteDialogBoxCancelButton &times;
               h2#d-header Confirmation
             .w3-container
               p#d-info(style="color:black;") Are You Sure , do you really want to Delete Account?
             footer.w3-container.w3-teal#d-footer
-              button(type="button" onclick="onCancelDeleteDialogBox();") Cancel 
-              button(type="button" onclick="onContinueDeleteDialogBox();") #[a(href="/deleteAccount") Continue]
+              button#DeleteDialogCancel(type="button") Cancel 
+              button#continueDeleteDialogBtn(type="button") #[a(href="/deleteAccount") Continue]
  
     //- script(src="../static/script/change password.js") 
  

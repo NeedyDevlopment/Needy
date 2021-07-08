@@ -2,6 +2,7 @@ const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 // const emailExistence = require('email-existence');
 // const Verifier = require("email-verifier");
 // const emailValidator = require('deep-email-validator');
@@ -19,6 +20,12 @@ require("./helper/session")(app);
 // for hosting the web
 require("./middleware/prod")(app);
 
+<<<<<<< HEAD
+=======
+// for using cookies
+app.use(cookieParser());
+
+>>>>>>> 7cb211922d6792d5e2ea5b57d915d1ba7aaf6f39
 //Express specific stuff here
 app.use("/static", express.static("static"));
 app.use("/views", express.static("views"));

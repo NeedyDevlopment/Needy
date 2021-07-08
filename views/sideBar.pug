@@ -1,6 +1,6 @@
 style 
     include ../static/css/sideBar.css
-script(src="../static/script/sidebar.js")
+script(src="../static/script/sidebar.js",nonce="2726c7f26c")
 div#sideBarContent
     .header
         .Category Category
@@ -49,6 +49,5 @@ div#sideBarContent
     .footerSidebar
         form(action="/",method="GET")
             input(type="hidden", id="finalCity" ,name="city",value=filter.city) 
-            input(type="hidden", id="finalCategory",name="category",value=filter.category) 
-            //- input.filterBtn(type="button", value="Filter",onclick="onFilter()")
+            input(type="hidden", id="finalCategory",name="category",value=filter.category)
             input.filterBtn(type="submit", value="Filter")

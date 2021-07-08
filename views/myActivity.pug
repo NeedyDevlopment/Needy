@@ -6,19 +6,18 @@ block style
         include ../static/css/dialogBox.css
         link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css") 
 block scripts 
-    script
-        include ../static/script/myActivity.js
-        include ../static/script/yourPost.js
-        include ../static/script/post.js
-        include ../static/script/dialogbox.js
+    script(src="../static/script/myActivity.js" nonce="2726c7f26c")
+    script(src="../static/script/yourPost.js" nonce="2726c7f26c")
+    script(src="../static/script/post.js" nonce="2726c7f26c")
+    script(src="../static/script/dialogbox.js" nonce="2726c7f26c")
         
     
 block content 
     div.container 
         div.buttonsdiv
             div.colourful#colourful 
-            button(onclick='post();').activityChangebtn#postbtn Your Posts 
-            button(onclick='activity();').activityChangebtn#activitybtn Your Activity 
+            button.activityChangebtn#postbtn Your Posts 
+            button.activityChangebtn#activitybtn Your Activity 
         div.describe
             p#getTotalPostsForMyactivity.extraPForMyActivityPage=totalPostsForMyactivity
             p#getTotalActivitiesForMyactivity.extraPForMyActivityPage=totalActivitiesForMyactivity
@@ -58,15 +57,15 @@ block content
                                     label : 
                                   input(id="cityEdit"+post._id,class="NormalMode cityEdit editPostInput"+post._id,value=post.city, type="text")    
                                div#EditDeleteButton 
-                                  button(id="editBtn"+post._id,class="editButton",onclick="OnEdit(this,'"+post._id+"')") Edit
-                                  button(id="deleteBtn"+post._id,class="deleteButton",onclick="OnDelete(this,'"+post._id+"')") Delete
-                //- include ./yourPost.pug
+                                  button(id="editBtn"+post._id,class="editButton",value=post._id) Edit
+                                  button(id="deleteBtn"+post._id,class="deleteButton",value=post._id) Delete
+               
             div.ONEACTIVITYFOREXAMPLE#TOTAL_ACTIVITIES
                h2#totalActivityCount='TOTAL ACTIVITIES : '+totalActivitiesForMyactivity    
             div.activity#activity.grid-container 
                each activity in userActivities
                   if(activity.activity_action !== 'followed' && activity.activity_action !== 'unfollowed')
-                     div#g-post_container.singleActivity(class="activity_post"+activity.post._id,onclick="onClickActivity(this,'"+activity._id+"')") 
+                     div#g-post_container.singleActivity(class="activity_post"+activity.post._id, value=activity._id class="showPerticularActivity") 
                         div#g-main
                            div#g-head
                               div#g-descTime
@@ -76,10 +75,6 @@ block content
                                        p='You commented on this post at '+ activity.date
                                  else
                                        p='You '+activity.activity_action +' this post at '+ activity.date
-                                 
-                              //- div#g-count 
-                              //-    p=post.likes+ ' Likes' 
-                              //-    p=post.comments+ ' Comments'
                            div#g-main-img-desc     
                               img#g-PostImg(src=activity.post.image)
                               div.g-details
@@ -91,7 +86,7 @@ block content
                                  div#g-city 
                                     p #[b City :] #{activity.post.city}
                   else 
-                     div#g-post_container.singleActivity(class="activity_post"+activity.creator._id onclick="userProfile('"+activity.creator._id+"');") 
+                     div#g-post_container.singleActivity(class="activity_post"+activity.creator._id , value=activity.creator._id , class="showPerticularUser") 
                         div#g-main
                            div#g-head
                               div#g-descTime
@@ -106,10 +101,5 @@ block content
                                     p #[b Name :] #{activity.creator.username} 
                                  div#g-discription 
                                     p #[b Followers :] #{activity.creator.followers} 
-                                    p #[b Following :] #{activity.creator.followings}
-                                    //- p #[b Likes :] #{activity.likes}
-                                 //- div#g-city 
-                                 //-    p #[b City :] #{activity.post.city}
-    //- div.z-post_container
-    //-     p Hello                              
+                                    p #[b Following :] #{activity.creator.followings}                    
     div.z-post_container#activityPost 
