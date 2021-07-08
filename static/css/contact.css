@@ -5,33 +5,33 @@
 }
 
 body {
-  background-image:  url('../static/images/back2.jpg') ;
+  background-image: url("../static/images/back2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
-.conform{
+.conform {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   margin-top: 34px;
   width: 508px;
- 
 }
 .container {
-    width: 670px;
-    display: flex;
-    flex-direction: column;
-    border: 3px solid black;
-    justify-content: center;
-    align-items: center;
-    border-radius: 23px;
-    padding-bottom: 35px;
-    margin :18px auto;
+  width: 670px;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid black;
+  justify-content: center;
+  align-items: center;
+  border-radius: 23px;
+  padding-bottom: 35px;
+  margin: 18px auto;
 }
 
-
-input[type="text"],input[type="number"],input[type="email"],
+input[type="text"],
+input[type="number"],
+input[type="email"],
 textarea {
   width: 518px;
   padding: 12px;
@@ -43,32 +43,30 @@ textarea {
   font-size: 22px;
   font-family: sans-serif;
 }
-textarea{
+textarea {
   height: 210px;
   font-family: sans-serif;
 }
-::placeholder{
+::placeholder {
   font-family: sans-serif;
   color: black;
   font-size: 22px;
 }
-.container label{
-
+.container label {
   font-size: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.container label b{
+.container label b {
   width: 100%;
 }
-
 
 button[type="submit"].button {
   width: 110px;
   margin: 0px auto;
   height: 48px;
-  background-color:green;
+  background-color: green;
   border-radius: 8px;
   font-size: 22px;
   cursor: pointer;
@@ -77,20 +75,18 @@ button[type="submit"].button {
   outline: none;
 }
 
-
-button[type="submit"].button:active{
+button[type="submit"].button:active {
   background: rgb(10, 233, 10);
   color: white;
 }
 
-
 .h1 {
-    width: 100%;
-    text-align: center;
-    border-bottom: 2px solid;
-    padding: 7px;
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px solid;
+  padding: 7px;
 }
-.h11{
+.h11 {
   text-align: center;
   margin-left: 9px;
 }
@@ -108,34 +104,37 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-@media screen and (min-width:570px) and (max-width:769px) {
-  .container{
+@media screen and (min-width: 570px) and (max-width: 769px) {
+  .container {
     width: 500px;
   }
-  .conform{
+  .conform {
     width: 412px;
   }
-  input[type="text"],input[type="number"],input[type="email"],
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
   textarea {
-  width: 393px;
+    width: 393px;
   }
-  textarea{
+  textarea {
     height: 150px;
   }
-
 }
 
-@media screen and (min-width:470px) and (max-width:570px) {
-  .container{
+@media screen and (min-width: 470px) and (max-width: 570px) {
+  .container {
     width: 400px;
     border-radius: 10px;
     padding-bottom: 10px;
     border: 5px solid black;
   }
-  .conform{
+  .conform {
     width: 312px;
   }
-  input[type="text"],input[type="number"],input[type="email"],
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
   textarea {
     width: 328px;
     height: 44px;
@@ -143,24 +142,26 @@ input::-webkit-inner-spin-button {
     border-radius: 4px;
     font-size: 20px;
   }
-  textarea{
+  textarea {
     height: 118px;
   }
-  ::placeholder{
+  ::placeholder {
     font-size: 20px;
   }
 }
-@media screen and (min-width:416px) and (max-width:470px) {
-  .container{
+@media screen and (min-width: 416px) and (max-width: 470px) {
+  .container {
     width: 327px;
     border-radius: 10px;
     padding-bottom: 10px;
     border: 5px solid black;
   }
-  .conform{
+  .conform {
     width: 240px;
   }
-  input[type="text"],input[type="number"],input[type="email"],
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
   textarea {
     width: 252px;
     height: 35px;
@@ -168,52 +169,59 @@ input::-webkit-inner-spin-button {
     border-radius: 4px;
     font-size: 18px;
   }
-  textarea{
+  input::placeholder,
+  textarea::placeholder {
+    font-size: 18px;
+  }
+  textarea {
     height: 100px;
   }
-  ::placeholder{
+  ::placeholder {
     font-size: 18px;
   }
   button[type="submit"].button {
     width: 88px;
     margin: 0px auto;
     height: 36px;
-    
+
     border-radius: 5px;
     font-size: 18px;
-    border: 3px solid black;
-    
+    border: 2px solid black;
   }
-} 
-@media screen and (min-width:0px) and (max-width:416px) {
-  .container{
+}
+@media screen and (min-width: 0px) and (max-width: 416px) {
+  .container {
     width: 268px;
     border-radius: 5px;
     padding-bottom: 10px;
-    border: 4px solid black;
-
+    border: 2px solid black;
   }
-  .conform{
+  .conform {
     width: 214px;
   }
-  input[type="text"],input[type="number"],input[type="email"],
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
   textarea {
     width: 220px;
     height: 30px;
-    border: 3px solid black;
+    border: 2px solid black;
     border-radius: 4px;
     font-size: 15px;
     margin-top: 2px;
   }
-  textarea{
-    height: 100px;
-  }
-  ::placeholder{
+  input::placeholder,
+  textarea::placeholder {
     font-size: 15px;
   }
-  
+  textarea {
+    height: 100px;
+  }
+  ::placeholder {
+    font-size: 15px;
+  }
 }
-@media screen and (max-width:361px) {
+@media screen and (max-width: 361px) {
   /* .container{
     width: 268px;
     border-radius: 5px;
@@ -237,7 +245,7 @@ input::-webkit-inner-spin-button {
   ::placeholder{
     font-size: 15px;
   } */
-  .foll{
+  .foll {
     margin-bottom: 35px;
   }
 }

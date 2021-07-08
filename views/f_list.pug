@@ -14,5 +14,4 @@
                         img(src="../static/imagesForPost/profile.png", alt="")
                 .name= user.username
                 .f_button 
-                    button(type="button" id="f_btn"+user._id onclick="onClickFollow(this,'"+user._id+"')")= user.followersArray.includes(currentUserId)? "Unfollow" : "Follow"
-script(src="../static/script/f_list.js") 
+                    button(type="button" class="follow_button" value=user._id id="f_btn"+user._id)= user.followersArray.includes(currentUserId)? "Unfollow" : "Follow"

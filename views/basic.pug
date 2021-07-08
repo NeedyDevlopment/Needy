@@ -5,19 +5,22 @@ html(id="html")
     meta(http-equiv='Pragma' content='no-cache')
     meta(http-equiv='Expires' content='0')
     meta(name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no")
+    //- meta(http-equiv="Content-Security-Policy" content="script-src 'unsafe-hashes' 'unsafe-eval' 'unsafe-inline' 'nonce-2726c7f26c';script-src-attr 'unsafe-inline' 'unsafe-eval';img-src * http://localhost data: blob:")   
     block metas
     title Needy 
+    script(src="../static/script/jQuery.min.js",nonce="2726c7f26c")
+    script(src="../static/script/navbar.js",nonce="2726c7f26c") 
+    script(src="../static/script/snackbar.js",nonce="2726c7f26c") 
+    script(src="../static/script/dialogbox.js",nonce="2726c7f26c")
+    block style
     style 
         include ../static/css/navbar.css 
         include ../static/css/login.css 
         include ../static/css/snackbar.css
         include ../static/css/dialogBox.css
-    block style
-    script(src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous")
-    script(src="../static/script/navbar.js") 
-    script(src="../static/script/snackbar.js") 
-    script(src="../static/script/dialogbox.js") 
     block scripts
+
+    
   body(id="body")
     p#currentTab
     nav.navbar
@@ -36,7 +39,7 @@ html(id="html")
             div.div#aboutUs About Us
           div.last 
             if(isLoggedIn)
-              button(id="logoutbtn",class="btn",onclick="showDialogBox('logout','')") Logout
+              button(id="logoutbtn",class="btn") Logout
               button.btn#profilebtn MyProfile
             else   
               button.btn#loginBtn Login

@@ -2,6 +2,7 @@ const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 // const emailExistence = require('email-existence');
 // const Verifier = require("email-verifier");
 // const emailValidator = require('deep-email-validator');
@@ -16,6 +17,12 @@ const port = 80;
 require("./helper/session")(app);
 //session declaration must be declared before all routes, otherwise in routes of routes folder we cannot access req.session.isLoggedin
 
+// for hosting the web
+require("./middleware/prod")(app);
+
+// for using cookies
+app.use(cookieParser());
+
 //Express specific stuff here
 app.use("/static", express.static("static"));
 app.use("/views", express.static("views"));
@@ -26,8 +33,8 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 app.use((req, res, next) => {
-    res.setHeader("Service-Worker-Allowed", "/");
-    next();
+  res.setHeader("Service-Worker-Allowed", "/");
+  next();
 });
 
 //router imports
@@ -74,10 +81,13 @@ app.use("/", homePageRouter);
 app.use("/showModal", showModalRouter);
 app.use("/otpOperation", otpOperationRouter);
 app.use("/pwOperation", pwOperationRouter);
-app.use("/getContentOnScrollForMyActivity", getContentOnScrollForMyActivityRouter);
+app.use(
+  "/getContentOnScrollForMyActivity",
+  getContentOnScrollForMyActivityRouter
+);
 app.use("/getContacts", getContactsRouter);
 app.use("/about", aboutUsRouter);
 
-app.listen(port, () => {
-    console.log(`the application started successfully on port ${port}`);
+app.listen(process.env.PORT || port, () => {
+  console.log(`the application started successfully on port ${port}`);
 });
