@@ -11,17 +11,18 @@ block metas
    meta(property="og:site_name" content="Needy")
    meta(property="og:type" content="object")
    meta(property="og:title" content="Needy: Where people find their perfect solution.")
-   meta(property="og:url" content="http://localhost/post/60c6efc88ddc55a2647dec8b")
+   meta(property="og:url" content="http://needy24x7.herokuapp.com/post/60c6efc88ddc55a2647dec8b")
    meta(property="og:description" content="Needy is a Plateform where everyone satisfy by getting there solution.")
    meta(name="page-subject" content="Needy")
    meta(property="og:image:type" content="image/png")
    meta(property="og:image:width" content="1200")
    meta(property="og:image:height" content="620") 
+   meta(http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-eYizCbVIkdShF5LyWR/jV8/TUhnB47q8pmBiDHTnCjs='")
 block scripts 
-   script(src="../static/script/post.js")
-   script(src="../static/script/commentbox.js") 
-   script(src="../static/script/snackbar.js")  
-   script(src="../static/script/share.js")  
+   script(src="../static/script/post.js",nonce="2726c7f26c")
+   script(src="../static/script/commentbox.js",nonce="2726c7f26c") 
+   script(src="../static/script/snackbar.js",nonce="2726c7f26c")  
+   script(src="../static/script/share.js",nonce="2726c7f26c")  
 block style
    style
       include ../static/css/post.css
@@ -32,8 +33,9 @@ block style
       include ../static/css/pagination.css
       include ../static/css/share.css
       include ../static/css/login.css
-      
+      include ../static/css/fonts-googleapis.css
    link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+      
 block content
             p#message= message   
             div#post_container(style="width: 80%;") 
@@ -42,14 +44,17 @@ block content
                   p#name= post.creator.username  
                      small= ' at '+ post.date   
                   b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id+" showFollowers")= post.creator.followers+' Followers'    
-                  button(id="f-btn",class="f-btn"+post.creator._id,onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
+                  if(currentUserId != post.creator._id)    
+                     button(id="f-btn",class="f-btn"+post.creator._id,value=post.creator._id +" "+post._id,class="followButton")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
+                  else
+                     button(id="f-btn" class="f-btn"+post.creator._id title="can't follow to yourself" disabled)= 'Follow'
                div#main
                   div#head
                      div#count 
                         p(id='showLikes'+post._id)= post.likes+ ' Likes' 
                         p(id='showComments'+post._id)= post.comments+ ' Comments'
                   div#main-img-desc     
-                     img#PostImg(src="http://localhost/"+post.image)
+                     img#PostImg(src="../"+post.image)
                      div.details
                         div#title 
                               p #[b Title: ]  #{post.title} 
@@ -58,23 +63,35 @@ block content
                               p #[b Contact No: ]  #{post.contact}
                               p #[b City: ]  #{post.city}
                div#actiondiv
-                  div#like
-                     i(class=post.likedArray.includes(currentUserId) ?"fa fa-thumbs-up" :"fa fa-thumbs-o-up",onclick="actionPerformed(this,  'like','"+post._id+"')")
-                     p(id='showliketext'+post._id)= post.likedArray.includes(currentUserId) ? 'unlike' : 'like'  
-                  div#comment
-                     i(class=post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass",id=currentUserId,onclick="actionPerformed(this,'comment','"+post._id+"')")
-                     p(id='showcommenttext'+post._id)= post.commentedArrayWithOnlyUserId.includes(currentUserId) ? 'commented' : 'comment'    
-                  div(id="share",onclick="actionPerformed(this,'share','"+post._id+"')")
-                     //- img(src="../static/imagesForPost/share.png")
-                     img(src="../static/images/share (1).png")
-                     | share  
-                  div#save
-                     i(class=post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o",onclick="actionPerformed(this,  'save','"+post._id+"')")
-                     p(id='showsavetext'+post._id)= post.savedArray.includes(currentUserId) ? 'saved' : 'save'  
-
+                  if(currentUserId != post.creator._id)
+                     div#like
+                        i(class=post.likedArray.includes(currentUserId) ?"fa fa-thumbs-up" :"fa fa-thumbs-o-up",class="like",value=post._id)
+                        p(id='showliketext'+post._id)= post.likedArray.includes(currentUserId) ? 'unlike' : 'like'  
+                     div#comment
+                        i(class=post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass",id=currentUserId,class="comment",value=post._id)
+                        p(id='showcommenttext'+post._id) comment    
+                     div(id="share",value=post._id,class="share")
+                        img(src="../static/images/share (1).png")
+                        | share  
+                     div#save
+                        i(class=post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o",class="save",value=post._id)
+                        p(id='showsavetext'+post._id)= post.savedArray.includes(currentUserId) ? 'saved' : 'save' 
+                  else
+                     div#like.DisableAction
+                        i(class="fa fa-thumbs-o-up" title="can't like to your own post.")
+                        p(id='showliketext'+post._id)='like'  
+                     div#comment
+                        i(class=post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass",id=currentUserId,class="comment",value=post._id)
+                        p(id='showcommenttext'+post._id) comment    
+                     div(id="share",value=post._id,class="share")
+                        img(src="../static/images/share (1).png")
+                        | share
+                     div#save
+                        i(class=post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o",class="save",value=post._id)
+                        p(id='showsavetext'+post._id)= post.savedArray.includes(currentUserId) ? 'saved' : 'save' 
                div(id="maincommentcontainer"+post._id , class="maincommentcontainer")
                   hr
-                  h4#commentHeader All Comments #[button(id="closebutton",onclick="hidecommentbox('"+post._id+"')") &#10006;] 
+                  h4#commentHeader All Comments #[button(id="closebutton",class="closebutton",value=post._id) &#10006;] 
                   div(class="writecommentdiv",id="writecomment")
                         textarea(name="writtencomment" id="writtencomment"+post._id placeholder="Comment Here ..." cols="35" rows="4")
                         button(id="submitcomment"+post._id) #[i(class="material-icons") &#xe163;]

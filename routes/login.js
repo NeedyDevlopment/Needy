@@ -20,8 +20,7 @@ router.post("/", async(req, res) => {
     req.session.isLoggedIn = true;
     // res.status(200).send("you login successfully");
     // res.status(200).redirect('/');
-    message = "You login Successfully.";
-    res.redirect("/");
+    res.redirect("/?message=lis");
 });
 
 router.get("/", (req, res, next) => {

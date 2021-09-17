@@ -1,18 +1,16 @@
 function showDialogBox(message, editPostId) {
   if (message == "logout") {
     $("#d-info").text("Are you Sure,really want to Logout?");
-    if ($("#continueDialogLink").attr("href") == "#") {
-      $("#continueDialogBtn").attr("onclick", "onContinueLogoutDialogBox()");
-      $("#continueDialogLink").attr("href", "/logout");
+    if ($("#continueDialogBtn a").attr("href") == null) {
+      $("#continueDialogBtn a").attr("id", "continueDialogLink");
+      $("#continueDialogBtn a").attr("href", "/logout");
     }
   }
   if (message == "deletePost") {
     $("#d-info").text("Are you Sure,really want to Delete this post?");
-    $("#continueDialogBtn").attr(
-      "onclick",
-      'onContinueDeleteDialogBox("' + editPostId + '")'
-    );
-    $("#continueDialogLink").attr("href", "#");
+    $("#continueDialogBtn a").attr("id", "deletePostButton");
+    $("#continueDialogBtn a").attr("value", editPostId);
+    $("#continueDialogBtn a").attr("href", null);
   }
   document
     .getElementsByClassName("w3-modal-content")[0]
@@ -67,3 +65,22 @@ function setUpdatedTotalPostAndTotalActivity(deletedpostId) {
   $("#totalPostCount").text("TOTAL POSTS : " + totalPost);
   $("#totalActivityCount").text("TOTAL ACTIVITIES : " + totalActivity);
 }
+
+$(document).ready(function () {
+  $("#dialogCancel").click(function () {
+    onCancelLogoutDialogBox();
+  });
+  document
+    .getElementsByClassName("dialogBoxCancelButton")[0]
+    .addEventListener("click", function () {
+      onCloseDialogBox();
+    });
+  $("#continueDialogLink").on("click", function (e) {
+    console.log($("#deletePostButton")[0]);
+    if ($("#deletePostButton")[0]) {
+      e.preventDefault();
+      onContinueDeleteDialogBox($(this).attr("value"));
+    }
+    onContinueLogoutDialogBox();
+  });
+});

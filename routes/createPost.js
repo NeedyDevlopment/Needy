@@ -7,7 +7,7 @@ const dateformat = require("dateformat");
 const _ = require("lodash");
 const { AuthForLogin } = require("../middleware/auth");
 const fs = require("fs");
-const PhotoUpload = require('../middleware/photoUpload');
+const PhotoUpload = require("../middleware/photoUpload");
 var nodemailer = require("nodemailer");
 const EventEmitter = require("events");
 const emitter = new EventEmitter();
@@ -43,7 +43,7 @@ emitter.on("postAdded", async(args) => {
         service: "gmail",
         auth: {
             user: "forexternaluse505@gmail.com",
-            pass: "ashwin99999@",
+            pass: "myStrongPassword9@",
         },
     });
 
@@ -68,74 +68,65 @@ emitter.on("postAdded", async(args) => {
     });
 });
 
-
-
 //CREATEPOST
 router.get("/", AuthForLogin, (req, res, next) => {
-    if (!fs.existsSync("D://usersPost")) {
-        fs.mkdirSync("D://usersPost");
-    }
     res.render("createpost.pug", { isLoggedIn: req.session.isLoggedIn });
     next();
 });
 
-router.post(
-    "/",
-    PhotoUpload.uploadPostImage,
-    async(req, res, next) => {
-        const currentUserId = await _.pick(
-            jwt.verify(req.session.token, "MySecureKey"), ["_id"]
-        );
-        console.log(req.file);
-        console.log("Token: ", req.session.token);
-        var creator = _.pick(jwt.verify(req.session.token, "MySecureKey"), [
-            "_id",
-            "username",
-            "email",
-        ]);
-        const creatorsFollowers = await User.findOne({
-            _id: currentUserId._id,
-        }).select("followers");
-        creator.followers = creatorsFollowers.followers;
+router.post("/", PhotoUpload.uploadPostImage, async(req, res, next) => {
+    const currentUserId = await _.pick(
+        jwt.verify(req.session.token, "MySecureKey"), ["_id"]
+    );
+    console.log(req.file);
+    console.log("Token: ", req.session.token);
+    var creator = _.pick(jwt.verify(req.session.token, "MySecureKey"), [
+        "_id",
+        "username",
+        "email",
+    ]);
+    const creatorsFollowers = await User.findOne({
+        _id: currentUserId._id,
+    }).select("followers");
+    creator.followers = creatorsFollowers.followers;
 
-        //for image of creater in post
-        creator.photo = (
-            await User.findOne({ _id: currentUserId._id }, { photo: 1 })
-        ).photo;
-        console.log(
-            req.body.category,
-            req.body.city,
-            req.body.title,
-            req.body.Description,
-            req.body.contact
-        );
-        const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
-        const post = new Post({
-            creator: currentUserId,
-            date: currentDate,
-            category: req.body.category,
-            city: req.body.city,
-            title: req.body.title,
-            description: req.body.Description,
-            contact: req.body.contact,
-            // image: {
-            //     data: fs.readFileSync(path.join('D:/usersPost', req.file.originalname)),
-            //     contentType: req.file.mimetype
-            // }
-            image: "./static/usersPost/" + currentUserId._id + req.file.originalname,
-        });
-        const result = await post.save();
-        emitter.emit("postAdded", { creatorId: creator._id });
-        // res.status(200).send(result);
-        const params = {
-            data: post.image.data,
-            contentType: post.image.contentType,
-        };
-        // res.status(200).render('createpostSubmission', params);
-        message = "Your post added successfully.";
-        res.redirect("/");
-        next();
-    }
-);
+    //for image of creater in post
+    creator.photo = (
+        await User.findOne({ _id: currentUserId._id }, { photo: 1 })
+    ).photo;
+    console.log(
+        req.body.category,
+        req.body.city,
+        req.body.title,
+        req.body.Description,
+        req.body.contact
+    );
+    const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
+    const post = new Post({
+        creator: currentUserId,
+        date: currentDate,
+        category: req.body.category,
+        city: req.body.city,
+        title: req.body.title,
+        description: req.body.Description,
+        contact: req.body.contact,
+        // image: {
+        //     data: fs.readFileSync(path.join('D:/usersPost', req.file.originalname)),
+        //     contentType: req.file.mimetype
+        // }
+        image: "./static/usersPost/" + currentUserId._id + req.file.originalname,
+    });
+    const result = await post.save();
+    emitter.emit("postAdded", { creatorId: creator._id });
+    // res.status(200).send(result);
+    const params = {
+        data: post.image.data,
+        contentType: post.image.contentType,
+    };
+    // res.status(200).render('createpostSubmission', params);
+    message = "Your post added successfully.";
+    res.redirect("/");
+    next();
+});
 
 module.exports = router;

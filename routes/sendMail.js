@@ -27,7 +27,7 @@ router.post("/", (req, res, next) => {
     // }).catch(err => {
     //     console.log("email check error:::", err);
     // });
-    const url = "http://localhost/post/" + postId;
+    const url = "http://needy24x7.herokuapp.com/post/" + postId;
     if (!currentUser) {
         return res.status(401).json({ message: "You are Not registered!" });
     }
@@ -36,7 +36,7 @@ router.post("/", (req, res, next) => {
         service: "gmail",
         auth: {
             user: "forexternaluse505@gmail.com",
-            pass: "ashwin99999@",
+            pass: "myStrongPassword9@",
         },
     });
 

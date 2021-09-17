@@ -1,7 +1,5 @@
 const User = require("../models/user");
 const Post = require("../models/post");
-var LocalStorage = require("node-localstorage").LocalStorage;
-var localStorage = new LocalStorage('../scratch');
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const express = require("express");
@@ -12,10 +10,15 @@ var message = null;
 router.get("", async(req, res, next) => {
     //when coming from logout redirection getting message
     const currentPage = 1;
-    if (req.query.message) {
-        message = "You Logout Successfully.";
+    if (req.query.message == "los") {
+        message = "Logout Successfully.";
     }
-    console.log(req.header("message"));
+    if (req.query.message == "urnl") {
+        message = "Access Denied!";
+    }
+    if (req.query.message == "lis") {
+        message = "Login Successfully!";
+    }
     console.log(req.header("message"));
     //getting filter
     const selectedCategory = req.query.category;
@@ -31,10 +34,8 @@ router.get("", async(req, res, next) => {
     message = null;
     // var totalPosts;
     if (selectedCategory && selectedCity) {
-        localStorage.setItem("currentCity", selectedCity);
-        localStorage.setItem("currentCategory", selectedCategory);
-        console.log("currentCity in Localstorage:: " + localStorage.getItem("currentCity"));
-        console.log("currentCategory in LocalStorage::: " + localStorage.getItem("currentCategory"));
+        res.cookie("currentCity", selectedCity);
+        res.cookie("currentCategory", selectedCategory);
         const result = await getPostsArrayAndtotalPosts(selectedCity, selectedCategory, currentPage);
         return res.status(200).render("homepage.pug", {
             posts: result.postsArray,
@@ -46,10 +47,10 @@ router.get("", async(req, res, next) => {
             totalPosts: result.totalPosts,
         });
     } else {
-        if (localStorage.getItem("currentCity") && localStorage.getItem("currentCategory")) {
-            const selectedCity = localStorage.getItem("currentCity");
-            const selectedCategory = localStorage.getItem("currentCategory");
-            console.log("city and category exists in localstorage");
+        if (req.cookies["currentCity"] && req.cookies["currentCategory"]) {
+            const selectedCity = req.cookies["currentCity"];
+            const selectedCategory = req.cookies["currentCategory"];
+            console.log("city and category exists in cookies");
             const result = await getPostsArrayAndtotalPosts(selectedCity, selectedCategory, currentPage);
             return res.status(200).render("homepage.pug", {
                 posts: result.postsArray,
@@ -70,10 +71,8 @@ router.get("", async(req, res, next) => {
                 .limit(5)
                 .skip(5 * (currentPage - 1))
                 .sort("-date");
-            localStorage.setItem("currentCity", "All City");
-            localStorage.setItem("currentCategory", "All Category");
-            console.log("currentCity in Localstorage:: " + localStorage.getItem("currentCity"));
-            console.log("currentCategory in LocalStorage::: " + localStorage.getItem("currentCategory"));
+            res.cookie("currentCity", "All City");
+            res.cookie("currentCategory", "All Category");
             totalPosts = await Post.count({});
         } else {
             postsArray = await Post.find({ city: currentUser.city })
@@ -89,17 +88,13 @@ router.get("", async(req, res, next) => {
                     .skip(5 * (currentPage - 1))
                     .sort("-date");
                 totalPosts = await Post.count({});
-                localStorage.setItem("currentCity", "All City");
-                localStorage.setItem("currentCategory", "All Category");
+                res.cookie("currentCity", "All City");
+                res.cookie("currentCategory", "All Category");
             } else {
-                localStorage.setItem("currentCity", currentUser.city);
-                localStorage.setItem("currentCategory", "All Category");
+                res.cookie("currentCity", currentUser.city);
+                res.cookie("currentCategory", "All Category");
             }
-            console.log("currentCity in Localstorage:: " + localStorage.getItem("currentCity"));
-            console.log("currentCategory in LocalStorage::: " + localStorage.getItem("currentCategory"));
-
         }
-        console.log(postsArray);
         return res.status(200).render("homepage.pug", {
             posts: postsArray,
             currentUserId: currentUserId._id,

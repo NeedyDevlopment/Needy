@@ -4,7 +4,9 @@ const MongodbSession = require("connect-mongodb-session")(session);
 module.exports = function setSession(app) {
     const store = new MongodbSession({
         uri: "mongodb://localhost/sessions",
+        // uri: "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority",
         collection: "mysessions",
+        // collection: "Needy",
     });
     app.use(
         session({

@@ -1,40 +1,3 @@
-// import browserEnv from 'browser-env';
-// console.log(window.isSecureContext);
-console.log("post.js running...");
-// const publicVapidkey = 'BPmCyJFvTth5VUcT4LGEVFOaLeySyptCGJ5dzqLkQGZ6Fs6DYXNubLP2u7xlQ8CAg5VlYJA7KC5nHoKoRRV3298';
-// // check for service worker
-// if ('serviceWorker' in navigator) {
-//     send().catch(err => console.log(err));
-// }
-// // Register serviceWorker,Register Push,Send Push
-// async function send() {
-//     //Register service worker
-//     console.log('Registering service worker...');
-//     const register = await navigator.serviceWorker.register('/worker.js', {
-//         scope: '/'
-//     });
-//     console.log('service worker registered...');
-//     //Register push
-//     console.log('Registering Push...');
-//     const subscription = await register.pushManager.subscribe({
-//         userVisibleOnly: true,
-//         applicationServerKey: publicVapidkey
-//     });
-//     console.log('Push Registered...');
-
-//     //send Push notification
-//     console.log('sending push....');
-//     await fetch('/subscribe', {
-//         method: 'POST',
-//         body: JSON.stringify(subscription),
-//         headers: {
-//             'content-type': 'application/json'
-//         }
-//     });
-//     console.log('push sent...');
-// }
-
-// var message = "happy Birthday";
 var msg = "is msg";
 let posts = [];
 // console.log(posts);
@@ -45,6 +8,27 @@ $(document).ready(function() {
             document.getElementById("message").innerHTML = "";
         }
     }
+    $(".share").click(function() {
+        var post_id = $(this).attr("value");
+        actionPerformed($(this)[0], "share", post_id);
+    });
+    $(".comment").click(function() {
+        var post_id = $(this).attr("value");
+        actionPerformed($(this)[0], "comment", post_id);
+    });
+    $(".like").click(function() {
+        var post_id = $(this).attr("value");
+        actionPerformed($(this)[0], "like", post_id);
+    });
+    $(".save").click(function() {
+        var post_id = $(this).attr("value");
+        actionPerformed($(this)[0], "save", post_id);
+    });
+    $(".followButton").click(function() {
+        var post_id = $(this).attr("value");
+        post_id = post_id.split(" ");
+        onClickFollow($(this)[0], post_id[0], post_id[1]);
+    });
 });
 
 function getDateDifference(dateDiffer) {
@@ -260,9 +244,9 @@ function actionPerformed(element, icon, postId) {
         // var fbUrl = "https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%2Fpost%2F" + postId;
         // var fbUrl = "https://www.facebook.com/sharer.php?u=" + encodeURIComponent("http://localhost/post/60c6efc88ddc55a2647dec8b");
         var fbUrl =
-            "https://www.facebook.com/sharer/sharer.php?u=http%3A//localhost/post/60c6efc88ddc55a2647dec8b"; //with meta tags
+            "https://www.facebook.com/sharer/sharer.php?u=http%3A//needy24x7.herokuapp.com/post/60c6efc88ddc55a2647dec8b"; //with meta tags
         var twUrl =
-            "https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%2Fpost%2F" +
+            "https://twitter.com/intent/tweet?url=http%3A%2F%2Fneedy24x7.herokuapp.com%2Fpost%2F" +
             postId +
             "&text=" +
             encodeURIComponent("Hello From Needy,Open this link to view Post") +
@@ -273,7 +257,7 @@ function actionPerformed(element, icon, postId) {
         var lnUrl =
             "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//github.com&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
 
-        $(".post-url").text("http://localhost/post/" + postId);
+        $(".post-url").text("http://needy24x7.herokuapp.com/post/" + postId);
         var eUrl =
             "mailto:forexternaluse505@gmail.com?cc=ThisIsCC&bcc=ThisIsBCC&subject=Post%20From%20Needy%20this%20is%20subject&body=Hey%20This%20is%20Body%20of%20email";
         $(".fbBtn").attr("href", fbUrl);
@@ -498,6 +482,7 @@ $(document).ready(function() {
                 data: { Modal: "email" },
                 success: function(data) {
                     $("#myModal").css("display", "block");
+                    wrap("../static/script/share.js");
                     $(".modal-content").html(data);
                 },
             });
