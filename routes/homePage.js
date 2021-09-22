@@ -19,6 +19,9 @@ router.get("", async(req, res, next) => {
     if (req.query.message == "lis") {
         message = "Login Successfully!";
     }
+    if (req.query.message == "ss") {
+        message = "Signup Successfully!";
+    }
     console.log(req.header("message"));
     //getting filter
     const selectedCategory = req.query.category;

@@ -5,6 +5,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const PhotoUpload = require('../middleware/photoUpload');
+const cloudinary = require("cloudinary");
 
 
 
@@ -26,17 +27,30 @@ router.post(
     "/",
     PhotoUpload.uploadProfileImage,
     async(req, res, next) => {
+
         const isLoggedIn = req.session.isLoggedIn;
         const currentUserId = await _.pick(
             jwt.verify(req.session.token, "MySecureKey"), ["_id"]
         ); // getting current user id
-        const post = await Post.countDocuments({ "creator._id": currentUserId });
-        let profileImg = (await User.findOne({ _id: currentUserId }, { photo: 1 }))
-            .photo;
-        if (req.file) {
-            profileImg =
-                "./static/profiles/" + currentUserId._id + req.file.originalname; // path for the stored profile images
+
+        //getting existing profilePhoto's cloudinary_id from database
+        let profileImgCloudinaryId = (await User.findOne({ _id: currentUserId }, { photo: 1 }))
+            .photo.cloudinary_id;
+        //uploading to cloudinary
+        let cloudinaryResult;
+        try {
+            if (profileImgCloudinaryId) {
+                await cloudinary.uploader.destroy(profileImgCloudinaryId);
+            }
+            cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
+            console.log("uploaded result::");
+            console.log(cloudinaryResult);
+        } catch (err) {
+            console.log("error occured::", err);
         }
+
+        const post = await Post.countDocuments({ "creator._id": currentUserId });
+
         const username = req.body.username;
         const city = req.body.city;
         const workplace = req.body.workplace;
@@ -47,7 +61,10 @@ router.post(
                 city: city,
                 companyname: workplace,
                 contact: contactno,
-                photo: profileImg,
+                photo: {
+                    url: cloudinaryResult.secure_url,
+                    cloudinary_id: cloudinaryResult.public_id
+                },
             },
         };
         let message = "";
@@ -95,6 +112,7 @@ router.post("/showProfileFollowers", async(req, res, next) => {
     const followersArray = (
         await User.findOne({ _id: userId }, { followersArray: 1 })
     ).followersArray;
+
     f_list(followersArray).then((value) => {
         res.render("f_list.pug", {
             f_Array: value,
@@ -111,6 +129,7 @@ router.post("/showProfileFollowings", async(req, res, next) => {
     const followingsArray = (
         await User.findOne({ _id: userId }, { followingsArray: 1 })
     ).followingsArray;
+
     f_list(followingsArray).then((value) => {
         res.render("f_list.pug", {
             f_Array: value,

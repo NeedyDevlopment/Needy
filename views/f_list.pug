@@ -8,8 +8,8 @@
         each user in f_Array
             .userBlock 
                 .img
-                    if user.photo 
-                        img(src=user.photo, alt="")
+                    if user.photo.url 
+                        img(src=user.photo.url, alt="user")
                     else
                         img(src="../static/imagesForPost/profile.png", alt="")
                 .name= user.username

@@ -1,21 +1,21 @@
 const mongoose = require("mongoose");
 
-// mongoose
-//     .connect("mongodb://localhost/Needy", {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//     })
-//     .then(() => console.log("Successfully Connected to MongoDB..."))
-//     .catch((error) => console.log("error occured: ", error));
 mongoose
-    .connect(
-        "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority", {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
-    )
+    .connect("mongodb://localhost/Needy", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(() => console.log("Successfully Connected to MongoDB..."))
     .catch((error) => console.log("error occured: ", error));
+// mongoose
+//     .connect(
+//         "mongodb+srv://ahpatel9:ahpatel9@cluster0.ar3og.mongodb.net/Needy?retryWrites=true&w=majority", {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true,
+//         }
+//     )
+//     .then(() => console.log("Successfully Connected to MongoDB..."))
+//     .catch((error) => console.log("error occured: ", error));
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -40,7 +40,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    photo: String,
+    photo: {
+        url: String,
+        cloudinary_id: String
+    },
     followers: {
         type: Number,
         default: 0,

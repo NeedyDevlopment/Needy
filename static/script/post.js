@@ -4,7 +4,7 @@ let posts = [];
 $(document).ready(function() {
     if (document.getElementById("message")) {
         if (document.getElementById("message").innerHTML != "") {
-            showSnackbar(document.getElementById("message").innerHTML);
+            showSnackbar(document.getElementById("message").innerHTML, "success");
             document.getElementById("message").innerHTML = "";
         }
     }
@@ -63,7 +63,7 @@ function onClickFollow(element, creatorId, postId) {
             type: "POST",
             data: { creatorId: creatorId, postId: postId },
             success: function(totalFollowers) {
-                showSnackbar("You " + element.innerText + " Successfully");
+                showSnackbar(element.innerText + " Successfully", "success");
                 // document.getElementById('showFollowers' + postId).innerText = totalFollowers + ' Followers';
                 var showFollowerElementArray = document.getElementsByClassName(
                     "showFollowers" + creatorId
@@ -85,14 +85,14 @@ function onClickFollow(element, creatorId, postId) {
                 console.log(status);
                 console.log(error);
                 if (xhr.responseJSON.message == "user-not-loggedIn") {
-                    showSnackbar("You Are not LoggedIn!");
+                    showSnackbar("You Are not LoggedIn!", "failure");
                 } else if (xhr.responseJSON.message == "same-user") {
-                    showSnackbar("you can't follow yourself");
+                    showSnackbar("you can't follow yourself", "failure");
                 }
             },
         });
     } else {
-        showSnackbar("You Can Not Follow Your Self !");
+        showSnackbar("You Can Not Follow Your Self !", "failure");
     }
 }
 
@@ -125,14 +125,14 @@ function submitComment(postId) {
         success: function(res) {
             var element = document.getElementsByClassName("fakeClass")[0];
             var p = document.getElementById("showcommenttext" + postId);
-            showSnackbar("comment added successfully");
+            showSnackbar("comment added successfully", "success");
             element.classList.replace("fa-comment-o", "fa-comment");
             p.innerText = "commented";
             actionPerformed(element, "comment", postId);
         },
         error: function(xhr, status, error) {
-            if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-            else showSnackbar("something Went Wrong!");
+            if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
+            else showSnackbar("something Went Wrong!", "failure");
         },
     });
 }
@@ -152,11 +152,11 @@ function actionPerformed(element, icon, postId) {
 
             success: function(totalLikes) {
                 if (p.innerText === "like") {
-                    showSnackbar("You liked a post.");
+                    showSnackbar("liked a post.", "success");
                     element.classList.replace("fa-thumbs-o-up", "fa-thumbs-up");
                     p.innerText = "unlike";
                 } else {
-                    showSnackbar("You unliked a post.");
+                    showSnackbar("unliked a post.", "success");
                     element.classList.replace("fa-thumbs-up", "fa-thumbs-o-up");
                     p.innerText = "like";
                 }
@@ -164,8 +164,8 @@ function actionPerformed(element, icon, postId) {
                     totalLikes + " Likes";
             },
             error: function(xhr, status, error) {
-                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-                else showSnackbar("something Went Wrong!");
+                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
+                else showSnackbar("something Went Wrong!", "failure");
             },
         });
     }
@@ -211,7 +211,7 @@ function actionPerformed(element, icon, postId) {
                         var dateDiffer = new Date().getTime() - comment.date;
                         console.log(dateDiffer);
                         var userPhotoUrl = comment.user.photo ?
-                            comment.user.photo :
+                            comment.user.photo.url :
                             "../static/imagesForPost/profile.png";
                         $(
                             "<div class='commentdiv'><div class='headerOfComment'><img src=" +
@@ -229,8 +229,8 @@ function actionPerformed(element, icon, postId) {
                 }
             },
             error: function(xhr, status, error) {
-                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-                else showSnackbar("something Went Wrong!");
+                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
+                else showSnackbar("something Went Wrong!", "failure");
             },
         });
         // setTimeout(() => {
@@ -337,14 +337,14 @@ function actionPerformed(element, icon, postId) {
     if (icon === "save") {
         console.log("inside save");
         if (p.innerText === "saved") {
-            showSnackbar("post already saved!");
+            showSnackbar("post already saved!", "failure");
         } else {
             $.ajax({
                 url: "/ajax/save",
                 type: "POST",
                 data: { postId: postId },
                 success: function(res) {
-                    showSnackbar("post saved Successfully!");
+                    showSnackbar("post saved Successfully!", "success");
                     element.classList.replace("fa-bookmark-o", "fa-bookmark");
                     p.innerText = "saved";
                     // else {
@@ -353,8 +353,8 @@ function actionPerformed(element, icon, postId) {
                     // }
                 },
                 error: function(xhr, status, error) {
-                    if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-                    else showSnackbar("something Went Wrong!");
+                    if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
+                    else showSnackbar("something Went Wrong!", "failure");
                 },
             });
         }
@@ -406,8 +406,8 @@ function onFilter() {
             showSnackbar("successss!!");
         },
         error: function(xhr, status, error) {
-            if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-            else showSnackbar("something Went Wrong!");
+            if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
+            else showSnackbar("something Went Wrong!", "failure");
         },
     });
 }
@@ -458,8 +458,8 @@ $(window).scroll(function() {
                 $(".postsContainer").append(res);
             },
             error: function(xhr, status, error) {
-                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-                else showSnackbar("something Went Wrong!");
+                if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
+                else showSnackbar("something Went Wrong!", "failure");
             },
         });
         var message = "nice";

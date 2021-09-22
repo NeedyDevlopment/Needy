@@ -38,8 +38,9 @@ router.post("/", async(req, res) => {
     );
     req.session.token = token;
     req.session.email = user.email;
+    req.session.isLoggedIn = true;
     // res.send(req.body);
     message = "You Signup Successfully.";
-    res.redirect("/");
+    res.redirect("/?message=ss");
 });
 module.exports = router;

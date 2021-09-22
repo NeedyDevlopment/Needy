@@ -12,6 +12,7 @@ var nodemailer = require("nodemailer");
 const EventEmitter = require("events");
 const emitter = new EventEmitter();
 const mongoose = require("mongoose");
+const cloudinary = require("cloudinary");
 
 emitter.on("postAdded", async(args) => {
     console.log("inside postAdded emit event:::::::");
@@ -75,6 +76,16 @@ router.get("/", AuthForLogin, (req, res, next) => {
 });
 
 router.post("/", PhotoUpload.uploadPostImage, async(req, res, next) => {
+    let cloudinaryResult;
+    try {
+        cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
+        console.log("uploaded result::");
+        console.log(cloudinaryResult);
+    } catch (err) {
+        console.log("error occured::", err);
+    }
+
+
     const currentUserId = await _.pick(
         jwt.verify(req.session.token, "MySecureKey"), ["_id"]
     );
@@ -91,16 +102,16 @@ router.post("/", PhotoUpload.uploadPostImage, async(req, res, next) => {
     creator.followers = creatorsFollowers.followers;
 
     //for image of creater in post
-    creator.photo = (
-        await User.findOne({ _id: currentUserId._id }, { photo: 1 })
-    ).photo;
-    console.log(
-        req.body.category,
-        req.body.city,
-        req.body.title,
-        req.body.Description,
-        req.body.contact
-    );
+    // creator.photo = (
+    //     await User.findOne({ _id: currentUserId._id }, { photo: 1 })
+    // ).photo.url;
+    // console.log(
+    //     req.body.category,
+    //     req.body.city,
+    //     req.body.title,
+    //     req.body.Description,
+    //     req.body.contact
+    // );
     const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
     const post = new Post({
         creator: currentUserId,
@@ -114,17 +125,21 @@ router.post("/", PhotoUpload.uploadPostImage, async(req, res, next) => {
         //     data: fs.readFileSync(path.join('D:/usersPost', req.file.originalname)),
         //     contentType: req.file.mimetype
         // }
-        image: "./static/usersPost/" + currentUserId._id + req.file.originalname,
+        // image: "./static/usersPost/" + currentUserId._id + req.file.originalname,
+        image: {
+            url: cloudinaryResult.secure_url,
+            cloudinary_id: cloudinaryResult.public_id
+        }
     });
     const result = await post.save();
     emitter.emit("postAdded", { creatorId: creator._id });
     // res.status(200).send(result);
-    const params = {
-        data: post.image.data,
-        contentType: post.image.contentType,
-    };
+    // const params = {
+    //     data: post.image.data,
+    //     contentType: post.image.contentType,
+    // };
     // res.status(200).render('createpostSubmission', params);
-    message = "Your post added successfully.";
+    message = "post added successfully.";
     res.redirect("/");
     next();
 });

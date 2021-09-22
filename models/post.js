@@ -21,7 +21,11 @@ const postSchema = new mongoose.Schema({
     title: String,
     description: String,
     contact: Number,
-    image: String,
+    // image: String,
+    image: {
+        url: String,
+        cloudinary_id: String
+    },
     likes: {
         type: Number,
         default: 0,
