@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
     req.session.isLoggedIn = false;
     // res.status(200).send("you logout successfully");
     // message = "You logout Successfully.";
-    res.redirect("/?message=yes");
+    res.redirect("/?message=los");
 });
 
 module.exports = router;

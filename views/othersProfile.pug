@@ -11,7 +11,7 @@ block content
             .imageAndFollowButton 
                 .imageDiv 
                     if(user.photo)
-                        img(src=user.photo, alt="")
+                        img(src=user.photo.url, alt="")
                     else 
                         img(src="../static/imagesForPost/profile.png", alt="")
                 if currentUserId!=user._id

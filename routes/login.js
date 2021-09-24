@@ -9,7 +9,8 @@ router.post("/", async(req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(401).send("Authentication failed!");
     const isPassMatch = await bcrypt.compare(req.body.password, user.password);
-    if (!isPassMatch) return res.status(401).send("Credential does not match!");
+    // if (!isPassMatch) return res.status(401).send("Credential does not match!");
+    if (!isPassMatch) return res.redirect("/?message=lf");
     // Set session
     const token = await jwt.sign(
         _.pick(user, ["_id", "username", "email"]),
@@ -20,8 +21,7 @@ router.post("/", async(req, res) => {
     req.session.isLoggedIn = true;
     // res.status(200).send("you login successfully");
     // res.status(200).redirect('/');
-    message = "You login Successfully.";
-    res.redirect("/");
+    res.redirect("/?message=lis");
 });
 
 router.get("/", (req, res, next) => {

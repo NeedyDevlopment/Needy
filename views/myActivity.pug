@@ -34,7 +34,7 @@ block content
                                p=post.likes+ ' Likes' 
                                p=post.comments+ ' Comments'
                          div#main-img-desc     
-                            img#PostImg(src=post.image)
+                            img#PostImg(src=post.image.url)
                             div.details
                                div#title 
                                  div.divlabel 
@@ -76,7 +76,7 @@ block content
                                  else
                                        p='You '+activity.activity_action +' this post at '+ activity.date
                            div#g-main-img-desc     
-                              img#g-PostImg(src=activity.post.image)
+                              img#g-PostImg(src=activity.post.image.url)
                               div.g-details
                                  div#g-title 
                                     p #[b Title :] #{activity.post.title} 
@@ -93,7 +93,7 @@ block content
                                  p='You '+activity.activity_action +" "+activity.creator.username+" at "+ activity.date 
                            div#g-main-img-desc
                               if(activity.creator.photo)
-                                 img#g-PostImg(src=activity.creator.photo)
+                                 img#g-PostImg(src=activity.creator.photo.url)
                               else
                                  img#g-PostImg(src="../static/imagesForPost/profile.png")
                               div.g-details

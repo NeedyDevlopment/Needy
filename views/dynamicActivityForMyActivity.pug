@@ -11,7 +11,7 @@ each activity in userActivities
                         else
                             p='You '+activity.activity_action +' this post at '+ activity.date
                 div#g-main-img-desc     
-                    img#g-PostImg(src=activity.post.image)
+                    img#g-PostImg(src=activity.post.image.url)
                     div.g-details
                         div#g-title 
                             p #[b Title :] #{activity.post.title} 
@@ -27,8 +27,8 @@ each activity in userActivities
                     div#g-descTime
                         p='You '+activity.activity_action +" "+activity.creator.username+" at "+ activity.date 
                 div#g-main-img-desc
-                    if(activity.creator.photo)
-                        img#g-PostImg(src=activity.creator.photo)
+                    if(activity.creator.photo.url)
+                        img#g-PostImg(src=activity.creator.photo.url)
                     else
                         img#g-PostImg(src="../static/imagesForPost/profile.png")
                     div.g-details

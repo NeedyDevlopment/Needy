@@ -10,8 +10,20 @@ var message = null;
 router.get("", async(req, res, next) => {
     //when coming from logout redirection getting message
     const currentPage = 1;
-    if (req.query.message) {
-        message = "You Logout Successfully.";
+    if (req.query.message == "los") {
+        message = "Logout Successfully.";
+    }
+    if (req.query.message == "urnl") {
+        message = "Access Denied!";
+    }
+    if (req.query.message == "lis") {
+        message = "Login Successfully!";
+    }
+    if (req.query.message == "ss") {
+        message = "Signup Successfully!";
+    }
+    if (req.query.message == "lf") {
+        message = "You Entered Wrong Credentials!";
     }
     console.log(req.header("message"));
     //getting filter
@@ -28,8 +40,8 @@ router.get("", async(req, res, next) => {
     message = null;
     // var totalPosts;
     if (selectedCategory && selectedCity) {
-        res.cookie("currentCity",selectedCity);
-        res.cookie("currentCategory",selectedCategory);
+        res.cookie("currentCity", selectedCity);
+        res.cookie("currentCategory", selectedCategory);
         const result = await getPostsArrayAndtotalPosts(selectedCity, selectedCategory, currentPage);
         return res.status(200).render("homepage.pug", {
             posts: result.postsArray,
@@ -65,8 +77,8 @@ router.get("", async(req, res, next) => {
                 .limit(5)
                 .skip(5 * (currentPage - 1))
                 .sort("-date");
-            res.cookie("currentCity","All City");
-            res.cookie("currentCategory","All Category");
+            res.cookie("currentCity", "All City");
+            res.cookie("currentCategory", "All Category");
             totalPosts = await Post.count({});
         } else {
             postsArray = await Post.find({ city: currentUser.city })
@@ -82,13 +94,15 @@ router.get("", async(req, res, next) => {
                     .skip(5 * (currentPage - 1))
                     .sort("-date");
                 totalPosts = await Post.count({});
-                res.cookie("currentCity","All City");
-            res.cookie("currentCategory","All Category");
+                res.cookie("currentCity", "All City");
+                res.cookie("currentCategory", "All Category");
             } else {
-                res.cookie("currentCity",currentUser.city);
-                res.cookie("currentCategory","All Category");
+                res.cookie("currentCity", currentUser.city);
+                res.cookie("currentCategory", "All Category");
             }
         }
+        console.log("fhjfhjjff");
+        console.log(postsArray[1].creator.photo);
         return res.status(200).render("homepage.pug", {
             posts: postsArray,
             currentUserId: currentUserId._id,

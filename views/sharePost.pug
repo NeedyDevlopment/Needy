@@ -54,7 +54,8 @@ block content
                         p(id='showLikes'+post._id)= post.likes+ ' Likes' 
                         p(id='showComments'+post._id)= post.comments+ ' Comments'
                   div#main-img-desc     
-                     img#PostImg(src="../"+post.image)
+                     //- img#PostImg(src="../"+post.image)
+                     img#PostImg(src=post.image.url)
                      div.details
                         div#title 
                               p #[b Title: ]  #{post.title} 
@@ -94,7 +95,7 @@ block content
                   h4#commentHeader All Comments #[button(id="closebutton",class="closebutton",value=post._id) &#10006;] 
                   div(class="writecommentdiv",id="writecomment")
                         textarea(name="writtencomment" id="writtencomment"+post._id placeholder="Comment Here ..." cols="35" rows="4")
-                        button(id="submitcomment"+post._id) #[i(class="material-icons") &#xe163;]
+                        button(id="submitcomment"+post._id,class="submitcomment") #[i(class="material-icons") &#xe163;]
                   div(id="innercommentcontainer"+post._id,  class="innercommentcontainer")
                      div(class="loader") ...Loading
             div#share-dialog

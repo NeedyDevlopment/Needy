@@ -8,7 +8,7 @@ each post in posts
             p=post.likes+ 'Likes' 
             p=post.comments+ 'Comments'
       div#main-img-desc     
-         img#PostImg(src=post.image)
+         img#PostImg(src=post.image.url)
          div.details
             div#title 
                p #[b Title] : #[input(id="titleEdit",class="NormalMode",value=post.title, type="text" autofocus)] 

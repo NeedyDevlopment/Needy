@@ -8,6 +8,7 @@ block style
 block scripts 
   script(src="../static/script/profile.js",nonce="2726c7f26c") 
   script(src="../static/script/dialogbox.js",nonce="2726c7f26c") 
+  script(src="../static/script/snackbar.js",nonce="2726c7f26c") 
 block content
     
     div(class="container")
@@ -17,9 +18,9 @@ block content
         p#forSnackBarCalling= profile.message
         div.upperDiv
           div.image
-            if profile.photo
+            if profile.photo.url
               div.innerImage
-                img( src=profile.photo  alt="Avatar" class="avatar")
+                img( src=profile.photo.url  alt="Avatar" class="avatar")
             else
               div.innerImage
                 div(class="avatar" id="avatardiv")= profile.username.split(' ').length === 1 ? profile.username.charAt(0).toUpperCase() :profile.username.split(' ')[0].charAt(0).toUpperCase()+profile.username.split(' ')[1].charAt(0).toUpperCase()
