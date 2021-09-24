@@ -101,6 +101,8 @@ router.get("", async(req, res, next) => {
                 res.cookie("currentCategory", "All Category");
             }
         }
+        console.log("fhjfhjjff");
+        console.log(postsArray[1].creator.photo);
         return res.status(200).render("homepage.pug", {
             posts: postsArray,
             currentUserId: currentUserId._id,

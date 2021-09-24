@@ -23,7 +23,7 @@ block content
                 img( src=profile.photo.url  alt="Avatar" class="avatar")
             else
               div.innerImage
-                div(class="avatar" id="avatardiv" src="#")= profile.username.split(' ').length === 1 ? profile.username.charAt(0).toUpperCase() :profile.username.split(' ')[0].charAt(0).toUpperCase()+profile.username.split(' ')[1].charAt(0).toUpperCase()
+                div(class="avatar" id="avatardiv")= profile.username.split(' ').length === 1 ? profile.username.charAt(0).toUpperCase() :profile.username.split(' ')[0].charAt(0).toUpperCase()+profile.username.split(' ')[1].charAt(0).toUpperCase()
             .cameraIcon 
               |&#128247;
               input(type="file" class="imageInput" name="profileImg" title="Upload Profile From Here")

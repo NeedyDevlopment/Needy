@@ -51,7 +51,8 @@ $(document).ready(function() {
     });
     $(".imageInput").change(function(event) {
         console.log("inside preview script");
-        $(".avatar").attr("src", URL.createObjectURL(event.target.files[0]));
+        $(".innerImage").html(`<img src='${URL.createObjectURL(event.target.files[0])}'  alt='Avatar' class='avatar'>`);
+        // $(".avatar").attr("src", URL.createObjectURL(event.target.files[0]));
     });
     $("#DeleteDialogCancel").click(function() {
         document.getElementById("deleteAccountConfirmation").style.display = "none";
