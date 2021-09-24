@@ -10,7 +10,7 @@ block content
         .profileDetails(id=currentUserId)
             .imageAndFollowButton 
                 .imageDiv 
-                    if(user.photo)
+                    if(user.photo.url)
                         img(src=user.photo.url, alt="")
                     else 
                         img(src="../static/imagesForPost/profile.png", alt="")

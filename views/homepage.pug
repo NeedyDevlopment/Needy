@@ -35,7 +35,7 @@ block content
          each post in posts  
             div#post_container 
                div#profile
-                  if(post.creator.photo)
+                  if(post.creator.photo.url)
                      img(id=post.creator._id  ,class= currentUserId , src=post.creator.photo.url)
                   else
                      img(id=post.creator._id , src="../static/imagesForPost/profile.png")
