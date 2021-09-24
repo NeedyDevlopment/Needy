@@ -110,6 +110,10 @@ function submitComment(postId) {
     console.log("postId is::::");
     console.log(postId);
     var commentText = document.getElementById("writtencomment" + postId).value;
+    if (commentText == "") {
+        showSnackbar("Invalid Comment!", "failure");
+        return;
+    }
     document.getElementById("writtencomment" + postId).value = "";
     console.log("written comment is:::" + commentText);
     $.ajax({
@@ -220,7 +224,7 @@ function actionPerformed(element, icon, postId) {
                             usernametoBePrinted +
                             "</b><small>" +
                             getDateDifference(dateDiffer) +
-                            " ago</small></div><p id='commentP'>" +
+                            " ago</small></div><p id='commentP'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                             comment.commentText +
                             "</p></div>"
                         ).insertAfter($("#innercommentcontainer" + postId + " .loader"));

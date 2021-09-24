@@ -7,6 +7,10 @@ function showSnackbar(message, condition) {
     if (condition == "failure") {
         snackbar.style.backgroundColor = "#d9534f";
     }
+    if (message == "You Entered Wrong Credentials!") {
+        snackbar.style.backgroundColor = "#d9534f";
+    }
+
     snackbar.innerText = message;
     snackbar.classList.add("show-snackbar");
 

@@ -22,6 +22,9 @@ router.get("", async(req, res, next) => {
     if (req.query.message == "ss") {
         message = "Signup Successfully!";
     }
+    if (req.query.message == "lf") {
+        message = "You Entered Wrong Credentials!";
+    }
     console.log(req.header("message"));
     //getting filter
     const selectedCategory = req.query.category;

@@ -33,40 +33,51 @@ router.post(
             jwt.verify(req.session.token, "MySecureKey"), ["_id"]
         ); // getting current user id
 
-        //getting existing profilePhoto's cloudinary_id from database
-        let profileImgCloudinaryId = (await User.findOne({ _id: currentUserId }, { photo: 1 }))
-            .photo.cloudinary_id;
-        //uploading to cloudinary
-        let cloudinaryResult;
-        try {
-            if (profileImgCloudinaryId) {
-                await cloudinary.uploader.destroy(profileImgCloudinaryId);
-            }
-            cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
-            console.log("uploaded result::");
-            console.log(cloudinaryResult);
-        } catch (err) {
-            console.log("error occured::", err);
-        }
-
-        const post = await Post.countDocuments({ "creator._id": currentUserId });
-
         const username = req.body.username;
         const city = req.body.city;
         const workplace = req.body.workplace;
         const contactno = req.body.contactno;
-        var newValues = {
-            $set: {
-                username: username,
-                city: city,
-                companyname: workplace,
-                contact: contactno,
-                photo: {
-                    url: cloudinaryResult.secure_url,
-                    cloudinary_id: cloudinaryResult.public_id
+        const post = await Post.countDocuments({ "creator._id": currentUserId });
+        if (req.file) {
+            //getting existing profilePhoto's cloudinary_id from database
+            let profileImgCloudinaryId = (await User.findOne({ _id: currentUserId }, { photo: 1 }))
+                .photo.cloudinary_id;
+            //uploading to cloudinary
+            let cloudinaryResult;
+            try {
+                if (profileImgCloudinaryId) {
+                    await cloudinary.uploader.destroy(profileImgCloudinaryId);
+                }
+                cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
+                console.log("uploaded result::");
+                console.log(cloudinaryResult);
+            } catch (err) {
+                console.log("error occured::", err);
+            }
+
+            var newValues = {
+                $set: {
+                    username: username,
+                    city: city,
+                    companyname: workplace,
+                    contact: contactno,
+                    photo: {
+                        url: cloudinaryResult.secure_url,
+                        cloudinary_id: cloudinaryResult.public_id
+                    },
                 },
-            },
-        };
+            };
+        } else {
+            var newValues = {
+                $set: {
+                    username: username,
+                    city: city,
+                    companyname: workplace,
+                    contact: contactno
+                },
+            };
+
+        }
         let message = "";
         const updation = await User.updateOne({ _id: currentUserId },
             newValues,

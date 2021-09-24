@@ -51,7 +51,6 @@ $(document).ready(function() {
     });
     $(".imageInput").change(function(event) {
         console.log("inside preview script");
-        $(".avatar").html("");
         $(".avatar").attr("src", URL.createObjectURL(event.target.files[0]));
     });
     $("#DeleteDialogCancel").click(function() {
@@ -66,5 +65,8 @@ $(document).ready(function() {
     $("#deleteBtn").click(function() {
         document.getElementById("deleteAccountConfirmation").style.display =
             "block";
+    });
+    $("#saveBtn").click(function() {
+        showSnackbar("Please wait...");
     });
 });
