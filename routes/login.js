@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 
 router.post("/", async(req, res) => {
     const user = await User.findOne({ email: req.body.email });
-    if (!user) return res.status(401).send("Authentication failed!");
+    if (!user) return res.redirect("/?message=lf");
     const isPassMatch = await bcrypt.compare(req.body.password, user.password);
     // if (!isPassMatch) return res.status(401).send("Credential does not match!");
     if (!isPassMatch) return res.redirect("/?message=lf");
