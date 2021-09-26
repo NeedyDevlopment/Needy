@@ -5,6 +5,7 @@ block style
         include ../static/css/dialogBox.css
 block scripts 
        script(src="../static/script/dialogbox.js",nonce="2726c7f26c")        
+       script(src="../static/script/snackbar.js",nonce="2726c7f26c")        
 
 block content
 
@@ -47,12 +48,12 @@ block content
                 textarea#description(name='Description' placeholder="Description Of Your Post" required)
                 br
                 label(for='contact')  Contact No 
-                input#contact(type='number' name='contact' maxlength="11" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" placeholder="Enter Your Contact No" required)
+                input#contact(type='number' name='contact' maxlength="10" pattern="[0-9]{10}" title="Must contain 0-9 digits only and 11 digits long" placeholder="Enter Your Contact No" required)
                 br
                 label(for='img')  Select Image 
                 input#img(type='file' name='image' accept='image/*' required)
                 
-                button(type='submit' class="postbtn") CreatePost
+                button(type='submit' class="postbtn") Add Post
                 br
                 br
     script(src="../static/script/createpost.js",nonce="2726c7f26c") 
