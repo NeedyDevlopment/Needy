@@ -15,6 +15,11 @@
   width: 50%;
   padding: 5px 2px;
   cursor: pointer;
+  outline: none !important;
+}
+#d-footer button:hover {
+  outline: none;
+  border: none;
 }
 
 #d-footer a {
@@ -93,7 +98,7 @@
 .w3-teal,
 .w3-hover-teal:hover {
   color: #fff !important;
-  background-color: #009688 !important;
+  background-color: #001465 !important;
 }
 
 .w3-button {

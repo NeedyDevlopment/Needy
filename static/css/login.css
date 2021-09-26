@@ -17,7 +17,7 @@
   background-color: #fefefe;
   margin: auto;
   padding: 0;
-  border: 1px solid #888;
+  border: 1px solid #fefefe;
   width: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
@@ -57,14 +57,14 @@
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: red;
   text-decoration: none;
   cursor: pointer;
 }
 
 .modal-header {
   padding: 10px 16px;
-  background-color: #5cb85c;
+  background-color: #000b38;
   color: white;
 }
 
@@ -85,7 +85,7 @@ label input {
   width: 100%;
   margin: 2px;
   padding: 8px;
-  border: 2px solid black;
+  border: 1px solid #000b38;
   border-radius: 5px;
   font-size: 22px;
 }
@@ -94,10 +94,10 @@ label input {
   width: 70px;
   margin-top: 10px;
   margin-left: 4px;
-  border: 2px solid black;
+  border: 1px solid #000b38;
   border-radius: 5px;
-  background: black;
-  color: white;
+  background: linear-gradient(45deg, #000b38, #d6f5ff, #000b38);
+  color: black;
   font-size: 20px;
   cursor: pointer;
   height: 37px;
@@ -112,7 +112,7 @@ img {
   height: 30px;
 }
 .btn1:active {
-  background-color: green;
+  background: #000b38;
   color: white;
 }
 ::placeholder {
@@ -135,7 +135,7 @@ h3 {
   cursor: pointer;
 }
 h3:hover {
-  color: rgb(51, 113, 207);
+  color: rgb(0, 76, 190);
 }
 .partitioned {
   outline: none !important;
@@ -189,15 +189,20 @@ h3:hover {
 }
 #OTPSEND {
   padding: 10px;
-  border: 1px solid green;
+  border: 1px solid #000b38;
   font-size: 16px;
   width: 115px;
+  background: linear-gradient(45deg, #000b38, #d6f5ff, #000b38);
   border-radius: 5px;
+}
+#OTPSEND:active {
+  background: #000b38;
+  color: white;
 }
 .border-below {
   border: none;
   border-radius: 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #000b38;
   outline: none !important;
 }
 .border-below::placeholder {
@@ -207,10 +212,11 @@ h3:hover {
 ::placeholder {
   color: #888;
 }
+
 .btn1:disabled {
   border: none;
   cursor: none;
-  background-color: rgb(80, 71, 71);
+  background-color: #000b38b7;
 }
 
 @media screen and (max-width: 1080px) {

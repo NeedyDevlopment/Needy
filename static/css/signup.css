@@ -3,66 +3,62 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  background-image: url(../static/images/backsignup.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .container {
   width: 530px;
   display: flex;
   flex-direction: column;
-  border: 3px solid black;
   justify-content: center;
   align-items: center;
-  border-radius: 23px;
   padding-bottom: 12px;
   background: transparent;
-
   margin: 18px auto;
+  background-color: #f2fcff;
+  box-shadow: black 1px 1px 8px 2px;
+  color: #000b38;
 }
 h1 {
   text-align: center;
   margin: 9px;
+  color: #000b38;
 }
 .form {
   display: flex;
   width: 100%;
   flex-direction: column;
   justify-content: center;
-  border-top: 2px solid rgb(48, 4, 4);
+  border-top: 2px solid #000b38;
   padding: 32px;
   margin: -3px;
 }
 .input {
   margin: 10px;
   padding: 4px;
-  border: 2px solid black;
+  border: 1px solid #000b38;
   border-radius: 5px;
   margin-left: 35px;
   width: 400px;
   outline: none;
   height: 44px;
-  border-width: medium;
-  font-size: 22px;
+  font-size: 20px;
 }
-
-.btnsignup {
-  border: 2px solid black;
-  border-radius: 5px;
-
+#checkbox {
   cursor: pointer;
-  background-color: green;
+}
+.btnsignup {
+  border: none;
+  box-shadow: #000b38 1px 1px 8px 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: linear-gradient(45deg, #000b38, #f2fcff, #000b38);
   font-size: 18px;
-  padding: 4px;
-  color: white;
-
+  padding: 8px;
+  color: black;
   width: 84px;
   margin-left: 180px;
 }
 .btnsignup:active {
-  background: rgb(10, 233, 10);
+  box-shadow: none;
+  background: #000b38;
   color: white;
 }
 .b {
@@ -76,7 +72,7 @@ h1 {
 }
 
 ::placeholder {
-  font-size: 22px;
+  font-size: 20px;
   color: black;
 }
 input::-webkit-outer-spin-button,
