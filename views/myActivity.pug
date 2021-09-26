@@ -92,7 +92,7 @@ block content
                               div#g-descTime
                                  p='You '+activity.activity_action +" "+activity.creator.username+" at "+ activity.date 
                            div#g-main-img-desc
-                              if(activity.creator.photo)
+                              if(activity.creator.photo.url)
                                  img#g-PostImg(src=activity.creator.photo.url)
                               else
                                  img#g-PostImg(src="../static/imagesForPost/profile.png")

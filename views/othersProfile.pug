@@ -8,29 +8,30 @@ block scripts
 block content 
     .container 
         .profileDetails(id=currentUserId)
-            .imageAndFollowButton 
-                .imageDiv 
-                    if(user.photo.url)
-                        img(src=user.photo.url, alt="")
-                    else 
-                        img(src="../static/imagesForPost/profile.png", alt="")
-                if currentUserId!=user._id
-                    .followButtonDiv 
-                        button(type="button" id="f_btn"+user._id  value=user._id class="follow_button" )= user.followersArray.includes(currentUserId) ? "Unfollow" :"Follow"
-            .followerPostsFollowing 
-                .followersDiv(id=user._id)
-                    b Followers
-                    span= user.followers
-                .postsDiv 
-                    b Posts
-                    span= post
-                .followingDiv(id=user._id)
-                    b Following
-                    span= user.followings
+            .forBoxShadow
+                .imageAndFollowButton 
+                    .imageDiv 
+                        if(user.photo.url)
+                            img(src=user.photo.url, alt="")
+                        else 
+                            img(src="../static/imagesForPost/profile.png", alt="")
+                    if currentUserId!=user._id
+                        .followButtonDiv 
+                            button(type="button" id="f_btn"+user._id  value=user._id class="follow_button" )= user.followersArray.includes(currentUserId) ? "Unfollow" :"Follow"
+                .followerPostsFollowing 
+                    .followersDiv(id=user._id)
+                        b Followers
+                        span= user.followers
+                    .postsDiv 
+                        b Posts
+                        span= post
+                    .followingDiv(id=user._id)
+                        b Following
+                        span= user.followings
             .userDetails 
                 .header User Details 
                 .detailDiv 
-                    span UserName  
+                    span Username  
                     p= user.username
                 hr
                 .detailDiv 
