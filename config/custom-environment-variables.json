@@ -1,6 +1,3 @@
 {
-    "jwtPrivateKey": "auth_jwtPrivateKey",
-    "CLOUDINARY_CLOUD_NAME": "dkethgzkl",
-    "CLOUDINARY_API_KEY": "318518344786551",
-    "CLOUDINARY_API_SECRET": "TJxqMHsySC8YRvY-nSTidVDIkX4"
+    "jwtPrivateKey": "auth_jwtPrivateKey"
 }

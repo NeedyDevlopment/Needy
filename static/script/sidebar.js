@@ -26,7 +26,7 @@ $(document).ready(function () {
       var scroller = window.scrollY;
       var navHeight = document.getElementsByClassName("navbar")[0].offsetHeight;
       if (scroller < navHeight) {
-        $(".sideNavbar").css("top", navHeight - scroller);
+        $(".sideNavbar").css("top", navHeight - scroller - 1);
         $(".sideNavbar").css("height", sideNavBarHeight + scroller);
       } else if (
         scroller >=

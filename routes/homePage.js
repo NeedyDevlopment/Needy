@@ -25,7 +25,9 @@ router.get("", async(req, res, next) => {
     if (req.query.message == "lf") {
         message = "You Entered Wrong Credentials!";
     }
-    console.log(req.header("message"));
+    if (req.query.message == "pas") {
+        message = "Post added successfully";
+    }
     //getting filter
     const selectedCategory = req.query.category;
     const selectedCity = req.query.city;
@@ -42,7 +44,11 @@ router.get("", async(req, res, next) => {
     if (selectedCategory && selectedCity) {
         res.cookie("currentCity", selectedCity);
         res.cookie("currentCategory", selectedCategory);
-        const result = await getPostsArrayAndtotalPosts(selectedCity, selectedCategory, currentPage);
+        const result = await getPostsArrayAndtotalPosts(
+            selectedCity,
+            selectedCategory,
+            currentPage
+        );
         return res.status(200).render("homepage.pug", {
             posts: result.postsArray,
             currentUserId: currentUserId._id,
@@ -57,7 +63,11 @@ router.get("", async(req, res, next) => {
             const selectedCity = req.cookies["currentCity"];
             const selectedCategory = req.cookies["currentCategory"];
             console.log("city and category exists in cookies");
-            const result = await getPostsArrayAndtotalPosts(selectedCity, selectedCategory, currentPage);
+            const result = await getPostsArrayAndtotalPosts(
+                selectedCity,
+                selectedCategory,
+                currentPage
+            );
             return res.status(200).render("homepage.pug", {
                 posts: result.postsArray,
                 currentUserId: currentUserId._id,
@@ -101,8 +111,6 @@ router.get("", async(req, res, next) => {
                 res.cookie("currentCategory", "All Category");
             }
         }
-        console.log("fhjfhjjff");
-        console.log(postsArray[1].creator.photo);
         return res.status(200).render("homepage.pug", {
             posts: postsArray,
             currentUserId: currentUserId._id,

@@ -18,7 +18,7 @@ router.post("/", async(req, res) => {
     );
     req.session.token = token;
     req.session.email = user.email;
-    req.session.isLoggedIn = true;
+    req.session.isLoggedIn = await true;
     // res.status(200).send("you login successfully");
     // res.status(200).redirect('/');
     res.redirect("/?message=lis");

@@ -1,5 +1,5 @@
 var msg = "is msg";
-let posts = [];
+// let posts = [];
 // console.log(posts);
 $(document).ready(function() {
     if (document.getElementById("message")) {

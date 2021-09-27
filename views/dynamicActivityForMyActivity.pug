@@ -30,7 +30,7 @@ each activity in userActivities
                     if(activity.creator.photo.url)
                         img#g-PostImg(src=activity.creator.photo.url)
                     else
-                        img#g-PostImg(src="../static/imagesForPost/profile.png")
+                        img#g-PostImg.esehi(src="../static/imagesForPost/profile.png")
                     div.g-details
                         div#g-title 
                             p #[b Name :] #{activity.creator.username} 

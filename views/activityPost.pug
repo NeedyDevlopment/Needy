@@ -1,8 +1,10 @@
 each post in posts
  div#post_container 
                div#profile
-                  //- img(src="../static/imagesForPost/profile.png")
-                  img(src=post.creator.photo.url)
+                  if(post.creator.photo.url)
+                     img(src=post.creator.photo.url)
+                  else
+                     img(src="../static/imagesForPost/profile.png")
                   p#name= post.creator.username  
                      small= 'at '+ post.date   
                   b(id="showFollowers"+post._id,class="showFollowers showFollowers"+post.creator._id)= post.creator.followers+' Followers'
