@@ -9,12 +9,12 @@ const Activity = require("../models/userActivity");
 router.get("/", AuthForLogin, async(req, res, next) => {
     const isLoggedIn = req.session.isLoggedIn;
     const currentUserId = await _.pick(
-        jwt.verify(req.session.token, "MySecureKey"), ["_id"]
+        jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]
     );
     const usersPost = await Post.find({ creator: currentUserId._id })
         .populate("creator")
         .limit(5)
-        .sort("-date");
+        .sort("-_id");
     const totalPostsForMyactivity = await Post.countDocuments({
         creator: currentUserId._id,
     });
@@ -23,7 +23,8 @@ router.get("/", AuthForLogin, async(req, res, next) => {
         })
         .limit(12)
         .populate("post")
-        .populate("creator");
+        .populate("creator")
+        .sort("-_id");
     const totalActivitiesForMyactivity = await Activity.countDocuments({
         userId: currentUserId._id,
     });

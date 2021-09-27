@@ -18,13 +18,13 @@ each post in posts
                      img#PostImg(src=post.image.url)
                      div.details.z-index-details
                         div#title
-                              span  #[b Title: ] #{post.title} 
+                              span #{post.title} 
                         div#discription 
-                              span #[b Description: ] #{post.description}
+                              span #{post.description}
                         div#phoneNo
                               span #[b Contact No: ] #{post.contact}
                         div#city
-                              span #[b City: ] #{post.city}
+                              span #[b Location: ] #{post.city}
                div#action-content
                   if(activity_action === 'commented') 
                      p #[b Your Comment: ] #{activity_comment} 

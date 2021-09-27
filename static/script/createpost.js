@@ -54,6 +54,10 @@ $(document).ready(function() {
     document.getElementById("img").addEventListener("invalid", function() {
         Invalidfile(this);
     });
+
+    $(".postbtn").click(function() {
+        showSnackbar("Uploading data,Please wait...");
+    });
 });
 
 function Invalidcat(textbox) {
@@ -105,6 +109,7 @@ function Invalidfile(textbox) {
     if (textbox.value === "") {
         textbox.setCustomValidity("Please choose your file!");
     } else {
+        textbox.setCustomValidity("");
         textbox.setCustomValidity("");
     }
     return true;

@@ -19,7 +19,7 @@ router.post("/", async(req, res, next) => {
     console.log("activity post is:::::");
     console.log(post);
     const currentUserId = req.session.token ?
-        await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"]) :
+        await _.pick(jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]) :
         "";
     const currentUser = req.session.token ?
         await User.findOne({ _id: currentUserId._id }) : { followingsArray: [] };

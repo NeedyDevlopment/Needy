@@ -34,7 +34,7 @@ router.post("/", async(req, res) => {
     // const token = await jwt.sign(_.pick(result, ['_id', 'username', 'email', 'city', 'companyname']), process.env.auth_jwtPrivateKey);
     const token = await jwt.sign(
         _.pick(result, ["_id", "username", "email"]),
-        "MySecureKey"
+        process.env.jwtPrivateKey
     );
     req.session.token = token;
     req.session.email = user.email;

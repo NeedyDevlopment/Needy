@@ -8,28 +8,53 @@ $(document).ready(function() {
             document.getElementById("message").innerHTML = "";
         }
     }
-    $(".share").click(function() {
-        var post_id = $(this).attr("value");
-        actionPerformed($(this)[0], "share", post_id);
-    });
-    $(".comment").click(function() {
-        var post_id = $(this).attr("value");
-        actionPerformed($(this)[0], "comment", post_id);
-    });
-    $(".like").click(function() {
-        var post_id = $(this).attr("value");
-        actionPerformed($(this)[0], "like", post_id);
-    });
-    $(".save").click(function() {
-        var post_id = $(this).attr("value");
-        actionPerformed($(this)[0], "save", post_id);
-    });
-    $(".followButton").click(function() {
-        var post_id = $(this).attr("value");
-        post_id = post_id.split(" ");
-        onClickFollow($(this)[0], post_id[0], post_id[1]);
-    });
+    // $(".share").click(function() {
+    //     var post_id = $(this).attr("value");
+    //     actionPerformed($(this)[0], "share", post_id);
+    // });
+    // $(".comment").click(function() {
+    //     var post_id = $(this).attr("value");
+    //     actionPerformed($(this)[0], "comment", post_id);
+    // });
+    // $(".like").click(function() {
+    //     var post_id = $(this).attr("value");
+    //     actionPerformed($(this)[0], "like", post_id);
+    // });
+    // $(".save").click(function() {
+    //     var post_id = $(this).attr("value");
+    //     actionPerformed($(this)[0], "save", post_id);
+    // });
+
+    // $(".followButton").click(function() {
+    //     console.log("followbutton clicked");
+    //     var post_id = $(this).attr("value");
+    //     post_id = post_id.split(" ");
+    //     onClickFollow($(this)[0], post_id[0], post_id[1]);
+    // });
 });
+$('body').on('click', '.share', function() {
+    var post_id = $(this).attr("value");
+    actionPerformed($(this)[0], "share", post_id);
+});
+$('body').on('click', '.comment', function() {
+    var post_id = $(this).attr("value");
+    actionPerformed($(this)[0], "comment", post_id);
+});
+$('body').on('click', '.like', function() {
+    var post_id = $(this).attr("value");
+    actionPerformed($(this)[0], "like", post_id);
+});
+$('body').on('click', '.save', function() {
+    var post_id = $(this).attr("value");
+    actionPerformed($(this)[0], "save", post_id);
+});
+$('body').on('click', '.followButton', function() {
+    console.log("followbutton clicked");
+    var post_id = $(this).attr("value");
+    post_id = post_id.split(" ");
+    onClickFollow($(this)[0], post_id[0], post_id[1]);
+});
+
 
 function getDateDifference(dateDiffer) {
     if (dateDiffer < 60000) {
@@ -56,6 +81,7 @@ function getDateDifference(dateDiffer) {
 }
 
 function onClickFollow(element, creatorId, postId) {
+    console.log("inside onClickfollow");
     var currentUserId = $("#profile img").attr("class");
     if (currentUserId !== creatorId) {
         $.ajax({
@@ -388,6 +414,7 @@ function CopyToClipboard(containerid) {
 
 //Remain to add this feature for future implementation
 function onFilter() {
+    console.log("onfilter clicked");
     var selectedCity = $("#finalCity").val();
     var selectedCategory = $("#finalCategory").val();
     $.ajax({
@@ -472,11 +499,11 @@ $(window).scroll(function() {
     }
 });
 
+$('body').on("click", ".goToOthersProfile", function() {
+    var id = $(this).attr("id");
+    window.location.href = "/othersProfile?id=" + id;
+});
 $(document).ready(function() {
-    $("#profile img").click(function() {
-        var id = $(this).attr("id");
-        window.location.href = "/othersProfile?id=" + id;
-    });
 
     if ($("#ebtn")) {
         $("#eBtn").click(function() {

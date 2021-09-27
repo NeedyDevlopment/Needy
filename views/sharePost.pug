@@ -58,11 +58,11 @@ block content
                      img#PostImg(src=post.image.url)
                      div.details
                         div#title 
-                              p #[b Title: ]  #{post.title} 
+                              p #{post.title} 
                         div#discription 
-                              p #[b Description: ]  #{post.description}
+                              p #{post.description}
                               p #[b Contact No: ]  #{post.contact}
-                              p #[b City: ]  #{post.city}
+                              p #[b Location: ]  #{post.city}
                div#actiondiv
                   if(currentUserId != post.creator._id)
                      div#like

@@ -12,7 +12,7 @@ router.post("/", async(req, res, next) => {
     const selectedCategory = req.body.category;
     const currentPage = req.body.currentPage;
     const currentUserId = req.session.token ?
-        await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"]) :
+        await _.pick(jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]) :
         "";
     const currentUser = req.session.token ?
         await User.findOne({ _id: currentUserId._id }) : { followingsArray: [] };
@@ -25,21 +25,21 @@ router.post("/", async(req, res, next) => {
             .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
-            .sort("-date");
+            .sort("-_id");
         totalPosts = await Post.count({});
     } else if (selectedCategory == "All Category") {
         postsArray = await Post.find({ city: selectedCity })
             .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
-            .sort("-date");
+            .sort("-_id");
         totalPosts = await Post.count({ city: selectedCity });
     } else if (selectedCity == "All City") {
         postsArray = await Post.find({ category: selectedCategory })
             .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
-            .sort("-date");
+            .sort("-_id");
         totalPosts = await Post.count({ category: selectedCategory });
     } else {
         postsArray = await Post.find({
@@ -49,7 +49,7 @@ router.post("/", async(req, res, next) => {
             .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
-            .sort("-date");
+            .sort("-_id");
         totalPosts = await Post.count({
             category: selectedCategory,
             city: selectedCity,

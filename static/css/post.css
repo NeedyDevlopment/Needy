@@ -123,7 +123,9 @@ div#save i {
   cursor: pointer;
 } */
 
+
 /* for save button we have to put style of class fa-bookmark after class fa-bookmark-o */
+
 
 /* .fa-bookmark:before {
     content: "\f02e";
@@ -133,139 +135,143 @@ div#save i {
     content: "\f097";
 } */
 
+
 /* .fa-bookmark:before {
     content: "\f02e";
 } */
 
+
 /* ############################# New Styling ########################################## */
 
 body {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 #post_container {
-  width: 80%;
-  padding: 1px 10px;
-  background-color: white;
-  box-shadow: 2px 3px 8px 2px #000b38;
-  /* border-radius: 5px; */
-  margin: 10px auto;
+    width: 80%;
+    padding: 1px 10px;
+    background-color: white;
+    box-shadow: 2px 3px 8px 2px #000b38;
+    /* border-radius: 5px; */
+    margin: 10px auto;
 }
 
 #profile {
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-  margin-bottom: 5px;
-  padding: 0px 10px;
-  /* padding: 10px; */
-  align-items: center;
-  position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 0px 10px;
+    /* padding: 10px; */
+    align-items: center;
+    position: relative;
 }
 
 #profile img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  cursor: pointer;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 #profile #f-btn {
-  height: 30px;
-  width: 76px;
-  position: absolute;
-  right: 10px;
-  background-color: #0021af;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  outline: none;
-  cursor: pointer;
-  border: none;
-  font-family: sans-serif;
-  border-radius: 5px;
-  box-shadow: 1px 1px 6px 2px #000b38;
+    height: 30px;
+    width: 76px;
+    position: absolute;
+    right: 10px;
+    background-color: #0021af;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    font-family: sans-serif;
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px 2px #000b38;
 }
 
 #profile #f-btn:hover {
-  background-color: #000b38;
+    background-color: #000b38;
 }
 
 #profile #f-btn:active {
-  background-color: #000b38;
-  box-shadow: none;
+    background-color: #000b38;
+    box-shadow: none;
 }
 
 #profile #f-btn:disabled {
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-  cursor: default;
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
 }
 
 #name {
-  margin-inline: 10px;
-  font-size: 21px;
+    margin-inline: 10px;
+    font-size: 21px;
 }
 
 #title {
-  padding: 10px 20px;
-  font-size: 30px;
+    padding: 10px 20px;
+    font-size: 30px;
 }
 
 #discription {
-  padding: 2px 20px;
-  font-size: 17px;
+    padding: 2px 20px;
+    font-size: 17px;
 }
 
 #discription p {
-  margin: 10px 0px;
-  padding-top: 5px;
+    margin: 10px 0px;
+    padding-top: 5px;
 }
 
-#discription p b {
+
+/* #discription p b {
   font-size: 22px;
-}
+} */
 
 #main #PostImg {
-  height: 300px;
-  min-width: 300px;
+    height: 300px;
+    min-width: 300px;
 }
 
 #main-img-desc {
-  border: 1px solid #ccc;
-  background-color: #e0e3eb;
-  display: flex;
-  flex-direction: row;
-  margin: 10px 0;
+    border: 1px solid #ccc;
+    background-color: #e0e3eb;
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
 }
 
 .details {
-  display: flex;
-  flex-direction: column;
-  position: relative;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 div#count {
-  padding: 0px 21px;
-  display: flex;
-  justify-content: space-between;
-  width: -webkit-fill-available;
+    padding: 0px 21px;
+    display: flex;
+    justify-content: space-between;
+    width: -webkit-fill-available;
 }
 
 #head {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0;
 }
 
 #descTime {
-  min-width: 80%;
-  font-size: 18px;
-  font-family: monospace;
+    min-width: 80%;
+    font-size: 18px;
+    font-family: monospace;
 }
+
 
 /* #EditDeleteButton {
     position: absolute;
@@ -307,201 +313,200 @@ div#count {
     background-color: rgb(117, 2, 2);
 } */
 
+
 /* for tempory use in homepage post  */
 
 #actiondiv {
-  margin: 7px 0px;
-  display: flex;
-  justify-content: space-evenly;
+    margin: 7px 0px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 #actiondiv img {
-  height: 35px;
-  width: 35px;
-  display: block;
-  cursor: pointer;
+    height: 35px;
+    width: 35px;
+    display: block;
+    cursor: pointer;
 }
 
 #actiondiv div {
-  text-align: center;
+    text-align: center;
 }
 
 #actiondiv div p {
-  width: 80px;
+    width: 80px;
 }
 
 #actiondiv #comment img {
-  padding-left: 15px;
+    padding-left: 15px;
 }
 
 div#count {
-  padding: 0px 21px;
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0px;
+    padding: 0px 21px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
 }
 
 div#like i,
 div#comment i,
 div#save i {
-  font-size: 35px;
-  color: black;
-  display: block;
-  cursor: pointer;
+    font-size: 35px;
+    color: black;
+    display: block;
+    cursor: pointer;
 }
 
 .showFollowers {
-  right: 98px;
-  position: absolute;
+    right: 98px;
+    position: absolute;
 }
 
-@media screen and (min-width: 1080px) and (max-width: 1240px) {
-}
+@media screen and (min-width: 1080px) and (max-width: 1240px) {}
 
 @media screen and (max-width: 1080px) {
-  #main #PostImg {
-    min-width: 200px;
-    height: 200px;
-  }
-  #title {
-    font-size: 25px;
-  }
-  #discription p b {
-    font-size: 18px;
-  }
-  #discription {
-    font-size: 16px;
-  }
-  #name {
-    margin-inline: 10px;
-    font-size: 18px;
-    width: 55%;
-  }
-  div#like i,
-  div#comment i,
-  div#save i {
-    font-size: 28px;
-    color: black;
-  }
-  #actiondiv img {
-    height: 28px;
-    width: 28px;
-  }
-  #actiondiv div {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #profile #f-btn {
-    height: 28px;
-    width: 65px;
-    right: 0px;
-    font-size: 14px;
-  }
-  .showFollowers {
-    right: 69px;
-    position: absolute;
-    font-size: 14px;
-  }
-  #actiondiv div {
-    width: 80px;
-  }
+    #main #PostImg {
+        min-width: 200px;
+        height: 200px;
+    }
+    #title {
+        font-size: 25px;
+    }
+    #discription p b {
+        font-size: 18px;
+    }
+    #discription {
+        font-size: 16px;
+    }
+    #name {
+        margin-inline: 10px;
+        font-size: 18px;
+        width: 55%;
+    }
+    div#like i,
+    div#comment i,
+    div#save i {
+        font-size: 28px;
+        color: black;
+    }
+    #actiondiv img {
+        height: 28px;
+        width: 28px;
+    }
+    #actiondiv div {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #profile #f-btn {
+        height: 28px;
+        width: 65px;
+        right: 0px;
+        font-size: 14px;
+    }
+    .showFollowers {
+        right: 69px;
+        position: absolute;
+        font-size: 14px;
+    }
+    #actiondiv div {
+        width: 80px;
+    }
 }
 
 @media screen and (max-width: 768px) {
-  #post_container {
-    width: 90%;
-  }
-  #main-img-desc {
-    flex-direction: column;
-  }
-  #profile {
-    padding: 0px;
-  }
-  #profile #f-btn {
-    height: 25px;
-    width: 60px;
-    right: 0px;
-    font-size: 12px;
-  }
-  .showFollowers {
-    right: 64px;
-    font-size: 12px;
-  }
-  div#count {
-    font-size: 14px;
-    margin: 0px;
-    padding: 0px 3px;
-  }
-  #main #PostImg {
-    min-width: -webkit-fill-available;
-    height: 300px;
-    margin: 10px;
-  }
-  #name {
-    font-size: 16px;
-    width: 44%;
-  }
-  #name small {
-    display: block;
-    font-size: 11px;
-  }
-  .details {
-    border-top: 1px solid black;
-  }
-  #title {
-    padding: 10px 20px 0px 20px;
-  }
+    #post_container {
+        width: 90%;
+    }
+    #main-img-desc {
+        flex-direction: column;
+    }
+    #profile {
+        padding: 0px;
+    }
+    #profile #f-btn {
+        height: 25px;
+        width: 60px;
+        right: 0px;
+        font-size: 12px;
+    }
+    .showFollowers {
+        right: 64px;
+        font-size: 12px;
+    }
+    div#count {
+        font-size: 14px;
+        margin: 0px;
+        padding: 0px 3px;
+    }
+    #main #PostImg {
+        min-width: -webkit-fill-available;
+        height: 300px;
+        margin: 10px;
+    }
+    #name {
+        font-size: 16px;
+        width: 44%;
+    }
+    #name small {
+        display: block;
+        font-size: 11px;
+    }
+    .details {
+        border-top: 1px solid black;
+    }
+    #title {
+        padding: 10px 20px 0px 20px;
+    }
 }
 
-@media screen and (max-width: 560px) {
-}
+@media screen and (max-width: 560px) {}
 
 @media screen and (max-width: 400px) {
-  #actiondiv div p {
-    width: 70px;
-    font-size: 13px;
-  }
-  #actiondiv div {
-    width: 57px;
-  }
-  #actiondiv #share {
-    font-size: 13px;
-  }
-  #name {
-    font-size: 14px;
-    width: 46%;
-  }
-  #profile #f-btn {
-    top: 0px;
-  }
-  .showFollowers {
-    right: 0px;
-    font-size: 11px;
-    top: 34px;
-  }
-  #main #PostImg {
-    min-width: -webkit-fill-available;
-    height: 200px;
-    margin: 5px;
-  }
-  #title {
-    font-size: 22px;
-  }
-  #discription p b {
-    font-size: 16px;
-  }
-  #discription {
-    font-size: 14px;
-  }
+    #actiondiv div p {
+        width: 70px;
+        font-size: 13px;
+    }
+    #actiondiv div {
+        width: 57px;
+    }
+    #actiondiv #share {
+        font-size: 13px;
+    }
+    #name {
+        font-size: 14px;
+        width: 46%;
+    }
+    #profile #f-btn {
+        top: 0px;
+    }
+    .showFollowers {
+        right: 0px;
+        font-size: 11px;
+        top: 34px;
+    }
+    #main #PostImg {
+        min-width: -webkit-fill-available;
+        height: 200px;
+        margin: 5px;
+    }
+    #title {
+        font-size: 22px;
+    }
+    #discription p b {
+        font-size: 16px;
+    }
+    #discription {
+        font-size: 14px;
+    }
 }
 
 div.DisableAction i {
-  opacity: 0.6;
-  cursor: default !important;
+    opacity: 0.6;
+    cursor: default !important;
 }
 
 div.DisableAction p {
-  color: #666666;
+    color: #666666;
 }
