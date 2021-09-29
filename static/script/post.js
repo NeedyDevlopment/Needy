@@ -479,6 +479,7 @@ $(window).scroll(function () {
   }
 });
 
+<<<<<<< HEAD
 $(document).ready(function () {
   $("#profile img").click(function () {
     var id = $(this).attr("id");
@@ -499,4 +500,20 @@ $(document).ready(function () {
       });
     });
   }
+=======
+    if ($("#ebtn")) {
+        $("#eBtn").click(function() {
+            $.ajax({
+                method: "post",
+                url: "/showModal/loginModal",
+                data: { Modal: "email" },
+                success: function(data) {
+                    $("#myModal").css("display", "block");
+                    wrap("../static/script/share.js");
+                    $(".modal-content").html(data);
+                },
+            });
+        });
+    }
+>>>>>>> 5ee46ee811ed943a0078a73b02a870976c2f6e60
 });

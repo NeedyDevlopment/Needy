@@ -1,7 +1,7 @@
 each post in posts  
             div#post_container 
                div#profile
-                  if(post.creator.photo)
+                  if(post.creator.photo.url)
                      img(id=post.creator._id  ,class= currentUserId , src=post.creator.photo.url)
                   else
                      img(id=post.creator._id , src="../static/imagesForPost/profile.png")
@@ -64,4 +64,3 @@ each post in posts
                         button(id="submitcomment"+post._id, class="submitcomment") #[i(class="material-icons") &#xe163;]
                   div(id="innercommentcontainer"+post._id,  class="innercommentcontainer")
                      div(class="loader") ...Loading
-script(src="../static/script/post.js") 
