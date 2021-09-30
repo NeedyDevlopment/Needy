@@ -7,30 +7,30 @@ $(document).ready(function () {
       showSnackbar(document.getElementById("message").innerHTML, "success");
       document.getElementById("message").innerHTML = "";
     }
-    // $(".share").click(function() {
-    //     var post_id = $(this).attr("value");
-    //     actionPerformed($(this)[0], "share", post_id);
-    // });
-    // $(".comment").click(function() {
-    //     var post_id = $(this).attr("value");
-    //     actionPerformed($(this)[0], "comment", post_id);
-    // });
-    // $(".like").click(function() {
-    //     var post_id = $(this).attr("value");
-    //     actionPerformed($(this)[0], "like", post_id);
-    // });
-    // $(".save").click(function() {
-    //     var post_id = $(this).attr("value");
-    //     actionPerformed($(this)[0], "save", post_id);
-    // });
-
-    // $(".followButton").click(function() {
-    //     console.log("followbutton clicked");
-    //     var post_id = $(this).attr("value");
-    //     post_id = post_id.split(" ");
-    //     onClickFollow($(this)[0], post_id[0], post_id[1]);
-    // });
   }
+  // $(".share").click(function() {
+  //     var post_id = $(this).attr("value");
+  //     actionPerformed($(this)[0], "share", post_id);
+  // });
+  // $(".comment").click(function() {
+  //     var post_id = $(this).attr("value");
+  //     actionPerformed($(this)[0], "comment", post_id);
+  // });
+  // $(".like").click(function() {
+  //     var post_id = $(this).attr("value");
+  //     actionPerformed($(this)[0], "like", post_id);
+  // });
+  // $(".save").click(function() {
+  //     var post_id = $(this).attr("value");
+  //     actionPerformed($(this)[0], "save", post_id);
+  // });
+
+  // $(".followButton").click(function() {
+  //     console.log("followbutton clicked");
+  //     var post_id = $(this).attr("value");
+  //     post_id = post_id.split(" ");
+  //     onClickFollow($(this)[0], post_id[0], post_id[1]);
+  // });
 });
 $("body").on("click", ".share", function () {
   var post_id = $(this).attr("value");
