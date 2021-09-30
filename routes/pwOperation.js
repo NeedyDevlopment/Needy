@@ -33,7 +33,7 @@ router.post("/changepassword", async(req, res, next) => {
     var oldPassword = req.body.oldPassword;
     var newPassword = req.body.newPassword;
     const currentUserId = await _.pick(
-        jwt.verify(req.session.token, "MySecureKey"), ["_id"]
+        jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]
     );
 
     const password = (

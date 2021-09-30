@@ -87,11 +87,11 @@ router.post("/", PhotoUpload.uploadPostImage, async(req, res, next) => {
     }
 
     const currentUserId = await _.pick(
-        jwt.verify(req.session.token, "MySecureKey"), ["_id"]
+        jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]
     );
     console.log(req.file);
     console.log("Token: ", req.session.token);
-    var creator = _.pick(jwt.verify(req.session.token, "MySecureKey"), [
+    var creator = _.pick(jwt.verify(req.session.token, process.env.jwtPrivateKey), [
         "_id",
         "username",
         "email",
@@ -104,6 +104,7 @@ router.post("/", PhotoUpload.uploadPostImage, async(req, res, next) => {
     const currentDate = dateformat(Date.now(), "hh:MM:ss, dd mmmm, yyyy");
     const post = new Post({
         creator: currentUserId,
+        dateForSorting: Date.now(),
         date: currentDate,
         category: req.body.category,
         city: req.body.city,

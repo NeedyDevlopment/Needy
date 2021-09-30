@@ -33,7 +33,7 @@ router.get("", async(req, res, next) => {
     const selectedCity = req.query.city;
     //Getting CurrentUser Infirmation
     const currentUserId = req.session.token ?
-        await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"]) :
+        await _.pick(jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]) :
         "";
     const currentUser = req.session.token ?
         await User.findOne({ _id: currentUserId._id }) : { followingsArray: [], city: "All City" };
@@ -86,7 +86,7 @@ router.get("", async(req, res, next) => {
                 .populate("creator")
                 .limit(5)
                 .skip(5 * (currentPage - 1))
-                .sort("-date");
+                .sort("-_id");
             res.cookie("currentCity", "All City");
             res.cookie("currentCategory", "All Category");
             totalPosts = await Post.count({});
@@ -95,14 +95,14 @@ router.get("", async(req, res, next) => {
                 .populate("creator")
                 .limit(5)
                 .skip(5 * (currentPage - 1))
-                .sort("-date");
+                .sort("-_id");
             totalPosts = await Post.count({ city: currentUser.city });
             if (postsArray.length == 0) {
                 postsArray = await Post.find()
                     .populate("creator")
                     .limit(5)
                     .skip(5 * (currentPage - 1))
-                    .sort("-date");
+                    .sort("-_id");
                 totalPosts = await Post.count({});
                 res.cookie("currentCity", "All City");
                 res.cookie("currentCategory", "All Category");
@@ -111,6 +111,7 @@ router.get("", async(req, res, next) => {
                 res.cookie("currentCategory", "All Category");
             }
         }
+        console.log(postsArray);
         return res.status(200).render("homepage.pug", {
             posts: postsArray,
             currentUserId: currentUserId._id,

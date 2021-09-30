@@ -36,9 +36,9 @@ block content
             div#post_container 
                div#profile
                   if(post.creator.photo.url)
-                     img(id=post.creator._id  ,class= currentUserId , src=post.creator.photo.url)
+                     img(id=post.creator._id  ,class= [currentUserId,"goToOthersProfile"] , src=post.creator.photo.url)
                   else
-                     img(id=post.creator._id , src="../static/imagesForPost/profile.png")
+                     img(id=post.creator._id ,class= [currentUserId,"goToOthersProfile"], src="../static/imagesForPost/profile.png")
                   p#name= post.creator.username  
                      small= ' at '+ post.date   
                   b(id="showFollowers"+post._id,class="showFollowers"+post.creator._id+" showFollowers")= post.creator.followers+' Followers'  
@@ -56,11 +56,11 @@ block content
                      img#PostImg(src=post.image.url)
                      div.details
                         div#title 
-                              p #[b Title: ]  #{post.title} 
+                              p #{post.title} 
                         div#discription 
-                              p #[b Description: ]  #{post.description}
+                              p #{post.description}
                               p #[b Contact No: ]  #{post.contact}
-                              p #[b City: ]  #{post.city}
+                              p #[b Location: ]  #{post.city}
                div#actiondiv
                   if(currentUserId != post.creator._id)
                      div#like

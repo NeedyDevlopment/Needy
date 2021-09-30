@@ -14,7 +14,7 @@ router.post("/", async(req, res) => {
     // Set session
     const token = await jwt.sign(
         _.pick(user, ["_id", "username", "email"]),
-        "MySecureKey"
+        process.env.jwtPrivateKey
     );
     req.session.token = token;
     req.session.email = user.email;

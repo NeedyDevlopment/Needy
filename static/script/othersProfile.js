@@ -43,14 +43,10 @@ function onClickFollow(element, creatorId) {
       data: { creatorId: creatorId, postId: "123456789012" },
       success: function (totalFollowers) {
         showSnackbar(element.innerText + " Successfully", "success");
-        $(".followersDiv span").text(totalFollowers);
-        $("#f_btn" + creatorId).text() === "Follow"
-          ? $("#f_btn" + creatorId).text("Unfollow")
-          : $("#f_btn" + creatorId).text("Follow");
+        $("#f_btn" + creatorId).text() === "Follow" ? $("#f_btn" + creatorId).text("Unfollow") : $("#f_btn" + creatorId).text("Follow");
       },
       error: function (xhr, status, error) {
-        if (error === "Unauthorized")
-          showSnackbar("You Are not LoggedIn!", "failure");
+        if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
         else showSnackbar("something Went Wrong!", "failure");
       },
     });

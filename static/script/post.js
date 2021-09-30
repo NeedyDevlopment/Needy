@@ -7,28 +7,52 @@ $(document).ready(function () {
       showSnackbar(document.getElementById("message").innerHTML, "success");
       document.getElementById("message").innerHTML = "";
     }
+    // $(".share").click(function() {
+    //     var post_id = $(this).attr("value");
+    //     actionPerformed($(this)[0], "share", post_id);
+    // });
+    // $(".comment").click(function() {
+    //     var post_id = $(this).attr("value");
+    //     actionPerformed($(this)[0], "comment", post_id);
+    // });
+    // $(".like").click(function() {
+    //     var post_id = $(this).attr("value");
+    //     actionPerformed($(this)[0], "like", post_id);
+    // });
+    // $(".save").click(function() {
+    //     var post_id = $(this).attr("value");
+    //     actionPerformed($(this)[0], "save", post_id);
+    // });
+
+    // $(".followButton").click(function() {
+    //     console.log("followbutton clicked");
+    //     var post_id = $(this).attr("value");
+    //     post_id = post_id.split(" ");
+    //     onClickFollow($(this)[0], post_id[0], post_id[1]);
+    // });
   }
-  $(".share").click(function () {
-    var post_id = $(this).attr("value");
-    actionPerformed($(this)[0], "share", post_id);
-  });
-  $(".comment").click(function () {
-    var post_id = $(this).attr("value");
-    actionPerformed($(this)[0], "comment", post_id);
-  });
-  $(".like").click(function () {
-    var post_id = $(this).attr("value");
-    actionPerformed($(this)[0], "like", post_id);
-  });
-  $(".save").click(function () {
-    var post_id = $(this).attr("value");
-    actionPerformed($(this)[0], "save", post_id);
-  });
-  $(".followButton").click(function () {
-    var post_id = $(this).attr("value");
-    post_id = post_id.split(" ");
-    onClickFollow($(this)[0], post_id[0], post_id[1]);
-  });
+});
+$("body").on("click", ".share", function () {
+  var post_id = $(this).attr("value");
+  actionPerformed($(this)[0], "share", post_id);
+});
+$("body").on("click", ".comment", function () {
+  var post_id = $(this).attr("value");
+  actionPerformed($(this)[0], "comment", post_id);
+});
+$("body").on("click", ".like", function () {
+  var post_id = $(this).attr("value");
+  actionPerformed($(this)[0], "like", post_id);
+});
+$("body").on("click", ".save", function () {
+  var post_id = $(this).attr("value");
+  actionPerformed($(this)[0], "save", post_id);
+});
+$("body").on("click", ".followButton", function () {
+  console.log("followbutton clicked");
+  var post_id = $(this).attr("value");
+  post_id = post_id.split(" ");
+  onClickFollow($(this)[0], post_id[0], post_id[1]);
 });
 
 function getDateDifference(dateDiffer) {
@@ -45,17 +69,16 @@ function getDateDifference(dateDiffer) {
     dateDiffer = Math.floor(dateDiffer / (60000 * 60 * 24)).toString() + "days";
     return dateDiffer;
   } else if (dateDiffer < 2629800000) {
-    dateDiffer =
-      Math.floor(dateDiffer / (60000 * 60 * 24 * 7)).toString() + "weeks";
+    dateDiffer = Math.floor(dateDiffer / (60000 * 60 * 24 * 7)).toString() + "weeks";
     return dateDiffer;
   } else if (dateDiffer < 31557600000) {
-    dateDiffer =
-      Math.floor(dateDiffer / (60000 * 60 * 24 * 7 * 4)).toString() + "months";
+    dateDiffer = Math.floor(dateDiffer / (60000 * 60 * 24 * 7 * 4)).toString() + "months";
     return dateDiffer;
   }
 }
 
 function onClickFollow(element, creatorId, postId) {
+  console.log("inside onClickfollow");
   var currentUserId = $("#profile img").attr("class");
   if (currentUserId !== creatorId) {
     $.ajax({
@@ -65,19 +88,13 @@ function onClickFollow(element, creatorId, postId) {
       success: function (totalFollowers) {
         showSnackbar(element.innerText + " Successfully", "success");
         // document.getElementById('showFollowers' + postId).innerText = totalFollowers + ' Followers';
-        var showFollowerElementArray = document.getElementsByClassName(
-          "showFollowers" + creatorId
-        );
+        var showFollowerElementArray = document.getElementsByClassName("showFollowers" + creatorId);
         [...showFollowerElementArray].forEach((fTextElement) => {
           fTextElement.innerText = totalFollowers + " Followers";
         });
-        var followButtonArray = document.getElementsByClassName(
-          "f-btn" + creatorId
-        );
+        var followButtonArray = document.getElementsByClassName("f-btn" + creatorId);
         [...followButtonArray].forEach((fButtonlement) => {
-          fButtonlement.innerText === "Follow"
-            ? (fButtonlement.innerText = "Unfollow")
-            : (fButtonlement.innerText = "Follow");
+          fButtonlement.innerText === "Follow" ? (fButtonlement.innerText = "Unfollow") : (fButtonlement.innerText = "Follow");
         });
       },
       error: function (xhr, status, error) {
@@ -97,13 +114,7 @@ function onClickFollow(element, creatorId, postId) {
 }
 
 function getSanatizedString(inputString) {
-  return inputString
-    .replace(/\&/g, "&amp;")
-    .replace(/\</g, "&lt;")
-    .replace(/\>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
-    .replace(/\'/g, "&#x27")
-    .replace(/\//g, "&#x2F");
+  return inputString.replace(/\&/g, "&amp;").replace(/\</g, "&lt;").replace(/\>/g, "&gt;").replace(/\"/g, "&quot;").replace(/\'/g, "&#x27").replace(/\//g, "&#x2F");
 }
 
 function submitComment(postId) {
@@ -135,8 +146,7 @@ function submitComment(postId) {
       actionPerformed(element, "comment", postId);
     },
     error: function (xhr, status, error) {
-      if (error === "Unauthorized")
-        showSnackbar("You Are not LoggedIn!", "failure");
+      if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
       else showSnackbar("something Went Wrong!", "failure");
     },
   });
@@ -165,12 +175,10 @@ function actionPerformed(element, icon, postId) {
           element.classList.replace("fa-thumbs-up", "fa-thumbs-o-up");
           p.innerText = "like";
         }
-        document.getElementById("showLikes" + postId).innerText =
-          totalLikes + " Likes";
+        document.getElementById("showLikes" + postId).innerText = totalLikes + " Likes";
       },
       error: function (xhr, status, error) {
-        if (error === "Unauthorized")
-          showSnackbar("You Are not LoggedIn!", "failure");
+        if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
         else showSnackbar("something Went Wrong!", "failure");
       },
     });
@@ -184,11 +192,7 @@ function actionPerformed(element, icon, postId) {
     //     hidecommentbox(false);
     // }
     $(".commentdiv").remove(); //removing existing comments
-    if (
-      !document
-        .getElementById("maincommentcontainer" + postId)
-        .classList.contains("show-commentbox")
-    ) {
+    if (!document.getElementById("maincommentcontainer" + postId).classList.contains("show-commentbox")) {
       showcommentbox(postId);
     }
     $.ajax({
@@ -205,39 +209,22 @@ function actionPerformed(element, icon, postId) {
         var innercommentcontainer = $("#innercommentcontainer" + postId);
         var writecomment = document.getElementById("writecomment");
         if (commentsArray.length === 0) {
-          $(
-            "<div id='nocomment' class='commentdiv'><p>No Comments Added Yet! Become first one to comment.</p></div>"
-          ).insertAfter($("#innercommentcontainer" + postId + " .loader"));
+          $("<div id='nocomment' class='commentdiv'><p>No Comments Added Yet! Become first one to comment.</p></div>").insertAfter($("#innercommentcontainer" + postId + " .loader"));
         } else {
-          document.getElementById("showComments" + postId).innerText =
-            commentsArray.length + " Comments";
+          document.getElementById("showComments" + postId).innerText = commentsArray.length + " Comments";
           console.log(commentsArray);
           commentsArray.forEach((comment) => {
-            var usernametoBePrinted =
-              element.id === comment.user._id ? "You" : comment.user.username;
+            var usernametoBePrinted = element.id === comment.user._id ? "You" : comment.user.username;
             var dateDiffer = new Date().getTime() - comment.date;
             console.log(dateDiffer);
-            var userPhotoUrl = comment.user.photo
-              ? comment.user.photo.url
-              : "../static/imagesForPost/profile.png";
-            $(
-              "<div class='commentdiv'><div class='headerOfComment'><img src=" +
-                userPhotoUrl +
-                " style='border-radius: 50%;'><b>" +
-                usernametoBePrinted +
-                "</b><small>" +
-                getDateDifference(dateDiffer) +
-                " ago</small></div><p id='commentP'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                comment.commentText +
-                "</p></div>"
-            ).insertAfter($("#innercommentcontainer" + postId + " .loader"));
+            var userPhotoUrl = comment.user.photo ? comment.user.photo.url : "../static/imagesForPost/profile.png";
+            $("<div class='commentdiv'><div class='headerOfComment'><img src=" + userPhotoUrl + " style='border-radius: 50%;'><b>" + usernametoBePrinted + "</b><small>" + getDateDifference(dateDiffer) + " ago</small></div><p id='commentP'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + comment.commentText + "</p></div>").insertAfter($("#innercommentcontainer" + postId + " .loader"));
           });
           //here above setting user profile image and showing date difference is remain
         }
       },
       error: function (xhr, status, error) {
-        if (error === "Unauthorized")
-          showSnackbar("You Are not LoggedIn!", "failure");
+        if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
         else showSnackbar("something Went Wrong!", "failure");
       },
     });
@@ -251,23 +238,15 @@ function actionPerformed(element, icon, postId) {
     $("#getIdForSharePost").val(postId);
     // var fbUrl = "https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%2Fpost%2F" + postId;
     // var fbUrl = "https://www.facebook.com/sharer.php?u=" + encodeURIComponent("http://localhost/post/60c6efc88ddc55a2647dec8b");
-    var fbUrl =
-      "https://www.facebook.com/sharer/sharer.php?u=http%3A//needy24x7.herokuapp.com/post/60c6efc88ddc55a2647dec8b"; //with meta tags
-    var twUrl =
-      "https://twitter.com/intent/tweet?url=http%3A%2F%2Fneedy24x7.herokuapp.com%2Fpost%2F" +
-      postId +
-      "&text=" +
-      encodeURIComponent("Hello From Needy,Open this link to view Post") +
-      "&hashtags=rentalHouse,Ahmedabad";
+    var fbUrl = "https://www.facebook.com/sharer/sharer.php?u=http%3A//needy24x7.herokuapp.com/post/60c6efc88ddc55a2647dec8b"; //with meta tags
+    var twUrl = "https://twitter.com/intent/tweet?url=http%3A%2F%2Fneedy24x7.herokuapp.com%2Fpost%2F" + postId + "&text=" + encodeURIComponent("Hello From Needy,Open this link to view Post") + "&hashtags=rentalHouse,Ahmedabad";
     // var twUrl = "https://twitter.com/intent/tweet?text=hello%20From%20Needy%0AGo%20to%20http%3A//localhost/post/60c6efc88ddc55a2647dec8b"; //with meta tags
     // var lnUrl = "https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%2Fpost%2F" + postId;
     // var lnUrl = "https://www.linkedin.com/shareArticle?mini=true&url=http%3A//localhost/post/60c6efc88ddc55a2647dec8b&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
-    var lnUrl =
-      "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//github.com&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
+    var lnUrl = "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//github.com&title=this%20is%20title&summary=this%20is%20Summary&source=This%20is%20Source"; //with meta tags
 
     $(".post-url").text("http://needy24x7.herokuapp.com/post/" + postId);
-    var eUrl =
-      "mailto:forexternaluse505@gmail.com?cc=ThisIsCC&bcc=ThisIsBCC&subject=Post%20From%20Needy%20this%20is%20subject&body=Hey%20This%20is%20Body%20of%20email";
+    var eUrl = "mailto:forexternaluse505@gmail.com?cc=ThisIsCC&bcc=ThisIsBCC&subject=Post%20From%20Needy%20this%20is%20subject&body=Hey%20This%20is%20Body%20of%20email";
     $(".fbBtn").attr("href", fbUrl);
     $(".twBtn").attr("href", twUrl);
     $(".lnBtn").attr("href", lnUrl);
@@ -361,8 +340,7 @@ function actionPerformed(element, icon, postId) {
           // }
         },
         error: function (xhr, status, error) {
-          if (error === "Unauthorized")
-            showSnackbar("You Are not LoggedIn!", "failure");
+          if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
           else showSnackbar("something Went Wrong!", "failure");
         },
       });
@@ -393,6 +371,7 @@ function CopyToClipboard(containerid) {
 
 //Remain to add this feature for future implementation
 function onFilter() {
+  console.log("onfilter clicked");
   var selectedCity = $("#finalCity").val();
   var selectedCategory = $("#finalCategory").val();
   $.ajax({
@@ -410,13 +389,11 @@ function onFilter() {
       // posts = postsData.posts;
       console.log(postsData);
       // $(".postsContainer").remove();
-      document.getElementsByClassName("postsContainer")[0].innerHTML =
-        postsData;
+      document.getElementsByClassName("postsContainer")[0].innerHTML = postsData;
       showSnackbar("successss!!");
     },
     error: function (xhr, status, error) {
-      if (error === "Unauthorized")
-        showSnackbar("You Are not LoggedIn!", "failure");
+      if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
       else showSnackbar("something Went Wrong!", "failure");
     },
   });
@@ -427,11 +404,7 @@ var currentPage = 1;
 $(window).scroll(function () {
   // if ($(window).scrollTop() == $(document).height() - $(window).height()) {
   // var postHeight = $("#post_container").height();
-  if (
-    Math.ceil($(window).scrollTop()) + $(window).height() >=
-      $(document).height() &&
-    $("#currentTab").text() == ""
-  ) {
+  if (Math.ceil($(window).scrollTop()) + $(window).height() >= $(document).height() && $("#currentTab").text() == "") {
     var totalPosts = $("#getTotalPosts").text();
     console.log("value of P" + totalPosts);
     console.log(currentPage * 5 > totalPosts);
@@ -468,8 +441,7 @@ $(window).scroll(function () {
         $(".postsContainer").append(res);
       },
       error: function (xhr, status, error) {
-        if (error === "Unauthorized")
-          showSnackbar("You Are not LoggedIn!", "failure");
+        if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
         else showSnackbar("something Went Wrong!", "failure");
       },
     });
@@ -479,13 +451,11 @@ $(window).scroll(function () {
   }
 });
 
-<<<<<<< HEAD
+$("body").on("click", ".goToOthersProfile", function () {
+  var id = $(this).attr("id");
+  window.location.href = "/othersProfile?id=" + id;
+});
 $(document).ready(function () {
-  $("#profile img").click(function () {
-    var id = $(this).attr("id");
-    window.location.href = "/othersProfile?id=" + id;
-  });
-
   if ($("#ebtn")) {
     $("#eBtn").click(function () {
       $.ajax({
@@ -500,20 +470,4 @@ $(document).ready(function () {
       });
     });
   }
-=======
-    if ($("#ebtn")) {
-        $("#eBtn").click(function() {
-            $.ajax({
-                method: "post",
-                url: "/showModal/loginModal",
-                data: { Modal: "email" },
-                success: function(data) {
-                    $("#myModal").css("display", "block");
-                    wrap("../static/script/share.js");
-                    $(".modal-content").html(data);
-                },
-            });
-        });
-    }
->>>>>>> 5ee46ee811ed943a0078a73b02a870976c2f6e60
 });

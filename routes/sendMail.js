@@ -9,7 +9,7 @@ const dateformat = require("dateformat");
 
 router.post("/", (req, res, next) => {
     const currentUser = req.session.token ?
-        jwt.verify(req.session.token, "MySecureKey") :
+        jwt.verify(req.session.token, process.env.jwtPrivateKey) :
         null;
     const emailTo = req.body.emailTo;
     const postId = req.body.postId;
@@ -55,7 +55,7 @@ router.post("/", (req, res, next) => {
         } else {
             console.log("info::::", info);
             const currentUserId = await _.pick(
-                jwt.verify(req.session.token, "MySecureKey"), ["_id"]
+                jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]
             );
             console.log("successfully sent.");
             const activity = new Activity({

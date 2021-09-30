@@ -151,18 +151,25 @@ $(document).ready(function() {
     document.getElementById("activitybtn").addEventListener("click", function() {
         activityChange();
     });
-
-    // for zoom the activity
-    if ($(".showPerticularActivity")) {
-        $(".showPerticularActivity").click(function() {
-            onClickActivity($(this)[0], $(this).attr("value"));
-        });
-    }
-
-    //for sending the othersprofile
-    if ($(".showPerticularUser")) {
-        $(".showPerticularUser").click(function() {
-            userProfile($(this).attr("value"));
-        });
-    }
 });
+
+// for zoom the activity
+$("body").on("click", ".showPerticularActivity", function() {
+    onClickActivity($(this)[0], $(this).attr("value"));
+});
+
+// if ($(".showPerticularActivity")) {
+//     $(".showPerticularActivity").click(function() {
+//         onClickActivity($(this)[0], $(this).attr("value"));
+//     });
+// }
+
+//for sending the othersprofile
+$("body").on("click", ".showPerticularUser", function() {
+    userProfile($(this).attr("value"));
+});
+// if ($(".showPerticularUser")) {
+//     $(".showPerticularUser").click(function() {
+//         userProfile($(this).attr("value"));
+//     });
+// }

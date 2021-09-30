@@ -8,14 +8,14 @@ module.exports = async function getPostsArrayAndtotalPosts(selectedCity, selecte
             .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
-            .sort("-date");
+            .sort("-_id");
         totalPosts = await Post.count({});
     } else if (selectedCategory == "All Category") {
         postsArray = await Post.find({ city: selectedCity })
             .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
-            .sort("-date");
+            .sort("-_id");
         totalPosts = await Post.count({
             city: selectedCity,
         });
@@ -24,7 +24,7 @@ module.exports = async function getPostsArrayAndtotalPosts(selectedCity, selecte
             .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
-            .sort("-date");
+            .sort("-_id");
         totalPosts = await Post.count({
             category: selectedCategory,
         });
@@ -36,7 +36,7 @@ module.exports = async function getPostsArrayAndtotalPosts(selectedCity, selecte
             .populate("creator")
             .limit(5)
             .skip(5 * (currentPage - 1))
-            .sort("-date");
+            .sort("-_id");
         totalPosts = await Post.count({
             category: selectedCategory,
             city: selectedCity,
