@@ -33,8 +33,8 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 app.use((req, res, next) => {
-    res.setHeader("Service-Worker-Allowed", "/");
-    next();
+  res.setHeader("Service-Worker-Allowed", "/");
+  next();
 });
 
 //router imports
@@ -81,13 +81,10 @@ app.use("/", homePageRouter);
 app.use("/showModal", showModalRouter);
 app.use("/otpOperation", otpOperationRouter);
 app.use("/pwOperation", pwOperationRouter);
-app.use(
-    "/getContentOnScrollForMyActivity",
-    getContentOnScrollForMyActivityRouter
-);
+app.use("/getContentOnScrollForMyActivity", getContentOnScrollForMyActivityRouter);
 app.use("/getContacts", getContactsRouter);
 app.use("/about", aboutUsRouter);
 
 app.listen(process.env.PORT || port, () => {
-    console.log(`the application started successfully on port ${port}`);
+  console.log(`the application started successfully on port ${port}`);
 });
