@@ -95,7 +95,12 @@ block content
                         textarea(name="writtencomment" id="writtencomment"+post._id placeholder="Comment Here ..." cols="35" rows="4")
                         button(id="submitcomment"+post._id,class="submitcomment") #[i(class="material-icons") &#xe163;]
                   div(id="innercommentcontainer"+post._id,  class="innercommentcontainer")
-                     div(class="loader") ...Loading
+                     div(class="loader") 
+                        span(class='spinner')
+                           span
+                           span
+                           span
+                           span
                      
       div.sideNavbar
          include ./sideBar.pug 

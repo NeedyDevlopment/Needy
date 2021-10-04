@@ -1,3 +1,11 @@
+let isInvalidMsg = false;
+let isInvalidEmail = false;
+let isInvalidCity = false;
+let isInvalidNumber = false;
+let isInvalidWork = false;
+let isInvalidPass = false;
+let isInvalidCPass = false;
+
 $(document).ready(function () {
   var element = document.getElementById("Singupbtn");
   // element.classList.add("active");
@@ -58,14 +66,23 @@ $(document).ready(function () {
   document.getElementById("cpass").addEventListener("invalid", function () {
     Invalidcpass();
   });
+  $(".btnsignup").click(function () {
+    showSpinner();
+    $(".signUpFinalSubmit").click();
+    if (!(isInvalidMsg && isInvalidEmail && isInvalidCity && isInvalidNumber && isInvalidWork && isInvalidPass && isInvalidCPass)) {
+      stopSpinner();
+    }
+  });
 });
 
 function InvalidMsg() {
   var msg = document.getElementById("username");
   if (msg.value === "") {
     msg.setCustomValidity("Entering a username is necessary!");
+    isInvalidMsg = false;
   } else {
     msg.setCustomValidity("");
+    isInvalidMsg = true;
   }
   return true;
 }
@@ -76,14 +93,13 @@ function InvalidEmail() {
   var dotposition = x.lastIndexOf(".");
   if (mail.value === "") {
     mail.setCustomValidity("Entering an email is necessary!");
-  } else if (
-    atposition < 1 ||
-    dotposition < atposition + 2 ||
-    dotposition + 2 >= x.length
-  ) {
+    isInvalidEmail = false;
+  } else if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >= x.length) {
     mail.setCustomValidity("Please enter an email address which is valid!");
+    isInvalidEmail = false;
   } else {
     mail.setCustomValidity("");
+    isInvalidEmail = true;
   }
   return true;
 }
@@ -91,8 +107,10 @@ function Invalidcity() {
   var city = document.getElementById("city");
   if (city.value === "") {
     city.setCustomValidity("Entering a city is necessary!");
+    isInvalidCity = false;
   } else {
     city.setCustomValidity("");
+    isInvalidCity = true;
   }
   return true;
 }
@@ -101,8 +119,10 @@ function Invalidnumber() {
   var num = document.getElementById("number");
   if (num.value === "") {
     num.setCustomValidity("Entering a contact number is necessary!");
+    isInvalidNumber = false;
   } else {
     num.setCustomValidity("");
+    isInvalidNumber = true;
   }
   return true;
 }
@@ -110,8 +130,10 @@ function Invalidplace() {
   var place = document.getElementById("work");
   if (place.value === "") {
     place.setCustomValidity("Entering a work place is necessary!");
+    isInvalidWork = false;
   } else {
     place.setCustomValidity("");
+    isInvalidWork = true;
   }
   return true;
 }
@@ -120,12 +142,13 @@ function Invalidpass() {
   var pass = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
   if (password.value === "") {
     password.setCustomValidity("Entering a password is necessary!");
+    isInvalidPass = false;
   } else if (!password.value.match(pass)) {
-    password.setCustomValidity(
-      "Must contain at least one number and uppercase and lowercase letter and one special, and at least 7 or more characters"
-    );
+    password.setCustomValidity("Must contain at least one number and uppercase and lowercase letter and one special, and at least 7 or more characters");
+    isInvalidPass = false;
   } else {
     password.setCustomValidity("");
+    isInvalidPass = true;
   }
   return true;
 }
@@ -144,10 +167,13 @@ function Invalidcpass() {
   var cpass = document.getElementById("pass").value;
   if (cpassword.value === "") {
     cpassword.setCustomValidity("Entering a confirm password is necessary!");
+    isInvalidCPass = false;
   } else if (!cpassword.value.match(cpass)) {
     cpassword.setCustomValidity("Must contain password is match!");
+    isInvalidCPass = false;
   } else {
     cpassword.setCustomValidity("");
+    isInvalidCPass = true;
   }
   return true;
 }

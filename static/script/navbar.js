@@ -38,10 +38,7 @@ $(document).ready(function () {
     showDialogBox("logout", "");
   });
   $("#body").css("min-height", window.innerHeight);
-  $("#body").css(
-    "padding-bottom",
-    document.getElementById("footer").offsetHeight
-  );
+  $("#body").css("padding-bottom", document.getElementById("footer").offsetHeight);
   // for burger icon and below navbar
   var div = $(".flexible");
   if (screen.width <= 768) {
@@ -78,4 +75,18 @@ function wrap(src) {
   scr.nonce = "2726c7f26c";
   wrap.appendChild(scr);
   document.body.appendChild(wrap);
+}
+function showSpinner() {
+  var spinner = `<div class="spinner-body">
+                    <span class='spinner'>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </span>
+                <div>`;
+  $(body).append(spinner);
+}
+function stopSpinner() {
+  $(`.spinner-body`).remove();
 }

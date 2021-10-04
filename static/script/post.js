@@ -1,12 +1,25 @@
 var msg = "is msg";
 // let posts = [];
 // console.log(posts);
+var spinner = `
+    <div class="spinner-end-of-posts">
+      <span class='spinner'>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </div>`;
 $(document).ready(function () {
   if (document.getElementById("message")) {
     if (document.getElementById("message").innerHTML != "") {
       showSnackbar(document.getElementById("message").innerHTML, "success");
       document.getElementById("message").innerHTML = "";
     }
+  }
+  var totalPosts = $("#getTotalPosts").text();
+  if (totalPosts > 2) {
+    $(".postsContainer").append(spinner);
   }
   // $(".share").click(function() {
   //     var post_id = $(this).attr("value");
@@ -409,34 +422,22 @@ $(window).scroll(function () {
     console.log("value of P" + totalPosts);
     console.log(currentPage * 5 > totalPosts);
     if (currentPage * 5 > totalPosts) {
+      $(".spinner-end-of-posts").remove();
       return;
     }
     currentPage = currentPage + 1;
     console.log("inside If Block");
-    //    var city = $("#finalCity").val(city);
-    //    var category = $("#finalCategory").val(category);
     var city = document.getElementById("getCity").innerHTML;
     var category = document.getElementById("getCategory").innerHTML;
     console.log("city is::" + city + " and Category is:  " + category);
-
-    // $.ajax({
-    //     // url: "/?city=" + city + "&category=" + category,
-    //     // url: "/",
-    //     url: "/getPosts",
-    //     type: "GET",
-    //     data: { currentPage: 2, hello: "Hello" },
-    //     success: function(responseData) {
-    //         console.log("success");
-    //         console.log(responseData);
-    //     },
-    //     error: function() {
-    //         console.log("Error occured During AjAx");
-    //     }
-    // });
     $.ajax({
       url: "/getPosts",
       type: "Post",
       data: { currentPage: currentPage, city: city, category: category },
+      complete: function () {
+        $(".spinner-end-of-posts").remove();
+        $(".postsContainer").append(spinner);
+      },
       success: function (res) {
         $(".postsContainer").append(res);
       },
