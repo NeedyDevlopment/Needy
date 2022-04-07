@@ -8,7 +8,7 @@ const Activity = require("../models/userActivity");
 
 router.get("/", async(req, res, next) => {
     const currentUserId = await _.pick(
-        jwt.verify(req.session.token, "MySecureKey"), ["_id"]
+        jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]
     );
     const result = await User.findOneAndDelete({ _id: currentUserId._id }); //we can also use email which is also stored in session
     const deleteAllPost = await Post.deleteMany({ creator: currentUserId });

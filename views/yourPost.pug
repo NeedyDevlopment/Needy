@@ -1,4 +1,3 @@
-
 each post in posts   
  div#post_container 
    div#main
@@ -9,7 +8,7 @@ each post in posts
             p=post.likes+ 'Likes' 
             p=post.comments+ 'Comments'
       div#main-img-desc     
-         img#PostImg(src=post.image)
+         img#PostImg(src=post.image.url)
          div.details
             div#title 
                p #[b Title] : #[input(id="titleEdit",class="NormalMode",value=post.title, type="text" autofocus)] 
@@ -19,4 +18,3 @@ each post in posts
             div#EditDeleteButton 
                button#editBtn.editButton(onclick="OnEdit(this)") Edit
                button#deleteBtn.deleteButton(onclick="OnDelete(this)") Delete
-     

@@ -1,12 +1,21 @@
 const _ = require("lodash");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+const cloudinary = require("cloudinary");
+require("dotenv").config();
+
+//cloudinary configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const postStorage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, "./static/usersPost/"),
     filename: async(req, file, cb) => {
         const currentUserId = await _.pick(
-            jwt.verify(req.session.token, "MySecureKey"), ["_id"]
+            jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]
         );
         cb(null, currentUserId._id + file.originalname);
     },
@@ -17,7 +26,7 @@ const profileStorage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, "./static/profiles/"),
     filename: async(req, file, cb) => {
         const currentUserId = await _.pick(
-            jwt.verify(req.session.token, "MySecureKey"), ["_id"]
+            jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]
         );
         cb(null, currentUserId._id + file.originalname);
     },
@@ -38,7 +47,7 @@ const fileFilter = (req, file, cb) => {
 
 //UPLOAD FOR POSTS
 const uploadPostImage = multer({
-    storage: postStorage,
+    storage: multer.diskStorage({}),
     limits: {
         fileSize: 1024 * 1024 * 5,
     },
@@ -47,7 +56,7 @@ const uploadPostImage = multer({
 
 //UPLOAD FOR PROFILE
 const uploadProfileImage = multer({
-    storage: profileStorage,
+    storage: multer.diskStorage({}),
     limits: {
         fileSize: 1024 * 1024 * 5,
     },
@@ -56,5 +65,5 @@ const uploadProfileImage = multer({
 
 module.exports = {
     uploadPostImage: uploadPostImage.single("image"),
-    uploadProfileImage: uploadProfileImage.single("profileImg")
+    uploadProfileImage: uploadProfileImage.single("profileImg"),
 };

@@ -6,6 +6,21 @@ $(document).ready(function() {
     var initialContact;
     var initialCity;
 });
+//for edit and delete
+//  if ($(".editButton")) {
+//   $(".editButton").click(function () {
+//     OnEdit($(this)[0], $(this).attr("value"));
+//   });
+//   $(".deleteButton").click(function () {
+//     OnDelete($(this)[0], $(this).attr("value"));
+//   });
+// }
+$("body").on("click", ".editButton", function() {
+    OnEdit($(this)[0], $(this).attr("value"));
+});
+$("body").on("click", ".deleteButton", function() {
+    OnDelete($(this)[0], $(this).attr("value"));
+});
 
 function OnEdit(element, editPostId) {
     console.log("onedit clicked");
@@ -71,13 +86,6 @@ function OnDelete(element, editPostId) {
             .addClass("NormalMode")
             .removeClass("EditMode");
     } else if (element.innerHTML == "Delete") {
-        //Show DialogBox Are you Sure.
         showDialogBox("deletePost", editPostId);
     }
 }
-// $('#g-post_container').click(function() {
-// $('#g-PostImg').click(function() {
-//     console.log('clicked');
-//     $('#z-post_container').css('display', 'block');
-//     alert("clicked! Let zoom");
-// });

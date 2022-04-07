@@ -7,6 +7,7 @@ $(document).ready(function () {
       url: "/profile/showProfileFollowers",
       success: function (data) {
         $(".followersFollowing").html(data);
+        wrap("../static/script/f_list.js");
         $(".followersFollowing").css("display", "block");
       },
     });
@@ -19,6 +20,7 @@ $(document).ready(function () {
       url: "/profile/showProfileFollowings",
       success: function (data) {
         $(".followersFollowing").html(data);
+        wrap("../static/script/f_list.js");
         $(".followersFollowing").css("display", "block");
       },
     });
@@ -26,6 +28,10 @@ $(document).ready(function () {
   if (screen.width < 641) {
     $(".followersFollowing").height($(".container").height());
   }
+  $(".follow_button").click(function () {
+    var user_id = $(this).attr("value");
+    onClickFollow($(this)[0], user_id);
+  });
 });
 
 function onClickFollow(element, creatorId) {
@@ -36,18 +42,15 @@ function onClickFollow(element, creatorId) {
       type: "POST",
       data: { creatorId: creatorId, postId: "123456789012" },
       success: function (totalFollowers) {
-        showSnackbar("You " + element.innerText + " Successfully");
-        $(".followersDiv span").text(totalFollowers);
-        $("#f_btn" + creatorId).text() === "Follow"
-          ? $("#f_btn" + creatorId).text("Unfollow")
-          : $("#f_btn" + creatorId).text("Follow");
+        showSnackbar(element.innerText + " Successfully", "success");
+        $("#f_btn" + creatorId).text() === "Follow" ? $("#f_btn" + creatorId).text("Unfollow") : $("#f_btn" + creatorId).text("Follow");
       },
       error: function (xhr, status, error) {
-        if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!");
-        else showSnackbar("something Went Wrong!");
+        if (error === "Unauthorized") showSnackbar("You Are not LoggedIn!", "failure");
+        else showSnackbar("something Went Wrong!", "failure");
       },
     });
   } else {
-    showSnackbar("You Can Not Follow Your Self !");
+    showSnackbar("You Can't Follow Your Self !", "failure");
   }
 }

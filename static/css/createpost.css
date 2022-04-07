@@ -4,11 +4,6 @@
   padding: 0;
 }
 
-body {
-  background-image: url("../static/images/back3.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 .postcontainer h1 {
   display: flex;
   flex-direction: column;
@@ -16,8 +11,9 @@ body {
   align-items: center;
   padding: 5px;
 }
-.postcontainer hr{
+.postcontainer hr {
   width: 741px;
+  border: 2px solid #000b38;
 }
 
 .postcontainer {
@@ -26,14 +22,12 @@ body {
   justify-content: center;
   align-items: center;
   width: 752px;
-  border: 5px solid red;
   margin: 30px auto;
-  background: transparent;
-  color: white;
+  background: #f2fcff;
+  color: #000b38;
   padding: 12px;
   box-shadow: 0px 0px 30px 5px;
-
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }
 .postlabels {
   display: flex;
@@ -48,13 +42,13 @@ input#category,
 #contact {
   width: 420px;
   height: 40px;
-  border: 4px solid white;
+  border: 1px solid #000b38;
   border-radius: 5px;
   background: transparent;
   font-size: 20px;
   outline: none;
   padding-left: 12px;
-  color: white;
+  color: #000b38;
 }
 label {
   font-size: 25px;
@@ -62,7 +56,7 @@ label {
 }
 ::placeholder {
   font-size: 20px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 textarea::placeholder {
   font-family: sans-serif;
@@ -75,23 +69,23 @@ textarea#description {
   width: 133px;
   height: 48px;
   margin-top: 10px;
-  border: 4px solid white;
+  border: 1px solid #000b38;
   border-radius: 5px;
   cursor: pointer;
   font-size: 18px;
   padding: 0px;
-  background: green;
+  background: linear-gradient(90deg, #000b38, #d6f5ff, #000b38);
   color: white;
 }
 .postbtn:active {
-  background: rgb(10, 233, 10);
+  background: linear-gradient(90deg, #d6f5ff, #000b38, #d6f5ff);
 }
 input[type="file"] {
-  border: 4px solid white;
+  border: 1px solid #000b38;
   width: 418px;
   padding: 5px;
   background: transparent;
-  color: white;
+  color: #000b38;
   font-size: 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -111,10 +105,9 @@ input::-webkit-inner-spin-button {
   margin-top: 45px;
   align-items: center;
 }
-@media screen and (min-width:769px) and (max-width: 976px) {
+@media screen and (min-width: 769px) and (max-width: 976px) {
   .postcontainer {
     width: 618px;
-  
   }
   .postcontainer hr {
     width: 608px;
@@ -132,13 +125,11 @@ input::-webkit-inner-spin-button {
   input[type="file"] {
     width: 500px;
   }
-
 }
 
-@media screen and (min-width:565px) and (max-width:769px) {
+@media screen and (min-width: 565px) and (max-width: 769px) {
   .postcontainer {
     width: 418px;
-    
   }
   .postcontainer hr {
     width: 407px;
@@ -157,10 +148,9 @@ input::-webkit-inner-spin-button {
     width: 345px;
   }
 }
-@media screen and (min-width:425px) and (max-width:565px) {
+@media screen and (min-width: 425px) and (max-width: 565px) {
   .postcontainer {
     width: 292px;
-    
   }
   .postcontainer hr {
     width: 282px;
@@ -178,7 +168,10 @@ input::-webkit-inner-spin-button {
     border: 2px solid;
     font-size: 15px;
     border-radius: 3px;
-
+  }
+  input::placeholder,
+  textarea::placeholder {
+    font-size: 15px;
   }
   input[type="file"] {
     width: 245px;
@@ -186,12 +179,11 @@ input::-webkit-inner-spin-button {
     border: 2px solid;
     font-size: 15px;
     border-radius: 3px;
-
   }
-  ::placeholder{
+  ::placeholder {
     font-size: 15px;
   }
-  .postbtn{
+  .postbtn {
     border: 2px solid;
     height: 29px;
     width: 104px;
@@ -199,14 +191,13 @@ input::-webkit-inner-spin-button {
   }
 }
 
-@media screen and (min-width:360px) and (max-width:425px) {
+@media screen and (min-width: 360px) and (max-width: 425px) {
   .postcontainer {
     width: 292px;
     box-shadow: 0px 0px 18px 5px;
     height: 681px;
-    
   }
-  .postcontainer h1{
+  .postcontainer h1 {
     font-size: 25px;
     padding-bottom: 5px;
   }
@@ -216,7 +207,7 @@ input::-webkit-inner-spin-button {
   .postcontainer form {
     width: 245px;
   }
-  label{
+  label {
     font-size: 20px;
     margin-bottom: 3px;
   }
@@ -230,25 +221,27 @@ input::-webkit-inner-spin-button {
     border: 2px solid;
     font-size: 15px;
     border-radius: 3px;
-
+  }
+  input::placeholder,
+  textarea::placeholder {
+    font-size: 15px;
   }
   textarea#description {
     padding-top: 5px;
     height: 104px;
   }
-  
+
   input[type="file"] {
     width: 245px;
     height: 37px;
     border: 2px solid;
     font-size: 15px;
     border-radius: 3px;
-
   }
-  ::placeholder{
+  ::placeholder {
     font-size: 15px;
   }
-  .postbtn{
+  .postbtn {
     border: 2px solid;
     height: 29px;
     width: 104px;
@@ -256,7 +249,7 @@ input::-webkit-inner-spin-button {
     border-radius: 3px;
   }
 }
-@media screen and (max-width:361px) {
+@media screen and (max-width: 361px) {
   .postcontainer {
     width: 253px;
     box-shadow: 0px 0px 10px 5px;
@@ -264,9 +257,8 @@ input::-webkit-inner-spin-button {
     border: 3px solid red;
     border-radius: 5px;
     margin-bottom: 48px;
-    
   }
-  .postcontainer h1{
+  .postcontainer h1 {
     font-size: 25px;
     padding-top: 20px;
   }
@@ -276,10 +268,10 @@ input::-webkit-inner-spin-button {
   .postcontainer form {
     width: 200px;
   }
-  label{
+  label {
     font-size: 15px;
   }
-  .postlabels{
+  .postlabels {
     margin-top: 5px;
     height: 515px;
   }
@@ -294,13 +286,16 @@ input::-webkit-inner-spin-button {
     font-size: 12px;
     border-radius: 3px;
     padding-left: 4px;
-
+  }
+  input::placeholder,
+  textarea::placeholder {
+    font-size: 12px;
   }
   textarea#description {
     padding-top: 5px;
     height: 75px;
   }
-  
+
   input[type="file"] {
     width: 200px;
     height: 23px;
@@ -309,12 +304,11 @@ input::-webkit-inner-spin-button {
     border-radius: 3px;
     padding: 0px;
     padding-left: 4px;
-
   }
-  ::placeholder{
+  ::placeholder {
     font-size: 12px;
   }
-  .postbtn{
+  .postbtn {
     border: 2px solid;
     height: 26px;
     width: 75px;

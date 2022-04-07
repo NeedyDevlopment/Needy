@@ -1,174 +1,177 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .navbar {
-    background-color: rgba(0, 0, 0, 0.95);
-    align-content: center;
-    display: flex;
-    padding: 2px;
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue,
+    Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
+  background-color: rgb(0 11 56);
+  align-content: center;
+  display: flex;
+  padding: 2px;
 }
 
 #body {
-    position: relative;
+  position: relative;
+  background-color: #d6f5ff;
 }
 
 .burgerIcon {
-    padding: 3px 10px;
-    justify-content: center;
-    display: none;
-    flex-direction: column;
-    visibility: hidden;
-    padding-right: 0px;
+  padding: 3px 10px;
+  justify-content: center;
+  display: none;
+  flex-direction: column;
+  visibility: hidden;
+  padding-right: 0px;
 }
 
 .burgerIcon div {
-    width: 33px;
-    height: 4px;
-    background-color: white;
-    margin: 3px auto;
+  width: 33px;
+  height: 4px;
+  background-color: white;
+  margin: 3px auto;
 }
 
 .flexible {
-    display: flex;
-    flex-direction: row;
-    visibility: visible;
+  display: flex;
+  flex-direction: row;
+  visibility: visible;
 }
 
 .animation {
-    animation: 1s slowDisplay 0s 1;
+  animation: 1s slowDisplay 0s 1;
 }
 
 .animation_reverse {
-    animation: 1s slowDisplayReverse 0s 1;
+  animation: 1s slowDisplayReverse 0s 1;
 }
 
 @keyframes slowDisplay {
-    from {
-        width: 0;
-        opacity: 0;
-    }
-    to {
-        width: 100%;
-        opacity: 1;
-    }
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
 }
 
 @keyframes slowDisplayReverse {
-    from {
-        width: 100%;
-        opacity: 1;
-    }
-    to {
-        width: 0;
-        opacity: 0;
-    }
+  from {
+    width: 100%;
+    opacity: 1;
+  }
+  to {
+    width: 0;
+    opacity: 0;
+  }
 }
 
 .navbar .div {
-    padding: 10px 18px;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
+  padding: 10px 18px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .navbar .div:hover,
 .active {
-    background-color: rgb(15, 92, 95);
+  background-color: rgb(254 254 254) !important;
+  color: black !important;
 }
 
 .navbar .start {
-    color: whitesmoke;
-    margin-left: 15px;
-    margin-right: 20px;
-    align-items: center;
-    display: flex;
-    padding: 12px;
+  color: whitesmoke;
+  margin-left: 15px;
+  margin-right: 20px;
+  align-items: center;
+  display: flex;
+  padding: 12px;
 }
 
 .navbar .div a {
-    text-decoration: none;
-    color: whitesmoke;
-    padding: 10px 0px;
+  text-decoration: none;
+  color: whitesmoke;
+  padding: 10px 0px;
 }
 
 .navbar .last {
-    margin-top: 0;
-    display: flex;
-    color: whitesmoke;
-    position: absolute;
-    right: 10px;
-    align-items: center;
+  margin-top: 0;
+  display: flex;
+  color: whitesmoke;
+  position: absolute;
+  right: 10px;
+  align-items: center;
 }
 
 .navbar .last .btn {
-    padding: 10px 15px;
-    margin-left: 3px;
-    border: none;
-    outline: none;
-    color: whitesmoke;
-    background-color: transparent;
-    font-size: 18px;
-    width: auto;
-    cursor: pointer;
+  padding: 10px 15px;
+  margin-left: 3px;
+  border: none;
+  outline: none;
+  color: whitesmoke;
+  background-color: transparent;
+  font-size: 18px;
+  width: auto;
+  cursor: pointer;
 }
 
 .navbar .last .btn:hover,
 .active {
-    background-color: rgb(15, 92, 95) !important;
+  background-color: rgb(254 254 254) !important;
+  color: black !important;
 }
 
 #Singupbtn a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 #myBtn a {
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
 }
 
 #logoutbtn a {
-    cursor: pointer;
-    text-decoration: none;
-    color: white;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
 }
 
 #profilebtn a {
-    cursor: pointer;
-    text-decoration: none;
-    color: white;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
 }
 
 #myBtn {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {
-    width: 0px;
+  width: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: black;
-    outline: 1px solid black;
+  background-color: black;
+  outline: 1px solid black;
 }
 
 #footer {
-    bottom: 0px;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    background-color: black;
-    padding: 10px;
-    color: aliceblue;
+  bottom: 0px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  background-color: black;
+  padding: 10px;
+  color: aliceblue;
 }
 
-
 /* For medium size of laptop*/
-
 
 /* @media screen and (min-width: 1081px) and (max-width: 1280px) {
     #body {
@@ -176,134 +179,130 @@
     }
 } */
 
-
 /* For large size tablet and samller size laptop Screen */
 
 @media screen and (min-width: 768px) and (max-width: 1080px) {
-    /* #body {
+  /* #body {
         background-color: red;
     } */
-    .navbar .div {
-        padding: 10px 8px;
-    }
-    .navbar .last {
-        right: 2px;
-    }
-    .navbar .last .btn {
-        padding: 10px 8px;
-    }
+  .navbar .div {
+    padding: 10px 8px;
+  }
+  .navbar .last {
+    right: 2px;
+  }
+  .navbar .last .btn {
+    padding: 10px 8px;
+  }
 }
-
 
 /* For Small size Tablet Screen */
 
 @media screen and (max-width: 768px) and (min-width: 425px) {
-    /* #body {
+  /* #body {
         background-color: green;
     } */
-    .navbar .last {
-        right: 5px;
-    }
-    .burgerIcon {
-        display: flex;
-        visibility: visible;
-    }
-    .flexible {
-        flex-direction: column;
-        left: 0px;
-        position: absolute;
-        background-color: black;
-        z-index: 1;
-        width: 100%;
-        visibility: hidden;
-    }
-    .navbar .start {
-        margin: 0;
-    }
+  .navbar .last {
+    right: 5px;
+  }
+  .burgerIcon {
+    display: flex;
+    visibility: visible;
+  }
+  .flexible {
+    flex-direction: column;
+    left: 0px;
+    position: absolute;
+    background-color: black;
+    z-index: 1;
+    width: 100%;
+    visibility: hidden;
+  }
+  .navbar .start {
+    margin: 0;
+  }
 }
-
 
 /* For Large size Mobile Screen */
 
 @media screen and (max-width: 425px) and (min-width: 361px) {
-    /* #body {
+  /* #body {
         background-color: yellow;
     } */
-    .flexible {
-        flex-direction: column;
-        left: 0px;
-        position: absolute;
-        background-color: black;
-        z-index: 1;
-        width: 100%;
-        visibility: hidden;
-    }
-    .navbar .div {
-        padding: 17px 27px;
-        font-size: 20px;
-    }
-    .navbar .last {
-        right: 2px;
-    }
-    .navbar .last .btn {
-        font-size: 20px;
-        padding: 10px 10px;
-    }
-    .navbar .start {
-        margin: 0;
-        font-size: 20px;
-    }
-    .burgerIcon {
-        display: flex;
-        visibility: visible;
-    }
+  .flexible {
+    flex-direction: column;
+    left: 0px;
+    position: absolute;
+    background-color: black;
+    z-index: 1;
+    width: 100%;
+    visibility: hidden;
+  }
+  .navbar .div {
+    padding: 17px 27px;
+    font-size: 20px;
+  }
+  .navbar .last {
+    right: 2px;
+  }
+  .navbar .last .btn {
+    font-size: 20px;
+    padding: 10px 10px;
+  }
+  .navbar .start {
+    margin: 0;
+    font-size: 20px;
+  }
+  .burgerIcon {
+    display: flex;
+    visibility: visible;
+  }
 }
-
 
 /* For Small size Mobile Screen */
 
 @media screen and (max-width: 360px) {
-    /* #body {
+  /* #body {
         background-color: tomato;
     } */
-    .navbar .start {
-        font-size: 14px;
-    }
-    .flexible {
-        flex-direction: column;
-        left: 0px;
-        position: absolute;
-        background-color: black;
-        z-index: 1;
-        width: 100%;
-        visibility: hidden;
-    }
-    .navbar .div {
-        font-size: 14px;
-    }
-    .navbar .last {
-        right: 2px;
-    }
-    .navbar .last .btn {
-        padding: 12px 3px;
-        font-size: 14px;
-    }
-    .navbar .start {
-        margin: 0;
-    }
-    .burgerIcon {
-        display: flex;
-        visibility: visible;
-    }
-    .burgerIcon div {
-        width: 19px;
-        height: 2px;
-        margin: 2px auto;
-    }
+  .navbar .start {
+    font-size: 14px;
+  }
+  .flexible {
+    flex-direction: column;
+    left: 0px;
+    position: absolute;
+    background-color: black;
+    z-index: 1;
+    width: 100%;
+    visibility: hidden;
+  }
+  .navbar .div {
+    font-size: 14px;
+  }
+  .navbar .last {
+    right: 2px;
+  }
+  .navbar .last .btn {
+    padding: 12px 3px;
+    font-size: 14px;
+  }
+  .navbar .start {
+    margin: 0;
+  }
+  .burgerIcon {
+    display: flex;
+    visibility: visible;
+  }
+  .burgerIcon div {
+    width: 19px;
+    height: 2px;
+    margin: 2px auto;
+  }
 }
 
 #currentTab {
-    visibility: hidden;
-    width: 0;
-    height: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
 }

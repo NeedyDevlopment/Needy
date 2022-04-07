@@ -3,71 +3,62 @@
   padding: 0;
   box-sizing: border-box;
 }
-body{
-
-  background-image: url(../static/images/backsignup.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  
- 
-
-
-}
-
 .container {
   width: 530px;
   display: flex;
   flex-direction: column;
-  border: 3px solid black;
   justify-content: center;
   align-items: center;
-  border-radius: 23px;
   padding-bottom: 12px;
   background: transparent;
-  
   margin: 18px auto;
+  background-color: #f2fcff;
+  box-shadow: black 1px 1px 8px 2px;
+  color: #000b38;
 }
 h1 {
   text-align: center;
   margin: 9px;
+  color: #000b38;
 }
 .form {
   display: flex;
   width: 100%;
   flex-direction: column;
   justify-content: center;
-  border-top: 2px solid rgb(48, 4, 4);
+  border-top: 2px solid #000b38;
   padding: 32px;
   margin: -3px;
 }
 .input {
   margin: 10px;
   padding: 4px;
-  border: 2px solid black;
+  border: 1px solid #000b38;
   border-radius: 5px;
   margin-left: 35px;
   width: 400px;
   outline: none;
   height: 44px;
-  border-width: medium;
-  font-size: 22px;
+  font-size: 20px;
 }
-
-.btnsignup {
-  border: 2px solid black;
-  border-radius: 5px;
-
+#checkbox {
   cursor: pointer;
-  background-color: green;
+}
+.btnsignup {
+  border: none;
+  box-shadow: #000b38 1px 1px 8px 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: linear-gradient(45deg, #000b38, #f2fcff, #000b38);
   font-size: 18px;
-  padding: 4px;
-  color: white;
-
+  padding: 8px;
+  color: black;
   width: 84px;
   margin-left: 180px;
 }
-.btnsignup:active{
-  background: rgb(10, 233, 10);
+.btnsignup:active {
+  box-shadow: none;
+  background: #000b38;
   color: white;
 }
 .b {
@@ -81,7 +72,7 @@ h1 {
 }
 
 ::placeholder {
-  font-size: 22px;
+  font-size: 20px;
   color: black;
 }
 input::-webkit-outer-spin-button,
@@ -90,127 +81,127 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-@media screen and (min-device-width: 510px) and (max-device-width: 1080px){
-  
- 
-   .container{
+@media screen and (min-width: 510px) and (max-width: 1080px) {
+  .container {
     width: 470px;
     padding-bottom: 0px;
     border-radius: 14px;
     justify-content: center;
-   }
-  
-   .input{
+  }
+  .input {
     width: 340px;
     height: 35px;
     border-radius: 3px;
     font-size: 15px;
-   }
-   .btnsignup{
+  }
+  .btnsignup {
     margin-left: 155px;
-   }
-   ::placeholder {
+  }
+  .input::placeholder {
     font-size: 15px;
     color: black;
   }
-  .form label input[type='checkbox']{
+  .form label input[type="checkbox"] {
     width: 400px;
-
   }
 }
-@media screen and (min-device-width: 425px) and (max-device-width: 509px){
- 
-  .container{
+@media screen and (min-width: 425px) and (max-width: 509px) {
+  .container {
     width: 388px;
     padding-bottom: 0px;
     border-radius: 8px;
-   }
-   .form{
+  }
+  .form {
     padding-left: 20px;
-   }
-   .input{
+  }
+  .input {
     width: 280px;
     height: 30px;
     border-radius: 3px;
     font-size: 12px;
-   }
-   .btnsignup{
+  }
+  .input::placeholder {
+    font-size: 12px;
+  }
+  .btnsignup {
     margin-left: 128px;
-   }
-   ::placeholder {
+  }
+  ::placeholder {
     font-size: 12px;
     color: black;
   }
-  .form label input[type='checkbox']{
+  .form label input[type="checkbox"] {
     width: 400px;
-
   }
-}             
+}
 
-@media screen and  (max-device-width: 424px){
-
-  
-  .container{
+@media screen and (max-width: 424px) {
+  .container {
     width: 320px;
     padding-bottom: 0px;
     border-radius: 5px;
-   }
-   .form{
+  }
+  .b {
+    font-size: 18px;
+  }
+  .b img {
+    height: 20px;
+  }
+  .form {
     padding-left: 0px;
-   }
-   .input{
+  }
+  .input {
     width: 230px;
     height: 25px;
     border-radius: 2px;
     font-size: 12px;
- 
     margin-top: 0px;
-   }
-   .btnsignup{
+  }
+  .btnsignup {
     margin-left: 105px;
-   }
-   ::placeholder {
+  }
+  .input::placeholder {
     font-size: 12px;
     color: black;
   }
-  .form label input[type='checkbox']{
+  .form label input[type="checkbox"] {
     width: 400px;
-
   }
-} 
+}
 
-
-@media  screen and (max-device-width:360px) {
-  
-  .container{
+@media screen and (max-device-width: 360px) {
+  .container {
     width: 273px;
     padding-bottom: 0px;
     border-radius: 5px;
-   }
-   .form{
+  }
+  .form {
     padding-left: 0px;
-   }
-   .input{
+  }
+  .b {
+    font-size: 18px;
+  }
+  .b img {
+    height: 20px;
+  }
+  .input {
     width: 215px;
     height: 25px;
     border-radius: 2px;
     font-size: 10px;
- 
     margin-top: 0px;
-   }
-   .btnsignup{
+  }
+  .btnsignup {
     margin-left: 95px;
-   }
-   ::placeholder {
+  }
+  .input::placeholder {
     font-size: 10px;
     color: black;
   }
-  .form label input[type='checkbox']{
+  .form label input[type="checkbox"] {
     width: 400px;
-
-
   }
-  #footer{
+  #footer {
     padding: 5px;
   }
 }

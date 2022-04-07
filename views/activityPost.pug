@@ -1,28 +1,30 @@
 each post in posts
  div#post_container 
                div#profile
-                  img(src="../static/imagesForPost/profile.png")
+                  if(post.creator.photo.url)
+                     img(src=post.creator.photo.url)
+                  else
+                     img(src="../static/imagesForPost/profile.png")
                   p#name= post.creator.username  
                      small= 'at '+ post.date   
                   b(id="showFollowers"+post._id,class="showFollowers showFollowers"+post.creator._id)= post.creator.followers+' Followers'
-                  button#activityCloseBtn(onclick="onCloseActivity()") Close   
-                  //- button(id="f-btn",class="f-btn"+post.creator._id,onclick="onClickFollow(this,'"+post.creator._id+"','"+post._id+"')")= currentUserFollowingsArray.includes(post.creator._id) ? 'Unfollow' : 'Follow'
+                  button#activityCloseBtn Close   
                div#main
                   div#head
                      div#countZIndex 
                         p(id='showLikes'+post._id)= post.likes+ ' Likes' 
                         p(id='showComments'+post._id)= post.comments+ ' Comments'
                   div#main-img-desc     
-                     img#PostImg(src=post.image)
+                     img#PostImg(src=post.image.url)
                      div.details.z-index-details
                         div#title
-                              span  #[b Title: ] #{post.title} 
+                              span #{post.title} 
                         div#discription 
-                              span #[b Description: ] #{post.description}
+                              span #{post.description}
                         div#phoneNo
                               span #[b Contact No: ] #{post.contact}
                         div#city
-                              span #[b City: ] #{post.city}
+                              span #[b Location: ] #{post.city}
                div#action-content
                   if(activity_action === 'commented') 
                      p #[b Your Comment: ] #{activity_comment} 
@@ -33,25 +35,3 @@ each post in posts
                   else 
                      p #[b You #{activity_action+' this post.'}]  
                         span #[img(src='../static/images/clock.png')] #{activity_date}                  
-               //- div#actiondiv
-               //-    div#like
-               //-       i(class=post.likedArray.includes(currentUserId) ?"fa fa-thumbs-up" :"fa fa-thumbs-o-up",onclick="actionPerformed(this,  'like','"+post._id+"')")
-               //-       p(id='showliketext'+post._id)= post.likedArray.includes(currentUserId) ? 'unlike' : 'like'  
-               //-    div#comment
-               //-       i(class=post.commentedArrayWithOnlyUserId.includes(currentUserId) ?"fa fa-comment fakeClass" :"fa fa-comment-o fakeClass",id=currentUserId,onclick="actionPerformed(this,'comment','"+post._id+"')")
-               //-       p(id='showcommenttext'+post._id)= post.commentedArrayWithOnlyUserId.includes(currentUserId) ? 'commented' : 'comment'    
-               //-    div(id="share",onclick="actionPerformed(this,'share',"+post._id+")")
-               //-       img(src="../static/imagesForPost/share.png")
-               //-       | share  
-               //-    div#save
-               //-       i(class=post.savedArray.includes(currentUserId) ?"fa fa-bookmark" :"fa fa-bookmark-o",onclick="actionPerformed(this,  'save','"+post._id+"')")
-               //-       p(id='showsavetext'+post._id)= post.savedArray.includes(currentUserId) ? 'saved' : 'save'  
-
-               //- div(id="maincommentcontainer")
-               //-    h4#commentHeader All Comments #[button(id="closebutton",onclick="hidecommentbox(true)") &#10006] 
-               //-    div(id="innercommentcontainer")
-               //-       div(class="loader") ...Loading
-               //-       div(class="writecommentdiv",id="writecomment")
-               //-          b Write comment
-               //-          textarea(name="writtencomment" id="writtencomment" cols="35" rows="4")
-               //-          button(id="submitcomment") Add Comment

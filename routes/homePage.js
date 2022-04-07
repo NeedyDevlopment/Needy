@@ -1,7 +1,5 @@
 const User = require("../models/user");
 const Post = require("../models/post");
-var LocalStorage = require("node-localstorage").LocalStorage;
-var localStorage = new LocalStorage('../scratch');
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const express = require("express");
@@ -12,17 +10,30 @@ var message = null;
 router.get("", async(req, res, next) => {
     //when coming from logout redirection getting message
     const currentPage = 1;
-    if (req.query.message) {
-        message = "You Logout Successfully.";
+    if (req.query.message == "los") {
+        message = "Logout Successfully.";
     }
-    console.log(req.header("message"));
-    console.log(req.header("message"));
+    if (req.query.message == "urnl") {
+        message = "Access Denied!";
+    }
+    if (req.query.message == "lis") {
+        message = "Login Successfully!";
+    }
+    if (req.query.message == "ss") {
+        message = "Signup Successfully!";
+    }
+    if (req.query.message == "lf") {
+        message = "You Entered Wrong Credentials!";
+    }
+    if (req.query.message == "pas") {
+        message = "Post added successfully";
+    }
     //getting filter
     const selectedCategory = req.query.category;
     const selectedCity = req.query.city;
     //Getting CurrentUser Infirmation
     const currentUserId = req.session.token ?
-        await _.pick(jwt.verify(req.session.token, "MySecureKey"), ["_id"]) :
+        await _.pick(jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]) :
         "";
     const currentUser = req.session.token ?
         await User.findOne({ _id: currentUserId._id }) : { followingsArray: [], city: "All City" };
@@ -31,11 +42,13 @@ router.get("", async(req, res, next) => {
     message = null;
     // var totalPosts;
     if (selectedCategory && selectedCity) {
-        localStorage.setItem("currentCity", selectedCity);
-        localStorage.setItem("currentCategory", selectedCategory);
-        console.log("currentCity in Localstorage:: " + localStorage.getItem("currentCity"));
-        console.log("currentCategory in LocalStorage::: " + localStorage.getItem("currentCategory"));
-        const result = await getPostsArrayAndtotalPosts(selectedCity, selectedCategory, currentPage);
+        res.cookie("currentCity", selectedCity);
+        res.cookie("currentCategory", selectedCategory);
+        const result = await getPostsArrayAndtotalPosts(
+            selectedCity,
+            selectedCategory,
+            currentPage
+        );
         return res.status(200).render("homepage.pug", {
             posts: result.postsArray,
             currentUserId: currentUserId._id,
@@ -46,11 +59,15 @@ router.get("", async(req, res, next) => {
             totalPosts: result.totalPosts,
         });
     } else {
-        if (localStorage.getItem("currentCity") && localStorage.getItem("currentCategory")) {
-            const selectedCity = localStorage.getItem("currentCity");
-            const selectedCategory = localStorage.getItem("currentCategory");
-            console.log("city and category exists in localstorage");
-            const result = await getPostsArrayAndtotalPosts(selectedCity, selectedCategory, currentPage);
+        if (req.cookies["currentCity"] && req.cookies["currentCategory"]) {
+            const selectedCity = req.cookies["currentCity"];
+            const selectedCategory = req.cookies["currentCategory"];
+            console.log("city and category exists in cookies");
+            const result = await getPostsArrayAndtotalPosts(
+                selectedCity,
+                selectedCategory,
+                currentPage
+            );
             return res.status(200).render("homepage.pug", {
                 posts: result.postsArray,
                 currentUserId: currentUserId._id,
@@ -69,35 +86,30 @@ router.get("", async(req, res, next) => {
                 .populate("creator")
                 .limit(5)
                 .skip(5 * (currentPage - 1))
-                .sort("-date");
-            localStorage.setItem("currentCity", "All City");
-            localStorage.setItem("currentCategory", "All Category");
-            console.log("currentCity in Localstorage:: " + localStorage.getItem("currentCity"));
-            console.log("currentCategory in LocalStorage::: " + localStorage.getItem("currentCategory"));
+                .sort("-_id");
+            res.cookie("currentCity", "All City");
+            res.cookie("currentCategory", "All Category");
             totalPosts = await Post.count({});
         } else {
             postsArray = await Post.find({ city: currentUser.city })
                 .populate("creator")
                 .limit(5)
                 .skip(5 * (currentPage - 1))
-                .sort("-date");
+                .sort("-_id");
             totalPosts = await Post.count({ city: currentUser.city });
             if (postsArray.length == 0) {
                 postsArray = await Post.find()
                     .populate("creator")
                     .limit(5)
                     .skip(5 * (currentPage - 1))
-                    .sort("-date");
+                    .sort("-_id");
                 totalPosts = await Post.count({});
-                localStorage.setItem("currentCity", "All City");
-                localStorage.setItem("currentCategory", "All Category");
+                res.cookie("currentCity", "All City");
+                res.cookie("currentCategory", "All Category");
             } else {
-                localStorage.setItem("currentCity", currentUser.city);
-                localStorage.setItem("currentCategory", "All Category");
+                res.cookie("currentCity", currentUser.city);
+                res.cookie("currentCategory", "All Category");
             }
-            console.log("currentCity in Localstorage:: " + localStorage.getItem("currentCity"));
-            console.log("currentCategory in LocalStorage::: " + localStorage.getItem("currentCategory"));
-
         }
         console.log(postsArray);
         return res.status(200).render("homepage.pug", {

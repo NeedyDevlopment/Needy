@@ -21,10 +21,10 @@ $(document).ready(function() {
                     url: "/pwOperation/resetPassword",
                     success: function(data) {
                         if (data.error) {
-                            showSnackbar(data.error);
+                            showSnackbar(data.error, "failure");
                             $("#myModal").css("display", "none");
                         } else if (data.success) {
-                            showSnackbar(data.success);
+                            showSnackbar(data.success, "success");
                             $("#myModal").css("display", "none");
                         }
                     },

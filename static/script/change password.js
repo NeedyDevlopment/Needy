@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 
                     } else if (data.success) {
-                        showSnackbar(data.success);
+                        showSnackbar(data.success, "success");
                         $("#myModal").css("display", "none");
                     }
                 },
