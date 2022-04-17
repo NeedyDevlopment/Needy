@@ -1,6 +1,44 @@
 .postsContainer {
   width: 80%;
 }
+.filterContainer{
+  height: 2px;
+  background-color: black;
+  display: flex;
+  align-items:center;
+  justify-content: flex-start;
+  margin: 20px;
+}
+#sortItemContainer{
+  display: none;
+}
+.sortingDropdownContainer{
+  margin-left: 48px;
+  background-color: #d6f5ff;
+}
+.sortingDropdownContainer select{
+  background-color: #d6f5ff;
+  padding: 5px 0px;
+  color: black;
+  z-index: 1;
+  outline: none;
+  width: 120px;
+  height: 30px;
+  border: 1px solid #000b38;
+  font-size: 15px;
+  border-radius: 0px;
+}
+.sortingDropdownContainer option{
+  padding: 10px;
+  height: 30px;
+  width: 120px;
+  border-radius: 0;
+  border:1px solid #000b38;
+  color: #000b38;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 #dummyhai {
   background-color: black;
