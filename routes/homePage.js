@@ -31,6 +31,23 @@ router.get("", async(req, res, next) => {
     //getting filter
     const selectedCategory = req.query.category;
     const selectedCity = req.query.city;
+    let sort = req.query.sort;
+    let selectedSort = {"date" : -1};
+    switch(sort){
+        case "likes":{
+            selectedSort =  {"likes" : -1}
+            break;
+        }
+        case "date":{
+            selectedSort = {"date" : -1}
+            break;
+        }
+        case "comments":{
+            selectedSort = {"comments" : -1}
+            break;
+        }
+    }
+    if(!sort) sort = "date";
     //Getting CurrentUser Infirmation
     const currentUserId = req.session.token ?
         await _.pick(jwt.verify(req.session.token, process.env.jwtPrivateKey), ["_id"]) :
@@ -44,13 +61,16 @@ router.get("", async(req, res, next) => {
     if (selectedCategory && selectedCity) {
         res.cookie("currentCity", selectedCity);
         res.cookie("currentCategory", selectedCategory);
+        res.cookie("sort",sort)
         const result = await getPostsArrayAndtotalPosts(
             selectedCity,
             selectedCategory,
-            currentPage
+            currentPage,
+            sort
         );
         return res.status(200).render("homepage.pug", {
             posts: result.postsArray,
+            sort: result.sort,
             currentUserId: currentUserId._id,
             currentUserFollowingsArray: currentUser.followingsArray,
             isLoggedIn: req.session.isLoggedIn,
@@ -66,10 +86,12 @@ router.get("", async(req, res, next) => {
             const result = await getPostsArrayAndtotalPosts(
                 selectedCity,
                 selectedCategory,
-                currentPage
+                currentPage,
+                sort
             );
             return res.status(200).render("homepage.pug", {
                 posts: result.postsArray,
+                sort: result.sort,
                 currentUserId: currentUserId._id,
                 currentUserFollowingsArray: currentUser.followingsArray,
                 isLoggedIn: req.session.isLoggedIn,
@@ -86,7 +108,7 @@ router.get("", async(req, res, next) => {
                 .populate("creator")
                 .limit(5)
                 .skip(5 * (currentPage - 1))
-                .sort("-_id");
+                .sort(selectedSort);
             res.cookie("currentCity", "All City");
             res.cookie("currentCategory", "All Category");
             totalPosts = await Post.count({});
@@ -95,14 +117,14 @@ router.get("", async(req, res, next) => {
                 .populate("creator")
                 .limit(5)
                 .skip(5 * (currentPage - 1))
-                .sort("-_id");
+                .sort(selectedSort);
             totalPosts = await Post.count({ city: currentUser.city });
             if (postsArray.length == 0) {
                 postsArray = await Post.find()
                     .populate("creator")
                     .limit(5)
                     .skip(5 * (currentPage - 1))
-                    .sort("-_id");
+                    .sort(selectedSort);
                 totalPosts = await Post.count({});
                 res.cookie("currentCity", "All City");
                 res.cookie("currentCategory", "All Category");
@@ -111,9 +133,10 @@ router.get("", async(req, res, next) => {
                 res.cookie("currentCategory", "All Category");
             }
         }
-        console.log(postsArray);
+        // console.log(postsArray);
         return res.status(200).render("homepage.pug", {
             posts: postsArray,
+            sort: sort,
             currentUserId: currentUserId._id,
             currentUserFollowingsArray: currentUser.followingsArray,
             isLoggedIn: req.session.isLoggedIn,
