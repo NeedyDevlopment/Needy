@@ -472,13 +472,11 @@ $(document).ready(function () {
       });
     });
   }
-  $("#sort").change((e)=>{
-    sort = e.target.value;
+  $(".sort").click((e)=>{
+    sort = e.target.id;
+    console.log(sort);
     var selectedCity = $("#finalCity").val();
     var selectedCategory = $("#finalCategory").val();
     window.location.replace("/?category=" + selectedCategory + "&city=" + selectedCity + "&sort="+sort);
   })
-  var selectedSort = $("#sortItemContainer").text();
-  if(selectedSort)
-    $("#sort").val(selectedSort);
 });
