@@ -1,5 +1,6 @@
 var msg = "is msg";
 // let posts = [];
+var sort = "";
 // console.log(posts);
 var spinner = `
     <div class="spinner-end-of-posts">
@@ -388,7 +389,7 @@ function onFilter() {
   var selectedCity = $("#finalCity").val();
   var selectedCategory = $("#finalCategory").val();
   $.ajax({
-    url: "/?category=" + selectedCategory + "&city=" + selectedCity,
+    url: "/?category=" + selectedCategory + "&city=" + selectedCity + "&sort="+sort,
     type: "GET",
     // data: { "postId": postId },
     // beforeSend: function() {
@@ -471,4 +472,13 @@ $(document).ready(function () {
       });
     });
   }
+  $("#sort").change((e)=>{
+    sort = e.target.value;
+    var selectedCity = $("#finalCity").val();
+    var selectedCategory = $("#finalCategory").val();
+    window.location.replace("/?category=" + selectedCategory + "&city=" + selectedCity + "&sort="+sort);
+  })
+  var selectedSort = $("#sortItemContainer").text();
+  if(selectedSort)
+    $("#sort").val(selectedSort);
 });
