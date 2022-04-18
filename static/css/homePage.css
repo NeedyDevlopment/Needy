@@ -54,7 +54,7 @@
   padding-left: 0;
   left: 0;
   display: none;
-  background: linear-gradient(116deg, rgb(0 11 56) ,  rgb(168 185 255) );
+  background: linear-gradient(90deg, rgb(0 11 56) ,  rgb(168 185 255) );
 }
 
 .primary-navigation ul li:hover>ul,
@@ -80,9 +80,8 @@
 
 .primary-navigation ul li ul li:hover {
   padding-left: 10px;
-  border-left: 10px solid rgb(85, 85, 160);
-  border-right: 10px solid rgb(85, 85, 160);
-  border-radius: 5px;
+  border-right: 10px solid rgb(168 185 255);
+  border-left: 10px solid rgb(0 11 56);
   transition: all 0.3s ease;
   color:black;
   background-color: white;
