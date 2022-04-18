@@ -30,6 +30,21 @@ block content
       button(type="button" id="openFilter" ) #[i.fa.fa-filter] Filter
    div.container
       div.postsContainer
+         .filterContainer
+            #sortItemContainer #{sort}
+            .sortingDropdownContainer
+               label &nbsp;Sort By : 
+               <div role="navigation" class="primary-navigation">
+                  <ul>
+                     <li><a href="#">#{sort==='likes'?'Likes':sort==='date'?'Created':'Comments'} &dtrif;</a>
+                        <ul class="dropdown">
+                           <li id="likes" class="sort">Likes</li>
+                           <li id="date" class="sort">Created</li>
+                           <li id="comments" class="sort">Comments</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
          if posts.length == 0
             p#filterNotFound= "No Result Found For Filter Category: "+filter.category+" and City: "+filter.city
          each post in posts  
