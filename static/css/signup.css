@@ -49,16 +49,16 @@ h1 {
   box-shadow: #000b38 1px 1px 8px 2px;
   border-radius: 5px;
   cursor: pointer;
-  background: linear-gradient(45deg, #000b38, #f2fcff, #000b38);
+  background: linear-gradient(129deg,#d2e3e9, #000b38);
   font-size: 18px;
   padding: 8px;
-  color: black;
+  color: white;
   width: 84px;
   margin-left: 180px;
 }
 .btnsignup:active {
   box-shadow: none;
-  background: #000b38;
+  background: linear-gradient(90deg, #d6f5ff, #000b38, #d6f5ff);
   color: white;
 }
 .b {

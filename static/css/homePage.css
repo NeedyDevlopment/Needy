@@ -227,15 +227,16 @@
     margin: 10px auto;
     position: relative;
   }
-  #filterNotFound {
+  
+  /* #filterNotFound {
     font-size: 24px;
-  }
+  } */
 }
 
 @media screen and (max-width: 400px) {
-  #filterNotFound {
+  /* #filterNotFound {
     font-size: 20px;
-  }
+  } */
 }
 
 #SendText {

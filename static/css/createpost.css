@@ -74,7 +74,7 @@ textarea#description {
   cursor: pointer;
   font-size: 18px;
   padding: 0px;
-  background: linear-gradient(90deg, #000b38, #d6f5ff, #000b38);
+  background: linear-gradient(129deg,#d2e3e9, #000b38);
   color: white;
 }
 .postbtn:active {
