@@ -31,13 +31,12 @@ block content
    div.container
       div.postsContainer
          .filterContainer
-            #sortItemContainer #{sort}
             .sortingDropdownContainer
                label &nbsp;Sort By : 
                <div role="navigation" class="primary-navigation">
                   <ul>
-                     <li><a href="#">#{sort==='likes'?'Likes':sort==='date'?'Created':'Comments'} &dtrif;</a>
-                        <ul class="dropdown">
+                     <li id="sortingDropdown">#{sort==='likes'?'Likes':sort==='date'?'Created':'Comments'} &dtrif;
+                        <ul class="dropdown" id="dropdown">
                            <li id="likes" class="sort">Likes</li>
                            <li id="date" class="sort">Created</li>
                            <li id="comments" class="sort">Comments</li>

@@ -474,9 +474,15 @@ $(document).ready(function () {
   }
   $(".sort").click((e)=>{
     sort = e.target.id;
-    console.log(sort);
     var selectedCity = $("#finalCity").val();
     var selectedCategory = $("#finalCategory").val();
+    showSpinner();
     window.location.replace("/?category=" + selectedCategory + "&city=" + selectedCity + "&sort="+sort);
+  })
+  $("#sortingDropdown").click((e)=>{
+    if($("#dropdown").hasClass("visible"))
+      $("#dropdown").removeClass("visible");
+    else
+      $("#dropdown").addClass("visible");
   })
 });
