@@ -80,12 +80,14 @@ $(document).ready(function () {
         success: function (data) {
           if (data.error) {
             errorDisplay.text(data.error);
+            errorDisplay.css("color","red");
             sendButton.attr("disabled", false);
             sendButton.text("Send OTP");
           } else if (data.success) {
             var displayTime = 31;
             sendButton.text("Sent");
-            errorDisplay.text("");
+            errorDisplay.text("OTP Sent Sucessfully.");
+            errorDisplay.css("color","green");
             $(".forgotEmail").attr("disabled", true);
             var interval = setInterval(() => {
               displayTime--;

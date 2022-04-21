@@ -3,12 +3,12 @@ const router = express.Router();
 var nodemailer = require("nodemailer");
 const User = require("../models/user");
 
-const webEmail = "forexternaluse505@gmail.com";
+const webEmail = "jainishkunjadiya.freelancer@gmail.com";
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: webEmail,
-        pass: "myStrongPassword9@",
+        pass: "Ja@123456789",
     },
 });
 
